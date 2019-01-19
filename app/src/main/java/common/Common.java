@@ -1,5 +1,5 @@
 package common;
 
 public class Common {
-    public static String ip;
+    public static String ip1;
 }
