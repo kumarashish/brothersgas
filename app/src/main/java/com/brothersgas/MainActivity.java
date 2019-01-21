@@ -1,5 +1,6 @@
 package com.brothersgas;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -23,18 +25,18 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     AlertDialog dialog;
-
-@BindView(R.id.ivConfiguration)
+    @BindView(R.id.ivConfiguration)
     ImageView config;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        getSupportActionBar().setTitle("");
+        // Add titleTextView into ActionBar
         ButterKnife.bind(this);
         config.setOnClickListener(this);
     }
-
-
 
     public void configPopUp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -53,6 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 configPopUp();
                 break;
         }
-
     }
+
 }
