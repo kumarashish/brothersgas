@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
 
-    android:fillViewport="true"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-android:background="@color/colorPrimary"
-        android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/loginActivity_fragContainer"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+
+
 
         <RelativeLayout
+            android:layout_marginTop="30dp"
             android:id="@+id/loginActivity_relativeLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -28,14 +22,12 @@ android:background="@color/colorPrimary"
                 android:id="@+id/imageView"
                 android:layout_width="155.0dip"
                 android:layout_height="99.0dip"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20.0dip"
-                app:srcCompat="@drawable/brogas_logo" />
+                android:layout_marginTop="20dp"
+                android:src="@drawable/brogas_logo" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+
                 <ImageView
                     android:layout_width="50.0dip"
                     android:layout_height="30.0dip"
@@ -46,7 +38,7 @@ android:background="@color/colorPrimary"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="20.0dip"
                     android:src="@drawable/menu_settings" />
-            </RelativeLayout>
+
             <TextView
                 android:id="@id/textView"
                 android:layout_width="wrap_content"
@@ -81,56 +73,15 @@ android:background="@color/colorPrimary"
                     android:textSize="24.0sp" />
 
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/etCompanyId_RL"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/textView3"
-                    android:layout_marginLeft="@dimen/margin_40"
-                    android:layout_marginRight="@dimen/margin_40"
-
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:textColorHint="@color/text_hint_color"
-                    android:weightSum="2"
-                    android:layout_centerHorizontal="true"
-
-                    app:hintTextAppearance="@style/MyAppearance">
-
-                    <EditText
-                        android:id="@+id/etCompanyId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:hint="Company Id"
-                        android:inputType="textEmailAddress"
-                        android:singleLine="true"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="#fff"
-                        android:textColorHint="@color/text_hint_color"
-                        android:paddingTop="@dimen/margin_8"
-                        android:textSize="@dimen/margin_16"
-                        app:hintTextAppearance="@style/MyAppearance"
-                        tools:ignore="MissingPrefix">
-
-                    </EditText>
-
-                    <View
-
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="1dp"
-                        android:background="#ffffff" />
 
 
-                </android.support.design.widget.TextInputLayout>
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/user_RL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@+id/etCompanyId_RL"
+
                     android:orientation="horizontal"
                     android:textColorHint="@color/text_hint_color"
                     android:weightSum="2"
@@ -211,91 +162,7 @@ android:background="@color/colorPrimary"
 
 
                 </android.support.design.widget.TextInputLayout>
-                <!--<RelativeLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@+id/textView3"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:visibility="gone"-->
-                <!--android:layout_marginTop="30.0dip">-->
 
-                <!--<EditText-->
-                <!--android:layout_width="301.0dip"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:backgroundTint="@android:color/white"-->
-                <!--android:ems="10"-->
-                <!--android:hint="Company Id"-->
-
-                <!--android:inputType="textPersonName"-->
-                <!--android:paddingLeft="40.0dip"-->
-                <!--android:text=""-->
-                <!--android:textColorHint="@color/white"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="18.0sp" />-->
-
-                <!--<ImageView-->
-                <!--android:layout_width="30.0dip"-->
-                <!--android:layout_height="30.0dip"-->
-                <!--android:layout_marginTop="7.0dip"-->
-                <!--app:srcCompat="@drawable/usericon" />-->
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@+id/etCompanyId_RL"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:visibility="gone"-->
-                <!--android:layout_marginTop="20.0dip">-->
-
-                <!--<EditText-->
-                <!--android:layout_width="301.0dip"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:backgroundTint="@android:color/white"-->
-                <!--android:ems="10"-->
-                <!--android:hint="User Name"-->
-
-                <!--android:inputType="textPersonName"-->
-                <!--android:paddingLeft="40.0dip"-->
-                <!--android:text=""-->
-                <!--android:textColorHint="@color/white"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="18.0sp" />-->
-
-                <!--<ImageView-->
-                <!--android:id="@+id/imageView2"-->
-                <!--android:layout_width="30.0dip"-->
-                <!--android:layout_height="30.0dip"-->
-                <!--android:layout_marginTop="7.0dip"-->
-                <!--app:srcCompat="@drawable/usericon" />-->
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@+id/user_RL"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_marginTop="20.0dip">-->
-
-                <!--<EditText-->
-                <!--android:layout_width="303.0dip"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:backgroundTint="@android:color/white"-->
-                <!--android:ems="10"-->
-                <!--android:hint="Password"-->
-                <!--android:inputType="textPassword"-->
-                <!--android:paddingLeft="40.0dip"-->
-                <!--android:textColorHint="@color/white"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="18.0sp" />-->
-
-                <!--<ImageView-->
-                <!--android:id="@+id/imageView3"-->
-                <!--android:layout_width="30.0dip"-->
-                <!--android:layout_height="30.0dip"-->
-                <!--android:layout_marginTop="7.0dip"-->
-                <!--app:srcCompat="@drawable/pass" />-->
-                <!--</RelativeLayout>-->
 
                 <Button
                     android:id="@+id/btnLogin"
@@ -315,19 +182,27 @@ android:background="@color/colorPrimary"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_16" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/btnLogin"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30.0dip"
-                    android:text="Forgot Password?"
+                <ProgressBar
+                    android:layout_width="50dp"
+
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="150dp"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginEnd="150dp"
                     android:visibility="gone"
-                    android:textColor="@android:color/white"
-                    android:textSize="16.0sp" />
+                    android:progressTint="@color/white"
+                    android:layout_marginRight="150dp"
+                    android:layout_marginBottom="60dp" />
+
+
             </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
 
-</ScrollView>
+
+</android.support.constraint.ConstraintLayout>

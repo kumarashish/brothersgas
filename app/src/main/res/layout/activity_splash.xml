@@ -8,12 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
-            android:layout_margin="10dp"
+           android:scaleType="fitXY"
             android:src="@drawable/brogas_logo"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="220dp" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
