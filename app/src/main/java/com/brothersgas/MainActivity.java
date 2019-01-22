@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,11 +25,13 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import common.WebServiceAcess;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     AlertDialog dialog;
     @BindView(R.id.ivConfiguration)
     ImageView config;
+    WebServiceAcess  webServiceAcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // Add titleTextView into ActionBar
         ButterKnife.bind(this);
         config.setOnClickListener(this);
+        webServiceAcess=new WebServiceAcess();
+        new GetData().execute();
     }
 
     public void configPopUp() {
@@ -57,6 +63,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.ivConfiguration:
                 configPopUp();
                 break;
+        }
+    }
+    public class GetData extends AsyncTask<String,Void,String>{
+        @Override
+        protected String doInBackground(String... strings) {
+          String result=webServiceAcess.runRequest();
+            return  result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
         }
     }
 
