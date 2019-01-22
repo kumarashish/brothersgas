@@ -21,7 +21,7 @@ public WebServiceAcess(){}
         String WSDL="";
         String METHOD_NAME = "run";
         String SOAP_ACTION = "CAdxWebServiceXmlCC";
-        String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-wsdl/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC?wsdl";
+        String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-wsdl/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
         request.addProperty("publicName", "YMTRLOGIN");
         JSONObject jsonObject = new JSONObject();

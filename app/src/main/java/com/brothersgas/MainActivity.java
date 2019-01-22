@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ButterKnife.bind(this);
         config.setOnClickListener(this);
         webServiceAcess=new WebServiceAcess();
-     //   new GetData().execute();
+     new GetData().execute();
     }
 
     public void configPopUp() {
