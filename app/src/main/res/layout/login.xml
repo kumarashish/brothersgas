@@ -183,22 +183,16 @@
                     android:textSize="@dimen/text_size_16" />
 
                 <ProgressBar
-                    android:layout_width="50dp"
-                     android:id="@+id/progressBar"
-                    android:layout_height="50dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="150dp"
-                    android:layout_marginLeft="150dp"
-                    android:layout_marginEnd="150dp"
                     android:visibility="gone"
-                    android:progressTint="@color/white"
-                    android:layout_marginRight="150dp"
-                    android:layout_marginBottom="60dp" />
+                    android:layout_width="50dp"
+                    android:id="@+id/progressBar"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/pass_RL"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40.0dip"
+                    android:layout_centerVertical="true"
+                    android:indeterminateTint="@color/white"
+                />
 
 
             </RelativeLayout>

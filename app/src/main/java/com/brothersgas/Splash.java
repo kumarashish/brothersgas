@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import common.AppController;
+
 /**
  * Created by ashish.kumar on 21-01-2019.
  */
@@ -14,6 +16,7 @@ public class Splash extends Activity {
 
     private static int SPLASH_TIME_OUT = 3000;
     final int permissionReadExternalStorage=1;
+    AppController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,7 @@ public class Splash extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+        controller=(AppController)getApplicationContext();
         runThread();
     }
 
@@ -44,10 +48,18 @@ public class Splash extends Activity {
     }
 
     public void launchHomeScreen() {
+              if(controller.getManager().isUserLoggedIn())
+              {Intent i = new Intent(Splash.this,DashBoard.class);
+                  startActivity(i);
 
 
-                Intent i = new Intent(Splash.this, Login.class);
-                startActivity(i);
+              }else {
+
+
+                  Intent i = new Intent(Splash.this, Login.class);
+                  startActivity(i);
+                  controller.getManager().setUserLoggedIn(true);
+              }
                 finish();
     }
 

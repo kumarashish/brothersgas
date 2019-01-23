@@ -16,6 +16,9 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
+
+import utils.Configuration;
+
 public class WebServiceAcess {
 public WebServiceAcess(){}
 
@@ -24,7 +27,8 @@ public WebServiceAcess(){}
         String NAMESPACE = "http://www.adonix.com/WSS";
         String METHOD_NAME = "run";
         String SOAP_ACTION = "CAdxWebServiceXmlCC";
-        String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
+       // String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
+        String URL = "http://" + "47.91.105.187" + ":" + Configuration.Port + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
         request.addProperty("publicName", "YMTRLOGIN");
         JSONObject jsonObject = new JSONObject();

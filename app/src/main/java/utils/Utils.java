@@ -1,5 +1,8 @@
 package utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,5 +27,11 @@ public class Utils {
             ex.fillInStackTrace();
         }
         return false;
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        return ((ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE))
+                .getActiveNetworkInfo() != null;
     }
 }
