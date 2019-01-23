@@ -1,6 +1,8 @@
 package common;
 
 
+import android.util.Log;
+
 import org.json.JSONObject;
 import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
@@ -11,16 +13,18 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.XML;
 public class WebServiceAcess {
 public WebServiceAcess(){}
 
     public String runRequest() {
-         //System.out.println("CUSTOMER ID " + customerId);
+
         String NAMESPACE = "http://www.adonix.com/WSS";
         String METHOD_NAME = "run";
         String SOAP_ACTION = "CAdxWebServiceXmlCC";
-        String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-wsdl/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
+        String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
         request.addProperty("publicName", "YMTRLOGIN");
         JSONObject jsonObject = new JSONObject();
@@ -49,7 +53,14 @@ public WebServiceAcess(){}
             SoapObject response = (SoapObject) envelope.getResponse();
             String resultXML = (String) response.getProperty("resultXml");
             if (resultXML != null && resultXML.length() > 0) {
-                return resultXML;
+                JSONObject jsonObj = null;
+                try {
+                    jsonObj = XML.toJSONObject(resultXML);
+                } catch (JSONException e) {
+                    Log.e("JSON exception", e.getMessage());
+                    e.printStackTrace();
+                }
+                return jsonObj.toString();
             } else {
                 return "";
             }

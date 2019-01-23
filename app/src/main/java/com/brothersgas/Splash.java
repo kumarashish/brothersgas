@@ -1,16 +1,10 @@
 package com.brothersgas;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 /**
  * Created by ashish.kumar on 21-01-2019.
@@ -52,7 +46,7 @@ public class Splash extends Activity {
     public void launchHomeScreen() {
 
 
-                Intent i = new Intent(Splash.this, MainActivity.class);
+                Intent i = new Intent(Splash.this, Login.class);
                 startActivity(i);
                 finish();
     }

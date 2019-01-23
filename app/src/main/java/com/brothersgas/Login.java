@@ -23,15 +23,29 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UTFDataFormatException;
+
+import javax.microedition.khronos.egl.EGLDisplay;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.WebServiceAcess;
+import utils.Utils;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class Login extends Activity implements View.OnClickListener {
     AlertDialog dialog;
     @BindView(R.id.ivConfiguration)
     ImageView config;
     WebServiceAcess  webServiceAcess;
+    @BindView(R.id.etUserName)
+    EditText edt_username;
+    @BindView(R.id.etPassword)
+    EditText edt_password;
+
+    @BindView(R.id.btnLogin)
+    Button btn_login;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +58,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ButterKnife.bind(this);
         config.setOnClickListener(this);
         webServiceAcess=new WebServiceAcess();
-     new GetData().execute();
+        btn_login.setOnClickListener(this);
     }
 
     public void configPopUp() {
@@ -63,6 +77,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.ivConfiguration:
                 configPopUp();
                 break;
+            case R.id.btnLogin:
+                btn_login.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+                new GetData().execute();
+                break;
+
         }
     }
     public class GetData extends AsyncTask<String,Void,String>{
@@ -75,6 +95,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String s) {
             Log.e("value", "onPostExecute: ", null);
+            if(Utils.isUserLoggedIn(s))
+            {
+                startActivity(new Intent(Login.this,DashBoard.class));
+                finish();
+                Toast.makeText(Login.this,"Logged in sucessfully.",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(Login.this,"Invalid credentials!Please enter valid userId and Password",Toast.LENGTH_SHORT).show();
+            }
+
+            btn_login.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
         }
     }
 
