@@ -50,9 +50,10 @@ public class PrefManager {
        return pref.getBoolean(LoggedIn,false);
     }
 
-    public void setConfiguration(String ip, String alias, String username, String password)
+    public void setConfiguration(String ip,String port, String alias, String username, String password)
     {
         editor.putString(Common.ip,ip);
+        editor.putString(Common.PORT,port);
         editor.putString(Common.ALIAS,alias);
         editor.putString(Common.USERNAME,username);
         editor.putString(Common.PASSWORD,password);
@@ -74,6 +75,10 @@ public class PrefManager {
     public String getPassword()
     {
         return   pref.getString(Common.PASSWORD,"");
+    }
+    public String getPort()
+    {
+        return   pref.getString(Common.PORT,"");
     }
 
 

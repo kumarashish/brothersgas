@@ -2,17 +2,23 @@ package utils;
 
 public class Configuration {
     public static String Port;
+    public static String IP;
     public static String ALIAS;
     public static String USERNAME;
     public static String PASSWORD;
 
 
-    public static void setConfiguration(String ip,String alias,String username,String password)
+    public static void setConfiguration(String ip,String port,String alias,String username,String password)
     {
-        Port=ip;
+        IP=ip;
+        Port=port;
       ALIAS=alias;
       USERNAME=username;
       PASSWORD=password;
+    }
+
+    public static String getIP() {
+        return IP;
     }
 
     public static String getALIAS() {

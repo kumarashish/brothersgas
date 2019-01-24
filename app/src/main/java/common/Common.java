@@ -2,6 +2,7 @@ package common;
 
 public class Common {
     public static String ip="Ip";
+    public static String PORT="Port";
     public static String ALIAS="ALias";
     public static String USERNAME="UserName";
     public static String PASSWORD="Password";

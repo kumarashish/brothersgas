@@ -1,12 +1,10 @@
 package com.brothersgas;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -14,7 +12,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
-import common.WebServiceAcess;
+import contracts.Contracts;
 
 /**
  * Created by ashish.kumar on 23-01-2019.
@@ -51,6 +49,7 @@ View contract;
                 popupMenu();
                 break;
             case R.id.contract:
+                startActivity(new Intent(DashBoard.this, Contracts.class));
                 break;
             case R.id.consumption:
                 Toast.makeText(DashBoard.this,"under development",Toast.LENGTH_SHORT).show();

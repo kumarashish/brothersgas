@@ -12,7 +12,7 @@ public class AppController extends Application {
         super.onCreate();
         controller=this;
         manager= new PrefManager(getApplicationContext());
-        Configuration.setConfiguration(manager.getIp(),manager.getAlias(),manager.getUserName(),manager.getPassword());
+        Configuration.setConfiguration(manager.getIp(),manager.getPort(),manager.getAlias(),manager.getUserName(),manager.getPassword());
 
     }
 

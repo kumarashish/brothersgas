@@ -73,16 +73,30 @@ public class Login extends Activity implements View.OnClickListener {
         LayoutInflater inflater = getLayoutInflater();
         View dialogLayout = inflater.inflate(R.layout.activity_config, null);
         dialogProgressBar=(ProgressBar)dialogLayout.findViewById(R.id.progressBar);
+        Button close=(Button)dialogLayout.findViewById(R.id.close_button);
        final EditText conf_ip=(EditText)dialogLayout.findViewById(R.id.conf_ip);
+        final EditText conf_port=(EditText)dialogLayout.findViewById(R.id.conf_port);
         final  EditText conf_folder=(EditText)dialogLayout.findViewById(R.id.conf_folder);
         final  EditText conf_userid=(EditText)dialogLayout.findViewById(R.id.conf_userid);
         final  EditText conf_pass=(EditText)dialogLayout.findViewById(R.id.conf_pass);
          saveBtn=(Button) dialogLayout.findViewById(R.id.saveBtn);
         resetBtn=(Button) dialogLayout.findViewById(R.id.resetBtn);
+        conf_ip.setText(Configuration.getIP());
+        conf_port.setText(Configuration.getPort());
+        conf_folder.setText(Configuration.getALIAS());
+        conf_userid.setText(Configuration.getUSERNAME());
+        conf_pass.setText(Configuration.getPASSWORD());
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 conf_ip.setText("");
+                conf_port.setText("");
                 conf_folder.setText("");
                 conf_userid.setText("");
                 conf_pass.setText("");
@@ -91,13 +105,13 @@ public class Login extends Activity implements View.OnClickListener {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((conf_ip.getText().length()>0)&&(conf_folder.getText().length()>0)&&(conf_userid.getText().length()>0)&&(conf_pass.getText().length()>0))
+                if((conf_ip.getText().length()>0)&&(conf_port.getText().length()>0)&&(conf_folder.getText().length()>0)&&(conf_userid.getText().length()>0)&&(conf_pass.getText().length()>0))
                 {
                     if(Utils.isNetworkAvailable(Login.this)) {
                         saveBtn.setVisibility(View.GONE);
                         resetBtn.setVisibility(View.GONE);
                         dialogProgressBar.setVisibility(View.VISIBLE);
-                        new SaveData().execute(new String[]{conf_ip.getText().toString(),conf_folder.getText().toString(),conf_userid.getText().toString(),conf_pass.getText().toString()});
+                        new SaveData().execute(new String[]{conf_ip.getText().toString(),conf_port.getText().toString(),conf_folder.getText().toString(),conf_userid.getText().toString(),conf_pass.getText().toString()});
 
 
                     }else {
@@ -107,7 +121,11 @@ public class Login extends Activity implements View.OnClickListener {
                 }else{
                     if(conf_ip.getText().length()==0)
                     {
-                        conf_ip.setError("Please enter Port");
+                        conf_ip.setError("Please enter IP Address");
+                    }
+                    if(conf_port.getText().length()==0)
+                    {
+                        conf_port.setError("Please enter Port");
                     }else if(conf_folder.getText().length()==0)
                     {
                         conf_folder.setError("Please enter alias name");
@@ -161,17 +179,19 @@ public class Login extends Activity implements View.OnClickListener {
     }
     /*-------------------------------------------------------------------saveCo-------------------------------------------------------*/
     public class SaveData extends AsyncTask<String,Void,String>{
+        String ip;
         String port;
         String alias;
         String name;
         String password;
         @Override
         protected String doInBackground(String... strings) {
-            port=strings[0];
-            alias=strings[1];
-            name=strings[2];
-            password=strings[3];
-            String result=webServiceAcess.saveSettingsRequest(Common.runAction,Common.ConfigMethod,port,alias,name,password);
+            ip=strings[0];
+            port=strings[1];
+            alias=strings[2];
+            name=strings[3];
+            password=strings[4];
+            String result=webServiceAcess.saveSettingsRequest(Common.runAction,Common.ConfigMethod,ip,port,alias,name,password);
             return  result;
         }
 
@@ -179,10 +199,12 @@ public class Login extends Activity implements View.OnClickListener {
         protected void onPostExecute(String s) {
             Log.e("value", "onPostExecute: ", null);
             if(s.equalsIgnoreCase("Success"))
-            {     controller.getManager().setConfiguration(port,alias,name,password);
-                  Configuration.setConfiguration(port,alias,name,password);
+            {     controller.getManager().setConfiguration(ip,port,alias,name,password);
+                  Configuration.setConfiguration(ip,port,alias,name,password);
+                saveBtn.setVisibility(View.VISIBLE);
+                resetBtn.setVisibility(View.VISIBLE);
+                dialogProgressBar.setVisibility(View.GONE);
                 Toast.makeText(Login.this,"Settings Saved sucessfully.",Toast.LENGTH_SHORT).show();
-                dialog.cancel();
             }else{
                 saveBtn.setVisibility(View.VISIBLE);
                 resetBtn.setVisibility(View.VISIBLE);
