@@ -50,6 +50,7 @@
 
             <EditText
                 android:id="@+id/conf_ip"
+                android:imeOptions="actionNext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

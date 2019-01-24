@@ -29,6 +29,9 @@ public class Utils {
         return false;
     }
 
+
+
+
     public static boolean isNetworkAvailable(Context context) {
         return ((ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE))
