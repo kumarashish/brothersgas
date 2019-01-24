@@ -19,7 +19,8 @@ public class PrefManager {
     int PRIVATE_MODE = 0;
     private static final String PREF_NAME = "BrothersGas";
     private static final String LoggedIn = "BrothersGasLoggedIn";
-
+    private static final String loggedInUserName="BrothersGasLoggedInUserName";
+    private static final String loggedInUserPassword="BrothersGasLoggedInUserPassword";
     private static final String rememberId = "BrothersGasRemId";
     private static final String rememberpassword = "BrothersGasRemPass";
 
@@ -76,4 +77,17 @@ public class PrefManager {
     }
 
 
+    public void setLoggedInUserDetails(String s, String s1) {
+        editor.putString(loggedInUserName,s);
+        editor.putString(loggedInUserPassword,s1);
+        editor.apply();
+    }
+
+    public static String getLoggedInUserName() {
+        return loggedInUserName;
+    }
+
+    public static String getLoggedInUserPassword() {
+        return loggedInUserPassword;
+    }
 }

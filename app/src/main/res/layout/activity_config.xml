@@ -110,12 +110,14 @@
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Button
+
                 android:id="@+id/saveBtn"
                 android:background="@drawable/selector"
                 android:layout_width="match_parent"
@@ -134,6 +136,7 @@
                 android:textSize="14sp" />
 
             <Button
+
                 android:id="@+id/resetBtn"
                 android:background="@drawable/selector"
                android:textColor="@color/black"
@@ -150,7 +153,25 @@
                 android:paddingTop="10dp"
                 android:text="RESET"
                 android:textSize="14sp" />
+
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ProgressBar
+               android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_width="50dp"
+                android:id="@+id/progressBar"
+                android:layout_height="50dp"
+                android:layout_below="@+id/pass_RL"
+                android:layout_centerHorizontal="true"
+
+                android:layout_centerVertical="true"
+                android:indeterminateTint="@color/white"
+                />
+        </RelativeLayout>
 
     </LinearLayout>
 </ScrollView>

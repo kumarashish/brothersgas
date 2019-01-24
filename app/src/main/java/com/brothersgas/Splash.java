@@ -58,7 +58,7 @@ public class Splash extends Activity {
 
                   Intent i = new Intent(Splash.this, Login.class);
                   startActivity(i);
-                  controller.getManager().setUserLoggedIn(true);
+
               }
                 finish();
     }

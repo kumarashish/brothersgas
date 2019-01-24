@@ -34,4 +34,6 @@ public class Utils {
                 .getSystemService(Context.CONNECTIVITY_SERVICE))
                 .getActiveNetworkInfo() != null;
     }
+
+
 }

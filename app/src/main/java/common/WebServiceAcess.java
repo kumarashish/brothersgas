@@ -22,19 +22,20 @@ import utils.Configuration;
 public class WebServiceAcess {
 public WebServiceAcess(){}
 
-    public String runRequest() {
+    public String runRequest(String  METHOD_NAME,String publicName,String id,String password) {
 
         String NAMESPACE = "http://www.adonix.com/WSS";
-        String METHOD_NAME = "run";
-        String SOAP_ACTION = "CAdxWebServiceXmlCC";
-       // String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
+//        String METHOD_NAME = "run";
+     String SOAP_ACTION = "CAdxWebServiceXmlCC";
+//       // String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
         String URL = "http://" + "47.91.105.187" + ":" + Configuration.Port + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-        request.addProperty("publicName", "YMTRLOGIN");
+      //  request.addProperty("publicName", "YMTRLOGIN");
+        request.addProperty("publicName", publicName);
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("I_UID", "SRIKANTH");
-            jsonObject.put("I_PWD", "sri123");
+            jsonObject.put("I_UID", id);
+            jsonObject.put("I_PWD", password);
         } catch (Exception e) {
             System.out.println("Exception " + e);
         }
@@ -42,7 +43,7 @@ public WebServiceAcess(){}
         SoapObject callcontext = new SoapObject("", "callContext");
         // Set all input params
         callcontext.addProperty("codeLang", "ENG");
-        callcontext.addProperty("poolAlias", "BROSGST");
+        callcontext.addProperty("poolAlias", Configuration.ALIAS );
         callcontext.addProperty("poolId", "");
         callcontext.addProperty("requestConfig", "");
         request.addSoapObject(callcontext);
@@ -52,7 +53,7 @@ public WebServiceAcess(){}
         androidHttpTransport.debug = true;
         try {
             List<HeaderProperty> headerList = new ArrayList<HeaderProperty>();
-            headerList.add(new HeaderProperty("Authorization", "Basic " + org.kobjects.base64.Base64.encode(("admin" + ":" +"admin").getBytes())));
+            headerList.add(new HeaderProperty("Authorization", "Basic " + org.kobjects.base64.Base64.encode((Configuration.getUSERNAME()+ ":" +Configuration.getPASSWORD()).getBytes())));
             androidHttpTransport.call(SOAP_ACTION, envelope,headerList);
             SoapObject response = (SoapObject) envelope.getResponse();
             String resultXML = (String) response.getProperty("resultXml");
@@ -77,6 +78,59 @@ public WebServiceAcess(){}
         }
 
     }
+    public String saveSettingsRequest(String methodName,String publicName,String port,String alias,String Id,String password) {
 
+        String NAMESPACE = "http://www.adonix.com/WSS";
+        // String METHOD_NAME = "run";
+        String SOAP_ACTION = "CAdxWebServiceXmlCC";
+        // String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
+        String URL = "http://" + "47.91.105.187" + ":" + port + "/soap-generic/syracuse/collaboration/syracuse/"+SOAP_ACTION+"";
+        SoapObject request = new SoapObject(NAMESPACE, methodName);
+        // request.addProperty("publicName", "YMTRLOGIN");
+        request.addProperty("publicName", publicName);
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("I_UNAME", Id);
+            jsonObject.put("I_PWD", password);
+        } catch (Exception e) {
+            System.out.println("Exception " + e);
+        }
+        request.addProperty("inputXml", jsonObject.toString());
+
+        SoapObject callcontext = new SoapObject("", "callContext");
+        // Set all input params
+        callcontext.addProperty("codeLang", "ENG");
+        ///callcontext.addProperty("poolAlias", "BROSGST");
+        callcontext.addProperty("poolAlias", alias);
+        callcontext.addProperty("poolId", "");
+        callcontext.addProperty("requestConfig", "");
+        request.addSoapObject(callcontext);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        androidHttpTransport.debug = true;
+        try {
+            List<HeaderProperty> headerList = new ArrayList<HeaderProperty>();
+            headerList.add(new HeaderProperty("Authorization", "Basic " + org.kobjects.base64.Base64.encode((Id+ ":" +password).getBytes())));
+            androidHttpTransport.call(SOAP_ACTION, envelope,headerList);
+            SoapObject response = (SoapObject) envelope.getResponse();
+            String resultXML = response.getProperty(0).toString();;
+           if(resultXML.contains("Success"))
+           {
+               return "Success";
+           }else
+            {
+                return "Failed to update";
+            }
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+            return "";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
 
     }
