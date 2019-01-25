@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BrothersGas</string>
+
+    <string-array name="contract_type">
+        <item>All</item>
+        <item>Unblocked</item>
+        <item>Blocked</item>
+        <item>Cancelled</item>
+    </string-array>
 </resources>

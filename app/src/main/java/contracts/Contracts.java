@@ -1,10 +1,17 @@
 package contracts;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.brothersgas.Login;
@@ -15,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import adapter.ContractListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
@@ -27,12 +35,26 @@ import utils.Utils;
  * Created by ashish.kumar on 24-01-2019.
  */
 
-public class Contracts extends Activity {
+public class Contracts extends Activity implements View.OnClickListener {
     AppController controller;
     WebServiceAcess webServiceAcess;
     ArrayList<ContractModel> list=new ArrayList<>();
     @BindView(R.id.listView)
     ListView listView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.contentView)
+    LinearLayout contentView;
+    @BindView(R.id.invoice_options)
+    LinearLayout invoice_options;
+    @BindView(R.id.contract_type)
+    Spinner contract_type;
+    @BindView(R.id.notgenerated)
+    Button not_generatedInvoice;
+    @BindView(R.id.deposit_invoice)
+    Button depositInvoice;
+    @BindView(R.id.back_button)
+    Button back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +62,52 @@ public class Contracts extends Activity {
         controller = (AppController) getApplicationContext();
         webServiceAcess=new WebServiceAcess();
         ButterKnife.bind(this);
+        not_generatedInvoice.setOnClickListener(this);
+        depositInvoice.setOnClickListener(this);
+        back.setOnClickListener(this);
         if(Utils.isNetworkAvailable(Contracts.this)) {
+            progressBar.setVisibility(View.VISIBLE);
+            contentView.setVisibility(View.GONE);
             new GetData().execute();
         }
+        contract_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==1)
+                {
+                    invoice_options.setVisibility(View.VISIBLE);
+                }else {
+                    invoice_options.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+switch (v.getId())
+{
+    case R.id.back_button:
+        finish();
+        break;
+    case R.id.deposit_invoice:
+        depositInvoice.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+         depositInvoice.setTextColor((getResources().getColor(R.color.white)));
+        not_generatedInvoice.setBackgroundColor((getResources().getColor(R.color.white)));
+        not_generatedInvoice.setTextColor((getResources().getColor(R.color.colorPrimary)));
+        break;
+    case R.id.notgenerated:
+        not_generatedInvoice.setBackgroundColor((getResources().getColor(R.color.colorPrimary)));
+        not_generatedInvoice.setTextColor((getResources().getColor(R.color.white)));
+        depositInvoice.setBackgroundColor((getResources().getColor(R.color.white)));
+        depositInvoice.setTextColor((getResources().getColor(R.color.colorPrimary)));
+        break;
+}
     }
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
@@ -73,7 +138,9 @@ public class Contracts extends Activity {
 
                   if(list.size()>0)
                   {
-                      //listView.setAdapter(new S);
+                      listView.setAdapter(new ContractListAdapter(list,Contracts.this));
+                      progressBar.setVisibility(View.GONE);
+                      contentView.setVisibility(View.VISIBLE);
                   }
               }catch (Exception ex)
               {
