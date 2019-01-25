@@ -2,6 +2,7 @@ package contracts;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 import common.WebServiceAcess;
+import interfaces.ListItemClickListner;
 import model.ContractModel;
 import utils.Utils;
 
@@ -35,7 +37,7 @@ import utils.Utils;
  * Created by ashish.kumar on 24-01-2019.
  */
 
-public class Contracts extends Activity implements View.OnClickListener {
+public class Contracts extends Activity implements View.OnClickListener , ListItemClickListner{
     AppController controller;
     WebServiceAcess webServiceAcess;
     ArrayList<ContractModel> list=new ArrayList<>();
@@ -108,6 +110,28 @@ switch (v.getId())
         depositInvoice.setTextColor((getResources().getColor(R.color.colorPrimary)));
         break;
 }
+    }
+
+    @Override
+    public void onClick(final ContractModel model) {
+      runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+              Intent in=new Intent(Contracts.this,ContractDetails.class);
+              in.putExtra("Data",model.getContract_Meternumber());
+              startActivity(in);
+          }
+      });
+    }
+
+    @Override
+    public void onCancelClick(ContractModel model) {
+
+    }
+
+    @Override
+    public void onBlockClick(ContractModel model) {
+
     }
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/

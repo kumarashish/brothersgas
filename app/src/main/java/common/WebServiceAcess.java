@@ -20,9 +20,34 @@ import org.json.XML;
 import utils.Configuration;
 
 public class WebServiceAcess {
-public WebServiceAcess(){}
 
-    public String runRequest(String  METHOD_NAME,String publicName,String id,String password) {
+
+   public static int login=1;
+
+   public WebServiceAcess(){}
+
+
+    /********************************************************************************************************/
+    public JSONObject getRequestJson(String publicName,String [] value )
+    {   JSONObject jsonObject = new JSONObject();
+    try {
+        switch (publicName) {
+            case Common.LoginMethod:
+            jsonObject.put("I_UID", value[0]);
+            jsonObject.put("I_PWD", value[1]);
+            break;
+            case Common.ContractView:
+                jsonObject.put("I_CONTNO", value[0]);
+                break;
+        }
+    } catch (Exception e) {
+        System.out.println("Exception " + e);
+    }
+    return jsonObject;
+    }
+
+/********************************************************************************************************/
+    public String runRequest(String  METHOD_NAME,String publicName,String []values) {
 
         String NAMESPACE = "http://www.adonix.com/WSS";
 //        String METHOD_NAME = "run";
@@ -32,14 +57,7 @@ public WebServiceAcess(){}
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
       //  request.addProperty("publicName", "YMTRLOGIN");
         request.addProperty("publicName", publicName);
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("I_UID", id);
-            jsonObject.put("I_PWD", password);
-        } catch (Exception e) {
-            System.out.println("Exception " + e);
-        }
-        request.addProperty("inputXml", jsonObject.toString());
+        request.addProperty("inputXml", getRequestJson(publicName,values).toString());
         SoapObject callcontext = new SoapObject("", "callContext");
         // Set all input params
         callcontext.addProperty("codeLang", "ENG");

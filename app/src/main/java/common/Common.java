@@ -20,10 +20,10 @@ public class Common {
     public static String closemeterreadingvalue="CLOSEFLG";
 
     public static String   SOAPAction="CAdxWebServiceXmlCC";
-    public static String LoginMethod="YMTRLOGIN";
-    public static String ConfigMethod="YMTRCONFIG";
-    public static String ContractList="YMTRCONTR";
-    public static String ContractView="YMTRCONTVW";
+    final public static String LoginMethod="YMTRLOGIN";
+    final  public static String ConfigMethod="YMTRCONFIG";
+    final public static String ContractList="YMTRCONTR";
+    final  public static String ContractView="YMTRCONTVW";
 
     public static String runAction="run";
     public static String queryAction="query";

@@ -219,7 +219,7 @@ public class Login extends Activity implements View.OnClickListener {
     public class GetData extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... strings) {
-          String result=webServiceAcess.runRequest(Common.runAction,Common.LoginMethod,edt_username.getText().toString(),edt_password.getText().toString());
+          String result=webServiceAcess.runRequest(Common.runAction,Common.LoginMethod,new String[]{edt_username.getText().toString(),edt_password.getText().toString()});
             return  result;
         }
 

@@ -8,6 +8,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <LinearLayout
             android:layout_margin="10dp"
             android:orientation="horizontal"
@@ -85,6 +92,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        </LinearLayout>
+            <View
+                android:id="@+id/detailsView"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+        </RelativeLayout>
         <LinearLayout
             android:weightSum="2.1"
             android:layout_margin="10dp"
@@ -92,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
+                android:id="@+id/block"
                 android:textColor="@color/colorPrimary"
                 android:text="Block"
                 android:fontFamily="@font/aller_rg"
@@ -103,6 +117,7 @@
                 android:layout_width="20dp"
                 android:layout_height="80dp"/>
             <Button
+                android:id="@+id/cancel"
                 android:textColor="@color/colorPrimary"
                 android:text="Cancel"
                 android:fontFamily="@font/aller_rg"

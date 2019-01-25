@@ -6,12 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.brothersgas.R;
 
 import java.util.ArrayList;
 
+import javax.security.auth.callback.Callback;
+
+import interfaces.ListItemClickListner;
 import model.ContractModel;
 
 /**
@@ -22,12 +26,14 @@ public class ContractListAdapter extends BaseAdapter {
     ArrayList<ContractModel> list;
     Activity act;
     LayoutInflater inflater;
+    ListItemClickListner callback;
 
     public ContractListAdapter(ArrayList<ContractModel> list, Activity act)
     {
         this.list=list;
         this.act=act;
         inflater = act.getLayoutInflater();
+        callback=(ListItemClickListner)act;
     }
 
     @Override
@@ -56,6 +62,9 @@ public class ContractListAdapter extends BaseAdapter {
             holder.customer_name=(TextView)convertView.findViewById(R.id.customer_name);
             holder.address=(TextView)convertView.findViewById(R.id.address);
             holder.date=(TextView)convertView.findViewById(R.id.date);
+            holder.cancel=(Button)convertView.findViewById(R.id.cancel);
+            holder.block=(Button)convertView.findViewById(R.id.block);
+            holder.detailsView=(View)convertView.findViewById(R.id.detailsView);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -65,6 +74,26 @@ public class ContractListAdapter extends BaseAdapter {
         holder.customer_name.setText(model.getCustomername());
         holder.address.setText(model.getPlaceName() + "," + model.getAddresscode());
         holder.date.setText(model.getContactcreationdate());
+        holder.detailsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onClick(model);
+
+            }
+        });
+        holder.block.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onBlockClick(model);
+
+            }
+        });
+        holder.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onCancelClick(model);
+            }
+        });
         convertView.setTag(holder);
         return convertView;
     }
@@ -74,5 +103,8 @@ public class ContractListAdapter extends BaseAdapter {
         TextView customer_name;
         TextView  address;
         TextView date;
+        Button cancel;
+        Button block;
+        View detailsView;
     }
 }
