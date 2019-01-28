@@ -171,7 +171,9 @@ switch (v.getId())
                   ex.fillInStackTrace();
               }
             }else{
-               // Toast.makeText(Contracts.this,"Invalid credentials! Please enter valid Username and Password",Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+
+               Toast.makeText(Contracts.this,"Data not found",Toast.LENGTH_SHORT).show();
             }
 
 
