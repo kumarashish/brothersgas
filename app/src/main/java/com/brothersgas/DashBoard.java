@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import contracts.Contracts;
+import invoices.InvoicesList;
 
 /**
  * Created by ashish.kumar on 23-01-2019.
@@ -52,7 +53,7 @@ View contract;
                 startActivity(new Intent(DashBoard.this, Contracts.class));
                 break;
             case R.id.consumption:
-                Toast.makeText(DashBoard.this,"under development",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(DashBoard.this, InvoicesList.class));
                 break;
             case R.id.payment:
                 Toast.makeText(DashBoard.this,"under development",Toast.LENGTH_SHORT).show();

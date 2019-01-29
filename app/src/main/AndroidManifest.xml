@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="invoices.InvoicesList">
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,14 @@
         <activity android:name="contracts.Contracts"
             android:screenOrientation="portrait"/>
         <activity android:name="contracts.ContractDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.Invoice_Details"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.GenerateInvoice"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.Payment"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.InvoicesList"
             android:screenOrientation="portrait"/>
     </application>
 

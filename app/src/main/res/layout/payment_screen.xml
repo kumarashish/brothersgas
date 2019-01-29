@@ -135,10 +135,11 @@
                     android:layout_width="0dp"
                     android:textColor="@color/black"
                     android:gravity="center"
+                    android:src="@drawable/signature"
                     android:fontFamily="@font/aller_rg"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text=" 1000 dhiram "
+
                     android:layout_weight="1"
                     android:layout_height="40dp" />
             </LinearLayout>
@@ -162,6 +163,7 @@
                     android:layout_width="20dp"
                     android:layout_height="match_parent"/>
                 <Button
+                    android:id="@+id/makePayment"
                     android:gravity="center"
                     android:textSize="14dp"
                     android:layout_weight="1"
@@ -196,10 +198,11 @@
             android:layout_height="match_parent">
 
             <Button
+                android:id="@+id/submit"
                 android:layout_alignParentBottom="true"
                 android:textColor="@color/white"
                 android:background="@color/colorPrimary"
-                android:text="Make Payment"
+                android:text="Submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
         </RelativeLayout>

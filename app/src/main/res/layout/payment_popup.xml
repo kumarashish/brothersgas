@@ -163,6 +163,7 @@
         </LinearLayout>
         <Button
             android:text="Submit"
+            android:id="@+id/submit"
             android:textColor="@color/white"
             android:layout_marginTop="30dp"
             android:background="@color/colorPrimary"
