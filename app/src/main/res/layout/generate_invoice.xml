@@ -43,21 +43,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RadioButton
-
+            android:buttonTint="@color/colorPrimary"
             android:text="Normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:buttonTint="@color/colorPrimary"
             android:layout_marginLeft="10dp"
             android:text="No Meter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:buttonTint="@color/colorPrimary"
             android:layout_marginLeft="10dp"
             android:text="Shared Meter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:buttonTint="@color/colorPrimary"
             android:layout_marginLeft="10dp"
             android:text="Meter Poblem"
             android:layout_width="wrap_content"
@@ -93,12 +96,13 @@
             <TextView
                 android:fontFamily="@font/aller_rg"
                 android:text="Previous Reading : "
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
             <TextView
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center"
                 android:fontFamily="@font/aller_rg"
                 android:layout_marginLeft="10dp"
@@ -116,12 +120,13 @@
             <TextView
                 android:fontFamily="@font/aller_rg"
                 android:text="Previous Date : "
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
             <TextView
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center"
                 android:fontFamily="@font/aller_rg"
                 android:layout_marginLeft="10dp"
@@ -138,13 +143,14 @@
             android:layout_height="40dp">
             <TextView
                 android:text="Current Reading"
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
             <EditText
                 android:gravity="center"
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:text=""
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -160,13 +166,14 @@
             android:layout_height="40dp">
             <TextView
                 android:text="Balance Reading"
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
             <EditText
                 android:gravity="center"
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:text="100"
                 android:enabled="false"
                 android:focusable="false"
@@ -185,12 +192,13 @@
             <TextView
                 android:fontFamily="@font/aller_rg"
                 android:text="Per Unit Rate: "
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
             <TextView
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center"
                 android:fontFamily="@font/aller_rg"
                 android:layout_marginLeft="10dp"
@@ -209,13 +217,14 @@ android:weightSum="2"
                 android:layout_weight="1"
                 android:fontFamily="@font/aller_rg"
                 android:text="Total : "
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
             <TextView
                 android:layout_width="0dp"
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center"
                 android:fontFamily="@font/aller_rg"
                 android:layout_marginLeft="10dp"

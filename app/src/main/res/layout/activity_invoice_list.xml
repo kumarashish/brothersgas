@@ -110,35 +110,35 @@ android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content">
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Cons Name: #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Conn. Number : #123445667"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Invoice : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Amount : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Date : #12344566777"
                             android:layout_width="match_parent"
@@ -189,35 +189,35 @@ android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content">
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Cons Name: #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Conn. Number : #123445667"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Invoice : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Amount : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Date : #12344566777"
                             android:layout_width="match_parent"
@@ -268,35 +268,35 @@ android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content">
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Cons Name: #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Conn. Number : #123445667"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Invoice : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Amount : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Date : #12344566777"
                             android:layout_width="match_parent"
@@ -347,35 +347,35 @@ android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content">
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Cons Name: #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Conn. Number : #123445667"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Invoice : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Amount : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Date : #12344566777"
                             android:layout_width="match_parent"
@@ -426,35 +426,35 @@ android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content">
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Cons Name: #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Conn. Number : #123445667"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Invoice : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Amount : #12344566777"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                         <TextView
                             android:textSize="18dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
                             android:fontFamily="@font/aller_rg"
                             android:text="Date : #12344566777"
                             android:layout_width="match_parent"

@@ -47,11 +47,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="18dp"
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/aller_rg"
                 android:text="Constumer Name: #12344566777"
                 android:layout_width="match_parent"
@@ -61,47 +63,52 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="18dp"
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@fonxt/aller_rg"
                 android:text="Connection Number : #123445667"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
+                android:textStyle="bold"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="18dp"
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/aller_rg"
                 android:text="Invoice : #12344566777"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
+                android:textStyle="bold"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="18dp"
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/aller_rg"
                 android:text="Amount : #12344566777"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
+                android:textStyle="bold"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="18dp"
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/aller_rg"
                 android:text="Units : 100"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
+                android:textStyle="bold"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="18dp"
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/aller_rg"
                 android:text="Date : 24-01-2019"
                 android:layout_width="match_parent"
@@ -111,7 +118,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="18dp"
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/aller_rg"
                 android:text="Delivery Note : abcccccc"
                 android:layout_width="match_parent"
@@ -124,10 +132,11 @@
                 android:layout_height="40dp">
                 <TextView
                     android:textSize="18dp"
+                    android:textStyle="bold"
                     android:layout_weight="1"
                     android:fontFamily="@font/aller_rg"
                     android:text="Signature : "
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="match_parent" />
@@ -181,12 +190,14 @@
 
         </LinearLayout>
             <CheckBox
+                android:buttonTint="@color/colorPrimary"
                 android:layout_marginLeft="20dp"
                 android:drawableTint="@color/colorPrimary"
                 android:text="Print"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <CheckBox
+                android:buttonTint="@color/colorPrimary"
                 android:layout_marginLeft="20dp"
                 android:drawableTint="@color/colorPrimary"
                 android:text="Send Email"

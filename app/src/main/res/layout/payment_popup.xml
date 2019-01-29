@@ -43,7 +43,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="18dp"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/aller_rg"
             android:text="Invoice : #12344566777"
             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RadioButton
-
+                   android:buttonTint="@color/colorPrimary"
                     android:layout_marginLeft="10dp"
                     android:textSize="18dp"
                     android:fontFamily="@font/aller_rg"
@@ -62,10 +62,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <RadioButton
+                    android:buttonTint="@color/colorPrimary"
                     android:layout_marginLeft="10dp"
                     android:textSize="18dp"
                     android:fontFamily="@font/aller_rg"
-                    android:text="Cheaque"
+                    android:text="Cheque"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RadioGroup>
@@ -76,14 +77,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <TextView
+                    android:fontFamily="@font/aller_rg"
                     android:text="Cheaque number"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
                 <EditText
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:text=""
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -98,14 +100,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <TextView
-                    android:text="Cheaque Date"
-                    android:textColor="@color/black"
+                    android:fontFamily="@font/aller_rg"
+                    android:text="Cheque Date"
+                    android:textColor="@color/colorPrimary"
                     android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
                 <EditText
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:text=""
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -120,14 +123,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <TextView
+                    android:fontFamily="@font/aller_rg"
                     android:text="Amount : "
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
                 <EditText
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:text=""
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -142,14 +146,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <TextView
+                    android:fontFamily="@font/aller_rg"
                     android:text="Bank : "
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
                 <EditText
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:text=""
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"

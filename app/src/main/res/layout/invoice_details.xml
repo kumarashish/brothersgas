@@ -44,7 +44,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="18dp"
-            android:textColor="@color/black"
+
+            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/aller_rg"
             android:text="Constumer Name: #12344566777"
             android:layout_width="match_parent"
@@ -54,7 +55,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="18dp"
-            android:textColor="@color/black"
+
+            android:textColor="@color/colorPrimary"
             android:fontFamily="@fonxt/aller_rg"
             android:text="Connection Number : #123445667"
             android:layout_width="match_parent"
@@ -64,7 +66,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="18dp"
-            android:textColor="@color/black"
+
+            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/aller_rg"
             android:text="Invoice : #12344566777"
             android:layout_width="match_parent"
@@ -74,7 +77,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="18dp"
-            android:textColor="@color/black"
+
+            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/aller_rg"
             android:text="Amount : #12344566777"
             android:layout_width="match_parent"
@@ -84,7 +88,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="18dp"
-            android:textColor="@color/black"
+
+            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/aller_rg"
             android:text="Date : 24-01-2019"
             android:layout_width="match_parent"
@@ -94,7 +99,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="18dp"
-            android:textColor="@color/black"
+
+            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/aller_rg"
             android:text="Status : pending"
             android:layout_width="match_parent"
