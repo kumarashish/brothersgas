@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:multi_line_radio_group="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary">
+
+        <Button
+            android:layout_alignParentLeft="true"
+            android:id="@+id/back_button"
+
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Generate Invoice"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <com.whygraphics.multilineradiogroup.MultiLineRadioGroup
+        multi_line_radio_group:max_in_row="3"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+
+            android:text="Normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:layout_marginLeft="10dp"
+            android:text="No Meter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:layout_marginLeft="10dp"
+            android:text="Shared Meter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:layout_marginLeft="10dp"
+            android:text="Meter Poblem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.whygraphics.multilineradiogroup.MultiLineRadioGroup>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"/>
+        <Button
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="end"
+            android:text="Fetch"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimary"
+            android:layout_width="100dp"
+            android:layout_height="40dp" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_margin="10dp"
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:fontFamily="@font/aller_rg"
+                android:text="Previous Reading : "
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:fontFamily="@font/aller_rg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="123456789"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_margin="10dp"
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:fontFamily="@font/aller_rg"
+                android:text="Previous Date : "
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:fontFamily="@font/aller_rg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="01/12/2018"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_margin="10dp"
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:text="Current Reading"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <EditText
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text=""
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/geeen_rectangle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_margin="10dp"
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:text="Balance Reading"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <EditText
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="100"
+                android:enabled="false"
+                android:focusable="false"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/geeen_rectangle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_margin="10dp"
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:fontFamily="@font/aller_rg"
+                android:text="Per Unit Rate: "
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:fontFamily="@font/aller_rg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text=" 10 dhiram/unit "
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_margin="10dp"
+android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:layout_weight="1"
+                android:fontFamily="@font/aller_rg"
+                android:text="Total : "
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="0dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:fontFamily="@font/aller_rg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text=" 1000 dhiram "
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+            <Button
+
+                android:layout_marginTop="20dp"
+                android:text="Submit"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+    </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
