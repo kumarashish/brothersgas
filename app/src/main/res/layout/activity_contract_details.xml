@@ -24,6 +24,7 @@
                 android:background="@drawable/back" />
 
             <TextView
+                android:fontFamily="@font/fontnew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -45,7 +46,7 @@
     <LinearLayout
         android:id="@+id/mainLayout"
         android:layout_margin="5dp"
-        android:background="@drawable/green_button"
+    android:background="@color/white"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -54,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ScrollView
+                android:scrollbars="none"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <LinearLayout
@@ -61,228 +63,290 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
-                    android:layout_margin="10dp"
+                    android:background="@drawable/light_grey_box"
+                   android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Site : "
-                        android:fontFamily="@font/aller_rg"
+                        android:fontFamily="@font/light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/site"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Customer Id : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/md_gray_light"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/customer_id"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
+
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Contract Date : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/contract_date"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Address : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/address"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Item : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/item"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Deposit Amount : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/depositamount"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Connection Charges : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/Connection_charges"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Disconnection Charges : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/Disconnection_Charges"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Pressure Factor : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/Pressure_Factor"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Initial Meter Reading : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/Initial_meter_reading"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Deposit Invoice : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/Deposit_Invoice"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_margin="10dp"
+
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="40dp">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
                         android:text="Connection Disconnection Invoice : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
                         android:id="@+id/Connection_Disconnection_Invoice"
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
@@ -292,13 +356,70 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="30dp"/>
-                <Button
-                    android:fontFamily="@font/aller_rg"
-                    android:text="Generate Invoice"
-                    android:textColor="@color/white"
-                    android:background="@color/colorPrimary"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="5"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="50dp">
+                <Button
+                    android:padding="5dp"
+
+                    android:textSize="10dp"
+                    android:fontFamily="@font/light"
+                    android:background="@drawable/green_btn"
+                    android:text="Dep.Invoice"
+                    android:textColor="@color/white"
+
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent" />
+                    <Button
+                        android:padding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/light"
+                        android:background="@drawable/green_btn"
+                        android:text="Con/D.Con Invoice"
+                        android:textColor="@color/white"
+
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"  />
+                    <Button
+                        android:padding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Consumption"
+                        android:textColor="@color/white"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/light"
+                        android:background="@drawable/green_btn"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                    <Button
+                        android:padding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Block"
+                        android:textColor="@color/white"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/light"
+                        android:background="@drawable/green_btn"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"  />
+
+                    <Button
+                        android:padding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Unblock"
+                        android:textColor="@color/white"
+                        android:textSize="10dp"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/light"
+                        android:background="@drawable/green_btn"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"  />
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"/>

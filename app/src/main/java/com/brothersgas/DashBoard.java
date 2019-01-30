@@ -53,7 +53,7 @@ View contract;
                 startActivity(new Intent(DashBoard.this, Contracts.class));
                 break;
             case R.id.consumption:
-                startActivity(new Intent(DashBoard.this, InvoicesList.class));
+                Toast.makeText(DashBoard.this,"under development",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.payment:
                 Toast.makeText(DashBoard.this,"under development",Toast.LENGTH_SHORT).show();

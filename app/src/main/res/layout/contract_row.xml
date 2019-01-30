@@ -9,40 +9,82 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:background="@drawable/light_grey_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <View
+                    android:background="@drawable/green_column"
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"/>
 
         <LinearLayout
             android:layout_margin="5dp"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
             <TextView
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/meter_number"
-                android:fontFamily="@font/aller_rg"
+                android:layout_marginTop="5dp"
+android:textSize="14dp"
+                android:textColor="@color/grey"
+              android:text="Contract/Meter Number"
+                android:fontFamily="@font/light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/customer_name"
-                android:fontFamily="@font/aller_rg"
+                android:textSize="12dp"
+                android:text=""
+                android:textColor="@color/md_gray_light"
+                android:id="@+id/meter_number"
+                android:fontFamily="@font/light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-
+                <View
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/md_gray_light"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"/>
+                <LinearLayout
+                    android:layout_margin="5dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textSize="14dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                       android:text="Consumer Name"
+                        android:textColor="@color/grey"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textSize="12dp"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/md_gray_light"
+                        android:id="@+id/customer_name"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                               </LinearLayout>
 
 
             <View
                 android:id="@+id/detailsView"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"/>
+                android:layout_height="70dp"/>
         </RelativeLayout>
 
 

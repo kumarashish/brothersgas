@@ -3,6 +3,7 @@ package contracts;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brothersgas.Login;
@@ -41,17 +44,22 @@ public class Contracts extends Activity implements View.OnClickListener , ListIt
     AppController controller;
     WebServiceAcess webServiceAcess;
     ArrayList<ContractModel> list=new ArrayList<>();
+    ArrayList<ContractModel> blockedlist=new ArrayList<>();
+    ArrayList<ContractModel> unblockedlist=new ArrayList<>();
+    ArrayList<ContractModel> cancelledlist=new ArrayList<>();
     @BindView(R.id.listView)
     ListView listView;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.contentView)
-    LinearLayout contentView;
+    RelativeLayout contentView;
 
     @BindView(R.id.contract_type)
     Spinner contract_type;
     @BindView(R.id.back_button)
     Button back;
+    @BindView(R.id.search)
+    Button search;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +67,7 @@ public class Contracts extends Activity implements View.OnClickListener , ListIt
         controller = (AppController) getApplicationContext();
         webServiceAcess=new WebServiceAcess();
         ButterKnife.bind(this);
+        search.setOnClickListener(this);
 
         back.setOnClickListener(this);
         if(Utils.isNetworkAvailable(Contracts.this)) {
@@ -67,6 +76,42 @@ public class Contracts extends Activity implements View.OnClickListener , ListIt
             new GetData().execute();
         }
 
+        contract_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position)
+                {
+                    case 0:
+                        if(list.size()>0) {
+                            listView.setAdapter(new ContractListAdapter(unblockedlist, Contracts.this));
+                        }
+                        break;
+                    case 1:
+                    if(list.size()>0) {
+                        listView.setAdapter(new ContractListAdapter(blockedlist, Contracts.this));
+                    }
+                        break;
+                    case 2:
+                        if(list.size()>0) {
+                            listView.setAdapter(new ContractListAdapter(cancelledlist, Contracts.this));
+                        }
+                        break;
+                    case 3:
+                        if(list.size()>0) {
+                            listView.setAdapter(new ContractListAdapter(list, Contracts.this));
+                        }
+                        break;
+
+                }
+                ((TextView) view).setTextColor(Color.WHITE); //Change selected text color
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -75,6 +120,27 @@ switch (v.getId())
 {
     case R.id.back_button:
         finish();
+        break;
+    case R.id.search:
+
+        switch (contract_type.getSelectedItemPosition()) {
+            case 0:
+                Search.contractList = unblockedlist;
+
+                break;
+            case 1:
+                Search.contractList = blockedlist;
+                break;
+            case 2:
+                Search.contractList = cancelledlist;
+                break;
+            case 3:
+                Search.contractList = list;
+                break;
+
+        }
+
+        startActivity(new Intent(Contracts.this,Search.class));
         break;
 
 }
@@ -122,7 +188,17 @@ switch (v.getId())
                   for(int i=0;i<jsonArray.length();i++)
                   {
                       JSONObject item=jsonArray.getJSONObject(i);
-                      list.add(new ContractModel(item.getJSONArray("FLD")));
+                      ContractModel model=new ContractModel(item.getJSONArray("FLD"));
+                      list.add(model);
+                      if(model.getBlock_unblockflag()==2)
+                      {
+                          blockedlist.add(model);
+                      }else if(model.getClosemeterreadingvalue()==2)
+                      {
+                          cancelledlist.add(model);
+                      }else {
+                          unblockedlist.add(model);
+                      }
 
 
 

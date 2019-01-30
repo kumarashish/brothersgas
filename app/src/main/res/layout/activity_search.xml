@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/colorPrimary">
+
+        <Button
+            android:layout_alignParentLeft="true"
+            android:id="@+id/back_button"
+            android:tint="@color/white"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Search Contract"
+            android:fontFamily="@font/fontnew"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+    <View
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_width="50dp"
+        android:id="@+id/progressBar"
+        android:layout_height="50dp"
+        android:layout_below="@+id/pass_RL"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40.0dip"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/colorPrimary"
+        />
+    <RelativeLayout
+
+
+
+        android:id="@+id/contentView"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+
+            android:background="@drawable/header"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="110dp">
+            <LinearLayout
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/rounded_corner_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <AutoCompleteTextView
+android:fontFamily="@font/light"
+                    android:textColor="@color/white"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="center"
+                    android:textColorHint="@color/white"
+android:padding="10dp"
+                     android:hint="Search by name or contract number"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="@color/white"
+                    android:id="@+id/auto"
+                    android:entries="@array/contract_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
