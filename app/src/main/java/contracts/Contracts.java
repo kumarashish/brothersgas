@@ -47,14 +47,9 @@ public class Contracts extends Activity implements View.OnClickListener , ListIt
     ProgressBar progressBar;
     @BindView(R.id.contentView)
     LinearLayout contentView;
-    @BindView(R.id.invoice_options)
-    LinearLayout invoice_options;
+
     @BindView(R.id.contract_type)
     Spinner contract_type;
-    @BindView(R.id.notgenerated)
-    Button not_generatedInvoice;
-    @BindView(R.id.deposit_invoice)
-    Button depositInvoice;
     @BindView(R.id.back_button)
     Button back;
     @Override
@@ -64,30 +59,14 @@ public class Contracts extends Activity implements View.OnClickListener , ListIt
         controller = (AppController) getApplicationContext();
         webServiceAcess=new WebServiceAcess();
         ButterKnife.bind(this);
-        not_generatedInvoice.setOnClickListener(this);
-        depositInvoice.setOnClickListener(this);
+
         back.setOnClickListener(this);
         if(Utils.isNetworkAvailable(Contracts.this)) {
             progressBar.setVisibility(View.VISIBLE);
             contentView.setVisibility(View.GONE);
             new GetData().execute();
         }
-        contract_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==1)
-                {
-                    invoice_options.setVisibility(View.VISIBLE);
-                }else {
-                    invoice_options.setVisibility(View.GONE);
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     @Override
@@ -97,18 +76,7 @@ switch (v.getId())
     case R.id.back_button:
         finish();
         break;
-    case R.id.deposit_invoice:
-        depositInvoice.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-         depositInvoice.setTextColor((getResources().getColor(R.color.white)));
-        not_generatedInvoice.setBackgroundColor((getResources().getColor(R.color.white)));
-        not_generatedInvoice.setTextColor((getResources().getColor(R.color.colorPrimary)));
-        break;
-    case R.id.notgenerated:
-        not_generatedInvoice.setBackgroundColor((getResources().getColor(R.color.colorPrimary)));
-        not_generatedInvoice.setTextColor((getResources().getColor(R.color.white)));
-        depositInvoice.setBackgroundColor((getResources().getColor(R.color.white)));
-        depositInvoice.setTextColor((getResources().getColor(R.color.colorPrimary)));
-        break;
+
 }
     }
 

@@ -1,131 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_margin="5dp"
-        android:background="@drawable/green_button"
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
         <LinearLayout
+            android:layout_margin="5dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="60dp">
             <TextView
-                android:textColor="@color/colorPrimary"
-                android:text="Contract/Meter Number : "
-                android:fontFamily="@font/aller_rg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:id="@+id/meter_number"
                 android:fontFamily="@font/aller_rg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textColor="@color/colorPrimary"
-                android:text="Customer Name : "
-                android:fontFamily="@font/aller_rg"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:id="@+id/customer_name"
                 android:fontFamily="@font/aller_rg"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textColor="@color/colorPrimary"
-                android:text="Address : "
-                android:fontFamily="@font/aller_rg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/address"
-                android:fontFamily="@font/aller_rg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textColor="@color/colorPrimary"
-                android:text="Contract Creation Date : "
-                android:fontFamily="@font/aller_rg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/date"
-                android:fontFamily="@font/aller_rg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        </LinearLayout>
+
+
             <View
                 android:id="@+id/detailsView"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"/>
+                android:layout_height="60dp"/>
         </RelativeLayout>
-        <LinearLayout
-            android:weightSum="2.1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/block"
-                android:textColor="@color/colorPrimary"
-                android:text="Block"
-                android:fontFamily="@font/aller_rg"
-                android:layout_weight="1"
-                android:background="@drawable/selector"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <View
-                android:layout_width="20dp"
-                android:layout_height="80dp"/>
-            <Button
-                android:id="@+id/cancel"
-                android:textColor="@color/colorPrimary"
-                android:text="Cancel"
-                android:fontFamily="@font/aller_rg"
-                android:layout_weight="1"
-                android:background="@drawable/selector"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"

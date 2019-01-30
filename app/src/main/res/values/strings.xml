@@ -3,9 +3,9 @@
     <string name="app_name1">SportsFight</string>
 
     <string-array name="contract_type">
-        <item>All</item>
         <item>Unblocked</item>
         <item>Blocked</item>
         <item>Cancelled</item>
+        <item>All</item>
     </string-array>
 </resources>
