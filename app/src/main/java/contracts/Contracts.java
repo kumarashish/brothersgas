@@ -33,6 +33,7 @@ import common.AppController;
 import common.Common;
 import common.WebServiceAcess;
 import interfaces.ListItemClickListner;
+import invoices.Connection_Disconnection_Invoice;
 import model.ContractModel;
 import utils.Utils;
 
@@ -139,8 +140,9 @@ switch (v.getId())
                 break;
 
         }
-
-        startActivity(new Intent(Contracts.this,Search.class));
+        Intent in=new Intent(Contracts.this,Search.class);
+        in.putExtra("requestedScreen",1);
+        startActivity(new Intent(in));
         break;
 
 }

@@ -43,6 +43,7 @@ dependencies {
     implementation'com.github.Gavras:MultiLineRadioGroup:v1.0.0.6'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.itextpdf:itextg:5.5.10'
+    implementation 'com.github.Gavras:MultiLineRadioGroup:v1.0.0.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -4,53 +4,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/white">
 
     <LinearLayout
         android:weightSum="2"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <RelativeLayout
-android:layout_weight="1"
-            android:background="@color/white"
+android:layout_weight="0.5"
+            android:background="@drawable/header"
             android:layout_width="match_parent"
             android:layout_height="0dp">
         <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:id="@+id/logo"
             android:layout_marginTop="40dp"
-            android:src="@drawable/brogas_logo"
+            android:src="@drawable/logo_new"
             android:layout_width="match_parent"
             android:layout_height="180dp" />
             <ImageView
                 android:id="@+id/menu"
-              android:tint="@color/colorPrimary"
+              android:tint="@color/white"
                 android:src="@drawable/menu_icon"
                 android:layout_margin="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
-            <TextView
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/aller_rg"
-                android:textSize="26dp"
-                android:textColor="@color/colorPrimary"
-                android:text="Meter App"
-                android:gravity="center"
-                android:layout_below="@+id/logo"
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </RelativeLayout>
         <LinearLayout
 
-            android:weightSum="2"
+            android:weightSum="3"
             android:orientation="vertical"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <LinearLayout
@@ -71,18 +62,19 @@ android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <ImageView
-                        android:src="@drawable/contract_icon"
-                      android:layout_marginTop="30dp"
+                        android:src="@drawable/contract"
+                      android:layout_marginTop="20dp"
                         android:layout_gravity="center"
-                        android:tint="@color/white"
+
                         android:layout_width="60dp"
                         android:layout_height="60dp" />
                     <TextView
                         android:fontFamily="@font/aller_rg"
                         android:textSize="18dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dashboard_textcolor"
                         android:text="Contract"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -95,7 +87,7 @@ android:layout_weight="1"
                         android:layout_height="match_parent"/>
                 </RelativeLayout>
                 <View
-                    android:background="@color/white"
+                    android:background="@color/colorPrimary"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"/>
                 <RelativeLayout
@@ -109,31 +101,118 @@ android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <ImageView
-                        android:src="@drawable/consumption"
-                        android:tint="@color/white"
-                        android:layout_marginTop="30dp"
+                        android:src="@drawable/deposite_invoice"
+
+                        android:layout_marginTop="20dp"
                         android:layout_gravity="center"
                         android:layout_width="60dp"
                         android:layout_height="60dp" />
                     <TextView
                         android:fontFamily="@font/aller_rg"
                         android:textSize="18dp"
-                        android:layout_marginTop="10dp"
+                        android:textAllCaps="true"
                         android:gravity="center"
-                        android:textColor="@color/white"
-                        android:text="Consumption"
+                        android:textColor="@color/dashboard_textcolor"
+                        android:text="@string/invoice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                     <View
-                        android:id="@+id/consumption"
+                        android:id="@+id/con_discon_invoice"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </RelativeLayout>
 
             </LinearLayout>
             <View
-                android:background="@color/white"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <LinearLayout
+
+                android:orientation="horizontal"
+                android:weightSum="2.1"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:src="@drawable/consumtion"
+
+                            android:layout_marginTop="30dp"
+                            android:layout_gravity="center"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+                        <TextView
+                            android:textAllCaps="true"
+                            android:fontFamily="@font/aller_rg"
+                            android:textSize="18dp"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:textColor="@color/dashboard_textcolor"
+                            android:text="Consumption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/consumption"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </RelativeLayout>
+                <View
+                    android:background="@color/colorPrimary"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"/>
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+
+                        android:orientation="vertical"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:src="@drawable/cancel_block"
+                            android:layout_marginTop="30dp"
+                            android:layout_gravity="center"
+
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+                        <TextView
+                            android:fontFamily="@font/aller_rg"
+                            android:textSize="18dp"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:textAllCaps="true"
+                            android:textColor="@color/dashboard_textcolor"
+                            android:text="@string/block_cancel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/block_cancel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+            <View
+                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
             <RelativeLayout
@@ -147,18 +226,19 @@ android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:tint="@color/white"
-                    android:src="@drawable/payment"
+
+                    android:src="@drawable/payment_icon"
                     android:layout_marginTop="30dp"
                     android:layout_gravity="center"
                     android:layout_width="60dp"
                     android:layout_height="60dp" />
                 <TextView
+                    android:textAllCaps="true"
                     android:fontFamily="@font/aller_rg"
                     android:textSize="18dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dashboard_textcolor"
                     android:text="Payment Receipt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

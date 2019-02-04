@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BrothersGas</string>
-    <string name="app_name1">SportsFight</string>
-
+    <string name="invoice">Dep &amp; Conn/Discon Inv</string>
+    <string name="block_cancel">Block &amp; Cancel</string>
     <string-array name="contract_type">
         <item>Unblocked</item>
         <item>Blocked</item>

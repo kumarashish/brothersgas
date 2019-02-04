@@ -27,15 +27,17 @@
             android:screenOrientation="portrait"/>
         <activity android:name="contracts.ContractDetails"
             android:screenOrientation="portrait"/>
-        <activity android:name="invoices.Invoice_Details"
-            android:screenOrientation="portrait"/>
-        <activity android:name="invoices.GenerateInvoice"
-            android:screenOrientation="portrait"/>
-        <activity android:name="invoices.Payment"
-            android:screenOrientation="portrait"/>
-        <activity android:name="invoices.InvoicesList"
-            android:screenOrientation="portrait"/>
         <activity android:name="contracts.Search"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.Connection_Disconnection_Invoice"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.Connection_Disconnection_Invoice_details"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.Block_Cancel"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.Block_Cancel_Details"
+            android:screenOrientation="portrait"/>
+        <activity android:name="consumption.Consumption"
             android:screenOrientation="portrait"/>
     </application>
 

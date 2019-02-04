@@ -12,8 +12,10 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
+import consumption.Consumption;
 import contracts.Contracts;
-import invoices.InvoicesList;
+import invoices.Block_Cancel;
+import invoices.Connection_Disconnection_Invoice;
 
 /**
  * Created by ashish.kumar on 23-01-2019.
@@ -29,6 +31,10 @@ View contract;
     View consumption;
     @BindView(R.id.payment)
     View payment;
+    @BindView(R.id.con_discon_invoice)
+    View connect_disconnection_invoice;
+    @BindView(R.id.block_cancel)
+    View block_cancel;
     AppController controller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,8 @@ View contract;
         menu.setOnClickListener(this);
         contract.setOnClickListener(this);
         consumption.setOnClickListener(this);
+        block_cancel.setOnClickListener(this);
+        connect_disconnection_invoice.setOnClickListener(this);
         payment.setOnClickListener(this);
     }
 
@@ -52,8 +60,14 @@ View contract;
             case R.id.contract:
                 startActivity(new Intent(DashBoard.this, Contracts.class));
                 break;
+            case R.id.con_discon_invoice:
+                startActivity(new Intent(DashBoard.this, Connection_Disconnection_Invoice.class));
+                break;
+            case R.id.block_cancel:
+                startActivity(new Intent(DashBoard.this, Block_Cancel.class));
+                break;
             case R.id.consumption:
-                Toast.makeText(DashBoard.this,"under development",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(DashBoard.this, Consumption.class));
                 break;
             case R.id.payment:
                 Toast.makeText(DashBoard.this,"under development",Toast.LENGTH_SHORT).show();

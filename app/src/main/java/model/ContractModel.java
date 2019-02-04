@@ -14,6 +14,8 @@ public class ContractModel {
     public static String contactcreationdate ="";
     public static int block_unblockflag  ;
     public static int closemeterreadingvalue;
+    public static String depositInvoice="";
+    public static String connection_discconectionInvoice="";
 
 
     public ContractModel(JSONArray jsonArray)
@@ -51,11 +53,27 @@ public class ContractModel {
                 {
                    closemeterreadingvalue =jsonObject.getInt("content");
                 }
+                else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.Deposit_Invoice))
+                {
+                    depositInvoice =jsonObject.getString("content");
+                }
+                else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.Connection_Disconnection_Invoice))
+                {
+                    connection_discconectionInvoice=jsonObject.getString("content");
+                }
             }
         }catch (Exception ex)
         {
             ex.fillInStackTrace();
         }
+    }
+
+    public static String getConnection_discconectionInvoice() {
+        return connection_discconectionInvoice;
+    }
+
+    public static String getDepositInvoice() {
+        return depositInvoice;
     }
 
     public  int getBlock_unblockflag() {

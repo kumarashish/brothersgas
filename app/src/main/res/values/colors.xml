@@ -128,4 +128,6 @@
     <color name="blue">#07b8cc</color>
     <color name="BorderLineColor">#B8B9B1</color>
     <color name="CanvasBackground">#ffffff</color>
+    <color name="green_button_color">#4daa95</color>
+    <color name="dashboard_textcolor">#0b634f</color>
 </resources>

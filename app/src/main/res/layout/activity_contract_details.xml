@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Invoice Details"
+                android:text="Details"
                 android:textColor="@android:color/white"
                 android:textSize="18dp" />
         </RelativeLayout>
@@ -68,6 +68,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         
                         android:layout_gravity="center_vertical"
@@ -92,6 +96,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -116,6 +124,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
 
                     <TextView
                         android:layout_gravity="center_vertical"
@@ -142,6 +154,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -167,6 +183,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -191,6 +211,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -215,6 +239,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -239,6 +267,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -263,6 +295,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -287,6 +323,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -311,6 +351,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -335,6 +379,10 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -357,13 +405,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"/>
                 <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/footer"
+
                     android:orientation="horizontal"
-                    android:weightSum="5"
+                    android:weightSum="2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
                 <Button
                     android:padding="5dp"
-
+android:id="@+id/dep_invoice"
                     android:textSize="10dp"
                     android:fontFamily="@font/light"
                     android:background="@drawable/green_btn"
@@ -374,6 +425,7 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent" />
                     <Button
+                        android:id="@+id/con_dcon_invoice"
                         android:padding="5dp"
                         android:layout_marginLeft="10dp"
                         android:textSize="10dp"
@@ -385,40 +437,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="match_parent"  />
-                    <Button
-                        android:padding="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:text="Consumption"
-                        android:textColor="@color/white"
-                        android:textSize="10dp"
-                        android:fontFamily="@font/light"
-                        android:background="@drawable/green_btn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent" />
-                    <Button
-                        android:padding="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:text="Block"
-                        android:textColor="@color/white"
-                        android:textSize="10dp"
-                        android:fontFamily="@font/light"
-                        android:background="@drawable/green_btn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"  />
 
-                    <Button
-                        android:padding="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:text="Unblock"
-                        android:textColor="@color/white"
-                        android:textSize="10dp"
-                        android:layout_width="0dp"
-                        android:fontFamily="@font/light"
-                        android:background="@drawable/green_btn"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"  />
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"

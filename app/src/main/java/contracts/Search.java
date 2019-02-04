@@ -22,6 +22,10 @@ import butterknife.ButterKnife;
 import common.AppController;
 import common.WebServiceAcess;
 import interfaces.ListItemClickListner;
+import invoices.Block_Cancel;
+import invoices.Block_Cancel_Details;
+import invoices.Connection_Disconnection_Invoice;
+import invoices.Connection_Disconnection_Invoice_details;
 import model.ContractModel;
 
 public class Search extends Activity implements View.OnClickListener , ListItemClickListner {
@@ -35,11 +39,13 @@ public class Search extends Activity implements View.OnClickListener , ListItemC
 
     @BindView(R.id.back_button)
     Button back;
+    int requestedFor=1;
    public static ArrayList<ContractModel>contractList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        requestedFor=getIntent().getIntExtra("requestedScreen",1);
         controller = (AppController) getApplicationContext();
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
@@ -53,7 +59,21 @@ public class Search extends Activity implements View.OnClickListener , ListItemC
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                   ContractModel model=  (ContractModel) adapterView.getItemAtPosition(i);
-                    Intent in=new Intent(Search.this,ContractDetails.class);
+                    Intent in=null;
+                    switch (requestedFor)
+                    {
+                        case 1:
+                            in=new Intent(Search.this,ContractDetails.class);
+                            break;
+                        case 2:
+                            in=new Intent(Search.this, Connection_Disconnection_Invoice_details.class);
+                            break;
+                        case 3:
+                            in=new Intent(Search.this, Block_Cancel_Details.class);
+                            break;
+                    }
+
+
                     in.putExtra("Data",model.getContract_Meternumber());
                     startActivity(in);
                     finish();
