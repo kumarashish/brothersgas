@@ -37,7 +37,13 @@ public class WebServiceAcess {
             jsonObject.put("I_PWD", value[1]);
             break;
             case Common.ContractView:
+            case Common.CancelContract:
+            case Common.BlockUnBlock:
                 jsonObject.put("I_CONTNO", value[0]);
+                break;
+            case Common.DepositInvoice:
+                jsonObject.put("I_CONTNO", value[0]);
+                jsonObject.put("I_FLG", value[1]);
                 break;
         }
     } catch (Exception e) {

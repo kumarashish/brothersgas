@@ -1,8 +1,10 @@
 package invoices;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +32,8 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     model.ContractDetails model = null;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.progressBar2)
+    ProgressBar progressBar2;
     @BindView(R.id.mainLayout)
     LinearLayout mainLayout;
     @BindView(R.id.site)
@@ -68,13 +72,14 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contract_details);
+        webServiceAcess = new WebServiceAcess();
+        ButterKnife.bind(this);
         contractId = getIntent().getStringExtra("Data");
         controller = (AppController) getApplicationContext();
         footer.setVisibility(View.VISIBLE);
         con_dconInvoice.setOnClickListener(this);
         dep_Invoice.setOnClickListener(this);
-        webServiceAcess = new WebServiceAcess();
-        ButterKnife.bind(this);
+
         back.setOnClickListener(this);
         if (Utils.isNetworkAvailable(Connection_Disconnection_Invoice_details.this)) {
             progressBar.setVisibility(View.VISIBLE);
@@ -90,12 +95,64 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                 finish();
                 break;
             case R.id.dep_invoice:
-                 break;
-            case R.id.con_discon_invoice:
+                progressBar2.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
+                new Block().execute(new String[]{"1"});
+                break;
+            case R.id.con_dcon_invoice:
+                progressBar2.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
+                new Block().execute(new String[]{"2"});
                 break;
         }
-    }
+    }    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+    public class Block extends AsyncTask<String, Void, String> {
+        String calledMethod;
+        @Override
+        protected String doInBackground(String... strings) {
+            calledMethod=strings[0];
+            String result = webServiceAcess.runRequest(Common.runAction,Common.DepositInvoice, new String[]{contractId,strings[0]});
+            return result;
+        }
 
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONObject Fld = item.getJSONObject("FLD");
+                    String message =Fld.isNull("content")?"No Message From API": Fld.getString("content");
+                    showAlert(message);
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+            } else {
+            }
+            progressBar2.setVisibility(View.GONE);
+            footer.setVisibility(View.VISIBLE);
+        }
+    }
+    public void showAlert(String message)
+    {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(Connection_Disconnection_Invoice_details.this);
+        builder1.setMessage(message);
+        builder1.setCancelable(true);
+        builder1.setNeutralButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetData extends AsyncTask<String, Void, String> {
         @Override
@@ -143,6 +200,14 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         Initial_meter_reading.setText(model.getInitial_meter_reading());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
+        if(model.getDeposit_Invoice().length()>0)
+        {
+            dep_Invoice.setVisibility(View.GONE);
+        }
+        if(model.getConnection_Disconnection_Invoice().length()>0)
+        {
+            con_dconInvoice.setVisibility(View.GONE);
+        }
 
     }
 }

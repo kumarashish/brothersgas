@@ -26,24 +26,24 @@ public class ContractModel {
                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                 if(jsonObject.getString("NAME").equalsIgnoreCase(Common.contract_Meternumber))
                 {
-                    contract_Meternumber=jsonObject.getString("content");
+                    contract_Meternumber=jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.customername))
                 {
-                    customername=jsonObject.getString("content");
+                    customername=jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }
                 else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.placeName))
                 {
-                    placeName=jsonObject.getString("content");
+                    placeName=jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.customercode))
                 {
-                    customercode=jsonObject.getString("content");
+                    customercode=jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }
                 else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.addresscode))
                 {
-                    addresscode=jsonObject.getString("content");
+                    addresscode=jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.contactcreationdate))
                 {
-                    contactcreationdate =jsonObject.getString("content");
+                    contactcreationdate =jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }
                 else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.block_unblockflag))
                 {
@@ -53,13 +53,13 @@ public class ContractModel {
                 {
                    closemeterreadingvalue =jsonObject.getInt("content");
                 }
-                else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.Deposit_Invoice))
+                else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.depositInvoice))
                 {
-                    depositInvoice =jsonObject.getString("content");
+                    depositInvoice =jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }
-                else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.Connection_Disconnection_Invoice))
+                else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.connection_discconectionInvoice))
                 {
-                    connection_discconectionInvoice=jsonObject.getString("content");
+                    connection_discconectionInvoice=jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }
             }
         }catch (Exception ex)

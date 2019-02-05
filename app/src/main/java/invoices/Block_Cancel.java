@@ -99,7 +99,7 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Intent in=new Intent(Block_Cancel.this,Connection_Disconnection_Invoice_details.class);
+                Intent in=new Intent(Block_Cancel.this,Block_Cancel_Details.class);
                 in.putExtra("Data",model.getContract_Meternumber());
                 startActivity(in);
             }

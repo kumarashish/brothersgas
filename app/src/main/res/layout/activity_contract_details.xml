@@ -387,7 +387,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/grey"
-                        android:text="Connection Disconnection Invoice : "
+                        android:text="Conn_Disconn Invoice : "
                         android:fontFamily="@font/aller_rg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -404,6 +404,19 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="30dp"/>
+                <ProgressBar
+                    android:visibility="gone"
+                    android:layout_width="50dp"
+                    android:id="@+id/progressBar2"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/pass_RL"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/colorPrimary"/>
+
+
                 <LinearLayout
                     android:visibility="gone"
                     android:id="@+id/footer"
@@ -441,7 +454,7 @@ android:id="@+id/dep_invoice"
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"/>
+                    android:layout_height="20dp"/>
 
 
             </LinearLayout>
