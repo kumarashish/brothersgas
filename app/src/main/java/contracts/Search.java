@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.WebServiceAcess;
+import consumption.ConsumptionDetails;
 import interfaces.ListItemClickListner;
 import invoices.Block_Cancel;
 import invoices.Block_Cancel_Details;
@@ -70,6 +71,9 @@ public class Search extends Activity implements View.OnClickListener , ListItemC
                             break;
                         case 3:
                             in=new Intent(Search.this, Block_Cancel_Details.class);
+                            break;
+                        case 4:
+                            in=new Intent(Search.this, ConsumptionDetails.class);
                             break;
                     }
 

@@ -39,6 +39,14 @@
             android:screenOrientation="portrait"/>
         <activity android:name="consumption.Consumption"
             android:screenOrientation="portrait"/>
+        <activity android:name="consumption.ConsumptionList"
+            android:screenOrientation="portrait"/>
+        <activity android:name="consumption.ConsumptionDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name="payment.InvoiceList"
+            android:screenOrientation="portrait"/>
+        <activity android:name="payment.PaymentReceipt"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

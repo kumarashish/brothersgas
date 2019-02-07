@@ -415,8 +415,6 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:indeterminateTint="@color/colorPrimary"/>
-
-
                 <LinearLayout
                     android:visibility="gone"
                     android:id="@+id/footer"

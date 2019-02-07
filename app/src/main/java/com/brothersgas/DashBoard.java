@@ -13,9 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import consumption.Consumption;
+import consumption.ConsumptionList;
 import contracts.Contracts;
 import invoices.Block_Cancel;
 import invoices.Connection_Disconnection_Invoice;
+import payment.InvoiceList;
 
 /**
  * Created by ashish.kumar on 23-01-2019.
@@ -67,10 +69,10 @@ View contract;
                 startActivity(new Intent(DashBoard.this, Block_Cancel.class));
                 break;
             case R.id.consumption:
-                startActivity(new Intent(DashBoard.this, Consumption.class));
+                startActivity(new Intent(DashBoard.this, ConsumptionList.class));
                 break;
             case R.id.payment:
-                Toast.makeText(DashBoard.this,"under development",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(DashBoard.this, InvoiceList.class));
                 break;
         }
 

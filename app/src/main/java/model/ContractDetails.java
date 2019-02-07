@@ -23,6 +23,7 @@ public class ContractDetails {
  public  String Initial_meter_reading="";
  public String Deposit_Invoice="";
  public  String Connection_Disconnection_Invoice="";
+ public String contractNumber="";
  public ContractDetails(JSONArray jsonArray)
  {
      try{
@@ -122,5 +123,13 @@ public class ContractDetails {
 
     public String getSite_value() {
         return Site_value;
+    }
+
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
+    }
+
+    public String getContractNumber() {
+        return contractNumber;
     }
 }

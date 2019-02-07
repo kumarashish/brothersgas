@@ -90,7 +90,7 @@ ContractModel model=getItem(position);
                 ArrayList<ContractModel> matchValues = new ArrayList<ContractModel>();
 
                 for (ContractModel dataItem : dataListAllItems) {
-                    if( (dataItem.getContract_Meternumber().startsWith(searchStrLowerCase))||(dataItem.getCustomername().startsWith(searchStrLowerCase))) {
+                    if( (dataItem.getContract_Meternumber().startsWith(searchStrLowerCase))||(dataItem.getContract_Meternumber().contains(searchStrLowerCase))||(dataItem.getCustomername().contains(searchStrLowerCase))||(dataItem.getCustomername().startsWith(searchStrLowerCase))) {
                         matchValues.add(dataItem);
                     }
                 }
