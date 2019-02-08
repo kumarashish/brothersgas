@@ -85,12 +85,12 @@ ContractModel model=getItem(position);
                     results.count = dataListAllItems.size();
                 }
             } else {
-                final String searchStrLowerCase = prefix.toString().toLowerCase();
+                final String searchStrLowerCase = prefix.toString().toUpperCase();
 
                 ArrayList<ContractModel> matchValues = new ArrayList<ContractModel>();
 
                 for (ContractModel dataItem : dataListAllItems) {
-                    if( (dataItem.getContract_Meternumber().startsWith(searchStrLowerCase))||(dataItem.getContract_Meternumber().contains(searchStrLowerCase))||(dataItem.getCustomername().contains(searchStrLowerCase))||(dataItem.getCustomername().startsWith(searchStrLowerCase))) {
+                    if( (dataItem.getContract_Meternumber().toUpperCase().contains(searchStrLowerCase))||(dataItem.getCustomername().toUpperCase().contains(searchStrLowerCase))) {
                         matchValues.add(dataItem);
                     }
                 }

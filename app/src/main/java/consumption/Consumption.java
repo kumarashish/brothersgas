@@ -105,7 +105,7 @@ public void setData()
     consumer.setText(model.getCustomer_value());
     address.setText(model.getCustomer_Address());
     Date d = new Date();
-    CharSequence s  = DateFormat.format("MMMM d, yyyy ", d.getTime());
+    CharSequence s  = DateFormat.format("yyyy-MM-dd", d.getTime());
     date.setText(model.getContract_Date());
     currentDate.setText(s);
     meterId.setText(model.getContractNumber());

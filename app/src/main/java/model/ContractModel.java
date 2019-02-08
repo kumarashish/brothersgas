@@ -6,16 +6,16 @@ import org.json.JSONObject;
 import common.Common;
 
 public class ContractModel {
-    public static String contract_Meternumber=  "";
-    public static String  customername = "";
-    public static String customercode ="";
-    public static String placeName="";
-    public static String addresscode="";
-    public static String contactcreationdate ="";
-    public static int block_unblockflag  ;
-    public static int closemeterreadingvalue;
-    public static String depositInvoice="";
-    public static String connection_discconectionInvoice="";
+    public  String contract_Meternumber=  "";
+    public  String  customername = "";
+    public  String customercode ="";
+    public  String placeName="";
+    public String addresscode="";
+    public String contactcreationdate ="";
+    public  int block_unblockflag  ;
+    public  int closemeterreadingvalue;
+    public   String depositInvoice="";
+    public  String connection_discconectionInvoice="";
 
 
     public ContractModel(JSONArray jsonArray)
@@ -68,11 +68,11 @@ public class ContractModel {
         }
     }
 
-    public static String getConnection_discconectionInvoice() {
+    public  String getConnection_discconectionInvoice() {
         return connection_discconectionInvoice;
     }
 
-    public static String getDepositInvoice() {
+    public  String getDepositInvoice() {
         return depositInvoice;
     }
 

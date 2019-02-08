@@ -191,7 +191,12 @@ switch (v.getId())
                   {
                       JSONObject item=jsonArray.getJSONObject(i);
                       ContractModel model=new ContractModel(item.getJSONArray("FLD"));
+                      Log.d("contractId",model.getContract_Meternumber());
                       list.add(model);
+                      Log.d("contractId adding",list.get(i).getContract_Meternumber());
+                      if(i!=0) {
+                          Log.d("contractIdafter adding", list.get(i-1).getContract_Meternumber());
+                      }
                       if(model.getBlock_unblockflag()==2)
                       {
                           blockedlist.add(model);
@@ -207,7 +212,10 @@ switch (v.getId())
                   }
 
                   if(list.size()>0)
+                  {for(int i=0;i<list.size();i++)
                   {
+                      Log.d("contractId from list",list.get(i).getContract_Meternumber());
+                  }
                       listView.setAdapter(new ContractListAdapter(list,Contracts.this));
                       progressBar.setVisibility(View.GONE);
                       contentView.setVisibility(View.VISIBLE);
