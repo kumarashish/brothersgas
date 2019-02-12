@@ -34,6 +34,8 @@ public class Common {
     public static String Initial_meter_reading = "O_IMRDNGS";
     public static String Deposit_Invoice = "O_DEPINV";
     public static String Connection_Disconnection_Invoice = "O_CONDISINV";
+    public static String Currency = "O_CUR";
+
 
     public static String SOAPAction = "CAdxWebServiceXmlCC";
     final public static String LoginMethod = "YMTRLOGIN";

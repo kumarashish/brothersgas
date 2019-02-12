@@ -26,6 +26,7 @@ public class ContractDetails {
     public  int block_unblockflag  ;
     public  int closemeterreadingvalue;
  public String contractNumber="";
+    public String Currency="";
  public ContractDetails(JSONArray jsonArray)
  {
      try{
@@ -81,11 +82,20 @@ public class ContractDetails {
              {
                  closemeterreadingvalue=jsonObject.isNull("content")?0:jsonObject.getInt("content");
              }
+
+             else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.Currency))
+             {
+                Currency=jsonObject.isNull("content")?"":jsonObject.getString("content");
+             }
          }}catch (Exception ex)
      {
          ex.fillInStackTrace();
      }
  }
+
+    public String getCurrency() {
+        return Currency;
+    }
 
     public int getBlock_unblockflag() {
         return block_unblockflag;

@@ -156,9 +156,9 @@ public class ConsumptionDetails  extends Activity implements View.OnClickListene
         contract_date.setText(model.getContract_Date());
         address.setText(model.getCustomer_Address());
         item.setText(model.getProduct_Item());
-        depositamount.setText(model.getDeposit_Amount());
-        Connection_charges.setText(model.getConnection_charges());
-        Disconnection_Charges.setText(model.getDisconnection_Charges());
+        depositamount.setText(model.getDeposit_Amount() +" "+model.getCurrency());
+        Connection_charges.setText(model.getConnection_charges()+" "+model.getCurrency());
+        Disconnection_Charges.setText(model.getDisconnection_Charges()+" "+model.getCurrency());
         Pressure_Factor.setText(model.getPressure_Factor());
         Initial_meter_reading.setText(model.getInitial_meter_reading());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
