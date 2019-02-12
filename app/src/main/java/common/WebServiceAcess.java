@@ -104,16 +104,15 @@ public class WebServiceAcess {
     }
 
     public String queryRequest(String  METHOD_NAME,String publicName) {
-
         String NAMESPACE = "http://www.adonix.com/WSS";
-//        String METHOD_NAME = "run";
+//       String METHOD_NAME = "run";
         String SOAP_ACTION = "CAdxWebServiceXmlCC";
-//       // String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
+      // String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
         String URL = "http://" + Configuration.getIP() + ":" + Configuration.Port + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
         //  request.addProperty("publicName", "YMTRLOGIN");
         request.addProperty("publicName", publicName);
-        request.addProperty("listSize", 999);
+        request.addProperty("listSize", 10);
         SoapObject callcontext = new SoapObject("", "callContext");
         // Set all input params
         callcontext.addProperty("codeLang", "ENG");

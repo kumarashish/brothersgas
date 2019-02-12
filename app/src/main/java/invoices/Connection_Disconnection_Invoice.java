@@ -28,6 +28,7 @@ import common.AppController;
 import common.Common;
 
 import common.WebServiceAcess;
+import consumption.ConsumptionList;
 import contracts.Contracts;
 import contracts.Search;
 import interfaces.ListItemClickListner;
@@ -149,6 +150,10 @@ public class GetData extends AsyncTask<String,Void,String> {
                     listView.setAdapter(new ContractListAdapter(unblockedlist, Connection_Disconnection_Invoice.this));
                     progressBar.setVisibility(View.GONE);
                     contentView.setVisibility(View.VISIBLE);
+                }else{
+                    progressBar.setVisibility(View.GONE);
+                    Utils.showAlert(Connection_Disconnection_Invoice.this,"No data Found");
+
                 }
             } catch (Exception ex) {
                 ex.fillInStackTrace();

@@ -208,17 +208,17 @@ switch (v.getId())
                       }
 
 
-
                   }
 
                   if(list.size()>0)
-                  {for(int i=0;i<list.size();i++)
                   {
-                      Log.d("contractId from list",list.get(i).getContract_Meternumber());
-                  }
                       listView.setAdapter(new ContractListAdapter(list,Contracts.this));
                       progressBar.setVisibility(View.GONE);
                       contentView.setVisibility(View.VISIBLE);
+                  }else{
+                      progressBar.setVisibility(View.GONE);
+                      Utils.showAlert(Contracts.this,"No data Found");
+
                   }
               }catch (Exception ex)
               {

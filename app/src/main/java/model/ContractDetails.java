@@ -23,6 +23,8 @@ public class ContractDetails {
  public  String Initial_meter_reading="";
  public String Deposit_Invoice="";
  public  String Connection_Disconnection_Invoice="";
+    public  int block_unblockflag  ;
+    public  int closemeterreadingvalue;
  public String contractNumber="";
  public ContractDetails(JSONArray jsonArray)
  {
@@ -71,11 +73,27 @@ public class ContractDetails {
              {
                  Connection_Disconnection_Invoice=jsonObject.isNull("content")?"":jsonObject.getString("content");
              }
+             else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.block_unblockflag))
+             {
+                 block_unblockflag=jsonObject.isNull("content")?0:jsonObject.getInt("content");
+             }
+             else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.closemeterreadingvalue))
+             {
+                 closemeterreadingvalue=jsonObject.isNull("content")?0:jsonObject.getInt("content");
+             }
          }}catch (Exception ex)
      {
          ex.fillInStackTrace();
      }
  }
+
+    public int getBlock_unblockflag() {
+        return block_unblockflag;
+    }
+
+    public int getClosemeterreadingvalue() {
+        return closemeterreadingvalue;
+    }
 
     public String getConnection_charges() {
         return Connection_charges;

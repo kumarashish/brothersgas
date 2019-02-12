@@ -220,7 +220,11 @@ public void showAlert(String message)
         Pressure_Factor.setText(model.getPressure_Factor());
         Initial_meter_reading.setText(model.getInitial_meter_reading());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
-        Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
-
+        if (model.getBlock_unblockflag() == 2) {
+            block.setVisibility(View.INVISIBLE);
+        }
+        if (model.getClosemeterreadingvalue() == 2) {
+            cancel.setVisibility(View.INVISIBLE);
+        }
     }
 }

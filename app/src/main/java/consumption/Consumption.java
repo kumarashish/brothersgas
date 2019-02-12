@@ -1,6 +1,8 @@
 package consumption;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -18,6 +21,7 @@ import com.brothersgas.R;
 import com.whygraphics.multilineradiogroup.MultiLineRadioGroup;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import adapter.CustomListAdapter;
@@ -70,6 +74,9 @@ public class Consumption  extends Activity implements View.OnClickListener {
             @BindView(R.id.submit)
             Button submit;
    public static  model.ContractDetails model;
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private int year, month, day;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,13 +86,57 @@ public class Consumption  extends Activity implements View.OnClickListener {
         ButterKnife.bind(this);
         submit.setOnClickListener(this);
         back.setOnClickListener(this);
+        currentDate.setOnClickListener(this);
         setData();
         meterstatus.check(normal.getId());
-
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
     }
 
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this,
+                    myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    showDate(arg1, arg2+1, arg3);
+                }
+            };
+
+    private void showDate(int year, int month, int day) {
+        String date=Integer.toString(year);
+        if(month<10)
+        {
+            date+="-"+"0"+month;
+        }else{
+            date+="-"+month;
+        }
+
+        if(day<10)
+        {
+            date+="-"+"0"+day;
+        }else{
+            date+="-"+day;
+        }
+       currentDate.setText(date);
+    }
 
     @Override
     public void onClick(View v) {
@@ -95,6 +146,9 @@ public class Consumption  extends Activity implements View.OnClickListener {
                 break;
             case R.id.submit:
                 showAlert("Invoice and Delivery Note has been generated");
+            case R.id.currentDate:
+                showDialog(999);
+                break;
         }
 
     }

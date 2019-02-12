@@ -1,9 +1,11 @@
 package consumption;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -154,6 +156,10 @@ public class ConsumptionList   extends Activity implements View.OnClickListener 
                         listView.setAdapter(new ContractListAdapter(unblockedlist, ConsumptionList.this));
                         progressBar.setVisibility(View.GONE);
                         contentView.setVisibility(View.VISIBLE);
+                    }else{
+                        progressBar.setVisibility(View.GONE);
+                        Utils.showAlert(ConsumptionList.this,"No data Found");
+
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();

@@ -148,6 +148,10 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
                         listView.setAdapter(new ContractListAdapter(unblockedlist, Block_Cancel.this));
                         progressBar.setVisibility(View.GONE);
                         contentView.setVisibility(View.VISIBLE);
+                    }else{
+                        progressBar.setVisibility(View.GONE);
+                        Utils.showAlert(Block_Cancel.this,"No data Found");
+
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
