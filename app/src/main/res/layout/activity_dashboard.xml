@@ -215,39 +215,96 @@ android:layout_weight="0.5"
                 android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
-            <RelativeLayout
+
+
+            <LinearLayout
+
+                android:orientation="horizontal"
+                android:weightSum="2.1"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
+                    <LinearLayout
+                        android:orientation="vertical"
 
-                    android:src="@drawable/payment_icon"
-                    android:layout_marginTop="30dp"
-                    android:layout_gravity="center"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp" />
-                <TextView
-                    android:textAllCaps="true"
-                    android:fontFamily="@font/aller_rg"
-                    android:textSize="18dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:textColor="@color/dashboard_textcolor"
-                    android:text="Payment Receipt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageView
+
+                            android:src="@drawable/payment_icon"
+                            android:layout_marginTop="30dp"
+                            android:layout_gravity="center"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+                        <TextView
+                            android:textAllCaps="true"
+                            android:fontFamily="@font/aller_rg"
+                            android:textSize="18dp"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:textColor="@color/dashboard_textcolor"
+                            android:text="Payment Receipt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </RelativeLayout>
                 <View
-                    android:id="@+id/payment"
-                    android:layout_width="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"/>
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+
+                        android:orientation="vertical"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:src="@drawable/enquiry"
+                            android:layout_marginTop="30dp"
+                            android:layout_gravity="center"
+
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+                        <TextView
+                            android:fontFamily="@font/aller_rg"
+                            android:textSize="18dp"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:textAllCaps="true"
+                            android:textColor="@color/dashboard_textcolor"
+                            android:text="Inquiry"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/enquiry"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+            <View
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
 
         </LinearLayout>
 

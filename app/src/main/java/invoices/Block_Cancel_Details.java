@@ -78,7 +78,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         ButterKnife.bind(this);
         contractId = getIntent().getStringExtra("Data");
         block.setText("Block");
-        cancel.setText("Cancel");
+        cancel.setText("Close");
         controller = (AppController) getApplicationContext();
         footer.setVisibility(View.VISIBLE);
         block.setOnClickListener(this);

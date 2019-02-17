@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -70,6 +71,13 @@ public class ContractDetails extends Activity implements View.OnClickListener{
     android.widget.TextView Connection_Disconnection_Invoice;
     @BindView(R.id.back_button)
     Button back;
+    @BindView(R.id.edit)
+    Button edit_button;
+    LinearLayout footer;
+    @BindView(R.id.dep_invoice)
+    Button block;
+    @BindView(R.id.con_dcon_invoice)
+    Button submit;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +87,8 @@ public class ContractDetails extends Activity implements View.OnClickListener{
         webServiceAcess=new WebServiceAcess();
         ButterKnife.bind(this);
         back.setOnClickListener(this);
+        edit_button.setOnClickListener(this);
+        submit.setText("Submit");
         if(Utils.isNetworkAvailable(ContractDetails.this))
         {    progressBar.setVisibility(View.VISIBLE);
             mainLayout.setVisibility(View.GONE);
@@ -92,6 +102,11 @@ public class ContractDetails extends Activity implements View.OnClickListener{
         {
             case R.id.back_button:
                 finish();
+                break;
+            case R.id.edit:
+                Initial_meter_reading.setFocusable(true);
+                Initial_meter_reading.setEnabled(true);
+                 submit.setVisibility(View.VISIBLE);
                 break;
         }
     }

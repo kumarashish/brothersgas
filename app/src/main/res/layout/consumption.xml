@@ -70,6 +70,39 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+
+                    android:textSize="14dp"
+                    android:textColor="@color/grey"
+                    android:text="Consumer"
+                    android:fontFamily="@font/light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="12dp"
+                    android:id="@+id/consumer"
+                    android:text=""
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:textColor="@color/md_gray_light"
+                    android:background="@drawable/light_grey_box"
+
+                    android:fontFamily="@font/light"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <TextView
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
@@ -133,39 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
             </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
 
-                    android:textSize="14dp"
-                    android:textColor="@color/grey"
-                    android:text="Consumer"
-                    android:fontFamily="@font/light"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <EditText
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textSize="12dp"
-                    android:id="@+id/consumer"
-                    android:text=""
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:textColor="@color/md_gray_light"
-                    android:background="@drawable/light_grey_box"
-
-                    android:fontFamily="@font/light"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp" />
-            </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -223,24 +224,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <RadioButton
-                    android:id="@+id/no_meter"
-                    android:textColor="@color/grey"
-                    android:text="No Meter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <RadioButton
-                    android:id="@+id/sh_meter"
-                    android:textColor="@color/grey"
-                    android:text="Shared Meter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <RadioButton
                     android:id="@+id/meter_prblm"
                     android:textColor="@color/grey"
                     android:text="Meter Problem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
             </com.whygraphics.multilineradiogroup.MultiLineRadioGroup>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/issueList"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <CheckBox
+                android:text="Issue 1"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <CheckBox
+                android:text="Issue 2"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <CheckBox
+                android:text="Issue 3"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
             <LinearLayout
 
                 android:orientation="vertical"
@@ -449,109 +461,11 @@
 
             <LinearLayout
                 android:layout_marginTop="10dp"
-                android:background="@color/BorderLineColor"
+
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
 
-                        android:textSize="14dp"
-                        android:textColor="@color/grey"
-                        android:text="Balance Reading"
-                        android:fontFamily="@font/light"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <EditText
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:gravity="center_vertical"
-                        android:focusable="false"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:textSize="12dp"
-                        android:text=""
-                        android:inputType="text"
-                        android:imeOptions="actionNext"
-                        android:textColor="@color/md_gray_light"
-                        android:background="@drawable/light_grey_box"
-
-                        android:fontFamily="@font/light"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-
-                        android:textSize="14dp"
-                        android:textColor="@color/grey"
-                        android:text="Unit"
-                        android:fontFamily="@font/light"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <EditText
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:gravity="center_vertical"
-                        android:focusable="false"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:textSize="12dp"
-                        android:text=""
-                        android:inputType="text"
-                        android:imeOptions="actionNext"
-                        android:textColor="@color/md_gray_light"
-                        android:background="@drawable/light_grey_box"
-
-                        android:fontFamily="@font/light"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-
-                        android:textSize="14dp"
-                        android:textColor="@color/grey"
-                        android:text="Total amount"
-                        android:fontFamily="@font/light"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <EditText
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:gravity="center_vertical"
-                        android:focusable="false"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:textSize="12dp"
-                        android:text=""
-                        android:inputType="text"
-                        android:imeOptions="actionNext"
-                        android:textColor="@color/md_gray_light"
-                        android:background="@drawable/light_grey_box"
-
-                        android:fontFamily="@font/light"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp" />
-                </LinearLayout>
                 <Button
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/light"

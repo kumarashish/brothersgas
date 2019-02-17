@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">BrothersGas</string>
     <string name="invoice">Dep &amp; Conn/Discon Inv</string>
-    <string name="block_cancel">Block &amp; Cancel</string>
+    <string name="block_cancel">Block &amp; Close</string>
     <string-array name="contract_type">
-        <item>Unblocked</item>
+        <item>Active</item>
         <item>Blocked</item>
-        <item>Cancelled</item>
+        <item>Closed</item>
         <item>All</item>
     </string-array>
 </resources>

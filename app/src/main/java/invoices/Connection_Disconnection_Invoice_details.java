@@ -200,13 +200,14 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         Initial_meter_reading.setText(model.getInitial_meter_reading());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
-        if(model.getDeposit_Invoice().length()>0)
-        {
-            dep_Invoice.setVisibility(View.GONE);
-        }
-        if(model.getConnection_Disconnection_Invoice().length()>0)
+        dep_Invoice .setVisibility(View.INVISIBLE);
+        if((model.getDeposit_Invoice().length()>0)||(model.getConnection_Disconnection_Invoice().length()>0))
         {
             con_dconInvoice.setVisibility(View.GONE);
+        }
+         else{
+            con_dconInvoice.setVisibility(View.VISIBLE);
+
         }
 
     }

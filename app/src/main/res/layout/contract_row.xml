@@ -17,7 +17,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:layout_width="match_parent"
-                android:layout_height="70dp">
+                android:layout_height="100dp">
                 <View
                     android:background="@drawable/green_column"
                     android:layout_width="10dp"
@@ -32,9 +32,9 @@
             <TextView
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-android:textSize="14dp"
+                android:textSize="14dp"
                 android:textColor="@color/grey"
-              android:text="Contract/Meter Number"
+                android:text="Contract/Meter Number"
                 android:fontFamily="@font/light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -44,6 +44,24 @@ android:textSize="14dp"
                 android:text=""
                 android:textColor="@color/md_gray_light"
                 android:id="@+id/meter_number"
+                android:fontFamily="@font/light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textSize="14dp"
+                android:textColor="@color/grey"
+                android:text="Real Estate Owner"
+                android:fontFamily="@font/light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:textSize="12dp"
+                android:text="xyz"
+                android:textColor="@color/md_gray_light"
+
                 android:fontFamily="@font/light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -74,6 +92,24 @@ android:textSize="14dp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/md_gray_light"
                         android:id="@+id/customer_name"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:textSize="14dp"
+                        android:textColor="@color/grey"
+                        android:text="Project"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:textSize="12dp"
+                        android:text="Abc"
+                        android:textColor="@color/md_gray_light"
                         android:fontFamily="@font/light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

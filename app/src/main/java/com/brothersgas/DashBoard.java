@@ -69,7 +69,7 @@ View contract;
                 startActivity(new Intent(DashBoard.this, Block_Cancel.class));
                 break;
             case R.id.consumption:
-                startActivity(new Intent(DashBoard.this, ConsumptionList.class));
+                startActivity(new Intent(DashBoard.this, Consumption.class));
                 break;
             case R.id.payment:
                 startActivity(new Intent(DashBoard.this, InvoiceList.class));
