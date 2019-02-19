@@ -60,7 +60,8 @@ public class ContractListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.contract_row, null, true);
             holder.meter_number=(TextView)convertView.findViewById(R.id.meter_number);
             holder.customer_name=(TextView)convertView.findViewById(R.id.customer_name);
-
+            holder.owner=(TextView)convertView.findViewById(R.id.owner);
+            holder.project=(TextView)convertView.findViewById(R.id.project);
             holder.detailsView=(View)convertView.findViewById(R.id.detailsView);
 
         } else {
@@ -68,7 +69,9 @@ public class ContractListAdapter extends BaseAdapter {
 
         }
         holder.meter_number.setText(model.getContract_Meternumber());
-        holder.customer_name.setText(model.getCustomername()+" ("+model.getCustomercode()+")");
+        holder.customer_name.setText(model.getCustomername()+" x("+model.getCustomercode()+")");
+        holder.owner.setText(model.getOwner());
+        holder.project.setText(model.getProject());
         holder.detailsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +86,7 @@ public class ContractListAdapter extends BaseAdapter {
 
     public class ViewHolder{
        TextView meter_number;
-        TextView customer_name;
+        TextView customer_name,owner,project;
         View detailsView;
     }
 }

@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
@@ -55,7 +56,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
     @BindView(R.id.Pressure_Factor)
     android.widget.TextView Pressure_Factor;
     @BindView(R.id.Initial_meter_reading)
-    android.widget.TextView Initial_meter_reading;
+    EditText Initial_meter_reading;
     @BindView(R.id.Deposit_Invoice)
     android.widget.TextView Deposit_Invoice;
     @BindView(R.id.Connection_Disconnection_Invoice)

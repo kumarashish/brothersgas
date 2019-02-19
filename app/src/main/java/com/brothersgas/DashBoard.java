@@ -18,6 +18,7 @@ import contracts.Contracts;
 import invoices.Block_Cancel;
 import invoices.Connection_Disconnection_Invoice;
 import payment.InvoiceList;
+import utils.Utils;
 
 /**
  * Created by ashish.kumar on 23-01-2019.
@@ -60,19 +61,43 @@ View contract;
                 popupMenu();
                 break;
             case R.id.contract:
-                startActivity(new Intent(DashBoard.this, Contracts.class));
+                if(controller.getUserRole().getContractsAcess()==2) {
+                    startActivity(new Intent(DashBoard.this, Contracts.class));
+                }else{
+                    Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
+                }
                 break;
             case R.id.con_discon_invoice:
-                startActivity(new Intent(DashBoard.this, Connection_Disconnection_Invoice.class));
+                if(controller.getUserRole().getAdminAcess()==1) {
+                    startActivity(new Intent(DashBoard.this, Connection_Disconnection_Invoice.class));
+                }else{
+                    Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
+                }
+
                 break;
             case R.id.block_cancel:
-                startActivity(new Intent(DashBoard.this, Block_Cancel.class));
+                if(controller.getUserRole().getBlockAcess()==2) {
+                    startActivity(new Intent(DashBoard.this, Block_Cancel.class));
+                }else{
+                    Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
+                }
+
                 break;
             case R.id.consumption:
-                startActivity(new Intent(DashBoard.this, Consumption.class));
+                if(controller.getUserRole().getConsumptionsAcess()==2) {
+                    startActivity(new Intent(DashBoard.this, Consumption.class));
+                }else{
+                    Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
+                }
+
                 break;
             case R.id.payment:
-                startActivity(new Intent(DashBoard.this, InvoiceList.class));
+                if(controller.getUserRole().getAdminAcess()==2) {
+                    startActivity(new Intent(DashBoard.this, InvoiceList.class));
+                }else{
+                    Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
+                }
+
                 break;
         }
 

@@ -56,8 +56,12 @@ public class CustomListAdapter extends ArrayAdapter {
 ContractModel model=getItem(position);
         TextView strName = (TextView) view.findViewById(R.id.customer_name);
         TextView strNumber = (TextView) view.findViewById(R.id.meter_number);
+        TextView owner  = (TextView) view.findViewById(R.id.owner);
+        TextView project = (TextView) view.findViewById(R.id.project);
         strName.setText(model.getCustomername()+" ("+model.getCustomercode()+")");
         strNumber.setText(model.getContract_Meternumber());
+        owner.setText(model.getOwner());
+        project.setText(model.getProject());
         return view;
     }
 

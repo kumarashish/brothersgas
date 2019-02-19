@@ -18,6 +18,7 @@ public class PrefManager {
     // shared pref mode
     int PRIVATE_MODE = 0;
     private static final String PREF_NAME = "BrothersGas";
+    private static final String USER_ROLE = "BrothersGasUserRole";
     private static final String LoggedIn = "BrothersGasLoggedIn";
     private static final String loggedInUserName="BrothersGasLoggedInUserName";
     private static final String loggedInUserPassword="BrothersGasLoggedInUserPassword";
@@ -31,7 +32,15 @@ public class PrefManager {
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
+    public void setUserRole(String role)
+    {
+        editor.putString(USER_ROLE,role);
+        editor.commit();
+    }
 
+    public  String getUserRole() {
+        return pref.getString(USER_ROLE,"");
+    }
 
     public SharedPreferences getPref() {
         return pref;
@@ -44,6 +53,8 @@ public class PrefManager {
         editor.putBoolean(LoggedIn , isloggedIn);
         editor.commit();
     }
+
+
 
     public boolean isUserLoggedIn()
     {

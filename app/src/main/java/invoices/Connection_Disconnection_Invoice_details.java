@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -55,7 +56,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     @BindView(R.id.Pressure_Factor)
     android.widget.TextView Pressure_Factor;
     @BindView(R.id.Initial_meter_reading)
-    android.widget.TextView Initial_meter_reading;
+    EditText Initial_meter_reading;
     @BindView(R.id.Deposit_Invoice)
     android.widget.TextView Deposit_Invoice;
     @BindView(R.id.Connection_Disconnection_Invoice)
@@ -94,19 +95,22 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
             case R.id.back_button:
                 finish();
                 break;
-            case R.id.dep_invoice:
-                progressBar2.setVisibility(View.VISIBLE);
-                footer.setVisibility(View.GONE);
-                new Block().execute(new String[]{"1"});
-                break;
+
             case R.id.con_dcon_invoice:
                 progressBar2.setVisibility(View.VISIBLE);
                 footer.setVisibility(View.GONE);
-                new Block().execute(new String[]{"2"});
+                if(model.getDeposit_Invoice().length()==0)
+                {
+                    new GenerateInvoice().execute(new String[]{"1"});
+                }else{
+                    new GenerateInvoice().execute(new String[]{"2"});
+                }
+
+
                 break;
         }
     }    /*-------------------------------------------------------------------block-------------------------------------------------------*/
-    public class Block extends AsyncTask<String, Void, String> {
+    public class GenerateInvoice extends AsyncTask<String, Void, String> {
         String calledMethod;
         @Override
         protected String doInBackground(String... strings) {
@@ -126,7 +130,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     JSONObject item = jsonArray.getJSONObject(1);
                     JSONObject Fld = item.getJSONObject("FLD");
                     String message =Fld.isNull("content")?"No Message From API": Fld.getString("content");
-                    showAlert(message);
+                    Utils.showAlert(Connection_Disconnection_Invoice_details.this,message);
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
@@ -136,23 +140,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
             footer.setVisibility(View.VISIBLE);
         }
     }
-    public void showAlert(String message)
-    {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(Connection_Disconnection_Invoice_details.this);
-        builder1.setMessage(message);
-        builder1.setCancelable(true);
-        builder1.setNeutralButton(
-                "Ok",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        finish();
-                    }
-                });
 
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-    }
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetData extends AsyncTask<String, Void, String> {
         @Override
@@ -174,7 +162,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     if (model != null) {
                         setValue();
                         progressBar.setVisibility(View.GONE);
-                        mainLayout.setVisibility(View.VISIBLE);
+                        footer.setVisibility(View.GONE);
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
@@ -206,6 +194,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
             con_dconInvoice.setVisibility(View.GONE);
         }
          else{
+            con_dconInvoice.setText("Generate Invoice");
             con_dconInvoice.setVisibility(View.VISIBLE);
 
         }

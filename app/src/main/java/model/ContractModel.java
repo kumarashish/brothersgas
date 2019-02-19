@@ -16,6 +16,9 @@ public class ContractModel {
     public  int closemeterreadingvalue;
     public   String depositInvoice="";
     public  String connection_discconectionInvoice="";
+    public   String project="";
+    public  String owner="";
+    public  String ownerDesc="";
 
 
     public ContractModel(JSONArray jsonArray)
@@ -60,12 +63,35 @@ public class ContractModel {
                 else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.connection_discconectionInvoice))
                 {
                     connection_discconectionInvoice=jsonObject.isNull("content")?"":jsonObject.getString("content");
+                }else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.project))
+                {
+                     project=jsonObject.isNull("content")?"":jsonObject.getString("content");
+                }
+                else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.owner))
+                {
+                    owner=jsonObject.isNull("content")?"":jsonObject.getString("content");
+                }
+                else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.ownerDescription))
+                {
+                    ownerDesc=jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }
             }
         }catch (Exception ex)
         {
             ex.fillInStackTrace();
         }
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public String getOwnerDesc() {
+        return ownerDesc;
+    }
+
+    public String getProject() {
+        return project;
     }
 
     public  String getConnection_discconectionInvoice() {

@@ -45,6 +45,10 @@ public class WebServiceAcess {
                 jsonObject.put("I_CONTNO", value[0]);
                 jsonObject.put("I_FLG", value[1]);
                 break;
+            case Common.UpdateInitialReading:
+                jsonObject.put("I_CONTNO", value[0]);
+                jsonObject.put("I_INITRE", value[1]);
+                break;
         }
     } catch (Exception e) {
         System.out.println("Exception " + e);
@@ -112,7 +116,7 @@ public class WebServiceAcess {
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
         //  request.addProperty("publicName", "YMTRLOGIN");
         request.addProperty("publicName", publicName);
-        request.addProperty("listSize", 10);
+        request.addProperty("listSize", 999);
         SoapObject callcontext = new SoapObject("", "callContext");
         // Set all input params
         callcontext.addProperty("codeLang", "ENG");

@@ -10,6 +10,7 @@ import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import common.AppController;
 import common.Common;
 import common.TextView;
 import common.WebServiceAcess;
+import invoices.Block_Cancel_Details;
 import model.ContractModel;
 import utils.Utils;
 
@@ -64,20 +66,23 @@ public class ContractDetails extends Activity implements View.OnClickListener{
     @BindView(R.id.Pressure_Factor)
     android.widget.TextView Pressure_Factor;
     @BindView(R.id.Initial_meter_reading)
-    android.widget.TextView Initial_meter_reading;
+    EditText Initial_meter_reading;
     @BindView(R.id.Deposit_Invoice)
     android.widget.TextView Deposit_Invoice;
     @BindView(R.id.Connection_Disconnection_Invoice)
     android.widget.TextView Connection_Disconnection_Invoice;
     @BindView(R.id.back_button)
     Button back;
+    @BindView(R.id.footer)
+    LinearLayout footer;
     @BindView(R.id.edit)
     Button edit_button;
-    LinearLayout footer;
     @BindView(R.id.dep_invoice)
-    Button block;
+    Button dep_invoice;
     @BindView(R.id.con_dcon_invoice)
     Button submit;
+    @BindView(R.id.progressBar2)
+    ProgressBar progressBar2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +94,9 @@ public class ContractDetails extends Activity implements View.OnClickListener{
         back.setOnClickListener(this);
         edit_button.setOnClickListener(this);
         submit.setText("Submit");
+        submit.setOnClickListener(this);
+        edit_button.setVisibility(View.VISIBLE);
+        dep_invoice.setVisibility(View.INVISIBLE);
         if(Utils.isNetworkAvailable(ContractDetails.this))
         {    progressBar.setVisibility(View.VISIBLE);
             mainLayout.setVisibility(View.GONE);
@@ -106,11 +114,66 @@ public class ContractDetails extends Activity implements View.OnClickListener{
             case R.id.edit:
                 Initial_meter_reading.setFocusable(true);
                 Initial_meter_reading.setEnabled(true);
+                Initial_meter_reading.requestFocus();
                  submit.setVisibility(View.VISIBLE);
+                 footer.setVisibility(View.VISIBLE);
+                 if(Initial_meter_reading.getText().length()>0)
+                 {
+                     Initial_meter_reading .setSelection(Initial_meter_reading.getText().length());
+                 }
                 break;
+            case R.id.con_dcon_invoice:
+                if(Initial_meter_reading.getText().length()>0)
+                {
+                    footer.setVisibility(View.GONE);
+                    progressBar2.setVisibility(View.VISIBLE);
+                    new Update().execute(new String[]{Common.UpdateInitialReading});
+
+                }
+                break;
+
         }
     }
+    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+    public class Update extends AsyncTask<String, Void, String> {
 
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String result = webServiceAcess.runRequest(Common.runAction,strings[0], new String[]{contractId,Initial_meter_reading.getText().toString()});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: "+s, null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONObject Fld = item.getJSONObject("FLD");
+
+                        int status = Fld.getInt("content");
+                    String message =Fld.isNull("content")?"Message not available": Fld.getString("content");
+
+
+                        Utils.showAlertNormal(ContractDetails.this,message);
+
+
+
+
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+            }else{
+                Utils.showAlertNormal(ContractDetails.this,"No message received from api");
+            }
+            progressBar2.setVisibility(View.GONE);
+            footer.setVisibility(View.VISIBLE);
+        }
+    }
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetData extends AsyncTask<String,Void,String> {
         @Override

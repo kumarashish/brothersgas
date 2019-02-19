@@ -32,6 +32,7 @@ import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 import common.WebServiceAcess;
+import model.UserRole;
 import utils.Configuration;
 import utils.Utils;
 
@@ -200,7 +201,7 @@ public class Login extends Activity implements View.OnClickListener {
             Log.e("value", "onPostExecute: ", null);
             if(s.equalsIgnoreCase("Success"))
             {     controller.getManager().setConfiguration(ip,port,alias,name,password);
-                  Configuration.setConfiguration(ip,port,alias,name,password);
+                 Configuration.setConfiguration(ip,port,alias,name,password);
                 saveBtn.setVisibility(View.VISIBLE);
                 resetBtn.setVisibility(View.VISIBLE);
                 dialogProgressBar.setVisibility(View.GONE);
@@ -226,14 +227,16 @@ public class Login extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String s) {
             Log.e("value", "onPostExecute: ", null);
-            if(Utils.isUserLoggedIn(s))
+            UserRole model=new UserRole(s);
+            if(model.getStatus()==2)
             {   controller.getManager().setUserLoggedIn(true);
+                controller.setRole(s);
                 controller.getManager().setLoggedInUserDetails(edt_username.getText().toString(),edt_password.getText().toString());
                 startActivity(new Intent(Login.this,DashBoard.class));
                 finish();
-                Toast.makeText(Login.this,"Logged in sucessfully.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this,model.getMessage(),Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(Login.this,"Invalid credentials! Please enter valid Username and Password",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this,model.getMessage(),Toast.LENGTH_SHORT).show();
             }
 
             btn_login.setVisibility(View.VISIBLE);

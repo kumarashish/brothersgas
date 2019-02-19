@@ -59,9 +59,9 @@
             <TextView
                 android:layout_marginLeft="10dp"
                 android:textSize="12dp"
-                android:text="xyz"
+                android:text=""
                 android:textColor="@color/md_gray_light"
-
+                android:id="@+id/owner"
                 android:fontFamily="@font/light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -106,9 +106,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/project"
                         android:layout_marginLeft="10dp"
                         android:textSize="12dp"
-                        android:text="Abc"
+                        android:text=""
                         android:textColor="@color/md_gray_light"
                         android:fontFamily="@font/light"
                         android:layout_width="match_parent"

@@ -5,9 +5,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,25 +20,35 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brothersgas.R;
 import com.whygraphics.multilineradiogroup.MultiLineRadioGroup;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import adapter.ContractListAdapter;
 import adapter.CustomListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
+import common.Common;
 import common.WebServiceAcess;
 import contracts.ContractDetails;
 import contracts.Search;
 import interfaces.ListItemClickListner;
 import invoices.Block_Cancel_Details;
+import invoices.Connection_Disconnection_Invoice;
 import invoices.Connection_Disconnection_Invoice_details;
 import model.ContractModel;
+import utils.Utils;
 
 public class Consumption  extends Activity implements View.OnClickListener {
     AppController controller;
@@ -51,7 +63,7 @@ public class Consumption  extends Activity implements View.OnClickListener {
     @BindView(R.id.date)
     EditText date;
     @BindView(R.id.consumer)
-    EditText consumer;
+    AutoCompleteTextView consumer;
     @BindView(R.id.address)
     EditText address;
 
@@ -72,12 +84,16 @@ public class Consumption  extends Activity implements View.OnClickListener {
     EditText currentDate;
     @BindView(R.id.submit)
     Button submit;
-    public static  model.ContractDetails model;
+    public static model.ContractDetails model;
     private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
     @BindView(R.id.issueList)
     LinearLayout issueList;
+    @BindView(R.id.contentView)
+    ScrollView contentView;
+    ArrayList<ContractModel> list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,14 +113,18 @@ public class Consumption  extends Activity implements View.OnClickListener {
         meterstatus.setOnCheckedChangeListener(new MultiLineRadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ViewGroup viewGroup, RadioButton radioButton) {
-                if(radioButton.getId()==meterProblem.getId())
-                {
+                if (radioButton.getId() == meterProblem.getId()) {
                     issueList.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     issueList.setVisibility(View.GONE);
                 }
             }
         });
+        if (Utils.isNetworkAvailable(Consumption.this)) {
+            progressBar.setVisibility(View.VISIBLE);
+            contentView.setVisibility(View.GONE);
+            new GetData().execute();
+        }
 
 
     }
@@ -128,24 +148,22 @@ public class Consumption  extends Activity implements View.OnClickListener {
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
-                    showDate(arg1, arg2+1, arg3);
+                    showDate(arg1, arg2 + 1, arg3);
                 }
             };
 
     private void showDate(int year, int month, int day) {
-        String date=Integer.toString(year);
-        if(month<10)
-        {
-            date+="-"+"0"+month;
-        }else{
-            date+="-"+month;
+        String date = Integer.toString(year);
+        if (month < 10) {
+            date += "-" + "0" + month;
+        } else {
+            date += "-" + month;
         }
 
-        if(day<10)
-        {
-            date+="-"+"0"+day;
-        }else{
-            date+="-"+day;
+        if (day < 10) {
+            date += "-" + "0" + day;
+        } else {
+            date += "-" + day;
         }
         currentDate.setText(date);
     }
@@ -165,21 +183,21 @@ public class Consumption  extends Activity implements View.OnClickListener {
 
     }
 
-    public void setData()
-    {if(model!=null) {
-        contractNumber.setText(model.getContractNumber());
-        consumer.setText(model.getCustomer_value());
-        address.setText(model.getCustomer_Address());
-        date.setText(model.getContract_Date());
-        meterId.setText(model.getContractNumber());
-    }
+    public void setData() {
+        if (model != null) {
+            contractNumber.setText(model.getContractNumber());
+            consumer.setText(model.getCustomer_value());
+            address.setText(model.getCustomer_Address());
+            date.setText(model.getContract_Date());
+            meterId.setText(model.getContractNumber());
+        }
         Date d = new Date();
-        CharSequence s  = DateFormat.format("yyyy-MM-dd", d.getTime());
+        CharSequence s = DateFormat.format("yyyy-MM-dd", d.getTime());
         currentDate.setText(s);
 
     }
-    public void showAlert(String message)
-    {
+
+    public void showAlert(String message) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(Consumption.this);
         builder1.setMessage(message);
         builder1.setCancelable(true);
@@ -195,4 +213,80 @@ public class Consumption  extends Activity implements View.OnClickListener {
         AlertDialog alert11 = builder1.create();
         alert11.show();
     }
+
+    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+    public class GetData extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = webServiceAcess.queryRequest(Common.queryAction, Common.ContractList);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("LIN");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+
+                        if ((model.getBlock_unblockflag() != 2)) {
+
+                            if ((model.getDepositInvoice().length() == 0) || (model.getConnection_discconectionInvoice().length() == 0)) {
+                                list.add(model);
+                            }
+                        }
+                    }
+                    if (list.size() > 0) {
+                        CustomListAdapter adapter = new CustomListAdapter(Consumption.this, R.layout.contract_row, list);
+                        consumer.setAdapter(adapter);
+                        consumer.setOnItemClickListener(onItemClickListener);
+                        progressBar.setVisibility(View.GONE);
+                        contentView.setVisibility(View.VISIBLE);
+
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        Utils.showAlert(Consumption.this, "No data Found");
+
+                    }
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+            } else {
+                progressBar.setVisibility(View.GONE);
+                Utils.showAlert(Consumption.this, "Data not found");
+            }
+
+
+        }
+    }
+    public void setValue( ContractModel model)
+    {
+          consumer.setText(model.getCustomername());
+          contractNumber.setText(model.getContract_Meternumber());
+                  date.setText(model.getContactcreationdate());
+                  address.setText(model.getAddresscode());
+    }
+
+    private AdapterView.OnItemClickListener onItemClickListener =
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    Object item = adapterView.getItemAtPosition(i);
+                    if (item instanceof ContractModel) {
+                        ContractModel model = (ContractModel) item;
+                                   setValue(model);
+                    }
+
+                }
+            };
+
+
+    /*****************/
+    
 }

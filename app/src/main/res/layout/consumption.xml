@@ -60,6 +60,7 @@
         android:indeterminateTint="@color/colorPrimary"
         />
         <ScrollView
+            android:id="@+id/contentView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <LinearLayout
@@ -80,7 +81,7 @@
                     android:fontFamily="@font/light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                <EditText
+                <AutoCompleteTextView
                     android:paddingRight="5dp"
                     android:paddingLeft="5dp"
                     android:gravity="center_vertical"
@@ -260,6 +261,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <LinearLayout
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -359,6 +361,7 @@
                     android:layout_height="30dp" />
             </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
