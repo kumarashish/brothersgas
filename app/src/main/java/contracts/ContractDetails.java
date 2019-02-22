@@ -83,11 +83,14 @@ public class ContractDetails extends Activity implements View.OnClickListener{
     Button submit;
     @BindView(R.id.progressBar2)
     ProgressBar progressBar2;
+    @BindView(R.id.heading)
+    android.widget.TextView heading;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contract_details);
         contractId=getIntent().getStringExtra("Data");
+        heading.setText(contractId +"(Details)");
         controller=(AppController)getApplicationContext();
         webServiceAcess=new WebServiceAcess();
         ButterKnife.bind(this);

@@ -115,13 +115,13 @@ public class ConsumptionDetails  extends Activity implements View.OnClickListene
     }
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+
     public class GetData extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             String result = webServiceAcess.runRequest(Common.runAction, Common.ContractView, new String[]{contractId});
             return result;
         }
-
         @Override
         protected void onPostExecute(String s) {
             Log.e("value", "onPostExecute: ", null);
@@ -132,7 +132,6 @@ public class ConsumptionDetails  extends Activity implements View.OnClickListene
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
                     model = new model.ContractDetails(item.getJSONArray("FLD"));
-
                     if (model != null) {
                         model.setContractNumber(contractId);
                         setValue();
@@ -163,6 +162,5 @@ public class ConsumptionDetails  extends Activity implements View.OnClickListene
         Initial_meter_reading.setText(model.getInitial_meter_reading());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
-
-    }
+        }
 }

@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -67,14 +69,9 @@ public class Consumption  extends Activity implements View.OnClickListener {
     @BindView(R.id.address)
     EditText address;
 
-    @BindView(R.id.meter_Status)
-    MultiLineRadioGroup meterstatus;
-
-    @BindView(R.id.normal)
-    RadioButton normal;
 
     @BindView(R.id.meter_prblm)
-    RadioButton meterProblem;
+    CheckBox meterProblem;
 
     @BindView(R.id.meterId)
     EditText meterId;
@@ -105,15 +102,15 @@ public class Consumption  extends Activity implements View.OnClickListener {
         back.setOnClickListener(this);
         currentDate.setOnClickListener(this);
         setData();
-        meterstatus.check(normal.getId());
+
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        meterstatus.setOnCheckedChangeListener(new MultiLineRadioGroup.OnCheckedChangeListener() {
+        meterProblem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(ViewGroup viewGroup, RadioButton radioButton) {
-                if (radioButton.getId() == meterProblem.getId()) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
                     issueList.setVisibility(View.VISIBLE);
                 } else {
                     issueList.setVisibility(View.GONE);

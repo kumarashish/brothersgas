@@ -35,6 +35,7 @@ android:background="@color/white"       android:orientation="vertical"
                 android:textColor="@android:color/white"
                 android:textSize="18dp" />
             <Button
+
                 android:id="@+id/search"
                 android:backgroundTint="@color/white"
                 android:layout_marginRight="10dp"

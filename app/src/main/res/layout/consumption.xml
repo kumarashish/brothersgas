@@ -35,6 +35,7 @@
             android:textColor="@android:color/white"
             android:textSize="18dp" />
         <Button
+            android:visibility="gone"
             android:id="@+id/search"
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
@@ -211,27 +212,15 @@
                 android:fontFamily="@font/light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <com.whygraphics.multilineradiogroup.MultiLineRadioGroup
-                android:layout_marginTop="5dp"
-                android:id="@+id/meter_Status"
-                multi_line_radio_group:max_in_row="3"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RadioButton
-                    android:id="@+id/normal"
-                    android:textColor="@color/grey"
-                    android:text="Normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <RadioButton
+
+                <CheckBox
                     android:id="@+id/meter_prblm"
                     android:textColor="@color/grey"
                     android:text="Meter Problem"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-            </com.whygraphics.multilineradiogroup.MultiLineRadioGroup>
+
             <LinearLayout
                 android:visibility="gone"
                 android:id="@+id/issueList"
