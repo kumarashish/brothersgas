@@ -69,6 +69,8 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     Button dep_Invoice;
     @BindView(R.id.con_dcon_invoice)
     Button con_dconInvoice;
+    @BindView(R.id.heading)
+    android.widget.TextView heading;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +78,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
         contractId = getIntent().getStringExtra("Data");
+        heading.setText(contractId +"(Details)");
         controller = (AppController) getApplicationContext();
         footer.setVisibility(View.VISIBLE);
         con_dconInvoice.setOnClickListener(this);
@@ -128,9 +131,24 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
-                    JSONObject Fld = item.getJSONObject("FLD");
-                    String message =Fld.isNull("content")?"No Message From API": Fld.getString("content");
-                    Utils.showAlert(Connection_Disconnection_Invoice_details.this,message);
+                    JSONArray Fld = item.getJSONArray("FLD");
+                    JSONObject messageJsonObject=Fld.getJSONObject(2);
+                    JSONObject depJsonObject=Fld.getJSONObject(0);
+                    JSONObject conJsonObject=Fld.getJSONObject(1);
+                    String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
+                    String connInvoice=conJsonObject.isNull("content")?"": conJsonObject.getString("content");
+                    String depInvoice=depJsonObject.isNull("content")?"": depJsonObject.getString("content");
+                    if((message.contains("Invoice Already Exists")||message.contains("No Message From API")))
+
+                    {
+                        Utils.showAlert(Connection_Disconnection_Invoice_details.this, message);
+                    }else{
+
+                        model.setConnection_Disconnection_Invoice(connInvoice);
+                        model.setDeposit_Invoice(depInvoice);
+                        Print_Email.model=model;
+                        Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message);
+                    }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
@@ -162,7 +180,8 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     if (model != null) {
                         setValue();
                         progressBar.setVisibility(View.GONE);
-                        footer.setVisibility(View.GONE);
+
+                        mainLayout.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
@@ -189,7 +208,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
         dep_Invoice .setVisibility(View.INVISIBLE);
-        if((model.getDeposit_Invoice().length()>0)||(model.getConnection_Disconnection_Invoice().length()>0))
+        if((model.getDeposit_Invoice().length()>0)&&(model.getConnection_Disconnection_Invoice().length()>0))
         {
             con_dconInvoice.setVisibility(View.GONE);
         }
@@ -198,6 +217,6 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
             con_dconInvoice.setVisibility(View.VISIBLE);
 
         }
-
+        footer.setVisibility(View.VISIBLE);
     }
 }

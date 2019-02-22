@@ -93,6 +93,14 @@ public class ContractDetails {
      }
  }
 
+    public void setConnection_Disconnection_Invoice(String connection_Disconnection_Invoice) {
+        Connection_Disconnection_Invoice = connection_Disconnection_Invoice;
+    }
+
+    public void setDeposit_Invoice(String deposit_Invoice) {
+        Deposit_Invoice = deposit_Invoice;
+    }
+
     public String getCurrency() {
         return Currency;
     }

@@ -350,6 +350,7 @@
                         android:layout_height="wrap_content" />
                     <EditText
                         android:enabled="false"
+                        android:text="16dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"

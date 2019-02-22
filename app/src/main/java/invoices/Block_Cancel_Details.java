@@ -69,7 +69,8 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
     Button block;
     @BindView(R.id.con_dcon_invoice)
     Button cancel;
-
+    @BindView(R.id.heading)
+    android.widget.TextView heading;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
         contractId = getIntent().getStringExtra("Data");
+        heading.setText(contractId +"(Details)");
         block.setText("Block");
         cancel.setText("Close");
         controller = (AppController) getApplicationContext();

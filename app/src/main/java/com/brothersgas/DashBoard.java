@@ -61,14 +61,14 @@ View contract;
                 popupMenu();
                 break;
             case R.id.contract:
-                if(controller.getUserRole().getContractsAcess()==2) {
+                if((controller.getUserRole().getContractsAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
                     startActivity(new Intent(DashBoard.this, Contracts.class));
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
                 }
                 break;
             case R.id.con_discon_invoice:
-                if(controller.getUserRole().getAdminAcess()==1) {
+                if((controller.getUserRole().getConnection_DisconnectionAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
                     startActivity(new Intent(DashBoard.this, Connection_Disconnection_Invoice.class));
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
@@ -76,7 +76,7 @@ View contract;
 
                 break;
             case R.id.block_cancel:
-                if(controller.getUserRole().getBlockAcess()==2) {
+                if((controller.getUserRole().getBlockAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
                     startActivity(new Intent(DashBoard.this, Block_Cancel.class));
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
@@ -84,7 +84,7 @@ View contract;
 
                 break;
             case R.id.consumption:
-                if(controller.getUserRole().getConsumptionsAcess()==2) {
+                if((controller.getUserRole().getConsumptionsAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
                     startActivity(new Intent(DashBoard.this, Consumption.class));
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
@@ -92,11 +92,8 @@ View contract;
 
                 break;
             case R.id.payment:
-                if(controller.getUserRole().getAdminAcess()==2) {
+
                     startActivity(new Intent(DashBoard.this, InvoiceList.class));
-                }else{
-                    Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
-                }
 
                 break;
         }

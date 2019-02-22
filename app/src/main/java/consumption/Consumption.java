@@ -3,6 +3,7 @@ package consumption;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,12 +69,11 @@ public class Consumption  extends Activity implements View.OnClickListener {
     @BindView(R.id.consumer)
     AutoCompleteTextView consumer;
     @BindView(R.id.address)
-    EditText address;
-
-
+    EditText realEstateOwnerDescription;
+    @BindView(R.id.real_Estate_owner)
+    EditText realEstateOwner;
     @BindView(R.id.meter_prblm)
     CheckBox meterProblem;
-
     @BindView(R.id.meterId)
     EditText meterId;
     @BindView(R.id.previousDate)
@@ -90,6 +91,13 @@ public class Consumption  extends Activity implements View.OnClickListener {
     @BindView(R.id.contentView)
     ScrollView contentView;
     ArrayList<ContractModel> list = new ArrayList<>();
+    ProgressDialog progressDialog;
+@BindView(R.id.retype_currentReading)
+EditText retype_currentReading;
+@BindView(R.id.currentReading)
+EditText currentReading;
+@BindView(R.id.reason)
+    RadioGroup reason;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +109,9 @@ public class Consumption  extends Activity implements View.OnClickListener {
         submit.setOnClickListener(this);
         back.setOnClickListener(this);
         currentDate.setOnClickListener(this);
-        setData();
-
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -172,7 +181,28 @@ public class Consumption  extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.submit:
-                showAlert("Invoice and Delivery Note has been generated");
+             if(contractNumber.getText().length()>0)
+             {
+                 if((currentReading.getText().length()>0)&&(retype_currentReading.getText().length()>0))
+                 {
+                     if(currentReading.getText().toString().trim().equals(retype_currentReading.getText().toString().trim()))
+                     {
+                       new GenerateInvoice().execute();
+                     }else{
+                         Utils.showAlertNormal(Consumption.this,"Curent Reading and Retype Reading must be same");
+                     }
+                 }else{
+                     if(currentReading.getText().length()==0)
+                     {
+                         Utils.showAlertNormal(Consumption.this,"Please enter  Current Reading");
+                     }else {
+                         Utils.showAlertNormal(Consumption.this,"Please enter value in Retype Current Reading");
+                     }
+                 }
+             }else{
+                 Utils.showAlertNormal(Consumption.this,"Please select consumer");
+             }
+             break;
             case R.id.currentDate:
                 showDialog(999);
                 break;
@@ -180,19 +210,20 @@ public class Consumption  extends Activity implements View.OnClickListener {
 
     }
 
-    public void setData() {
-        if (model != null) {
-            contractNumber.setText(model.getContractNumber());
-            consumer.setText(model.getCustomer_value());
-            address.setText(model.getCustomer_Address());
-            date.setText(model.getContract_Date());
-            meterId.setText(model.getContractNumber());
-        }
-        Date d = new Date();
-        CharSequence s = DateFormat.format("yyyy-MM-dd", d.getTime());
-        currentDate.setText(s);
-
-    }
+//    public void setData() {
+//        if (model != null) {
+//            contractNumber.setText(model.getContractNumber());
+//            consumer.setText(model.getCustomer_value());
+//            address.setText(model.getCustomer_Address());
+//            date.setText(model.getContract_Date());
+//            meterId.setText(model.getContractNumber());
+//
+//        }
+//        Date d = new Date();
+//        CharSequence s = DateFormat.format("yyyy-MM-dd", d.getTime());
+//        currentDate.setText(s);
+//
+//    }
 
     public void showAlert(String message) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(Consumption.this);
@@ -261,12 +292,57 @@ public class Consumption  extends Activity implements View.OnClickListener {
 
         }
     }
+
+    /*-------------------------------------------------------------------getContractDetailsData-------------------------------------------------------*/
+    public class GetContractDetails extends AsyncTask<String,Void,String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result=webServiceAcess.runRequest(Common.runAction,Common.ContractView,  new String[]{  contractNumber.getText().toString().trim()});
+            return  result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if(s.length()>0)
+            {
+                try{
+                    JSONObject jsonObject=new JSONObject(s);
+                    JSONObject result=jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray=result.getJSONArray("GRP");
+                    JSONObject item=jsonArray.getJSONObject(1);
+                    model=new model.ContractDetails(item.getJSONArray("FLD"));
+                    if(model!=null)
+                    {
+                        progressDialog.cancel();
+
+                    }
+                }catch (Exception ex)
+                {
+                    ex.fillInStackTrace();
+                }
+            }else{
+                progressDialog.cancel();
+
+                Toast.makeText(Consumption.this,"Data not found",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     public void setValue( ContractModel model)
     {
-          consumer.setText(model.getCustomername());
-          contractNumber.setText(model.getContract_Meternumber());
+                 consumer.setText(model.getCustomername());
+                 contractNumber.setText(model.getContract_Meternumber());
                   date.setText(model.getContactcreationdate());
-                  address.setText(model.getAddresscode());
+                  realEstateOwner.setText(model.getOwnerDesc());
+                  realEstateOwnerDescription.setText(model.getOwnerDesc());
+        new GetContractDetails().execute();
     }
 
     private AdapterView.OnItemClickListener onItemClickListener =
@@ -284,6 +360,56 @@ public class Consumption  extends Activity implements View.OnClickListener {
             };
 
 
-    /*****************/
-    
+    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+    public class GenerateInvoice extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String meterProblemValue="1";
+            String reasonValue="";
+            if(meterProblem.isChecked()) {
+                meterProblemValue="2";
+                RadioButton radioButton=(RadioButton)findViewById(reason.getCheckedRadioButtonId());
+                reasonValue=radioButton.getText().toString();
+            }
+            String result = webServiceAcess.runRequest(Common.runAction, Common.GenerateDeliveryNote, new String[]{contractNumber.getText().toString(),currentReading.getText().toString(),retype_currentReading.getText().toString(),meterProblemValue,reasonValue});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONObject jsonObject1 = result.getJSONObject("GRP");
+                    JSONArray fld = jsonObject1.getJSONArray("FLD");
+                   JSONObject messageJSON=fld.getJSONObject(7);
+                    JSONObject deliveryNoteJSON=fld.getJSONObject(5);
+                    JSONObject invoiceNumberJSON=fld.getJSONObject(6);
+                    String deliveryNote=deliveryNoteJSON.isNull("content")?"":deliveryNoteJSON.getString("content");
+                    String invoiceNumber=invoiceNumberJSON.isNull("content")?"":invoiceNumberJSON.getString("content");
+                    String message=messageJSON.isNull("content")?"":messageJSON.getString("content");
+
+                    if(invoiceNumber.length()>0)
+                    {
+                        Utils.showAlertNavigateToPrintEmail(Consumption.this,message);
+
+                    }else{
+                        Utils.showAlertNormal(Consumption.this,message);
+
+                    }
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+            }
+            progressDialog.cancel();
+        }
+    }
 }

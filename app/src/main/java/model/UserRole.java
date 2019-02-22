@@ -8,6 +8,7 @@ import common.Common;
 public class UserRole {
     public int AdminAcess;
     public int ContractsAcess;
+    public int Connection_DisconnectionAcess;
     public int ConsumptionsAcess;
     public int BlockAcess;
     public int Status;
@@ -33,6 +34,10 @@ public class UserRole {
                     {
                         ContractsAcess=jsonObject.isNull("content")?1:jsonObject.getInt("content");
                     }
+                    else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.Connection_DisconnectionAcess))
+                    {
+                        Connection_DisconnectionAcess=jsonObject.isNull("content")?1:jsonObject.getInt("content");
+                    }
                     else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.ConsumptionsAcess))
                     {
                         ConsumptionsAcess=jsonObject.isNull("content")?1:jsonObject.getInt("content");
@@ -57,6 +62,10 @@ public class UserRole {
 
         }
 
+    }
+
+    public int getConnection_DisconnectionAcess() {
+        return Connection_DisconnectionAcess;
     }
 
     public int getAdminAcess() {

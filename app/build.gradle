@@ -21,6 +21,9 @@ android {
             maven {
                 url "https://jitpack.io"
             }
+            maven {
+            url 'https://dl.bintray.com/zahid/maven/'
+        }
         }
     }
     packagingOptions {
@@ -45,6 +48,7 @@ dependencies {
     implementation 'com.itextpdf:itextg:5.5.10'
     implementation 'com.github.Gavras:MultiLineRadioGroup:v1.0.0.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation 'com.kyanogen.signatureview:signature-view:1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

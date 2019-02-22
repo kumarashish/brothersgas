@@ -2,6 +2,8 @@
     <string name="app_name">BrothersGas</string>
     <string name="invoice">Dep &amp; Conn/Discon Inv</string>
     <string name="block_cancel">Block &amp; Close</string>
+    <string name="print_email">Print &amp; Email</string>
+    <string name="signature_hint"><u>Click here for signature</u></string>
     <string-array name="contract_type">
         <item>Active</item>
         <item>Blocked</item>

@@ -43,11 +43,20 @@ public class WebServiceAcess {
                 break;
             case Common.DepositInvoice:
                 jsonObject.put("I_CONTNO", value[0]);
-                jsonObject.put("I_FLG", value[1]);
+
                 break;
             case Common.UpdateInitialReading:
                 jsonObject.put("I_CONTNO", value[0]);
                 jsonObject.put("I_INITRE", value[1]);
+                break;
+            case Common.GenerateDeliveryNote:
+
+
+                jsonObject.put("I_CONTNO", value[0]);
+                jsonObject.put("I_CURRDNG", value[1]);
+                jsonObject.put("I_RETYPE", value[2]);
+                             jsonObject.put("I_METPROB", value[3]);
+                jsonObject.put("I_REASON", value[4]);
                 break;
         }
     } catch (Exception e) {

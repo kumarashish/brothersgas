@@ -25,6 +25,7 @@ public class Common {
     public static String project = "ZPROJECT";
 
 
+
     public static String Site_value = "O_SITE";
     public static String Customer_value = "O_CUST";
     public static String Contract_Date = "O_DATE";
@@ -41,6 +42,7 @@ public class Common {
 
     public static String AdminAcess="O_ADMIN";
     public static String ContractsAcess="O_CONTRS";
+    public static String Connection_DisconnectionAcess="O_CONDIS";
     public static String ConsumptionsAcess="O_CONSUM";
     public static String BlockAcess="O_BLKCLO";
     public static String Status="O_FLG";
@@ -57,8 +59,9 @@ public class Common {
     final public static String DepositInvoice="YMTRSINV";
     final public static String CancelContract="YMTRCLOSE";
     final public static String BlockUnBlock="YMTRBLOCK";
-    public static String GenerateDeliveryNote="YMTRSDHSIH";
+    final public static String GenerateDeliveryNote="YMTRSDHSIH";
     final public static String UpdateInitialReading="YMTRCSAVE";
+
 
     public static String runAction = "run";
     public static String queryAction = "query";

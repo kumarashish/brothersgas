@@ -89,11 +89,11 @@ public class ContractDetails extends Activity implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contract_details);
-        contractId=getIntent().getStringExtra("Data");
-        heading.setText(contractId +"(Details)");
         controller=(AppController)getApplicationContext();
         webServiceAcess=new WebServiceAcess();
         ButterKnife.bind(this);
+        contractId=getIntent().getStringExtra("Data");
+        heading.setText(contractId +"(Details)");
         back.setOnClickListener(this);
         edit_button.setOnClickListener(this);
         submit.setText("Submit");
@@ -139,7 +139,6 @@ public class ContractDetails extends Activity implements View.OnClickListener{
     }
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class Update extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... strings) {
 
@@ -157,16 +156,9 @@ public class ContractDetails extends Activity implements View.OnClickListener{
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
                     JSONObject Fld = item.getJSONObject("FLD");
-
                         int status = Fld.getInt("content");
                     String message =Fld.isNull("content")?"Message not available": Fld.getString("content");
-
-
                         Utils.showAlertNormal(ContractDetails.this,message);
-
-
-
-
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
