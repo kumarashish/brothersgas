@@ -62,7 +62,7 @@ public class Utils {
         AlertDialog alert11 = builder1.create();
         alert11.show();
     }
-    public static void showAlertNavigateToPrintEmail(final Activity act, String message)
+    public static void showAlertNavigateToPrintEmail(final Activity act, String message,final Class b)
     {
         AlertDialog.Builder builder1 = new AlertDialog.Builder( act);
         builder1.setMessage(message);
@@ -71,7 +71,7 @@ public class Utils {
                 "Ok",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                      act.startActivity(new Intent(act, Print_Email.class));
+                      act.startActivity(new Intent(act, b));
                         act.finish();
                     }
                 });

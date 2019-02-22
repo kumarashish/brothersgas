@@ -380,6 +380,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/previousReading"
                     android:focusable="false"
                     android:paddingRight="5dp"
                     android:paddingLeft="5dp"

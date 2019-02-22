@@ -39,6 +39,8 @@ public class Common {
     public static String Deposit_Invoice = "O_DEPINV";
     public static String Connection_Disconnection_Invoice = "O_CONDISINV";
     public static String Currency = "O_CUR";
+    public static String PreviousDate = "O_PREVDATE";
+    public static String PreviousReading = "O_PREVREAD";
 
     public static String AdminAcess="O_ADMIN";
     public static String ContractsAcess="O_CONTRS";

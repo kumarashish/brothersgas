@@ -147,7 +147,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                         model.setConnection_Disconnection_Invoice(connInvoice);
                         model.setDeposit_Invoice(depInvoice);
                         Print_Email.model=model;
-                        Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message);
+                        Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message,Print_Email.class);
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();

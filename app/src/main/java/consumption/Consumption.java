@@ -89,7 +89,10 @@ public class Consumption  extends Activity implements View.OnClickListener {
     @BindView(R.id.issueList)
     LinearLayout issueList;
     @BindView(R.id.contentView)
+
     ScrollView contentView;
+    @BindView(R.id.previousReading)
+            EditText previousReading;
     ArrayList<ContractModel> list = new ArrayList<>();
     ProgressDialog progressDialog;
 @BindView(R.id.retype_currentReading)
@@ -98,6 +101,7 @@ EditText retype_currentReading;
 EditText currentReading;
 @BindView(R.id.reason)
     RadioGroup reason;
+    ContractModel model2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -305,6 +309,8 @@ EditText currentReading;
                     if(model!=null)
                     {
                         progressDialog.cancel();
+                        previousDate.setText(model.getPreviousDate());
+                        previousReading.setText(model.getPreviousReading());
 
                     }
                 }catch (Exception ex)
@@ -326,7 +332,7 @@ EditText currentReading;
                   date.setText(model.getContactcreationdate());
                   realEstateOwner.setText(model.getOwner());
                   realEstateOwnerDescription.setText(model.getOwnerDesc());
-        //new GetContractDetails().execute();
+       new GetContractDetails().execute();
     }
 
     private AdapterView.OnItemClickListener onItemClickListener =
@@ -336,8 +342,8 @@ EditText currentReading;
 
                     Object item = adapterView.getItemAtPosition(i);
                     if (item instanceof ContractModel) {
-                        ContractModel model = (ContractModel) item;
-                                   setValue(model);
+                        model2 = (ContractModel) item;
+                                   setValue(model2);
                     }
 
                 }
@@ -377,13 +383,18 @@ EditText currentReading;
                    JSONObject messageJSON=fld.getJSONObject(7);
                     JSONObject deliveryNoteJSON=fld.getJSONObject(5);
                     JSONObject invoiceNumberJSON=fld.getJSONObject(6);
+
                     String deliveryNote=deliveryNoteJSON.isNull("content")?"":deliveryNoteJSON.getString("content");
                     String invoiceNumber=invoiceNumberJSON.isNull("content")?"":invoiceNumberJSON.getString("content");
                     String message=messageJSON.isNull("content")?"":messageJSON.getString("content");
 
                     if(invoiceNumber.length()>0)
-                    {
-                        Utils.showAlertNavigateToPrintEmail(Consumption.this,message);
+                    {model.setSales_DeliveryNumber(deliveryNote);
+                    model.setSales_InvoiceNumber(invoiceNumber);
+                    model.setCurrentReading(currentReading.getText().toString().trim());
+                    ConsumptionReceipt.detailsModel=model;
+                    ConsumptionReceipt.model=model2;
+                        Utils.showAlertNavigateToPrintEmail(Consumption.this,message,ConsumptionReceipt.class);
 
                     }else{
                         Utils.showAlertNormal(Consumption.this,message);

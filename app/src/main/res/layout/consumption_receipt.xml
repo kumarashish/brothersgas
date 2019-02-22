@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?><android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:multi_line_radio_group="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:background="@color/white"       android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@color/colorPrimary">
+
+            <Button
+                android:layout_alignParentLeft="true"
+                android:id="@+id/back_button"
+                android:tint="@color/white"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/back" />
+
+            <TextView
+                android:id="@+id/heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Consumption Receipt"
+                android:fontFamily="@font/fontnew"
+                android:textColor="@android:color/white"
+                android:textSize="18dp" />
+            <Button
+                android:visibility="gone"
+                android:id="@+id/search"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/search"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+        <View
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+        <ProgressBar
+            android:visibility="gone"
+            android:layout_width="50dp"
+            android:id="@+id/progressBar"
+            android:layout_height="50dp"
+            android:layout_below="@+id/pass_RL"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40.0dip"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/colorPrimary"
+            />
+        <ScrollView
+            android:id="@+id/contentView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:textSize="14dp"
+                        android:textColor="@color/grey"
+                        android:text="Consumer"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textSize="12dp"
+                        android:id="@+id/consumer"
+                        android:text=""
+
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:textColor="@color/md_gray_light"
+                        android:background="@drawable/light_grey_box"
+
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:textSize="14dp"
+                        android:textColor="@color/grey"
+                        android:text="Contract Number"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/contractNumber"
+                        android:focusable="false"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textSize="12dp"
+                        android:enabled="false"
+                        android:text=""
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:textColor="@color/md_gray_light"
+                        android:background="@drawable/light_grey_box"
+
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:textSize="14dp"
+                        android:textColor="@color/grey"
+                        android:text="Date"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:focusable="false"
+                        android:enabled="false"
+                        android:id="@+id/date"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textSize="12dp"
+                        android:text=""
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:textColor="@color/md_gray_light"
+                        android:background="@drawable/light_grey_box"
+
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:textSize="14dp"
+                        android:textColor="@color/grey"
+                        android:text="Real Estate Owner"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:focusable="false"
+                        android:enabled="false"
+                        android:id="@+id/real_Estate_owner"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textSize="12dp"
+                        android:text=""
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:textColor="@color/md_gray_light"
+                        android:background="@drawable/light_grey_box"
+
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:textSize="14dp"
+                        android:textColor="@color/grey"
+                        android:text="Real Estate Owner Description"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:focusable="false"
+                        android:enabled="false"
+                        android:id="@+id/address"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textSize="12dp"
+                        android:text=""
+                        android:inputType="text"
+                        android:imeOptions="actionNext"
+                        android:textColor="@color/md_gray_light"
+                        android:background="@drawable/light_grey_box"
+
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+
+                    android:orientation="vertical"
+                    android:id="@+id/normalCondition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+
+                            android:textSize="14dp"
+                            android:textColor="@color/grey"
+                            android:text="Previous Date"
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <EditText
+                            android:id="@+id/previousDate"
+                            android:paddingRight="5dp"
+                            android:paddingLeft="5dp"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="12dp"
+                            android:text=""
+                            android:enabled="false"
+                            android:inputType="text"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/md_gray_light"
+                            android:background="@drawable/light_grey_box"
+                            android:focusable="false"
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+
+                            android:textSize="14dp"
+                            android:textColor="@color/grey"
+                            android:text="Previous Reading"
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <EditText
+
+                            android:id="@+id/previousReading"
+                            android:focusable="false"
+                            android:paddingRight="5dp"
+                            android:paddingLeft="5dp"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="12dp"
+                            android:text=""
+                            android:inputType="text"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/md_gray_light"
+                            android:background="@drawable/light_grey_box"
+                            android:enabled="false"
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+
+                            android:textSize="14dp"
+                            android:textColor="@color/grey"
+                            android:text="Current Date"
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <EditText
+                            android:focusable="false"
+
+                            android:id="@+id/currentDate"
+                            android:paddingRight="5dp"
+                            android:paddingLeft="5dp"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="12dp"
+                            android:text=""
+                            android:inputType="text"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/md_gray_light"
+                            android:background="@drawable/light_grey_box"
+
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+
+                            android:textSize="14dp"
+                            android:textColor="@color/grey"
+                            android:text="Current Reading"
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <EditText
+                            android:paddingRight="5dp"
+                            android:paddingLeft="5dp"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="12dp"
+                            android:text=""
+                            android:id="@+id/currentReading"
+                            android:enabled="false"
+                            android:focusable="false"
+                            android:inputType="number"
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/md_gray_light"
+                            android:background="@drawable/light_grey_box"
+
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+
+                            android:textSize="14dp"
+                            android:textColor="@color/grey"
+                            android:text="Sales Delivery Number"
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <EditText
+                            android:id="@+id/sales_DeliveryNumber"
+
+                            android:inputType="number"
+                            android:paddingRight="5dp"
+                            android:paddingLeft="5dp"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="12dp"
+                            android:text=""
+
+                            android:imeOptions="actionNext"
+                            android:textColor="@color/md_gray_light"
+                            android:background="@drawable/light_grey_box"
+                            android:enabled="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+
+                            android:textSize="14dp"
+                            android:textColor="@color/grey"
+                            android:text="Sales Invoice Number"
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <EditText
+                            android:id="@+id/sales_InvoiceNumber"
+android:enabled="false"
+                            android:focusable="false"
+                            android:inputType="number"
+                            android:paddingRight="5dp"
+                            android:paddingLeft="5dp"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="12dp"
+                            android:text=""
+
+
+                            android:textColor="@color/md_gray_light"
+                            android:background="@drawable/light_grey_box"
+
+                            android:fontFamily="@font/light"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:background="@drawable/light_grey_box"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp">
+
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/grey"
+                            android:text="Signature : "
+                            android:fontFamily="@font/aller_rg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="@color/grey"
+                            android:text="@string/signature_hint"
+                            android:fontFamily="@font/aller_rg"
+                            android:gravity="center"
+
+                            android:layout_margin="10dp"
+                            android:id="@+id/signature"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="30dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:background="@drawable/footer"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+                    <Button
+                        android:padding="5dp"
+                        android:id="@+id/print_email"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/light"
+                        android:background="@drawable/green_btn"
+                        android:text="@string/print_email"
+                        android:textColor="@color/white"
+
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                    <Button
+                        android:id="@+id/payment"
+                        android:padding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/light"
+                        android:background="@drawable/green_btn"
+                        android:text="Payment"
+                        android:textColor="@color/white"
+
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"  />
+
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"/>
+            </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

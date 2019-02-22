@@ -58,6 +58,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name="common.Signature"
             android:screenOrientation="landscape"/>
+        <activity android:name="consumption.ConsumptionReceipt"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

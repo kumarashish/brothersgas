@@ -27,6 +27,11 @@ public class ContractDetails {
     public  int closemeterreadingvalue;
  public String contractNumber="";
     public String Currency="";
+    public  String PreviousReading="";
+    public  String PreviousDate="";
+    public  String currentReading="";
+    public  String sales_InvoiceNumber="";
+    public  String sales_DeliveryNumber="";
  public ContractDetails(JSONArray jsonArray)
  {
      try{
@@ -87,6 +92,14 @@ public class ContractDetails {
              {
                 Currency=jsonObject.isNull("content")?"":jsonObject.getString("content");
              }
+             else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.PreviousDate))
+             {
+                PreviousDate=jsonObject.isNull("content")?"":jsonObject.getString("content");
+             }
+             else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.PreviousReading))
+             {
+                 PreviousReading=jsonObject.isNull("content")?"":jsonObject.getString("content");
+             }
          }}catch (Exception ex)
      {
          ex.fillInStackTrace();
@@ -95,6 +108,14 @@ public class ContractDetails {
 
     public void setConnection_Disconnection_Invoice(String connection_Disconnection_Invoice) {
         Connection_Disconnection_Invoice = connection_Disconnection_Invoice;
+    }
+
+    public String getPreviousDate() {
+        return PreviousDate;
+    }
+
+    public String getPreviousReading() {
+        return PreviousReading;
     }
 
     public void setDeposit_Invoice(String deposit_Invoice) {
@@ -163,6 +184,30 @@ public class ContractDetails {
 
     public void setContractNumber(String contractNumber) {
         this.contractNumber = contractNumber;
+    }
+
+    public void setSales_DeliveryNumber(String sales_DeliveryNumber) {
+        this.sales_DeliveryNumber = sales_DeliveryNumber;
+    }
+
+    public void setSales_InvoiceNumber(String sales_InvoiceNumber) {
+        this.sales_InvoiceNumber = sales_InvoiceNumber;
+    }
+
+    public void setCurrentReading(String currentReading) {
+        this.currentReading = currentReading;
+    }
+
+    public String getCurrentReading() {
+        return currentReading;
+    }
+
+    public String getSales_DeliveryNumber() {
+        return sales_DeliveryNumber;
+    }
+
+    public String getSales_InvoiceNumber() {
+        return sales_InvoiceNumber;
     }
 
     public String getContractNumber() {
