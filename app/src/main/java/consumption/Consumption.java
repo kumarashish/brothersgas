@@ -225,22 +225,6 @@ EditText currentReading;
 //
 //    }
 
-    public void showAlert(String message) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(Consumption.this);
-        builder1.setMessage(message);
-        builder1.setCancelable(true);
-        builder1.setNeutralButton(
-                "Ok",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        finish();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-    }
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetData extends AsyncTask<String, Void, String> {
@@ -340,9 +324,9 @@ EditText currentReading;
                  consumer.setText(model.getCustomername());
                  contractNumber.setText(model.getContract_Meternumber());
                   date.setText(model.getContactcreationdate());
-                  realEstateOwner.setText(model.getOwnerDesc());
+                  realEstateOwner.setText(model.getOwner());
                   realEstateOwnerDescription.setText(model.getOwnerDesc());
-        new GetContractDetails().execute();
+        //new GetContractDetails().execute();
     }
 
     private AdapterView.OnItemClickListener onItemClickListener =
@@ -370,7 +354,7 @@ EditText currentReading;
 
         @Override
         protected String doInBackground(String... strings) {
-            String meterProblemValue="1";
+            String meterProblemValue="0";
             String reasonValue="";
             if(meterProblem.isChecked()) {
                 meterProblemValue="2";
