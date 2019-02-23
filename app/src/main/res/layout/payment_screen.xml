@@ -86,7 +86,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text=" Invoice :"
+                                android:text=" Invoice number :"
                                 android:fontFamily="@font/light"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -94,21 +94,15 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/md_gray_light"
-                                android:text="Inv-123-56789"
-                                android:id="@+id/site"
+                                android:text=""
+                                android:id="@+id/invoice_number"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                            </LinearLayout>
 
 
-                                <Button
-                                    android:layout_marginRight="10dp"
-                                    android:layout_centerVertical="true"
-                                    android:layout_alignParentRight="true"
-                                    android:background="@drawable/next_icon"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp" />
+
                             </RelativeLayout>
 
                         </LinearLayout>
@@ -131,6 +125,7 @@
                                 android:layout_height="wrap_content" />
                         </RadioGroup>
                        <LinearLayout
+                           android:id="@+id/cheaqueNumberView"
                            android:layout_marginLeft="10dp"
                            android:layout_marginRight="10dp"
                            android:orientation="horizontal"
@@ -146,6 +141,8 @@
                                android:layout_width="10dp"
                                android:layout_height="match_parent"/>
                            <EditText
+                               android:id="@+id/cheaquenumber"
+                               android:gravity="center_vertical"
                                android:imeOptions="actionNext"
                                android:paddingLeft="10dp"
                                android:paddingRight="10dp"
@@ -156,6 +153,7 @@
                        </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/cheaqueDateView"
                             android:layout_marginTop="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
@@ -172,6 +170,8 @@
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
                             <EditText
+                                android:id="@+id/date"
+                                android:gravity="center_vertical"
                                 android:imeOptions="actionNext"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
@@ -198,8 +198,13 @@
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
                             <EditText
-                                android:imeOptions="actionNext"
                                 android:paddingLeft="10dp"
+                                android:gravity="center_vertical"
+                                android:id="@+id/amount_value"
+                                android:enabled="false"
+                                android:focusable="false"
+                                android:imeOptions="actionNext"
+
                                 android:paddingRight="10dp"
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/fontnew"
@@ -208,6 +213,7 @@
                                 android:layout_height="30dp" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/bankView"
                             android:layout_marginTop="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
@@ -225,6 +231,8 @@
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
                             <EditText
+                               android:id="@+id/bank"
+                                android:gravity="center_vertical"
                                 android:imeOptions="actionDone"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"

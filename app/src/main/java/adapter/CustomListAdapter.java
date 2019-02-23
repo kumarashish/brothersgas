@@ -94,7 +94,7 @@ ContractModel model=getItem(position);
                 ArrayList<ContractModel> matchValues = new ArrayList<ContractModel>();
 
                 for (ContractModel dataItem : dataListAllItems) {
-                    if( (dataItem.getOwner().toUpperCase().contains(searchStrLowerCase))||(dataItem.getCustomername().toUpperCase().contains(searchStrLowerCase))||(dataItem.getCustomername().toUpperCase().contains(searchStrLowerCase))) {
+                    if( (dataItem.getOwner().toUpperCase().contains(searchStrLowerCase))||(dataItem.getCustomername().toUpperCase().contains(searchStrLowerCase))||(dataItem.getProject().toUpperCase().contains(searchStrLowerCase))) {
                         matchValues.add(dataItem);
                     }
                 }

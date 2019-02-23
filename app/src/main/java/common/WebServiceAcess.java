@@ -58,6 +58,14 @@ public class WebServiceAcess {
                              jsonObject.put("I_METPROB", value[3]);
                 jsonObject.put("I_REASON", value[4]);
                 break;
+            case Common.InvoiceSearch:
+                jsonObject.put("I_YBPC", value[0]);
+                break;
+            case Common.CreatePayment:
+                jsonObject.put("I_YSINVNO", value[0]);
+                jsonObject.put("I_YCHKNO", value[0]);
+                break;
+
         }
     } catch (Exception e) {
         System.out.println("Exception " + e);

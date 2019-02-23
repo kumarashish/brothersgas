@@ -34,22 +34,54 @@
                 android:fontFamily="@font/fontnew"
                 android:textColor="@android:color/white"
                 android:textSize="18dp" />
-            <Button
-                android:id="@+id/new_invoice"
-                android:backgroundTint="@color/white"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/add_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+
         </RelativeLayout>
         <View
             android:background="@color/black"
             android:layout_width="match_parent"
             android:layout_height="2dp"/>
+
+
+        <RelativeLayout
+android:id="@+id/header"
+            android:background="@drawable/header"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="110dp">
+            <LinearLayout
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/rounded_corner_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <AutoCompleteTextView
+                    android:fontFamily="@font/light"
+                    android:textColor="@color/white"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="center"
+                    android:textColorHint="@color/white"
+                    android:padding="10dp"
+                    android:imeOptions="actionDone"
+                    android:hint="Search by customer"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="@color/white"
+                    android:id="@+id/search"
+                    android:entries="@array/contract_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </RelativeLayout>
         <ProgressBar
-            android:visibility="gone"
+android:visibility="gone"
             android:layout_width="50dp"
             android:id="@+id/progressBar"
             android:layout_height="50dp"
@@ -61,389 +93,78 @@
             android:indeterminateTint="@color/colorPrimary"
             />
         <RelativeLayout
-
-
-
-            android:id="@+id/contentView"
-            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+        <ListView
+            android:layout_marginBottom="180dp"
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+            <LinearLayout
+
+                android:layout_alignParentBottom="true"
+
+                android:background="@color/BorderLineColor"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
 
-                <LinearLayout
-                    android:layout_margin="5dp"
-
-                    android:orientation="vertical"
+                    android:textSize="14dp"
+                    android:textColor="@color/grey"
+                    android:text="Total amount"
+                    android:fontFamily="@font/light"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <RelativeLayout
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/light_grey_box"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:weightSum="2"
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp">
-                            <View
-                                android:background="@drawable/green_column"
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:focusable="false"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="12dp"
+                    android:text=""
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/tot_amount"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:textColor="@color/md_gray_light"
+                    android:background="@drawable/light_grey_box"
 
-                            <LinearLayout
-                                android:layout_margin="5dp"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:textSize="14dp"
-                                    android:textColor="@color/grey"
-                                    android:text="Invoice Id"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:layout_marginLeft="10dp"
-                                    android:textSize="12dp"
-                                    android:text="RMRC-U1-89767"
-                                    android:textColor="@color/md_gray_light"
-
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                            <View
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginTop="5dp"
-
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"/>
-                            <LinearLayout
-                                android:layout_margin="5dp"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:textSize="14dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:text="Date"
-                                    android:textColor="@color/grey"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:textSize="12dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:textColor="@color/md_gray_light"
-                                    android:text="05-02-2019"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-
-                        <View
-
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp"/>
-                    </RelativeLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_margin="5dp"
-
-                    android:orientation="vertical"
+                    android:fontFamily="@font/light"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <RelativeLayout
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/light_grey_box"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:weightSum="2"
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp">
-                            <View
-                                android:background="@drawable/green_column"
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
-
-                            <LinearLayout
-                                android:layout_margin="5dp"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:textSize="14dp"
-                                    android:textColor="@color/grey"
-                                    android:text="Invoice Id"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:layout_marginLeft="10dp"
-                                    android:textSize="12dp"
-                                    android:text="RMRC-U1-89767"
-                                    android:textColor="@color/md_gray_light"
-
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                            <View
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginTop="5dp"
-
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"/>
-                            <LinearLayout
-                                android:layout_margin="5dp"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:textSize="14dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:text="Date"
-                                    android:textColor="@color/grey"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:textSize="12dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:textColor="@color/md_gray_light"
-                                    android:text="05-02-2019"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-
-                        <View
-
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp"/>
-                    </RelativeLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_margin="5dp"
-
-                    android:orientation="vertical"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+                <Button
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/light"
+                    android:textAllCaps="true"
+                    android:text="Pay Now"
+                    android:id="@+id/pay_now"
+                    android:textColor="@color/white"
+                    android:background="@drawable/light_green_button"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <RelativeLayout
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/light_grey_box"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:weightSum="2"
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp">
-                            <View
-                                android:background="@drawable/green_column"
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
-
-                            <LinearLayout
-                                android:layout_margin="5dp"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:textSize="14dp"
-                                    android:textColor="@color/grey"
-                                    android:text="Invoice Id"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:layout_marginLeft="10dp"
-                                    android:textSize="12dp"
-                                    android:text="RMRC-U1-89767"
-                                    android:textColor="@color/md_gray_light"
-
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                            <View
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginTop="5dp"
-
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"/>
-                            <LinearLayout
-                                android:layout_margin="5dp"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:textSize="14dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:text="Date"
-                                    android:textColor="@color/grey"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:textSize="12dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:textColor="@color/md_gray_light"
-                                    android:text="05-02-2019"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-
-                        <View
-
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp"/>
-                    </RelativeLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"/>
-                </LinearLayout>
+                    android:layout_height="50dp" />
                 <LinearLayout
-                    android:layout_margin="5dp"
-
-                    android:orientation="vertical"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/footer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <RelativeLayout
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/light_grey_box"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:weightSum="2"
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp">
-                            <View
-                                android:background="@drawable/green_column"
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
-
-                            <LinearLayout
-                                android:layout_margin="5dp"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:textSize="14dp"
-                                    android:textColor="@color/grey"
-                                    android:text="Invoice Id"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:layout_marginLeft="10dp"
-                                    android:textSize="12dp"
-                                    android:text="RMRC-U1-89767"
-                                    android:textColor="@color/md_gray_light"
-
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                            <View
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginTop="5dp"
-
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"/>
-                            <LinearLayout
-                                android:layout_margin="5dp"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent">
-                                <TextView
-                                    android:textSize="14dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:text="Date"
-                                    android:textColor="@color/grey"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:textSize="12dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:textColor="@color/md_gray_light"
-                                    android:text="05-02-2019"
-                                    android:fontFamily="@font/light"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-
-                        <View
-
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp"/>
-                    </RelativeLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"/>
-                </LinearLayout>
+                    android:layout_height="50dp"/>
 
             </LinearLayout>
-            <View
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/footer"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                />
 
         </RelativeLayout>
-
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -50,6 +50,30 @@ public class Common {
     public static String Status="O_FLG";
     public static String Message="O_MSG";
 
+    public static String Sales_Invoice_Number="O_YSIH";
+    public static String Total_amount = "O_YTOTAMT";
+    public static String Total_amount_currency = "O_YTOTCUR";
+    public static String Total_paid_amount = "O_YTOTPAMT";
+    public static String Total_paid_amount_currency = "O_YTOTPCUR";
+    public static String Total_Outstanding_amount = "O_YOTOTAMT";
+    public static String Total_outstanding_amount_currency = "O_YOTOTCUR";
+    public static String Reference = "O_YREF";
+    public static String Date = "O_YDATE";
+    public static String Amount = "O_YAMT";
+    public static String CurrencyValue = "O_YCUR";
+    public static String Customer = "O_YBPC";
+    public static String Customer_Description = "O_YBPCDES";
+    public static String Site = "O_YFCY";
+    public static String Site_Description = "O_YFCYDES";
+    public static String Paid_amount = "O_YPAMT";
+    public static String Paid_amount_currency = "O_YPACUR";
+    public static String Outstanding_amount = "O_YOAMT";
+    public static String Outstanding_amount_currency = "O_YOCUR";
+
+
+
+
+
 
 
 
@@ -63,9 +87,28 @@ public class Common {
     final public static String BlockUnBlock="YMTRBLOCK";
     final public static String GenerateDeliveryNote="YMTRSDHSIH";
     final public static String UpdateInitialReading="YMTRCSAVE";
+    final public static String InvoiceSearch="YMTROPNITM";
+    final public static String CreatePayment="YMTRPAY";
+
+
+    final public static String Payment_Number = "O_YPAYNO";
+    final public static String SiteDetails = "O_YFCY";
+    final public static String CustomerVal = "O_YBP";
+    final public static String Control_account_type = "O_YBPRSAC";
+    final public static String Account = "O_YACC";
+    final public static String Accounting_date = "O_YACCDAT";
+    final public static String Bank = "O_YBAN";
+    final public static String Currencyal = "O_YCUR";
+    final public static String BP_Amount = "O_YBPAMT";
+    final public static String Check_number = "O_YCHQNUM";
+    final public static String Address = "O_YBPAINV";
+    final public static String Bank_Amount = "O_YBANAMT";
+
+
 
 
     public static String runAction = "run";
     public static String queryAction = "query";
+
 
 }

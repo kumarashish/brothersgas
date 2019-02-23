@@ -136,7 +136,7 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
                         JSONObject item = jsonArray.getJSONObject(i);
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
 
-                        if ((model.getBlock_unblockflag() != 2)) {
+                        if ((model.getBlock_unblockflag() != 2)&&(model.getClosemeterreadingvalue()!=2)) {
                             if((model.getDepositInvoice().length()!=0)&&(model.getConnection_discconectionInvoice().length()!=0))
                             {
                                 unblockedlist.add(model);

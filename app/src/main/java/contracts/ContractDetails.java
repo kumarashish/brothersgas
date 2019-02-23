@@ -155,10 +155,16 @@ public class ContractDetails extends Activity implements View.OnClickListener{
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
-                    JSONObject Fld = item.getJSONObject("FLD");
-                        int status = Fld.getInt("content");
-                    String message =Fld.isNull("content")?"Message not available": Fld.getString("content");
-                        Utils.showAlertNormal(ContractDetails.this,message);
+                    JSONArray Fld = item.getJSONArray("FLD");
+                    JSONObject statusObject=Fld.getJSONObject(0);
+                    JSONObject messageObject=Fld.getJSONObject(1);
+                        int status = statusObject.getInt("content");
+                    String message =messageObject.isNull("content")?"Message not available": messageObject.getString("content");
+                    if(status==2) {
+                        Utils.showAlert(ContractDetails.this, message);
+                    }else {
+                        Utils.showAlertNormal(ContractDetails.this, message);
+                    }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
