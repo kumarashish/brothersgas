@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.brothersgas.R;
@@ -46,6 +47,12 @@ public class PaymentReceipt_Print_Email extends Activity implements View.OnClick
     @BindView(R.id.print_email)
     Button print_email;
 
+    @BindView(R.id.chequeView)
+    LinearLayout cheaqueView;
+    @BindView(R.id.amount)
+    TextView amount;
+    public static boolean isPaymentTakenByCheaque=false;
+
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +64,17 @@ public class PaymentReceipt_Print_Email extends Activity implements View.OnClick
     }
 public void setValue()
 {
+   if(isPaymentTakenByCheaque)
+   {
+       cheaqueView.setVisibility(View.GONE);
+       amount.setText("Cash Amount");
+   }
     paymentNumber.setText(model.getPayment_Number());
     site.setText(model.getSiteDetails());
     customer.setText(model.getCustomerVal());
     Control_account_type.setText(model.getControl_account_type());
     Account.setText(model.getAccount());
-    Accounting_date.setText(model.getAccounting_date());
+    Accounting_date.setText(Utils.getDate(model.getAccounting_date()));
     Bank.setText(model.getBank());
     Currency.setText(model.getCurrencyal());
     BP_Amount.setText(model.getBP_Amount());
@@ -83,5 +95,11 @@ public void setValue()
                 break;
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        isPaymentTakenByCheaque=false;
+        super.onDestroy();
     }
 }

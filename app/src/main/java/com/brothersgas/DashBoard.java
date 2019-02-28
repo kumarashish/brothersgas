@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import activatecontract.ContractListForActivation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
@@ -38,6 +39,8 @@ View contract;
     View connect_disconnection_invoice;
     @BindView(R.id.block_cancel)
     View block_cancel;
+    @BindView(R.id.enquiry)
+            View enquiry;
     AppController controller;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ View contract;
         contract.setOnClickListener(this);
         consumption.setOnClickListener(this);
         block_cancel.setOnClickListener(this);
+        enquiry.setOnClickListener(this);
         connect_disconnection_invoice.setOnClickListener(this);
         payment.setOnClickListener(this);
     }
@@ -62,7 +66,7 @@ View contract;
                 break;
             case R.id.contract:
                 if((controller.getUserRole().getContractsAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
-                    startActivity(new Intent(DashBoard.this, Contracts.class));
+                    startActivity(new Intent(DashBoard.this, ContractListForActivation.class));
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
                 }
@@ -94,6 +98,11 @@ View contract;
             case R.id.payment:
 
                     startActivity(new Intent(DashBoard.this, InvoiceList.class));
+
+                break;
+            case R.id.enquiry:
+
+                startActivity(new Intent(DashBoard.this, Enquiry.class));
 
                 break;
         }

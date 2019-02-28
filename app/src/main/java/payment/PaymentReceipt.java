@@ -74,9 +74,11 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
     EditText chequeDate;
             @BindView(R.id.bank)
             EditText bank;
+
+
     public static String invoiceNumber="";
     public static String amount="";
-
+    boolean paymentModeCheque=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,10 +99,12 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                     cheaqueNumberView.setVisibility(View.VISIBLE);
                     cheaqueDateView.setVisibility(View.VISIBLE);
                     bankView.setVisibility(View.VISIBLE);
+                    paymentModeCheque=true;
                 }else {
                     cheaqueNumberView.setVisibility(View.GONE);
                     cheaqueDateView.setVisibility(View.GONE);
                     bankView.setVisibility(View.GONE);
+                    paymentModeCheque=false;
                 }
             }
         });
@@ -133,7 +137,10 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                 if(paymentMode.getCheckedRadioButtonId()==cheque.getId())
                 {
                     if((cheaqueNumber.getText().length()>0)&&(cheaqueNumber.getText().length()>0)&&(cheaqueNumber.getText().length()>0))
-                    {}else{
+                    {   progressBar.setVisibility(View.VISIBLE);
+                        submit.setVisibility(View.GONE);
+                        new CreatePayment().execute();
+                    }else{
                         if(cheaqueNumber.getText().length()==0)
                         {
                             showAlert("Please enter cheque number");
@@ -183,6 +190,7 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                     JSONArray fld=item.getJSONArray("FLD");
                     PaymentReceiptModel model=new PaymentReceiptModel(fld);
                     PaymentReceipt_Print_Email.model=model;
+                    PaymentReceipt_Print_Email.isPaymentTakenByCheaque=paymentModeCheque;
                     Utils.showAlertNavigateToPrintEmail(PaymentReceipt.this,"Paymet created Sucessfully.Payment Number "+model.getPayment_Number(),PaymentReceipt_Print_Email.class);
 
                 } catch (Exception ex) {

@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Payment Receipt"
+                android:text="Enquiry"
                 android:textColor="@android:color/white"
                 android:textSize="18dp" />
 
@@ -66,6 +66,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <LinearLayout
+
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+
+                            <TextView
+                                android:id="@+id/date"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/grey"
+                                android:text="Date : "
+                                android:fontFamily="@font/light"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:text="Time : "
+                                android:layout_marginLeft="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:textColor="@color/md_gray_light"
+                                android:id="@+id/time"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
                             android:background="@drawable/light_grey_box"
                             android:layout_margin="5dp"
                             android:orientation="horizontal"
@@ -80,7 +109,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Payment Number : "
+                                android:text="Number Of Invoices Generated : "
                                 android:fontFamily="@font/light"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -88,7 +117,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/payment_number"
+                                android:id="@+id/generated_invoice_count"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -107,7 +136,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Site : "
+                                android:text="Number Of Cash Payment : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -115,7 +144,7 @@
                                 android:textColor="@color/md_gray_light"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
-                                android:id="@+id/Site"
+                                android:id="@+id/number_cash_payment"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -136,7 +165,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Customer : "
+                                android:text="Total Cash Amount Collected : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -145,7 +174,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/customer"
+                                android:id="@+id/total_cash_amount_collected"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -165,7 +194,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Control account type : "
+                                android:text="Number Of Cheque Payments : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -194,7 +223,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Account : "
+                                android:text="Total Cheque Amount Collected : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -222,7 +251,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Accounting Date : "
+                                android:text="Total Cash and Cheque Amount : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -235,23 +264,36 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
-
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/light_grey_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/grey"
+                            android:text="Number of new connections  "
+                            android:fontFamily="@font/aller_rg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
                         <LinearLayout
 
-                            android:background="@drawable/light_grey_box"
+
                             android:layout_margin="5dp"
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="40dp">
                             <View
-                                android:background="@drawable/green_column"
+
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
                             <TextView
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Bank : "
+                                android:text="Tenant Change : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -266,20 +308,20 @@
                         </LinearLayout>
                         <LinearLayout
 
-                            android:background="@drawable/light_grey_box"
+
                             android:layout_margin="5dp"
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="40dp">
                             <View
-                                android:background="@drawable/green_column"
+
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
                             <TextView
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Currency : "
+                                android:text="Deposit/Connection and Disconnection : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -291,6 +333,7 @@
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
+                        </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
 
@@ -307,7 +350,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="BP Amount : "
+                                android:text="Total Deposit Invoice Amount Collected : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -321,7 +364,7 @@
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
                         <LinearLayout
-                            android:id="@+id/chequeView"
+
                             android:background="@drawable/light_grey_box"
                             android:layout_margin="5dp"
                             android:orientation="horizontal"
@@ -335,7 +378,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Cheque number : "
+                                android:text="Total Conn. D_connection Invoice Amount Collected : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -344,63 +387,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
                                 android:id="@+id/Check_number"
-                                android:fontFamily="@font/aller_rg"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                        <LinearLayout
-
-                            android:background="@drawable/light_grey_box"
-                            android:layout_margin="5dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp">
-                            <View
-                                android:background="@drawable/green_column"
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
-                            <TextView
-                                android:id="@+id/amount"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/grey"
-                                android:text="Bank Amount : "
-                                android:fontFamily="@font/aller_rg"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/md_gray_light"
-                                android:id="@+id/Bank_Amount"
-                                android:fontFamily="@font/aller_rg"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                        <LinearLayout
-
-                            android:background="@drawable/light_grey_box"
-                            android:layout_margin="5dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp">
-                            <View
-                                android:background="@drawable/green_column"
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"/>
-                            <TextView
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/grey"
-                                android:text="Address : "
-                                android:fontFamily="@font/aller_rg"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/md_gray_light"
-                                android:id="@+id/Address"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -435,13 +421,13 @@
 
                             <Button
                                 android:visibility="invisible"
-                                android:id="@+id/payment"
+                                android:id="@+id/donee"
                                 android:padding="5dp"
                                 android:layout_marginLeft="10dp"
                                 android:textSize="10dp"
                                 android:fontFamily="@font/light"
                                 android:background="@drawable/green_btn"
-                                android:text="Payment"
+                                android:text="OK"
                                 android:textColor="@color/white"
 
                                 android:layout_width="0dp"
@@ -449,11 +435,11 @@
                                 android:layout_height="match_parent"  />
                             <Button
                                 android:padding="5dp"
-                                android:id="@+id/print_email"
+                                android:id="@+id/done"
                                 android:textSize="10dp"
                                 android:fontFamily="@font/light"
                                 android:background="@drawable/green_btn"
-                                android:text="@string/print_email"
+                                android:text="OK"
                                 android:textColor="@color/white"
 
                                 android:layout_width="0dp"

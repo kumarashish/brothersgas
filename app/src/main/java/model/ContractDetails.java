@@ -32,6 +32,11 @@ public class ContractDetails {
     public  String currentReading="";
     public  String sales_InvoiceNumber="";
     public  String sales_DeliveryNumber="";
+    public String units ;
+    public String blockFlag;
+    public String closeFlag;
+
+
  public ContractDetails(JSONArray jsonArray)
  {
      try{
@@ -100,11 +105,33 @@ public class ContractDetails {
              {
                  PreviousReading=jsonObject.isNull("content")?"":jsonObject.getString("content");
              }
+             else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.units))
+             {
+                 units=jsonObject.isNull("content")?"":jsonObject.getString("content");
+             } else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.blockFlag))
+             {
+                 blockFlag=jsonObject.isNull("content")?"":jsonObject.getString("content");
+             }else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.closeFlag))
+             {
+                 closeFlag=jsonObject.isNull("content")?"":jsonObject.getString("content");
+             }
          }}catch (Exception ex)
      {
          ex.fillInStackTrace();
      }
  }
+
+    public String getBlockFlag() {
+        return blockFlag;
+    }
+
+    public String getCloseFlag() {
+        return closeFlag;
+    }
+
+    public String getUnits() {
+        return "Units("+units+")";
+    }
 
     public void setConnection_Disconnection_Invoice(String connection_Disconnection_Invoice) {
         Connection_Disconnection_Invoice = connection_Disconnection_Invoice;

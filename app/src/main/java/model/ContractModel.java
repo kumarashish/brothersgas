@@ -17,6 +17,7 @@ public class ContractModel {
     public   String depositInvoice="";
     public  String connection_discconectionInvoice="";
     public   String project="";
+    public   String projectDesc="";
     public  String owner="";
     public  String ownerDesc="";
 
@@ -66,6 +67,9 @@ public class ContractModel {
                 }else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.project))
                 {
                      project=jsonObject.isNull("content")?"":jsonObject.getString("content");
+                }else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.projectDescription))
+                {
+                    projectDesc=jsonObject.isNull("content")?"":jsonObject.getString("content");
                 }
                 else if(jsonObject.getString("NAME").equalsIgnoreCase(Common.owner))
                 {
@@ -132,5 +136,9 @@ public class ContractModel {
 
     public  String getPlaceName() {
         return placeName;
+    }
+
+    public String getProjectDesc() {
+        return projectDesc;
     }
 }

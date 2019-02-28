@@ -16,6 +16,7 @@ import com.brothersgas.R;
 
 import java.util.ArrayList;
 
+import activatecontract.ActivationContractDetails;
 import adapter.CustomListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,6 +75,9 @@ public class Search extends Activity implements View.OnClickListener , ListItemC
                             break;
                         case 4:
                             in=new Intent(Search.this, ConsumptionDetails.class);
+                            break;
+                        case 5:
+                            in=new Intent(Search.this, ActivationContractDetails.class);
                             break;
                     }
 

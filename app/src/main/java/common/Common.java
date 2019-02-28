@@ -13,7 +13,7 @@ public class Common {
     public static String contract_Meternumber = "ZMRNUM";
     public static String customername = "BPCNAM";
     public static String customercode = "BPCORD";
-    public static String placeName = "ZDES";
+    public static String placeName = "ZDE";
     public static String addresscode = "BPAADD";
     public static String contactcreationdate = "DATH";
     public static String block_unblockflag = "BLOCKFLG";
@@ -21,8 +21,9 @@ public class Common {
     public static String depositInvoice = "SIHDEP";
     public static String connection_discconectionInvoice = "SIHCDC";
     public static String owner = "ZOWNER";
-    public static String ownerDescription = "ZDES";
+    public static String ownerDescription = "TEXTE";
     public static String project = "ZPROJECT";
+    public static String projectDescription = "ZDES";
 
 
 
@@ -41,6 +42,14 @@ public class Common {
     public static String Currency = "O_CUR";
     public static String PreviousDate = "O_PREVDATE";
     public static String PreviousReading = "O_PREVREAD";
+    public static String units = "O_UNIT";
+    public static String blockFlag = "O_BLKFLG";
+    public static String closeFlag = "O_CLOSEFLG";
+
+
+
+
+
 
     public static String AdminAcess="O_ADMIN";
     public static String ContractsAcess="O_CONTRS";
@@ -77,7 +86,7 @@ public class Common {
 
 
 
-    public static String SOAPAction = "CAdxWebServiceXmlCC";
+
     final public static String LoginMethod = "YMTRLOGIN";
     final public static String ConfigMethod = "YMTRCONFIG";
     final public static String ContractList = "YMTRCONTR";
@@ -88,6 +97,7 @@ public class Common {
     final public static String GenerateDeliveryNote="YMTRSDHSIH";
     final public static String UpdateInitialReading="YMTRCSAVE";
     final public static String InvoiceSearch="YMTROPNITM";
+    //final public static String InvoiceSearch="YMTROPNITM";
     final public static String CreatePayment="YMTRPAY";
 
 

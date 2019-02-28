@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -101,7 +103,8 @@ EditText retype_currentReading;
 EditText currentReading;
 @BindView(R.id.reason)
     RadioGroup reason;
-    ContractModel model2;
+    ContractModel model2=null;
+    String previousSearcchedContact="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,8 +128,12 @@ EditText currentReading;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     issueList.setVisibility(View.VISIBLE);
+                    currentReading.setEnabled(false);
+                    retype_currentReading.setEnabled(false);
                 } else {
                     issueList.setVisibility(View.GONE);
+                    currentReading.setEnabled(true);
+                    retype_currentReading.setEnabled(true);
                 }
             }
         });
@@ -135,7 +142,25 @@ EditText currentReading;
             contentView.setVisibility(View.GONE);
             new GetData().execute();
         }
+        consumer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!previousSearcchedContact.equalsIgnoreCase(s.toString()))
+                {
+                 clearAllFields();
+                }
+            }
+        });
 
     }
 
@@ -309,8 +334,8 @@ EditText currentReading;
                     if(model!=null)
                     {
                         progressDialog.cancel();
-                        previousDate.setText(model.getPreviousDate());
-                        previousReading.setText(model.getPreviousReading());
+                        previousDate.setText(Utils.getDate(model.getPreviousDate()));
+                        previousReading.setText(model.getPreviousReading() +" "+model.getUnits());
 
                     }
                 }catch (Exception ex)
@@ -325,8 +350,18 @@ EditText currentReading;
         }
     }
 
+    public void clearAllFields() {
+        contractNumber.setText("");
+        date.setText("");
+        realEstateOwner.setText("");
+        realEstateOwnerDescription.setText("");
+        previousDate.setText("");
+        previousReading.setText("");
+        currentReading.setText("");
+        retype_currentReading.setText("");
+    }
     public void setValue( ContractModel model)
-    {
+    {previousSearcchedContact=model.getCustomername();
                  consumer.setText(model.getCustomername());
                  contractNumber.setText(model.getContract_Meternumber());
                   date.setText(model.getContactcreationdate());
@@ -343,7 +378,10 @@ EditText currentReading;
                     Object item = adapterView.getItemAtPosition(i);
                     if (item instanceof ContractModel) {
                         model2 = (ContractModel) item;
+
                                    setValue(model2);
+
+
                     }
 
                 }

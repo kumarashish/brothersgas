@@ -102,14 +102,15 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
             case R.id.con_dcon_invoice:
                 progressBar2.setVisibility(View.VISIBLE);
                 footer.setVisibility(View.GONE);
-                if(model.getDeposit_Invoice().length()==0)
-                {
-                    new GenerateInvoice().execute(new String[]{"1"});
-                }else{
                     new GenerateInvoice().execute(new String[]{"2"});
-                }
 
 
+
+                break;
+            case R.id.dep_invoice:
+                progressBar2.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
+                new GenerateInvoice().execute(new String[]{"1"});
                 break;
         }
     }    /*-------------------------------------------------------------------block-------------------------------------------------------*/
@@ -204,19 +205,21 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         Connection_charges.setText(model.getConnection_charges()+" "+model.getCurrency());
         Disconnection_Charges.setText(model.getDisconnection_Charges()+" "+model.getCurrency());
         Pressure_Factor.setText(model.getPressure_Factor());
-        Initial_meter_reading.setText(model.getInitial_meter_reading());
+        Initial_meter_reading.setText(model.getInitial_meter_reading()+" "+model.getUnits());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
         dep_Invoice .setVisibility(View.INVISIBLE);
         if((model.getDeposit_Invoice().length()>0)&&(model.getConnection_Disconnection_Invoice().length()>0))
         {
-            con_dconInvoice.setVisibility(View.GONE);
-        }
-         else{
-            con_dconInvoice.setText("Generate Invoice");
-            con_dconInvoice.setVisibility(View.VISIBLE);
+            footer.setVisibility(View.GONE);
+        }else {
+          if (model.getDeposit_Invoice().length() > 0) {
+                dep_Invoice.setVisibility(View.INVISIBLE);
 
+            } else if (model.getConnection_Disconnection_Invoice().length() > 0) {
+                    con_dconInvoice.setVisibility(View.INVISIBLE);
+            }
+            footer.setVisibility(View.VISIBLE);
         }
-        footer.setVisibility(View.VISIBLE);
     }
 }

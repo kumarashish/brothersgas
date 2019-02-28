@@ -89,7 +89,6 @@ public class ConsumptionDetails  extends Activity implements View.OnClickListene
         footer.setVisibility(View.VISIBLE);
         block.setOnClickListener(this);
         cancel.setOnClickListener(this);
-
         back.setOnClickListener(this);
         if (Utils.isNetworkAvailable(ConsumptionDetails.this)) {
             progressBar.setVisibility(View.VISIBLE);
@@ -152,15 +151,30 @@ public class ConsumptionDetails  extends Activity implements View.OnClickListene
     public void setValue() {
         site.setText(model.getSite_value());
         customer_id.setText(model.getCustomer_value());
-        contract_date.setText(model.getContract_Date());
+        contract_date.setText(Utils.getDate(model.getContract_Date()));
         address.setText(model.getCustomer_Address());
         item.setText(model.getProduct_Item());
         depositamount.setText(model.getDeposit_Amount() +" "+model.getCurrency());
         Connection_charges.setText(model.getConnection_charges()+" "+model.getCurrency());
         Disconnection_Charges.setText(model.getDisconnection_Charges()+" "+model.getCurrency());
         Pressure_Factor.setText(model.getPressure_Factor());
-        Initial_meter_reading.setText(model.getInitial_meter_reading());
+        Initial_meter_reading.setText(model.getInitial_meter_reading()+" "+model.getUnits());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
+        }
+        public void clearAll()
+        {
+            site.setText("");
+            customer_id.setText("");
+            contract_date.setText("");
+            address.setText("");
+            item.setText("");
+            depositamount.setText("");
+            Connection_charges.setText("");
+            Disconnection_Charges.setText("");
+            Pressure_Factor.setText("");
+            Initial_meter_reading.setText("");
+            Deposit_Invoice.setText("");
+            Connection_Disconnection_Invoice.setText("");
         }
 }

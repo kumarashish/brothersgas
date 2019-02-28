@@ -62,6 +62,12 @@
             android:screenOrientation="portrait"/>
         <activity android:name="payment.PaymentReceipt_Print_Email"
             android:screenOrientation="portrait"/>
+        <activity android:name="activatecontract.ActivationContractDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name="activatecontract.ContractListForActivation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Enquiry"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

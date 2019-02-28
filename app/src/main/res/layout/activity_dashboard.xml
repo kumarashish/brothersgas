@@ -75,7 +75,7 @@ android:layout_weight="0.5"
                         android:gravity="center"
                         android:textAllCaps="true"
                         android:textColor="@color/dashboard_textcolor"
-                        android:text="Contract"
+                        android:text="Activate Contract"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

@@ -63,7 +63,7 @@ public class WebServiceAcess {
                 break;
             case Common.CreatePayment:
                 jsonObject.put("I_YSINVNO", value[0]);
-                jsonObject.put("I_YCHKNO", value[0]);
+                jsonObject.put("I_YCHKNO", value[1]);
                 break;
 
         }
@@ -121,7 +121,6 @@ public class WebServiceAcess {
             e.printStackTrace();
             return "";
         }
-
     }
 
     public String queryRequest(String  METHOD_NAME,String publicName) {

@@ -129,12 +129,13 @@ AutoCompleteTextView search;
                         JSONObject item = jsonArray.getJSONObject(i);
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
 
-                        if ((model.getBlock_unblockflag() != 2)) {
-
-                            if ((model.getDepositInvoice().length() == 0) || (model.getConnection_discconectionInvoice().length() == 0)) {
-                                unblockedlist.add(model);
-                            }
-                        }
+//                        if ((model.getBlock_unblockflag() != 2)) {
+//
+//                            if ((model.getDepositInvoice().length() == 0) || (model.getConnection_discconectionInvoice().length() == 0)) {
+//
+//                            }
+//                        }
+                        unblockedlist.add(model);
                     }
                     if (unblockedlist.size() > 0) {
                         CustomListAdapter adapter = new CustomListAdapter(InvoiceList.this, R.layout.contract_row, unblockedlist);
@@ -176,16 +177,15 @@ AutoCompleteTextView search;
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONObject tab=result.getJSONObject("TAB");
-                    JSONArray jsonArray = tab.getJSONArray("LIN");
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject jsonObject1=jsonArray.getJSONObject(i);
-                        InvoiceModel model=new InvoiceModel(jsonObject1.getJSONArray("FLD"));
+                    JSONObject lin=tab.getJSONObject("LIN");
+                    JSONArray jsonArray =  lin.getJSONArray("FLD");
+
+                        InvoiceModel model=new InvoiceModel(jsonArray);
                         if(Double.parseDouble(model.getOutstanding_amount())>0) {
                             pendingInvoice.add(model);
                         }
 
-                    }
+
                     if (pendingInvoice.size() > 0) {
                         hideKeyboard(InvoiceList.this);
                         String[] outAmout=getTotalOutStandingAmount();
@@ -227,7 +227,7 @@ AutoCompleteTextView search;
                     Object item = adapterView.getItemAtPosition(i);
                     if (item instanceof ContractModel) {
                         model=(ContractModel) item;
-                        search.setText(model.getCustomercode());
+                        search.setText(model.getCustomername());
                         progressBar.setVisibility(View.VISIBLE);
                         new FetchInvoices().execute(new String[]{model.getCustomercode()});
 

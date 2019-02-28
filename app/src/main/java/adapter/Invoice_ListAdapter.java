@@ -15,6 +15,7 @@ import interfaces.InvoiceListItemClickListner;
 import interfaces.ListItemClickListner;
 import model.ContractModel;
 import model.InvoiceModel;
+import utils.Utils;
 
 public class Invoice_ListAdapter  extends BaseAdapter {
     ArrayList<InvoiceModel> list;
@@ -62,8 +63,8 @@ public class Invoice_ListAdapter  extends BaseAdapter {
 
         }
         holder.invoice_num.setText(model.getSales_Invoice_Number());
-        holder.date.setText(model.getDate()  );
-        holder.tot_amount.setText(model.getTotal_amount()+" "+model.getTotal_amount_currency());
+        holder.date.setText(Utils.getDate(model.getDate() ) );
+        holder.tot_amount.setText(model.getAmount()+" "+model.getTotal_amount_currency());
         holder.out_amount.setText(model.getOutstanding_amount()+" "+model.getOutstanding_amount_currency());
         holder.detailsView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -17,7 +17,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:layout_width="match_parent"
-                android:layout_height="110dp">
+                android:layout_height="150dp">
                 <View
                     android:background="@drawable/green_column"
                     android:layout_width="10dp"
@@ -65,6 +65,24 @@
                 android:fontFamily="@font/light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textSize="14dp"
+                android:textColor="@color/grey"
+                android:text="Owner Name"
+                android:fontFamily="@font/light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:textSize="12dp"
+                android:text=""
+                android:textColor="@color/md_gray_light"
+                android:id="@+id/ownerdesc"
+                android:fontFamily="@font/light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
                 <View
                     android:layout_marginBottom="5dp"
@@ -82,7 +100,7 @@
                         android:textSize="14dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
-                       android:text="Consumer Name"
+                       android:text="Customer Name"
                         android:textColor="@color/grey"
                         android:fontFamily="@font/light"
                         android:layout_width="match_parent"
@@ -114,6 +132,24 @@
                         android:fontFamily="@font/light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:textSize="14dp"
+                        android:textColor="@color/grey"
+                        android:text="Project Description"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/projectdesc"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="12dp"
+                        android:text=""
+                        android:textColor="@color/md_gray_light"
+                        android:fontFamily="@font/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
                                </LinearLayout>
 
@@ -121,7 +157,7 @@
             <View
                 android:id="@+id/detailsView"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"/>
+                android:layout_height="150dp"/>
         </RelativeLayout>
 
 

@@ -10,9 +10,6 @@ import android.support.v7.app.AlertDialog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import consumption.ConsumptionList;
-import invoices.Print_Email;
-
 /**
  * Created by ashish.kumar on 23-01-2019.
  */
@@ -96,6 +93,10 @@ public class Utils {
         AlertDialog alert11 = builder1.create();
         alert11.show();
     }
-
+public static String getDate(String date)
+{
+    String newDate=date.substring(6,8)+"-"+date.substring(4,6)+"-"+date.substring(0,4);
+    return newDate;
+}
 
 }
