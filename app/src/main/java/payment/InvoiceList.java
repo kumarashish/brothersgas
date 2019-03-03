@@ -103,7 +103,8 @@ AutoCompleteTextView search;
     @Override
     public void onClick(InvoiceModel model) {
         PaymentReceipt.invoiceNumber=model.getSales_Invoice_Number();
-        PaymentReceipt.amount=model.getOutstanding_amount()+" "+model.getOutstanding_amount_currency();
+        PaymentReceipt.amount=model.getOutstanding_amount();
+        PaymentReceipt.unit=model.getOutstanding_amount_currency();
         startActivity(new Intent(InvoiceList.this,PaymentReceipt.class));
 
 

@@ -197,12 +197,16 @@
                             <View
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
                             <EditText
+                                android:layout_marginRight="70dp"
                                 android:paddingLeft="10dp"
-                                android:gravity="center_vertical"
+                                android:layout_centerVertical="true"
                                 android:id="@+id/amount_value"
-                                android:enabled="false"
-                                android:focusable="false"
+
                                 android:imeOptions="actionNext"
 
                                 android:paddingRight="10dp"
@@ -211,6 +215,24 @@
                                 android:background="@drawable/light_grey_box"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp" />
+                                <EditText
+
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="10dp"
+                                    android:paddingLeft="10dp"
+                                    android:layout_centerVertical="true"
+                                    android:id="@+id/amount_unit"
+                                    android:enabled="false"
+                                    android:focusable="false"
+                                      android:textSize="12dp"
+
+                                    android:paddingRight="10dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/fontnew"
+                                    android:background="@drawable/light_grey_box"
+                                    android:layout_width="50dp"
+                                    android:layout_height="30dp" />
+                            </RelativeLayout>
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/bankView"

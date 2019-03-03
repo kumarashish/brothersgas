@@ -66,6 +66,8 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
     LinearLayout bankView;
     @BindView(R.id.amount_value)
     EditText amountValue;
+    @BindView(R.id.amount_unit)
+    EditText amountUnit;
     @BindView(R.id.invoice_number)
     android.widget.TextView invoice_numberValue;
     @BindView(R.id.cheaquenumber)
@@ -78,6 +80,7 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
 
     public static String invoiceNumber="";
     public static String amount="";
+    public static String unit="";
     boolean paymentModeCheque=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,7 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
         paymentMode.check(cheque.getId());
         invoice_numberValue.setText(invoiceNumber);
         amountValue.setText(amount);
+        amountUnit.setText(unit);
         paymentMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -170,11 +174,13 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
         @Override
         protected String doInBackground(String... strings) {
             String cheaueNumberString="";
+            String mode="1";
             if(paymentMode.getCheckedRadioButtonId()==cheque.getId())
             {
                 cheaueNumberString=cheaqueNumber.getText().toString();
+                mode="2";
             }
-            String result = webServiceAcess.runRequest(Common.runAction,Common.CreatePayment, new String[]{invoiceNumber,cheaueNumberString});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.CreatePayment, new String[]{invoiceNumber,cheaueNumberString,mode,amountValue.getText().toString()});
             return result;
         }
 

@@ -148,7 +148,7 @@ public class ContractListForActivation extends Activity implements View.OnClickL
                         JSONObject item = jsonArray.getJSONObject(i);
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
                         Log.d("contractId", model.getContract_Meternumber());
-                        if (model.getBlock_unblockflag() == 2) {
+                        if ((model.getBlock_unblockflag() == 2)&&(model.getClosemeterreadingvalue()!=2)) {
                             blockedlist.add(model);
                         }
 

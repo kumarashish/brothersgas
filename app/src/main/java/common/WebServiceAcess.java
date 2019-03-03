@@ -64,6 +64,9 @@ public class WebServiceAcess {
             case Common.CreatePayment:
                 jsonObject.put("I_YSINVNO", value[0]);
                 jsonObject.put("I_YCHKNO", value[1]);
+                jsonObject.put(" I_YPAYTYP",value[2]);
+                jsonObject.put("I_YOAMT",value[3]);
+
                 break;
 
         }

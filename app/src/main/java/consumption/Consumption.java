@@ -335,7 +335,7 @@ EditText currentReading;
                     {
                         progressDialog.cancel();
                         previousDate.setText(Utils.getDate(model.getPreviousDate()));
-                        previousReading.setText(model.getPreviousReading() +" "+model.getUnits());
+                        previousReading.setText(Utils.getDate(model.getPreviousReading()) +" "+model.getUnits());
 
                     }
                 }catch (Exception ex)
@@ -364,7 +364,7 @@ EditText currentReading;
     {previousSearcchedContact=model.getCustomername();
                  consumer.setText(model.getCustomername());
                  contractNumber.setText(model.getContract_Meternumber());
-                  date.setText(model.getContactcreationdate());
+                  date.setText(Utils.getDate(model.getContactcreationdate()));
                   realEstateOwner.setText(model.getOwner());
                   realEstateOwnerDescription.setText(model.getOwnerDesc());
        new GetContractDetails().execute();

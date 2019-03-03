@@ -56,6 +56,7 @@ public class Invoice_ListAdapter  extends BaseAdapter {
             holder.date = (TextView) convertView.findViewById(R.id.date);
             holder.tot_amount = (TextView) convertView.findViewById(R.id.tot_amount);
             holder.out_amount = (TextView) convertView.findViewById(R.id.out_amount);
+            holder.customerName= (TextView) convertView.findViewById(R.id.customer);
             holder.detailsView = (View) convertView.findViewById(R.id.detailsView);
 
         } else {
@@ -66,6 +67,8 @@ public class Invoice_ListAdapter  extends BaseAdapter {
         holder.date.setText(Utils.getDate(model.getDate() ) );
         holder.tot_amount.setText(model.getAmount()+" "+model.getTotal_amount_currency());
         holder.out_amount.setText(model.getOutstanding_amount()+" "+model.getOutstanding_amount_currency());
+        holder.customerName.setText(model.getCustomer_Description()+"("+model.getCustomer()+")");
+
         holder.detailsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +83,7 @@ callback.onClick(model);
 
     public class ViewHolder {
         TextView invoice_num;
-        TextView date, tot_amount, out_amount;
+        TextView date, tot_amount, out_amount,customerName;
         View detailsView;
     }
 }

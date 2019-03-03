@@ -214,7 +214,7 @@ public void showAlert(String message)
     public void setValue() {
         site.setText(model.getSite_value());
         customer_id.setText(model.getCustomer_value());
-        contract_date.setText(model.getContract_Date());
+        contract_date.setText(Utils.getDate(model.getContract_Date()));
         address.setText(model.getCustomer_Address());
         item.setText(model.getProduct_Item());
         depositamount.setText(model.getDeposit_Amount()+" "+model.getCurrency());
