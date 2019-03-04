@@ -104,12 +104,12 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
             case R.id.dep_invoice:
                 progressBar2.setVisibility(View.VISIBLE);
                 footer.setVisibility(View.GONE);
-                new Block().execute(new String[]{Common.BlockUnBlock});
+                new Block().execute(new String[]{Common.BlockUnBlock,"1"});
                 break;
             case R.id.con_dcon_invoice:
                 progressBar2.setVisibility(View.VISIBLE);
                 footer.setVisibility(View.GONE);
-                new Block().execute(new String[]{Common.CancelContract});
+                new Block().execute(new String[]{Common.CancelContract,""});
                 break;
         }
     }    /*-------------------------------------------------------------------block-------------------------------------------------------*/
@@ -118,7 +118,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         @Override
         protected String doInBackground(String... strings) {
             calledMethod=strings[0];
-            String result = webServiceAcess.runRequest(Common.runAction,strings[0], new String[]{contractId});
+            String result = webServiceAcess.runRequest(Common.runAction,strings[0], new String[]{contractId,strings[1]});
             return result;
         }
 

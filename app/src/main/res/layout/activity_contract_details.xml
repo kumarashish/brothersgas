@@ -434,6 +434,41 @@
                     android:indeterminateTint="@color/colorPrimary"/>
                 <LinearLayout
                     android:visibility="gone"
+                    android:id="@+id/editView"
+
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <Button
+                        android:padding="5dp"
+                        android:visibility="invisible"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/light"
+                        android:background="@drawable/green_btn"
+                        android:text="Dep.Invoice"
+                        android:textColor="@color/white"
+
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent" />
+                    <Button
+                        android:id="@+id/submit"
+                        android:padding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/light"
+                        android:background="@drawable/green_btn"
+                        android:text="Submit"
+                        android:textColor="@color/white"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"  />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/footer"
 
                     android:orientation="horizontal"

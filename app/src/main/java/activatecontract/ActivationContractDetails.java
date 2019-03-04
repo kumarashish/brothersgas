@@ -22,6 +22,7 @@ import common.AppController;
 import common.Common;
 import common.WebServiceAcess;
 import contracts.ContractDetails;
+import invoices.Block_Cancel_Details;
 import utils.Utils;
 
 /**
@@ -94,7 +95,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
         activateTenant.setText("Activate");
         changeTenant.setText("Tenant Change");
         footer.setVisibility(View.VISIBLE);
-
+        activateTenant.setOnClickListener(this);
         edit_button.setVisibility(View.GONE);
 
         if (Utils.isNetworkAvailable(ActivationContractDetails.this)) {
@@ -127,6 +128,13 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                     new Update().execute(new String[]{Common.UpdateInitialReading});
 
                 }
+            case R.id.dep_invoice:
+
+                    footer.setVisibility(View.GONE);
+                    progressBar2.setVisibility(View.VISIBLE);
+                    new ActivateContract().execute(new String[]{Common.UpdateInitialReading});
+
+
                 break;
 
         }
@@ -204,7 +212,47 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
             }
         }
     }
+    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+    public class ActivateContract extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockUnBlock, new String[]{contractId,"2"});
+            return result;
+        }
 
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONObject Fld = item.getJSONObject("FLD");
+                    model = new model.ContractDetails(item.getJSONArray("FLD"));
+                    int status = Fld.getInt("content");
+                    if (status == 2) {
+                        Utils.showAlert(ActivationContractDetails.this,"Contract Unblocked Sucessfully");
+                    } else {
+
+                        Toast.makeText(ActivationContractDetails.this, "Failed", Toast.LENGTH_SHORT).show();
+
+                    }
+                    progressBar2.setVisibility(View.GONE);
+                    footer.setVisibility(View.VISIBLE);
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                    progressBar2.setVisibility(View.GONE);
+                    footer.setVisibility(View.VISIBLE);
+                }
+            } else {
+                progressBar2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
+                Toast.makeText(ActivationContractDetails.this, "Data not found", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     public void setValue() {
         site.setText(model.getSite_value());
         customer_id.setText(model.getCustomer_value());

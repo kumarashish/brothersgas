@@ -71,6 +71,12 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     Button con_dconInvoice;
     @BindView(R.id.heading)
     android.widget.TextView heading;
+    @BindView(R.id.edit)
+    Button edit;
+    @BindView(R.id.submit)
+    Button submit;
+    @BindView(R.id.editView)
+    LinearLayout editView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +89,9 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         footer.setVisibility(View.VISIBLE);
         con_dconInvoice.setOnClickListener(this);
         dep_Invoice.setOnClickListener(this);
-
+        edit.setVisibility(View.VISIBLE);
+        edit.setOnClickListener(this);
+        submit.setOnClickListener(this);
         back.setOnClickListener(this);
         if (Utils.isNetworkAvailable(Connection_Disconnection_Invoice_details.this)) {
             progressBar.setVisibility(View.VISIBLE);
@@ -107,13 +115,81 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
 
 
                 break;
+            case R.id.edit:
+                Initial_meter_reading.setFocusable(true);
+                Initial_meter_reading.setEnabled(true);
+                Initial_meter_reading.requestFocus();
+                editView.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
+                if(Initial_meter_reading.getText().length()>0)
+                {
+                    Initial_meter_reading .setSelection(Initial_meter_reading.getText().length());
+                }
+                break;
             case R.id.dep_invoice:
                 progressBar2.setVisibility(View.VISIBLE);
                 footer.setVisibility(View.GONE);
                 new GenerateInvoice().execute(new String[]{"1"});
                 break;
+            case R.id.submit:
+                progressBar2.setVisibility(View.VISIBLE);
+                editView.setVisibility(View.GONE);
+               new Update().execute(new String[]{Common.UpdateInitialReading});;
+                break;
         }
-    }    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+    }
+
+    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+    public class Update extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String result = webServiceAcess.runRequest(Common.runAction,strings[0], new String[]{contractId,Initial_meter_reading.getText().toString()});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: "+s, null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONArray Fld = item.getJSONArray("FLD");
+                    JSONObject statusObject=Fld.getJSONObject(0);
+                    JSONObject messageObject=Fld.getJSONObject(1);
+                    int status = statusObject.getInt("content");
+                    String message =messageObject.isNull("content")?"Message not available": messageObject.getString("content");
+
+                    if(status==2) {
+                        Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
+                        progressBar2.setVisibility(View.GONE);
+                        editView.setVisibility(View.GONE);
+                        footer.setVisibility(View.VISIBLE);
+                    }else {
+                        Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
+                        progressBar2.setVisibility(View.GONE);
+                        editView.setVisibility(View.VISIBLE);
+                        footer.setVisibility(View.GONE);
+                    }
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                    progressBar2.setVisibility(View.GONE);
+                    editView.setVisibility(View.VISIBLE);
+                    footer.setVisibility(View.GONE);
+                }
+            }else{
+                Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this,"No message received from api");
+                progressBar2.setVisibility(View.GONE);
+                editView.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
+            }
+
+        }
+    }
+    /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class GenerateInvoice extends AsyncTask<String, Void, String> {
         String calledMethod;
         @Override
@@ -212,7 +288,12 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         if((model.getDeposit_Invoice().length()>0)&&(model.getConnection_Disconnection_Invoice().length()>0))
         {
             footer.setVisibility(View.GONE);
-        }else {
+        }else   if((model.getDeposit_Invoice().length()==0)&&(model.getConnection_Disconnection_Invoice().length()==0)){
+            footer.setVisibility(View.VISIBLE);
+            dep_Invoice.setVisibility(View.VISIBLE);
+            con_dconInvoice.setVisibility(View.VISIBLE);
+        }
+        else {
           if (model.getDeposit_Invoice().length() > 0) {
                 dep_Invoice.setVisibility(View.INVISIBLE);
 

@@ -17,7 +17,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:layout_width="match_parent"
-                android:layout_height="140dp">
+                android:layout_height="160dp">
                 <View
                     android:background="@drawable/green_column"
                     android:layout_width="10dp"
@@ -139,7 +139,7 @@
             <View
                 android:id="@+id/detailsView"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="160dp"/>
         </RelativeLayout>
 
 
