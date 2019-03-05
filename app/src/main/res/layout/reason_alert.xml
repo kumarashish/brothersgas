@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorPrimary">
+
+
+
+            <TextView
+                android:fontFamily="@font/fontnew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Alert"
+                android:textColor="@android:color/white"
+                android:textSize="18dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/mainLayout"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ScrollView
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_marginTop="100dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp">
+                            <TextView
+                                android:fontFamily="@font/fontnew"
+                                android:text="Reason : "
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <EditText
+                                android:id="@+id/reason"
+                                android:gravity="center_vertical"
+                                android:imeOptions="actionNext"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/light_grey_box"
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+
+                            android:id="@+id/footer"
+                            android:layout_marginTop="40dp"
+
+                            android:orientation="horizontal"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                            <Button
+                                android:layout_gravity="center"
+                                android:id="@+id/submit"
+                                android:padding="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:textSize="14dp"
+                                android:fontFamily="@font/light"
+                                android:background="@drawable/light_green_button"
+                                android:text="Submit"
+                                android:textColor="@color/white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="150dp"
+
+                                android:layout_height="match_parent"  />
+
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"/>
+
+
+                    </LinearLayout>
+                </ScrollView>
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

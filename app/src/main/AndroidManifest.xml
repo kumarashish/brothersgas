@@ -68,6 +68,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".Enquiry"
             android:screenOrientation="portrait"/>
+        <activity android:name="activatecontract.TenantChange"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

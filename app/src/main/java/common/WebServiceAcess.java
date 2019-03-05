@@ -11,7 +11,9 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.net.SocketTimeoutException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,9 +46,14 @@ public class WebServiceAcess {
             case Common.BlockUnBlock:
                 jsonObject.put("I_CONTNO", value[0]);
                 jsonObject.put("I_FLG", value[1]);
+                jsonObject.put("I_REASON", value[2]);
+                jsonObject.put("I_REACTIVEDT", getCurrentDate());
+
+
                 break;
             case Common.DepositInvoice:
                 jsonObject.put("I_CONTNO", value[0]);
+                jsonObject.put("I_FLG", value[1]);
 
                 break;
             case Common.UpdateInitialReading:
@@ -62,6 +69,19 @@ public class WebServiceAcess {
                 jsonObject.put("I_METPROB",value[3]);
                 jsonObject.put("I_REASON", value[4]);
                 break;
+            case Common.Tennant_Change:
+                jsonObject.put("I_CONTNO", value[0]);
+                jsonObject.put("I_CURRED", value[1]);
+                jsonObject.put("I_EMIID", value[2]);
+                jsonObject.put("I_EMIDATE", value[3]);
+                jsonObject.put("I_ADDLIG", value[4]);
+                jsonObject.put("I_CUSCONT", value[5]);
+                jsonObject.put("I_IDNUM", "");
+                jsonObject.put("I_IMAGE", "");
+                jsonObject.put("I_EMAIL", value[6]);
+
+
+                break;
             case Common.InvoiceSearch:
                 jsonObject.put("I_YBPC", value[0]);
                 break;
@@ -72,6 +92,15 @@ public class WebServiceAcess {
                 jsonObject.put("I_YOAMT",value[3]);
 
                 break;
+            case Common.Print_Email:
+                jsonObject.put("I_NUM", value[0]);
+                        jsonObject.put("I_TYP", value[1]);
+
+                break;
+            case Common.ContractDetailsForConsumption:
+                jsonObject.put("I_FLAG", value[0]);
+                break;
+
 
         }
     } catch (Exception e) {
@@ -139,7 +168,7 @@ public class WebServiceAcess {
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
         //  request.addProperty("publicName", "YMTRLOGIN");
         request.addProperty("publicName", publicName);
-        request.addProperty("listSize", 999);
+        request.addProperty("listSize", 9999);
         SoapObject callcontext = new SoapObject("", "callContext");
         // Set all input params
         callcontext.addProperty("codeLang", "ENG");
@@ -232,5 +261,11 @@ public class WebServiceAcess {
         }
 
     }
-
+public String getCurrentDate()
+{
+    SimpleDateFormat timeStampFormat = new SimpleDateFormat("yyyyMMdd");
+    Date myDate = new Date();
+    String date = timeStampFormat.format(myDate);
+    return date;
+}
     }

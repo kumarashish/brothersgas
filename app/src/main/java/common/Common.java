@@ -97,8 +97,15 @@ public class Common {
     final public static String GenerateDeliveryNote="YMTRSDHSIH";
     final public static String UpdateInitialReading="YMTRCSAVE";
     final public static String InvoiceSearch="YMTROPNITM";
-    //final public static String InvoiceSearch="YMTROPNITM";
+    final public static String Tennant_Change="YMTRTENCHG";
     final public static String CreatePayment="YMTRPAY";
+    final public static String Enqiry="YMTRNQUIRY";
+    final public static String ContractDetailsForConsumption="YMTRCONLST";
+    final public static String UploadSignature="YMTRSIGN";
+    final public static String PayAll="YMTRPAYALL";
+    final public static String Print_Email="YMTRWRKREP";
+
+
 
 
     final public static String Payment_Number = "O_YPAYNO";

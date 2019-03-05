@@ -1,17 +1,26 @@
 package payment;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.brothersgas.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import common.AppController;
+import common.Common;
+import common.WebServiceAcess;
 import invoices.Print_Email;
 import model.PaymentReceiptModel;
 import utils.Utils;
@@ -52,6 +61,12 @@ public class PaymentReceipt_Print_Email extends Activity implements View.OnClick
     @BindView(R.id.amount)
     TextView amount;
     public static boolean isPaymentTakenByCheaque=false;
+    @BindView(R.id.progressBar2)
+    ProgressBar progressBar;
+    @BindView(R.id.footer)
+    LinearLayout footer;
+
+    WebServiceAcess webServiceAcess;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -60,6 +75,8 @@ public class PaymentReceipt_Print_Email extends Activity implements View.OnClick
         ButterKnife.bind(this);
         back.setOnClickListener(this);
         print_email.setOnClickListener(this);
+        webServiceAcess = new WebServiceAcess();
+
         setValue();
     }
 public void setValue()
@@ -91,7 +108,9 @@ public void setValue()
                 finish();
                 break;
             case R.id.print_email:
-                Utils.showAlertNormal(PaymentReceipt_Print_Email.this,"Receipt send to registered email Id");
+                progressBar.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
+                new EmailInvoice().execute();
                 break;
         }
 
@@ -101,5 +120,47 @@ public void setValue()
     protected void onDestroy() {
         isPaymentTakenByCheaque=false;
         super.onDestroy();
+    }
+    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+    public class EmailInvoice extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+
+            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{model.getPayment_Number(),"5"});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONArray Fld = item.getJSONArray("FLD");
+                    JSONObject messageJsonObject=Fld.getJSONObject(1);
+                    JSONObject status=Fld.getJSONObject(0);
+                    String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
+                    int statusValue=status.isNull("content")?1: status.getInt("content");
+                    if(statusValue==2)
+                    {
+                        Utils.showAlert(PaymentReceipt_Print_Email.this,message);
+                    }else{
+                        Utils.showAlertNormal(PaymentReceipt_Print_Email.this,message);
+                    }
+
+                    progressBar.setVisibility(View.GONE);
+                    footer.setVisibility(View.VISIBLE);
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+            } else {
+            }
+
+        }
     }
 }

@@ -1,10 +1,13 @@
 package activatecontract;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,6 +26,8 @@ import common.Common;
 import common.WebServiceAcess;
 import contracts.ContractDetails;
 import invoices.Block_Cancel_Details;
+import model.BlockUnblockModel;
+import model.ContractModel;
 import utils.Utils;
 
 /**
@@ -78,6 +83,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
     Button activateTenant;
     @BindView(R.id.con_dcon_invoice)
     Button changeTenant;
+    public static ContractModel contractModel=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,6 +102,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
         changeTenant.setText("Tenant Change");
         footer.setVisibility(View.VISIBLE);
         activateTenant.setOnClickListener(this);
+        changeTenant.setOnClickListener(this);
         edit_button.setVisibility(View.GONE);
 
         if (Utils.isNetworkAvailable(ActivationContractDetails.this)) {
@@ -121,7 +128,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                     Initial_meter_reading.setSelection(Initial_meter_reading.getText().length());
                 }
                 break;
-            case R.id.con_dcon_invoice:
+            case R.id.submit:
                 if (Initial_meter_reading.getText().length() > 0) {
                     footer.setVisibility(View.GONE);
                     progressBar2.setVisibility(View.VISIBLE);
@@ -129,15 +136,19 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
 
                 }
             case R.id.dep_invoice:
-
-                    footer.setVisibility(View.GONE);
-                    progressBar2.setVisibility(View.VISIBLE);
-                    new ActivateContract().execute(new String[]{Common.UpdateInitialReading});
-
-
+                showReasonAlert();
+                break;
+            case R.id.con_dcon_invoice:
+                TenantChange.contractNumber=contractModel.getContract_Meternumber();
+                startActivityForResult(new Intent(ActivationContractDetails.this,TenantChange.class),2);
                 break;
 
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
@@ -216,7 +227,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
     public class ActivateContract extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockUnBlock, new String[]{contractId,"2"});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockUnBlock, new String[]{contractId,"2",strings[1]});
             return result;
         }
 
@@ -229,11 +240,9 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
-                    JSONObject Fld = item.getJSONObject("FLD");
-                    model = new model.ContractDetails(item.getJSONArray("FLD"));
-                    int status = Fld.getInt("content");
-                    if (status == 2) {
-                        Utils.showAlert(ActivationContractDetails.this,"Contract Unblocked Sucessfully");
+                    BlockUnblockModel model=new BlockUnblockModel(item.getJSONArray("FLD"));
+                    if (model.getStatus() == 2) {
+                        Utils.showAlertForReturnIntent(ActivationContractDetails.this,model.getMessage() );
                     } else {
 
                         Toast.makeText(ActivationContractDetails.this, "Failed", Toast.LENGTH_SHORT).show();
@@ -252,6 +261,34 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                 Toast.makeText(ActivationContractDetails.this, "Data not found", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void showReasonAlert()
+    {
+        final Dialog dialog = new Dialog(ActivationContractDetails.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.reason_alert);
+
+        final EditText reason = (EditText) dialog.findViewById(R.id.reason);
+
+
+        Button submit = (Button) dialog.findViewById(R.id.submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(reason.getText().length()>0) {
+                    footer.setVisibility(View.GONE);
+                    progressBar2.setVisibility(View.VISIBLE);
+                    new ActivateContract().execute(new String[]{Common.UpdateInitialReading,reason.getText().toString()});
+                    dialog.dismiss();
+                }else{
+                    Toast.makeText(ActivationContractDetails.this,"Please enter reason",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        dialog.show();
     }
     public void setValue() {
         site.setText(model.getSite_value());

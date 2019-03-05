@@ -10,6 +10,8 @@ import android.support.v7.app.AlertDialog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by ashish.kumar on 23-01-2019.
  */
@@ -52,6 +54,26 @@ public class Utils {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
+                        act.finish();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+    public static void showAlertForReturnIntent(final Activity act, String message)
+    {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder( act);
+        builder1.setMessage(message);
+        builder1.setCancelable(true);
+        builder1.setNeutralButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        Intent data = new Intent();
+                        act.setResult(RESULT_OK,data);
+
                         act.finish();
                     }
                 });

@@ -209,22 +209,30 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
                     JSONArray Fld = item.getJSONArray("FLD");
-                    JSONObject messageJsonObject=Fld.getJSONObject(2);
+                    JSONObject messageJsonObject=Fld.getJSONObject(1);
                     JSONObject depJsonObject=Fld.getJSONObject(0);
-                    JSONObject conJsonObject=Fld.getJSONObject(1);
                     String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
-                    String connInvoice=conJsonObject.isNull("content")?"": conJsonObject.getString("content");
                     String depInvoice=depJsonObject.isNull("content")?"": depJsonObject.getString("content");
                     if((message.contains("Invoice Already Exists")||message.contains("No Message From API")))
 
                     {
                         Utils.showAlert(Connection_Disconnection_Invoice_details.this, message);
                     }else{
+                        if (calledMethod == Common.depositInvoice)
 
-                        model.setConnection_Disconnection_Invoice(connInvoice);
-                        model.setDeposit_Invoice(depInvoice);
+                        //
+                        {model.setDeposit_Invoice(depInvoice);
+                            Deposit_Invoice.setText(model.getDeposit_Invoice());
+
+
+                        } else {
+                            model.setConnection_Disconnection_Invoice(depInvoice);
+                            Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
+                        }
                         Print_Email.model=model;
-                        Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message,Print_Email.class);
+                        Print_Email.calledMethod=calledMethod;
+                         Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message, Print_Email.class);
+
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();

@@ -34,6 +34,7 @@ import contracts.ContractDetails;
 import contracts.Contracts;
 import contracts.Search;
 import interfaces.ListItemClickListner;
+import model.BlockUnblockModel;
 import model.ContractModel;
 import utils.Utils;
 
@@ -63,6 +64,7 @@ public class ContractListForActivation extends Activity implements View.OnClickL
     RelativeLayout header;
     @BindView(R.id.heading)
     TextView heading;
+    ContractListAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,11 +113,22 @@ public class ContractListForActivation extends Activity implements View.OnClickL
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                ActivationContractDetails.contractModel=model;
                 Intent in=new Intent(ContractListForActivation.this, ActivationContractDetails.class);
                 in.putExtra("Data",model.getContract_Meternumber());
-                startActivity(in);
+                startActivityForResult(in,2);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if((requestCode==2)&&(resultCode==RESULT_OK))
+        {
+            blockedlist.remove(ActivationContractDetails.contractModel);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -148,7 +161,7 @@ public class ContractListForActivation extends Activity implements View.OnClickL
                         JSONObject item = jsonArray.getJSONObject(i);
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
                         Log.d("contractId", model.getContract_Meternumber());
-                        if ((model.getBlock_unblockflag() == 2)&&(model.getClosemeterreadingvalue()!=2)) {
+                        if ((model.getBlock_unblockflag() == 2)&&(model.getClosemeterreadingvalue()==1)) {
                             blockedlist.add(model);
                         }
 
@@ -156,7 +169,8 @@ public class ContractListForActivation extends Activity implements View.OnClickL
                     }
 
                     if (  blockedlist.size() > 0) {
-                        listView.setAdapter(new ContractListAdapter( blockedlist, ContractListForActivation.this));
+                        adapter=new ContractListAdapter( blockedlist, ContractListForActivation.this);
+                        listView.setAdapter(adapter);
                         progressBar.setVisibility(View.GONE);
                         contentView.setVisibility(View.VISIBLE);
                     } else {

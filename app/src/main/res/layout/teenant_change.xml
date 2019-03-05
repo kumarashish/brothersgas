@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorPrimary">
+
+            <Button
+                android:layout_alignParentLeft="true"
+                android:id="@+id/back_button"
+
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/back" />
+
+            <TextView
+                android:id="@+id/heading"
+
+                android:fontFamily="@font/fontnew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Teenant Change"
+                android:textColor="@android:color/white"
+                android:textSize="18dp" />
+            <Button
+                android:visibility="gone"
+                android:id="@+id/edit"
+
+                android:background="@android:drawable/ic_menu_edit"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+        <ProgressBar
+            android:visibility="gone"
+            android:layout_width="50dp"
+            android:id="@+id/progressBar"
+            android:layout_height="50dp"
+            android:layout_below="@+id/pass_RL"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40.0dip"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/colorPrimary"/>
+        <LinearLayout
+            android:id="@+id/mainLayout"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ScrollView
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:background="@drawable/light_grey_box"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <View
+                                android:background="@drawable/green_column"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <TextView
+
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/grey"
+                                android:text="Contract Number : "
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <EditText
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="10dp"
+                                android:background="@android:color/transparent"
+                                android:layout_marginLeft="10dp"
+android:focusable="false"
+                                android:textColor="@color/md_gray_light"
+                                android:id="@+id/c_number"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:background="@drawable/light_grey_box"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <View
+                                android:background="@drawable/green_column"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/grey"
+                                android:text="Current Reading : "
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <EditText
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="10dp"
+                                android:background="@android:color/transparent"
+                                android:textColor="@color/md_gray_light"
+android:imeOptions="actionNext"
+                                android:layout_marginLeft="10dp"
+                                android:inputType="number"
+                                android:id="@+id/current_reading"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:background="@drawable/light_grey_box"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <View
+                                android:background="@drawable/green_column"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/grey"
+                                android:text="Emirates Id : "
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <EditText
+
+                                android:layout_marginRight="10dp"
+                                android:background="@android:color/transparent"
+                                android:imeOptions="actionNext"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/md_gray_light"
+                                android:id="@+id/em_id"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:background="@drawable/light_grey_box"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <View
+                                android:background="@drawable/green_column"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/grey"
+                                android:text="Expiry Date"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <Button
+android:background="@android:color/transparent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/md_gray_light"
+                                android:id="@+id/expiry_date"
+                                android:hint="Click here to select date"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:background="@drawable/light_grey_box"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <View
+                                android:background="@drawable/green_column"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/grey"
+                                android:text="Address : "
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <EditText
+                                android:imeOptions="actionNext"
+
+                                android:layout_marginRight="10dp"
+                                android:background="@android:color/transparent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/md_gray_light"
+                                android:id="@+id/address"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:background="@drawable/light_grey_box"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <View
+                                android:background="@drawable/green_column"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/grey"
+                                android:text="Email Id: "
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <EditText
+                                android:imeOptions="actionNext"
+                                android:layout_marginRight="10dp"
+                                android:background="@android:color/transparent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/md_gray_light"
+                                android:id="@+id/emailId"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:background="@drawable/light_grey_box"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <View
+                                android:background="@drawable/green_column"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/grey"
+                                android:text="Contact Number : "
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <EditText
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="10dp"
+                                android:background="@android:color/transparent"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/md_gray_light"
+                                android:id="@+id/contact_num"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"/>
+                        <ProgressBar
+                            android:visibility="gone"
+                            android:layout_width="50dp"
+                            android:id="@+id/progressBar2"
+                            android:layout_height="50dp"
+                            android:layout_below="@+id/pass_RL"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:indeterminateTint="@color/colorPrimary"/>
+                  <LinearLayout
+
+                        android:id="@+id/footer"
+android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+                            <Button
+                                android:padding="5dp"
+                                android:visibility="invisible"
+                                android:textSize="10dp"
+                                android:fontFamily="@font/light"
+                                android:background="@drawable/green_btn"
+
+                                android:textColor="@color/white"
+
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent" />
+                            <Button
+                                android:id="@+id/submit"
+                                android:padding="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:textSize="10dp"
+                                android:fontFamily="@font/light"
+                                android:background="@drawable/green_btn"
+                                android:text="Submit"
+                                android:textColor="@color/white"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"  />
+
+                        </LinearLayout>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"/>
+
+
+                    </LinearLayout>
+                </ScrollView>
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
