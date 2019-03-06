@@ -39,15 +39,20 @@ public class WebServiceAcess {
             jsonObject.put("I_PWD", value[1]);
             break;
             case Common.ContractView:
-            case Common.CancelContract:
+
 
                 jsonObject.put("I_CONTNO", value[0]);
+                break;
+            case Common.CancelContract:
+                jsonObject.put("I_CONTNO", value[0]);
+                jsonObject.put("I_YCURRDNG", value[1]);
                 break;
             case Common.BlockUnBlock:
                 jsonObject.put("I_CONTNO", value[0]);
                 jsonObject.put("I_FLG", value[1]);
                 jsonObject.put("I_REASON", value[2]);
-                jsonObject.put("I_REACTIVEDT", getCurrentDate());
+                jsonObject.put("I_REACTIVEDT", value[3]);
+                jsonObject.put("I_YCURRDNG", value[4]);
 
 
                 break;
@@ -68,6 +73,10 @@ public class WebServiceAcess {
                 jsonObject.put("I_RETYPE", value[2]);
                 jsonObject.put("I_METPROB",value[3]);
                 jsonObject.put("I_REASON", value[4]);
+                jsonObject.put("I_TYPE", "1");
+                jsonObject.put("I_MPROBAMT", value[5]);
+
+
                 break;
             case Common.Tennant_Change:
                 jsonObject.put("I_CONTNO", value[0]);
@@ -88,8 +97,15 @@ public class WebServiceAcess {
             case Common.CreatePayment:
                 jsonObject.put("I_YSINVNO", value[0]);
                 jsonObject.put("I_YCHKNO", value[1]);
-                jsonObject.put(" I_YPAYTYP",value[2]);
+                jsonObject.put("I_YPAYTYP",value[2]);
                 jsonObject.put("I_YOAMT",value[3]);
+
+                break;
+            case Common.PayAll:
+                jsonObject.put("I_YBPR", value[0]);
+                jsonObject.put("I_YPAYTYP", value[1]);
+                jsonObject.put("I_YOAMT",value[2]);
+                jsonObject.put("I_YCHKNO",value[3]);
 
                 break;
             case Common.Print_Email:
@@ -98,6 +114,8 @@ public class WebServiceAcess {
 
                 break;
             case Common.ContractDetailsForConsumption:
+            case Common.Reasons:
+            case Common.BlockList:
                 jsonObject.put("I_FLAG", value[0]);
                 break;
             case Common.Enqiry:
@@ -105,6 +123,12 @@ public class WebServiceAcess {
                 jsonObject.put("I_YSTARTDATE", value[1]);
                 jsonObject.put("I_ENDDATE", value[2]);
                 break;
+            case Common.AmountForInvoice:
+                jsonObject.put("I_INVNUM", value[0]);
+
+                break;
+
+
 
 
         }

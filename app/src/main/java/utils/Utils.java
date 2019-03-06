@@ -98,6 +98,25 @@ public class Utils {
         AlertDialog alert11 = builder1.create();
         alert11.show();
     }
+    public static void showAlertNavigateToInvoices(final Activity act, String message, final Class b, final String data)
+    {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder( act);
+        builder1.setMessage(message);
+        builder1.setCancelable(true);
+        builder1.setNeutralButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent in=new Intent(act,b);
+                        in.putExtra("Data",data);
+                        act.startActivity(in);
+                        act.finish();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
     public static void showAlertNormal(final Activity act, String message)
     {
         AlertDialog.Builder builder1 = new AlertDialog.Builder( act);
@@ -120,5 +139,10 @@ public static String getDate(String date)
     //String newDate=date.substring(6,8)+"-"+date.substring(4,6)+"-"+date.substring(0,4);
     return date;
 }
+    public static String getFormatted(String date)
+    {date=date.replaceAll("/","");
+        String newDate=date.substring(4,8)+""+date.substring(2,4)+""+date.substring(0,2);
+        return newDate;
+    }
 
 }

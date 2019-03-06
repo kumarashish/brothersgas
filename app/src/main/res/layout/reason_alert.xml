@@ -5,7 +5,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="350dp">
+        android:layout_height="450dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -50,7 +50,36 @@
                             android:layout_marginRight="10dp"
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="70dp">
+                            android:layout_height="40dp">
+                            <TextView
+                                android:fontFamily="@font/fontnew"
+                                android:text="Current Reading : "
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <EditText
+                                android:inputType="number"
+                                android:id="@+id/current_reading"
+                                android:gravity="center_vertical"
+                                android:imeOptions="actionNext"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/light_grey_box"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/reasonView"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
                             <TextView
                                 android:fontFamily="@font/fontnew"
                                 android:text="Reason : "
@@ -60,16 +89,55 @@
                             <View
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
-                            <EditText
+                            <RelativeLayout
+                                android:background="@drawable/light_grey_box"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp">
+                            <Spinner
                                 android:id="@+id/reason"
                                 android:gravity="center_vertical"
                                 android:imeOptions="actionNext"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
                                 android:layout_gravity="center_vertical"
+
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/dateView"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <TextView
+                                android:fontFamily="@font/fontnew"
+                                android:text="Reactivation Date : "
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <RelativeLayout
                                 android:background="@drawable/light_grey_box"
                                 android:layout_width="match_parent"
-                                android:layout_height="60dp" />
+                                android:layout_height="40dp">
+                                <Button
+                                    android:id="@+id/react_date"
+                                    android:gravity="center_vertical"
+                                    android:background="@android:color/transparent"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:hint="Click here for date"
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp" />
+                            </RelativeLayout>
                         </LinearLayout>
 
                         <RelativeLayout

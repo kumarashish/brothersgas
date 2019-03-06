@@ -35,7 +35,7 @@ public class ContractDetails {
     public String units ;
     public String blockFlag;
     public String closeFlag;
-
+public String adminCharges;
 
  public ContractDetails(JSONArray jsonArray)
  {
@@ -130,7 +130,7 @@ public class ContractDetails {
     }
 
     public String getUnits() {
-        return "("+units+")";
+        return units;
     }
 
     public void setConnection_Disconnection_Invoice(String connection_Disconnection_Invoice) {
@@ -239,5 +239,12 @@ public class ContractDetails {
 
     public String getContractNumber() {
         return contractNumber;
+    }
+    public void setAdminInvoiceCharges(String adminCharges) {
+        this.adminCharges = adminCharges;
+    }
+
+    public String getAdminInvoiceCharges() {
+        return adminCharges;
     }
 }

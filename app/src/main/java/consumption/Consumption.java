@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -102,6 +103,7 @@ public class Consumption  extends Activity implements View.OnClickListener {
 EditText retype_currentReading;
 @BindView(R.id.currentReading)
 EditText currentReading;
+ArrayList<String>reasons=new ArrayList<>();
 
     ContractModel model2=null;
     String previousSearcchedContact="";
@@ -130,7 +132,13 @@ EditText currentReading;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     issueList.setVisibility(View.VISIBLE);
-                    currentReading.setEnabled(false);
+                    if(previousReading.getText().length()==0) {
+                        currentReading.setEnabled(true);
+                        retype_currentReading.setEnabled(true);
+                    }else{
+                        currentReading.setEnabled(false);
+                        retype_currentReading.setEnabled(false);
+                    }
                     retype_currentReading.setEnabled(false);
                 } else {
                     issueList.setVisibility(View.GONE);
@@ -213,27 +221,29 @@ EditText currentReading;
                 break;
             case R.id.submit:
              if(contractNumber.getText().length()>0)
+             {if((meterProblem.isChecked())&&(previousReading.getText().length()>0))
              {
+                 new GenerateInvoice().execute();
+             }else {
 
-                 if((currentReading.getText().length()>0)&&(retype_currentReading.getText().length()>0))
-                 {
-                     if(currentReading.getText().toString().trim().equals(retype_currentReading.getText().toString().trim()))
-                     {
-                       new GenerateInvoice().execute();
-                     }else{
-                         Utils.showAlertNormal(Consumption.this,"Curent Reading and Retype Reading must be same");
+                 if ((currentReading.getText().length() > 0) && (retype_currentReading.getText().length() > 0)) {
+                     if (currentReading.getText().toString().trim().equals(retype_currentReading.getText().toString().trim())) {
+                         new GenerateInvoice().execute();
+                     } else {
+                         Utils.showAlertNormal(Consumption.this, "Curent Reading and Retype Reading must be same");
                      }
-                 }else{
-                     if(currentReading.getText().length()==0)
-                     {
-                         Utils.showAlertNormal(Consumption.this,"Please enter  Current Reading");
-                     }else {
-                         Utils.showAlertNormal(Consumption.this,"Please enter value in Retype Current Reading");
+                 } else {
+                     if (currentReading.getText().length() == 0) {
+                         Utils.showAlertNormal(Consumption.this, "Please enter  Current Reading");
+                     } else {
+                         Utils.showAlertNormal(Consumption.this, "Please enter value in Retype Current Reading");
                      }
                  }
+             }
              }else{
                  Utils.showAlertNormal(Consumption.this,"Please select consumer");
              }
+
              break;
             case R.id.currentDate:
                 showDialog(999);
@@ -256,6 +266,57 @@ EditText currentReading;
 //        currentDate.setText(s);
 //
 //    }
+
+    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+    public class GetReasons extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+            contentView.setVisibility(View.GONE);
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = webServiceAcess.runRequest(Common.runAction, Common.Reasons,new String[]{"2"});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONObject tab = result.getJSONObject("TAB");
+                    JSONArray jsonArray = tab.getJSONArray("LIN");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        reasons.add(item.getJSONObject("FLD").getString("content"));
+                        }
+
+                    if (list.size() > 0) {
+                       reason.setAdapter(new ArrayAdapter<String>(Consumption.this, android.R.layout.simple_spinner_item,reasons));
+                        progressBar.setVisibility(View.GONE);
+                        contentView.setVisibility(View.VISIBLE);
+
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        Utils.showAlert(Consumption.this, "No data Found");
+
+                    }
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+            } else {
+                progressBar.setVisibility(View.GONE);
+                Utils.showAlert(Consumption.this, "Data not found");
+            }
+
+
+        }}
 
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
@@ -291,6 +352,7 @@ EditText currentReading;
                         consumer.setOnItemClickListener(onItemClickListener);
                         progressBar.setVisibility(View.GONE);
                         contentView.setVisibility(View.VISIBLE);
+                        new GetReasons().execute();
 
                     } else {
                         progressBar.setVisibility(View.GONE);
@@ -403,12 +465,28 @@ EditText currentReading;
         protected String doInBackground(String... strings) {
             String meterProblemValue="0";
             String reasonValue="";
+            String currentReadingValue="";
+            String retypeReadingValue="";
+            String amountvalue="";
             if(meterProblem.isChecked()) {
                 meterProblemValue="2";
+                if(previousReading.getText().length()==0)
+                {
+                    amountvalue=currentReading.getText().toString();
+                }
 
                 reasonValue=reason.getSelectedItem().toString();
             }
-            String result = webServiceAcess.runRequest(Common.runAction, Common.GenerateDeliveryNote, new String[]{contractNumber.getText().toString(),currentReading.getText().toString(),retype_currentReading.getText().toString(),meterProblemValue,reasonValue});
+            if(currentReading.getText().length()>0)
+            {
+                currentReadingValue=currentReading.getText().toString();
+            }
+            if(retype_currentReading.getText().length()>0)
+            {
+                retypeReadingValue=retype_currentReading.getText().toString();
+            }
+
+            String result = webServiceAcess.runRequest(Common.runAction, Common.GenerateDeliveryNote, new String[]{contractNumber.getText().toString(),currentReadingValue,retypeReadingValue,meterProblemValue,reasonValue,amountvalue});
             return result;
         }
 
@@ -421,9 +499,9 @@ EditText currentReading;
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONObject jsonObject1 = result.getJSONObject("GRP");
                     JSONArray fld = jsonObject1.getJSONArray("FLD");
-                   JSONObject messageJSON=fld.getJSONObject(7);
-                    JSONObject deliveryNoteJSON=fld.getJSONObject(5);
-                    JSONObject invoiceNumberJSON=fld.getJSONObject(6);
+                   JSONObject messageJSON=fld.getJSONObject(9);
+                    JSONObject deliveryNoteJSON=fld.getJSONObject(7);
+                    JSONObject invoiceNumberJSON=fld.getJSONObject(8);
 
                     String deliveryNote=deliveryNoteJSON.isNull("content")?"":deliveryNoteJSON.getString("content");
                     String invoiceNumber=invoiceNumberJSON.isNull("content")?"":invoiceNumberJSON.getString("content");

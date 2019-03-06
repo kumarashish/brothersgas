@@ -148,7 +148,7 @@ public void setValue()
                     int statusValue=status.isNull("content")?1: status.getInt("content");
                     if(statusValue==2)
                     {
-                        Utils.showAlert(PaymentReceipt_Print_Email.this,message);
+                        Utils.showAlertNormal(PaymentReceipt_Print_Email.this,message);
                     }else{
                         Utils.showAlertNormal(PaymentReceipt_Print_Email.this,message);
                     }

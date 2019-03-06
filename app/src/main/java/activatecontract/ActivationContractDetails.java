@@ -26,6 +26,7 @@ import common.Common;
 import common.WebServiceAcess;
 import contracts.ContractDetails;
 import invoices.Block_Cancel_Details;
+
 import model.BlockUnblockModel;
 import model.ContractModel;
 import utils.Utils;
@@ -128,18 +129,14 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                     Initial_meter_reading.setSelection(Initial_meter_reading.getText().length());
                 }
                 break;
-            case R.id.submit:
-                if (Initial_meter_reading.getText().length() > 0) {
-                    footer.setVisibility(View.GONE);
-                    progressBar2.setVisibility(View.VISIBLE);
-                    new Update().execute(new String[]{Common.UpdateInitialReading});
 
-                }
             case R.id.dep_invoice:
-                showReasonAlert();
+                footer.setVisibility(View.GONE);
+                progressBar2.setVisibility(View.VISIBLE);
+                new ActivateContract().execute(new String[]{""});
                 break;
             case R.id.con_dcon_invoice:
-                TenantChange.contractNumber=contractModel.getContract_Meternumber();
+                TenantChange.model=contractModel;
                 startActivityForResult(new Intent(ActivationContractDetails.this,TenantChange.class),2);
                 break;
 
@@ -149,46 +146,13 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    /*-------------------------------------------------------------------block-------------------------------------------------------*/
-    public class Update extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-
-            String result = webServiceAcess.runRequest(Common.runAction, strings[0], new String[]{contractId, Initial_meter_reading.getText().toString()});
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            Log.e("value", "onPostExecute: " + s, null);
-            if (s.length() > 0) {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONArray jsonArray = result.getJSONArray("GRP");
-                    JSONObject item = jsonArray.getJSONObject(1);
-                    JSONArray Fld = item.getJSONArray("FLD");
-                    JSONObject statusObject = Fld.getJSONObject(0);
-                    JSONObject messageObject = Fld.getJSONObject(1);
-                    int status = statusObject.getInt("content");
-                    String message = messageObject.isNull("content") ? "Message not available" : messageObject.getString("content");
-                    if (status == 2) {
-                        Utils.showAlert(ActivationContractDetails.this, message);
-                    } else {
-                        Utils.showAlertNormal(ActivationContractDetails.this, message);
-                    }
-                } catch (Exception ex) {
-                    ex.fillInStackTrace();
-                }
-            } else {
-                Utils.showAlertNormal(ActivationContractDetails.this, "No message received from api");
-            }
-            progressBar2.setVisibility(View.GONE);
-            footer.setVisibility(View.VISIBLE);
+        if(requestCode==2)
+        {
+            finish();
         }
     }
+
+
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetData extends AsyncTask<String, Void, String> {
@@ -240,12 +204,18 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
-                    BlockUnblockModel model=new BlockUnblockModel(item.getJSONArray("FLD"));
-                    if (model.getStatus() == 2) {
-                        Utils.showAlertForReturnIntent(ActivationContractDetails.this,model.getMessage() );
+                    BlockUnblockModel modell=new BlockUnblockModel(item.getJSONArray("FLD"));
+                    if (modell.getStatus() == 2) {
+                        if(modell.getAdminCharges().length()>0)
+                        {model.setAdminInvoiceCharges(modell.getAdminCharges());
+                            Print_Email.model=model;
+                            Utils.showAlertNavigateToPrintEmail(ActivationContractDetails.this,modell.getMessage(),Print_Email.class);
+                        }else {
+                            Utils.showAlertForReturnIntent(ActivationContractDetails.this, modell.getMessage());
+                        }
                     } else {
 
-                        Toast.makeText(ActivationContractDetails.this, "Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivationContractDetails.this, modell.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                     progressBar2.setVisibility(View.GONE);

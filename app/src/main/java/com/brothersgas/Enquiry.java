@@ -145,13 +145,13 @@ EnquiryModel model=null;
         switch (selectedOption)
         {
             case 1:
-                startDate.setText(new StringBuilder().append(year).append("")
-                        .append(monthValue).append("").append(dayValue));
+                startDate.setText(new StringBuilder().append(dayValue).append("/")
+                        .append(monthValue).append("/").append(year));
                 startDateSlected=true;
                 break;
             case 2:
-               endDate.setText(new StringBuilder().append(year).append("")
-                        .append(monthValue).append("").append(dayValue));
+               endDate.setText(new StringBuilder().append(dayValue).append("/")
+                        .append(monthValue).append("/").append(year));
                 endDateSlected=true;
                 break;
         }
@@ -201,7 +201,7 @@ EnquiryModel model=null;
 
         @Override
         protected String doInBackground(String... strings) {
-            String result=webServiceAcess.runRequest(Common.runAction,Common.Enqiry,  new String[]{ controller.getManager().getLoggedInUserName(), startDate.getText().toString(),endDate.getText().toString()});
+            String result=webServiceAcess.runRequest(Common.runAction,Common.Enqiry,  new String[]{ controller.getManager().getLoggedInUserName(), Utils.getFormatted(startDate.getText().toString()),Utils.getFormatted(endDate.getText().toString())});
             return  result;
         }
 

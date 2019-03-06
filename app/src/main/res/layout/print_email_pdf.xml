@@ -417,6 +417,36 @@
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/admin_invoice_view"
+                            android:visibility="gone"
+
+                            android:background="@drawable/light_grey_box"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <View
+                                android:background="@drawable/green_column"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/grey"
+                                android:text="Admin Invoice : "
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/md_gray_light"
+                                android:id="@+id/admin_Invoice"
+                                android:fontFamily="@font/aller_rg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
 
                             android:background="@drawable/light_grey_box"
                             android:layout_margin="5dp"

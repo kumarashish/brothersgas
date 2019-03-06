@@ -243,18 +243,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
             </LinearLayout>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
 
-                android:textSize="14dp"
-                android:textColor="@color/grey"
-                android:text="Status"
-                android:fontFamily="@font/light"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
                 <CheckBox
+                    android:layout_margin="10dp"
                     android:id="@+id/meter_prblm"
                     android:textColor="@color/grey"
                     android:text="Meter Problem"
@@ -264,15 +256,23 @@
 
             <LinearLayout
                 android:visibility="gone"
+
+                android:layout_marginRight="10dp"
+               android:layout_marginLeft="10dp"
+                android:background="@drawable/light_grey_box"
                 android:id="@+id/issueList"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="40dp">
                 <Spinner
-                    android:entries="@array/reason"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
+
                     android:id="@+id/reason"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></Spinner>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
 

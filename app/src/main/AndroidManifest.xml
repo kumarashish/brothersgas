@@ -70,6 +70,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name="activatecontract.TenantChange"
             android:screenOrientation="portrait"/>
+        <activity android:name="payment.PayAll"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

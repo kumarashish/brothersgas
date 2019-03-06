@@ -118,7 +118,11 @@ public class Common {
     final public static String ContractDetailsForConsumption="YMTRCONLST";
     final public static String UploadSignature="YMTRSIGN";
     final public static String PayAll="YMTRPAYALL";
+    final public static String AmountForInvoice="YMTRINVAMT";
     final public static String Print_Email="YMTRWRKREP";
+    final public static String BlockList="YMTRBLKLST";
+    final public static String Reasons="YMTRBMREAS";
+
 
 
 

@@ -164,6 +164,9 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     String message =messageObject.isNull("content")?"Message not available": messageObject.getString("content");
 
                     if(status==2) {
+
+                        Initial_meter_reading.setEnabled(false);
+
                         Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
                         progressBar2.setVisibility(View.GONE);
                         editView.setVisibility(View.GONE);
@@ -218,7 +221,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     {
                         Utils.showAlert(Connection_Disconnection_Invoice_details.this, message);
                     }else{
-                        if (calledMethod == Common.depositInvoice)
+                        if (calledMethod.equalsIgnoreCase("1"))
 
                         //
                         {model.setDeposit_Invoice(depInvoice);
@@ -292,7 +295,6 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         Initial_meter_reading.setText(model.getInitial_meter_reading()+" "+model.getUnits());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
-        dep_Invoice .setVisibility(View.INVISIBLE);
         if((model.getDeposit_Invoice().length()>0)&&(model.getConnection_Disconnection_Invoice().length()>0))
         {
             footer.setVisibility(View.GONE);

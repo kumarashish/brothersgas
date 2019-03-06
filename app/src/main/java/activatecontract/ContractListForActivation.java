@@ -145,7 +145,7 @@ public class ContractListForActivation extends Activity implements View.OnClickL
     public class GetData extends AsyncTask<String,Void,String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.queryRequest(Common.queryAction, Common.ContractList);
+            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList,new String[]{"1"});
             return result;
         }
 
@@ -156,14 +156,15 @@ public class ContractListForActivation extends Activity implements View.OnClickL
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONArray jsonArray = result.getJSONArray("LIN");
+                    JSONObject tab=result.getJSONObject("TAB");
+                    JSONArray jsonArray = tab.getJSONArray("LIN");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
                         Log.d("contractId", model.getContract_Meternumber());
-                        if ((model.getBlock_unblockflag() == 2)&&(model.getClosemeterreadingvalue()==1)) {
+
                             blockedlist.add(model);
-                        }
+
 
 
                     }

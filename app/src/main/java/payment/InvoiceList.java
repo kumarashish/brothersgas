@@ -71,7 +71,8 @@ AutoCompleteTextView search;
     ContractModel model;
     @BindView(R.id.tot_amount)
     TextView totalAmount;
-
+@BindView(R.id.pay_now)
+Button payNow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ AutoCompleteTextView search;
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
         back.setOnClickListener(this);
+        payNow.setOnClickListener(this);
         if(Utils.isNetworkAvailable(InvoiceList.this))
         {   header.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
@@ -95,6 +97,13 @@ AutoCompleteTextView search;
         {
             case R.id.back_button:
                 finish();
+                break;
+            case R.id.pay_now:
+                PayAll.customerNumberValue=model.getContract_Meternumber();
+                String []value=getTotalOutStandingAmount();
+                PayAll.amount=value[0];
+                PayAll.unit=value[1];
+                startActivity(new Intent(InvoiceList.this,PayAll.class));
                 break;
 
         }
@@ -178,13 +187,17 @@ AutoCompleteTextView search;
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONObject tab=result.getJSONObject("TAB");
-                    JSONObject lin=tab.getJSONObject("LIN");
-                    JSONArray jsonArray =  lin.getJSONArray("FLD");
+                    JSONArray lin=tab.getJSONArray("LIN");
+                    for(int i=0;i<lin.length();i++)
+                    {JSONObject jsonObject1=lin.getJSONObject(i);
+                        JSONArray jsonArray =  jsonObject1.getJSONArray("FLD");
 
                         InvoiceModel model=new InvoiceModel(jsonArray);
                         if(Double.parseDouble(model.getOutstanding_amount())>0) {
                             pendingInvoice.add(model);
                         }
+                    }
+
 
 
                     if (pendingInvoice.size() > 0) {

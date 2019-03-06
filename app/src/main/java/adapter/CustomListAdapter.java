@@ -60,8 +60,8 @@ ContractModel model=getItem(position);
         TextView project = (TextView) view.findViewById(R.id.project);
         strName.setText(model.getCustomername()+" ("+model.getCustomercode()+")");
         strNumber.setText(model.getContract_Meternumber());
-        owner.setText(model.getOwner());
-        project.setText(model.getProject());
+        owner.setText(model.getOwner()+"-"+model.getOwnerDesc());
+        project.setText(model.getProject()+"-"+model.getProjectDesc());
         return view;
     }
 

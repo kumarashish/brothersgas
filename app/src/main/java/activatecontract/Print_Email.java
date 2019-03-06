@@ -1,49 +1,36 @@
-package invoices;
+package activatecontract;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaScannerConnection;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.brothersgas.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.Common;
 import common.Signature;
-import common.TextView;
 import common.WebServiceAcess;
 import payment.PaymentReceipt;
 import utils.Utils;
 
-/**
- * Created by ashish.kumar on 22-02-2019.
- */
-
-public class Print_Email extends Activity implements View.OnClickListener {
+public class Print_Email  extends Activity implements View.OnClickListener {
     @BindView(R.id.site)
     android.widget.TextView site;
     @BindView(R.id.customer_id)
@@ -87,6 +74,10 @@ public class Print_Email extends Activity implements View.OnClickListener {
     String imagePath=null;
     @BindView(R.id.progressBar2)
     ProgressBar progressBar;
+    @BindView(R.id.admin_invoice_view)
+    LinearLayout admin_invoice_view;
+    @BindView(R.id.admin_Invoice)
+    TextView admin_Invoice;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +88,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
         signature.setOnClickListener(this);
         payment.setOnClickListener(this);
         print_email.setOnClickListener(this);
+        admin_invoice_view.setVisibility(View.VISIBLE);
         setValue();
     }
 
@@ -113,6 +105,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
         Initial_meter_reading.setText(model.getInitial_meter_reading());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
+        admin_Invoice.setText(model.getAdminInvoiceCharges());
         footer.setVisibility(View.VISIBLE);
     }
 
@@ -135,12 +128,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
                 break;
             case R.id.payment:
                 if(isSignatureCaptured)
-                { if(calledMethod.equalsIgnoreCase("1")) {
-
-                    PaymentReceipt.invoiceNumber = model.getDeposit_Invoice();
-                }else{
-                    PaymentReceipt.invoiceNumber = model.getConnection_Disconnection_Invoice();
-                }
+                { PaymentReceipt.invoiceNumber=model.getAdminInvoiceCharges();
                     startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
                 }else{
                     Utils.showAlertNormal(Print_Email.this,"Please capture signature");
@@ -199,57 +187,6 @@ public class Print_Email extends Activity implements View.OnClickListener {
                     JSONObject messageJsonObject=Fld.getJSONObject(1);
                     JSONObject status=Fld.getJSONObject(0);
                     String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
-                   int statusValue=status.isNull("content")?1: status.getInt("content");
-if(statusValue==2)
-{
-    Utils.showAlertNormal(Print_Email.this,message);
-}else{
-    Utils.showAlertNormal(Print_Email.this,message);
-}
-
-
-                } catch (Exception ex) {
-                    ex.fillInStackTrace();
-                }
-                progressBar.setVisibility(View.GONE);
-                footer.setVisibility(View.VISIBLE);
-            } else {
-                progressBar.setVisibility(View.GONE);
-                footer.setVisibility(View.VISIBLE);
-            }
-
-        }
-    }
-    /*-------------------------------------------------------------------block-------------------------------------------------------*/
-    public class UploadSignature extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String val="1";
-            String inVoiceNumber=model.getDeposit_Invoice();
-            if(calledMethod.equalsIgnoreCase(Common.Connection_Disconnection_Invoice))
-            {
-                val="2";
-                inVoiceNumber=model.getConnection_Disconnection_Invoice();
-            }
-
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            Log.e("value", "onPostExecute: ", null);
-            if (s.length() > 0) {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONArray jsonArray = result.getJSONArray("GRP");
-                    JSONObject item = jsonArray.getJSONObject(1);
-                    JSONArray Fld = item.getJSONArray("FLD");
-                    JSONObject messageJsonObject=Fld.getJSONObject(1);
-                    JSONObject status=Fld.getJSONObject(0);
-                    String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
                     int statusValue=status.isNull("content")?1: status.getInt("content");
                     if(statusValue==2)
                     {
@@ -258,20 +195,15 @@ if(statusValue==2)
                         Utils.showAlertNormal(Print_Email.this,message);
                     }
 
-
+                    progressBar.setVisibility(View.GONE);
+                    footer.setVisibility(View.VISIBLE);
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
-                progressBar.setVisibility(View.GONE);
-                footer.setVisibility(View.VISIBLE);
             } else {
-                progressBar.setVisibility(View.GONE);
-                footer.setVisibility(View.VISIBLE);
             }
 
         }
     }
-
-
 
 }

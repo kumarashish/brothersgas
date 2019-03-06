@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,13 +37,15 @@ import common.Common;
 import common.WebServiceAcess;
 import contracts.Search;
 import interfaces.ListItemClickListner;
+import invoices.Connection_Disconnection_Invoice_details;
+import model.ContractDetails;
 import model.ContractModel;
 import utils.Utils;
 
 public class TenantChange extends Activity implements View.OnClickListener {
     AppController controller;
     WebServiceAcess webServiceAcess;
-    @BindView(R.id.c_number)
+    @BindView(R.id.contract_num)
     EditText contract_number;
             @BindView(R.id.current_reading)
             EditText current_reading;
@@ -63,11 +67,14 @@ public class TenantChange extends Activity implements View.OnClickListener {
     Button submit;
     @BindView(R.id.back_button)
     Button back;
+    @BindView(R.id.c_name)
+    EditText customer_name;
     private DatePicker datePicker;
     private Calendar calendar;
 
     private int year, month, day;
-public static String contractNumber="";
+public static ContractModel model=null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +86,40 @@ public static String contractNumber="";
         submit.setOnClickListener(this);
         back.setOnClickListener(this);
         expiry_date.setOnClickListener(this);
-        contract_number.setText(contractNumber);
+        contract_number.setText(model.getContract_Meternumber());
+        customer_name.setText(model.getCustomername());
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
 
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+        em_id.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()==3)
+                {
+                    s.append("-");
+                }
+                else if(s.length()==8)
+                {
+                    s.append("-");
+                }else if(s.length()==16)
+                {
+                    s.append("-");
+                }
+
+            }
+        });
 
     }
     @SuppressWarnings("deprecation")
@@ -126,8 +161,8 @@ public static String contractNumber="";
         {
             dayValue="0"+day;
         }
-       expiry_date.setText(new StringBuilder().append(year).append("")
-                .append(monthValue).append("").append(dayValue));
+       expiry_date.setText(new StringBuilder().append(dayValue).append("/")
+                .append(monthValue).append("/").append(year));
     }
     @Override
     public void onClick(View v) {
@@ -182,7 +217,7 @@ footer.setVisibility(View.GONE);
         @Override
         protected String doInBackground(String... strings) {
 
-            String result = webServiceAcess.runRequest(Common.runAction, Common.Tennant_Change, new String[]{contractNumber, current_reading.getText().toString(),em_id.getText().toString(),expiry_date.getText().toString(),address.getText().toString(),contact_number.getText().toString(),emailId.getText().toString()});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.Tennant_Change, new String[]{model.getContract_Meternumber(), current_reading.getText().toString(),em_id.getText().toString(),Utils.getFormatted(expiry_date.getText().toString()),address.getText().toString(),contact_number.getText().toString(),emailId.getText().toString()});
             return result;
         }
 
@@ -196,10 +231,13 @@ footer.setVisibility(View.GONE);
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
                     JSONArray Fld = item.getJSONArray("FLD");
+                    JSONObject contractDetails=Fld.getJSONObject(0);
                     JSONObject messageObject = Fld.getJSONObject(1);
+                    String contractNumber = contractDetails.isNull("content") ? "Message not available" : contractDetails.getString("content");
                     String message = messageObject.isNull("content") ? "Message not available" : messageObject.getString("content");
                     if (message.contains("New")) {
-                        Utils.showAlertNormal(TenantChange.this, message);
+                        contract_number.setText(contractNumber);
+                        Utils.showAlertNavigateToInvoices(TenantChange.this, message,Connection_Disconnection_Invoice_details.class,contractNumber);
                         submit.setVisibility(View.GONE);
                     } else {
                         Utils.showAlertNormal(TenantChange.this, message);
@@ -215,4 +253,6 @@ footer.setVisibility(View.GONE);
             footer.setVisibility(View.VISIBLE);
         }
     }
+
+
 }

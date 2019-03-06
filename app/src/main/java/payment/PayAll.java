@@ -13,35 +13,22 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.brothersgas.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-import adapter.Invoice_ListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 import common.TextView;
 import common.WebServiceAcess;
-import consumption.Consumption;
-import invoices.Block_Cancel_Details;
-import model.ContractModel;
-import model.InvoiceModel;
 import model.PaymentReceiptModel;
 import utils.Utils;
 
-/**
- * Created by ashish.kumar on 07-02-2019.
- */
-
-public class PaymentReceipt  extends Activity implements View.OnClickListener  {
+public class PayAll  extends Activity implements View.OnClickListener  {
     AppController controller;
     WebServiceAcess webServiceAcess;
 
@@ -73,21 +60,23 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
     @BindView(R.id.invoice_number)
     android.widget.TextView invoice_numberValue;
     @BindView(R.id.cheaquenumber)
-            EditText cheaqueNumber;
+    EditText cheaqueNumber;
     @BindView(R.id.date)
     EditText chequeDate;
-            @BindView(R.id.bank)
-            EditText bank;
-            @BindView(R.id.progressBar)
-            ProgressBar progressBar1;
-            @BindView(R.id.mainLayout)
-            LinearLayout mainLayout;
+    @BindView(R.id.bank)
+    EditText bank;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar1;
+    @BindView(R.id.mainLayout)
+    LinearLayout mainLayout;
 
 
-    public static String invoiceNumber="";
+    public static String customerNumberValue="";
     public static String amount="";
     public static String unit="";
     boolean paymentModeCheque=false;
+    @BindView(R.id.customer_number)
+    android.widget.TextView customerNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +87,8 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
         submit.setOnClickListener(this);
         back.setOnClickListener(this);
         paymentMode.check(cheque.getId());
-        invoice_numberValue.setText(invoiceNumber);
+        customerNumber.setText("Contract Number");
+        invoice_numberValue.setText(customerNumberValue);
         amountValue.setText(amount);
         amountUnit.setText(unit);
         paymentMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -119,15 +109,11 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
             }
         });
 
-        if(amount.length()==0)
-        { progressBar1.setVisibility(View.VISIBLE);
-        mainLayout.setVisibility(View.GONE);
-            new FetchInvoices().execute();
-        }
+
     }
     public void showAlert(String message)
     {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(PaymentReceipt.this);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(PayAll.this);
         builder1.setMessage(message);
         builder1.setCancelable(true);
         builder1.setNeutralButton(
@@ -179,55 +165,19 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                 break;
         }
     }
-    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
-    public class FetchInvoices extends AsyncTask<String,Void,String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.AmountForInvoice,new String[]{invoiceNumber});
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            Log.e("value", "onPostExecute: ", null);
-            if (s.length() > 0) {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONObject grp = result.getJSONObject("GRP");
-                    JSONArray fld = grp.getJSONArray("FLD");
-                    amountValue.setText(fld.getJSONObject(1).getString("content"));
-
-
-
-                } catch (Exception ex) {
-                    ex.fillInStackTrace();
-                }
-
-            } else {
-
-
-            }
-
-            progressBar1.setVisibility(View.GONE);
-            mainLayout.setVisibility(View.VISIBLE);
-        }
-    }
-
 
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class CreatePayment extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
-            String cheaueNumberString="";
-            String mode="1";
-            if(paymentMode.getCheckedRadioButtonId()==cheque.getId())
-            {
-                cheaueNumberString=cheaqueNumber.getText().toString();
-                mode="2";
+            String cheaueNumberString = "";
+            String mode = "1";
+            if (paymentMode.getCheckedRadioButtonId() == cheque.getId()) {
+                cheaueNumberString = cheaqueNumber.getText().toString();
+                mode = "2";
             }
-            String result = webServiceAcess.runRequest(Common.runAction,Common.CreatePayment, new String[]{invoiceNumber,cheaueNumberString,mode,amountValue.getText().toString()});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.PayAll, new String[]{customerNumberValue, cheaueNumberString, mode, amountValue.getText().toString()});
             return result;
         }
 
@@ -240,11 +190,11 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
-                    JSONArray fld=item.getJSONArray("FLD");
-                    PaymentReceiptModel model=new PaymentReceiptModel(fld);
-                    PaymentReceipt_Print_Email.model=model;
-                    PaymentReceipt_Print_Email.isPaymentTakenByCheaque=paymentModeCheque;
-                    Utils.showAlertNavigateToPrintEmail(PaymentReceipt.this,"Paymet created Sucessfully.Payment Number "+model.getPayment_Number(),PaymentReceipt_Print_Email.class);
+                    JSONArray fld = item.getJSONArray("FLD");
+                    PaymentReceiptModel model = new PaymentReceiptModel(fld);
+                    PaymentReceipt_Print_Email.model = model;
+                    PaymentReceipt_Print_Email.isPaymentTakenByCheaque = paymentModeCheque;
+                    Utils.showAlertNavigateToPrintEmail(PayAll.this, "Paymet created Sucessfully.Payment Number " + model.getPayment_Number(), PaymentReceipt_Print_Email.class);
 
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
@@ -256,8 +206,4 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
             progressBar.setVisibility(View.GONE);
 
         }
-    }
-}
-
-
-
+    }}

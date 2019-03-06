@@ -20,6 +20,7 @@ public class ContractModel {
     public   String projectDesc="";
     public  String owner="";
     public  String ownerDesc="";
+    public String adminCharges="";
 
 
     public ContractModel(JSONArray jsonArray)
@@ -144,5 +145,13 @@ public class ContractModel {
 
     public String getProjectDesc() {
         return projectDesc;
+    }
+
+    public void setAdminInvoiceCharges(String adminCharges) {
+        this.adminCharges = adminCharges;
+    }
+
+    public String getAdminInvoiceCharges() {
+        return adminCharges;
     }
 }

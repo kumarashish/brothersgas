@@ -111,8 +111,9 @@ public class ConsumptionReceipt extends Activity implements View.OnClickListener
                 break;
             case R.id.payment:
                 if (isSignatureCaptured) {
+                    PaymentReceipt.invoiceNumber=detailsModel.getSales_InvoiceNumber();
                     startActivity(new Intent(ConsumptionReceipt.this, PaymentReceipt.class));
-                    //  finish();
+
                 } else {
                     Utils.showAlertNormal(ConsumptionReceipt.this, "Please capture signature");
                 }
