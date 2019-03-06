@@ -268,27 +268,11 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <RadioGroup
+                <Spinner
+                    android:entries="@array/reason"
                     android:id="@+id/reason"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-            <RadioButton
-                android:text="Issue 1"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <RadioButton
-                android:text="Issue 2"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <RadioButton
-                android:text="Issue 3"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-                </RadioGroup>
+                    android:layout_height="wrap_content"></Spinner>
             </LinearLayout>
             <LinearLayout
 

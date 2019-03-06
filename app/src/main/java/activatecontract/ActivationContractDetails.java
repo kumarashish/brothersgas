@@ -227,7 +227,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
     public class ActivateContract extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockUnBlock, new String[]{contractId,"2",strings[1]});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockUnBlock, new String[]{contractId,"2",strings[0]});
             return result;
         }
 
@@ -280,7 +280,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                 if(reason.getText().length()>0) {
                     footer.setVisibility(View.GONE);
                     progressBar2.setVisibility(View.VISIBLE);
-                    new ActivateContract().execute(new String[]{Common.UpdateInitialReading,reason.getText().toString()});
+                    new ActivateContract().execute(new String[]{reason.getText().toString()});
                     dialog.dismiss();
                 }else{
                     Toast.makeText(ActivationContractDetails.this,"Please enter reason",Toast.LENGTH_SHORT).show();

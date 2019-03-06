@@ -27,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,10 +102,11 @@ public class Consumption  extends Activity implements View.OnClickListener {
 EditText retype_currentReading;
 @BindView(R.id.currentReading)
 EditText currentReading;
-@BindView(R.id.reason)
-    RadioGroup reason;
+
     ContractModel model2=null;
     String previousSearcchedContact="";
+    @BindView(R.id.reason)
+    Spinner reason;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,6 +214,7 @@ EditText currentReading;
             case R.id.submit:
              if(contractNumber.getText().length()>0)
              {
+
                  if((currentReading.getText().length()>0)&&(retype_currentReading.getText().length()>0))
                  {
                      if(currentReading.getText().toString().trim().equals(retype_currentReading.getText().toString().trim()))
@@ -259,7 +262,7 @@ EditText currentReading;
     public class GetData extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.queryRequest(Common.queryAction, Common.ContractList);
+            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractDetailsForConsumption,new String[]{"1"});
             return result;
         }
 
@@ -270,11 +273,11 @@ EditText currentReading;
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONArray jsonArray = result.getJSONArray("LIN");
+                    JSONObject tab=result.getJSONObject("TAB");
+                    JSONArray jsonArray = tab.getJSONArray("LIN");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
-
                         if ((model.getBlock_unblockflag() != 2)) {
 
                             if ((model.getDepositInvoice().length() == 0) || (model.getConnection_discconectionInvoice().length() == 0)) {
@@ -402,8 +405,8 @@ EditText currentReading;
             String reasonValue="";
             if(meterProblem.isChecked()) {
                 meterProblemValue="2";
-                RadioButton radioButton=(RadioButton)findViewById(reason.getCheckedRadioButtonId());
-                reasonValue=radioButton.getText().toString();
+
+                reasonValue=reason.getSelectedItem().toString();
             }
             String result = webServiceAcess.runRequest(Common.runAction, Common.GenerateDeliveryNote, new String[]{contractNumber.getText().toString(),currentReading.getText().toString(),retype_currentReading.getText().toString(),meterProblemValue,reasonValue});
             return result;

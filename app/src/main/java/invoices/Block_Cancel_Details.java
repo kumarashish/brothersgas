@@ -1,12 +1,14 @@
 package invoices;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,6 +21,7 @@ import com.brothersgas.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import activatecontract.ActivationContractDetails;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
@@ -94,7 +97,35 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
             new GetData().execute();
         }
     }
+    public void showReasonAlert()
+    {
+        final Dialog dialog = new Dialog(Block_Cancel_Details.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.reason_alert);
 
+        final EditText reason = (EditText) dialog.findViewById(R.id.reason);
+
+
+        Button submit = (Button) dialog.findViewById(R.id.submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(reason.getText().length()>0) {
+
+                    new Block().execute(new String[]{Common.BlockUnBlock,"1"});
+                    progressBar2.setVisibility(View.VISIBLE);
+                    footer.setVisibility(View.GONE);
+                    //new ActivateContract().execute(new String[]{Common.UpdateInitialReading,reason.getText().toString()});
+                    dialog.dismiss();
+                }else{
+                    Toast.makeText(Block_Cancel_Details.this,"Please enter reason",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        dialog.show();
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -102,9 +133,8 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                 finish();
                 break;
             case R.id.dep_invoice:
-                progressBar2.setVisibility(View.VISIBLE);
-                footer.setVisibility(View.GONE);
-                new Block().execute(new String[]{Common.BlockUnBlock,"1"});
+
+                showReasonAlert();
                 break;
             case R.id.con_dcon_invoice:
                 progressBar2.setVisibility(View.VISIBLE);

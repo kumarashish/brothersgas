@@ -92,18 +92,19 @@ public class PrefManager {
         return   pref.getString(Common.PORT,"");
     }
 
-
     public void setLoggedInUserDetails(String s, String s1) {
         editor.putString(loggedInUserName,s);
         editor.putString(loggedInUserPassword,s1);
         editor.apply();
     }
 
-    public static String getLoggedInUserName() {
-        return loggedInUserName;
+    public  String getLoggedInUserName() {
+        return  pref.getString(loggedInUserName,"");
     }
 
-    public static String getLoggedInUserPassword() {
-        return loggedInUserPassword;
+    public  String getLoggedInUserPassword() {
+
+       return pref.getString(loggedInUserPassword,"");
     }
+
 }

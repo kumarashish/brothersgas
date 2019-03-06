@@ -100,6 +100,11 @@ public class WebServiceAcess {
             case Common.ContractDetailsForConsumption:
                 jsonObject.put("I_FLAG", value[0]);
                 break;
+            case Common.Enqiry:
+                jsonObject.put("I_YUSER", value[0]);
+                jsonObject.put("I_YSTARTDATE", value[1]);
+                jsonObject.put("I_ENDDATE", value[2]);
+                break;
 
 
         }
@@ -114,7 +119,7 @@ public class WebServiceAcess {
 
         String NAMESPACE = "http://www.adonix.com/WSS";
 //        String METHOD_NAME = "run";
-     String SOAP_ACTION = "CAdxWebServiceXmlCC";
+        String SOAP_ACTION = "CAdxWebServiceXmlCC";
 //       // String URL = "http://" + "47.91.105.187" + ":" + "8124" + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
         String URL = "http://"+ Configuration.getIP() +  ":" + Configuration.Port + "/soap-generic/syracuse/collaboration/syracuse/CAdxWebServiceXmlCC";
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -168,7 +173,7 @@ public class WebServiceAcess {
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
         //  request.addProperty("publicName", "YMTRLOGIN");
         request.addProperty("publicName", publicName);
-        request.addProperty("listSize", 9999);
+        request.addProperty("listSize", 999);
         SoapObject callcontext = new SoapObject("", "callContext");
         // Set all input params
         callcontext.addProperty("codeLang", "ENG");

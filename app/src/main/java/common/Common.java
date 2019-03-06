@@ -25,6 +25,21 @@ public class Common {
     public static String project = "ZPROJECT";
     public static String projectDescription = "ZDES";
 
+    public static String contract_Meternumber1 = "O_ZMRNUM";
+    public static String customername1 = "O_BPCNAM";
+    public static String customercode1 = "O_BPCORD";
+    public static String placeName1 = "O_ZDE";
+    public static String addresscode1 = "O_BPAADD";
+    public static String contactcreationdate1 = "O_DATH";
+    public static String block_unblockflag1 = "O_BLOCKFLG";
+    public static String closemeterreadingvalue1 = "O_CLOSEFLG";
+    public static String depositInvoice1 = "O_SIHDEP";
+    public static String connection_discconectionInvoice1 = "O_SIHCDC";
+    public static String owner1 = "O_ZOWNER";
+    public static String ownerDescription1 = "O_TEXTE";
+    public static String project1 = "O_ZPROJECT";
+    public static String projectDescription1 = "O_ZDES";
+
 
 
     public static String Site_value = "O_SITE";
@@ -121,6 +136,22 @@ public class Common {
     final public static String Address = "O_YBPAINV";
     final public static String Bank_Amount = "O_YBANAMT";
 
+
+
+    final public static String Number_of_invoices="O_YTOTINV";
+    final public static String Number_of_Cash_Payments="O_YTOTCASHPAY";
+    final public static String Number_of_Cheque_Payments="O_YTOTCHQPAY";
+    final public static String Number_of_Connections="O_YTOTCONN";
+    final public static String Number_of_deposite_invoices="O_YTOTDEPINV";
+    final public static String Number_of_disconnection_invoices="O_YTOTDISCINV";
+    final public static String Number_of_Consumable_invoices="O_YTOTCONSINV";
+    final public static String Total_Invoices_amount="O_YTOTINVAMT";
+    final public static String Total_Cash_payments_amount="O_YTOTCASHAMT";
+    final public static String Total_Cheque_payments_amount="O_YTOTCHQAMT";
+    final public static String Total_Cheque_and_cheque_payments_amount="O_YTOTCASHCHQAMT";
+    final public static String Total_Deposite_Invoices_amount="O_TOTDEPINVAMT";
+    final public static String Total_Disconnection_Invoices_amount="O_TOTDISCINVAMT";
+    final public static String Total_Consumable_Invoices_amount="O_TOTCONSINVAMT";
 
 
 

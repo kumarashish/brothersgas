@@ -130,7 +130,7 @@ public class ContractDetails {
     }
 
     public String getUnits() {
-        return "Units("+units+")";
+        return "("+units+")";
     }
 
     public void setConnection_Disconnection_Invoice(String connection_Disconnection_Invoice) {

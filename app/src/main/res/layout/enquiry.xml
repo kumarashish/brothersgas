@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:background="@color/white"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -35,6 +36,48 @@
                 android:textSize="18dp" />
 
         </RelativeLayout>
+        <LinearLayout
+
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <Button
+                android:background="@drawable/edittext_rect"
+                android:id="@+id/s_date"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/grey"
+                android:hint="Start Date: "
+                android:fontFamily="@font/light"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <Button
+                android:background="@drawable/edittext_rect"
+                android:hint="End Date: "
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/md_gray_light"
+                android:id="@+id/e_date"
+                android:fontFamily="@font/aller_rg"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <Button
+                android:background="@drawable/rounded_corner_edittext"
+                android:text="Search "
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/md_gray_light"
+                android:id="@+id/search"
+                android:fontFamily="@font/aller_rg"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <ProgressBar
             android:visibility="gone"
             android:layout_width="50dp"
@@ -48,6 +91,7 @@
             android:indeterminateTint="@color/colorPrimary"/>
         <LinearLayout
             android:id="@+id/mainLayout"
+            android:visibility="gone"
             android:layout_margin="5dp"
             android:background="@color/white"
             android:orientation="vertical"
@@ -65,35 +109,7 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <LinearLayout
 
-                            android:layout_margin="5dp"
-                            android:orientation="horizontal"
-                            android:weightSum="2"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp">
-
-                            <TextView
-                                android:id="@+id/date"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/grey"
-                                android:text="Date : "
-                                android:fontFamily="@font/light"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:text="Time : "
-                                android:layout_marginLeft="10dp"
-                                android:layout_gravity="center_vertical"
-                                android:textColor="@color/md_gray_light"
-                                android:id="@+id/time"
-                                android:fontFamily="@font/aller_rg"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
                         <LinearLayout
                             android:background="@drawable/light_grey_box"
                             android:layout_margin="5dp"
@@ -203,7 +219,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/Control_account_type"
+                                android:id="@+id/chequepayment_count"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -231,7 +247,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/Account"
+                                android:id="@+id/total_cheaqueamout"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -259,7 +275,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/Accounting_date"
+                                android:id="@+id/total_cheaque_cash_amount"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -301,7 +317,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/Bank"
+                                android:id="@+id/teenant_change"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -329,7 +345,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/Currency"
+                                android:id="@+id/dep_conn_dconn"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -358,7 +374,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/BP_Amount"
+                                android:id="@+id/total_dep_inv_amount"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -386,7 +402,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/Check_number"
+                                android:id="@+id/total_con_dconn_amount"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />

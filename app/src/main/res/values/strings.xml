@@ -10,4 +10,8 @@
         <item>Closed</item>
         <item>All</item>
     </string-array>
+    <string-array name="reason">
+        <item>Choose Reason</item>
+
+    </string-array>
 </resources>
