@@ -68,15 +68,19 @@ public class Search extends Activity implements View.OnClickListener , ListItemC
                             in=new Intent(Search.this,ContractDetails.class);
                             break;
                         case 2:
+                            Connection_Disconnection_Invoice_details.contractModel=model;
                             in=new Intent(Search.this, Connection_Disconnection_Invoice_details.class);
                             break;
                         case 3:
+                            Block_Cancel_Details.contractModel=model;
                             in=new Intent(Search.this, Block_Cancel_Details.class);
                             break;
                         case 4:
+
                             in=new Intent(Search.this, ConsumptionDetails.class);
                             break;
                         case 5:
+                            ActivationContractDetails.contractModel=model;
                             in=new Intent(Search.this, ActivationContractDetails.class);
                             break;
                     }

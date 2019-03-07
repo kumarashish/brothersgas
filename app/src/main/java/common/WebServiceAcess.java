@@ -97,15 +97,16 @@ public class WebServiceAcess {
             case Common.CreatePayment:
                 jsonObject.put("I_YSINVNO", value[0]);
                 jsonObject.put("I_YCHKNO", value[1]);
-                jsonObject.put("I_YPAYTYP",value[2]);
-                jsonObject.put("I_YOAMT",value[3]);
+                jsonObject.put("I_YOAMT",value[2]);
+                jsonObject.put("I_YPAYTYP",value[3]);
 
                 break;
             case Common.PayAll:
                 jsonObject.put("I_YBPR", value[0]);
-                jsonObject.put("I_YPAYTYP", value[1]);
+                jsonObject.put("I_YCHKNO",value[1]);
                 jsonObject.put("I_YOAMT",value[2]);
-                jsonObject.put("I_YCHKNO",value[3]);
+
+                jsonObject.put("I_YPAYTYP", value[3]);
 
                 break;
             case Common.Print_Email:
@@ -127,6 +128,13 @@ public class WebServiceAcess {
                 jsonObject.put("I_INVNUM", value[0]);
 
                 break;
+            case Common.UploadSignature:
+                jsonObject.put("I_CONTR", value[0]);
+                jsonObject.put("I_CUST", value[1]);
+                jsonObject.put("I_CUSNAM", value[2]);
+                jsonObject.put("I_SIGN", value[3]);
+                break;
+
 
 
 

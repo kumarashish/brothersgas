@@ -1,6 +1,7 @@
 package invoices;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +37,7 @@ import common.Common;
 import common.Signature;
 import common.TextView;
 import common.WebServiceAcess;
+import consumption.ConsumptionReceipt;
 import payment.PaymentReceipt;
 import utils.Utils;
 
@@ -165,6 +167,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
                 isSignatureCaptured=true;
                 signature.setBackground( new BitmapDrawable(getResources(),bitmap));
                 signature.setText("");
+                new UploadSignature().execute();
             }
         }
     }
@@ -220,8 +223,18 @@ if(statusValue==2)
 
         }
     }
-    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+
+    /*-------------------------------------------------------------------upload signature-------------------------------------------------------*/
     public class UploadSignature extends AsyncTask<String, Void, String> {
+        ProgressDialog pd1;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd1=new ProgressDialog(Print_Email.this);
+            pd1.setMessage("Uploading signature....");
+            pd1.setCancelable(false);
+            pd1.show();
+        }
 
         @Override
         protected String doInBackground(String... strings) {
@@ -232,8 +245,7 @@ if(statusValue==2)
                 val="2";
                 inVoiceNumber=model.getConnection_Disconnection_Invoice();
             }
-
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{inVoiceNumber,model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
             return result;
         }
 
@@ -246,32 +258,17 @@ if(statusValue==2)
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
-                    JSONArray Fld = item.getJSONArray("FLD");
-                    JSONObject messageJsonObject=Fld.getJSONObject(1);
-                    JSONObject status=Fld.getJSONObject(0);
-                    String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
-                    int statusValue=status.isNull("content")?1: status.getInt("content");
-                    if(statusValue==2)
-                    {
-                        Utils.showAlertNormal(Print_Email.this,message);
-                    }else{
-                        Utils.showAlertNormal(Print_Email.this,message);
-                    }
-
-
+                    JSONObject Fld = item.getJSONObject("FLD");
+                    String message =Fld.isNull("content")?"No Message From API": Fld.getString("content");
+                    Utils.showAlertNormal(Print_Email.this,message);
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
-                progressBar.setVisibility(View.GONE);
-                footer.setVisibility(View.VISIBLE);
-            } else {
-                progressBar.setVisibility(View.GONE);
-                footer.setVisibility(View.VISIBLE);
             }
+            pd1.cancel();
 
         }
     }
-
 
 
 }

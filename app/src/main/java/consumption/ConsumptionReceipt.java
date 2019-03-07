@@ -1,26 +1,35 @@
 package consumption;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.brothersgas.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
+import common.Common;
 import common.Signature;
 import common.WebServiceAcess;
 import invoices.Print_Email;
@@ -63,8 +72,11 @@ public class ConsumptionReceipt extends Activity implements View.OnClickListener
     EditText sales_InvoiceNumber;
     @BindView(R.id.sales_DeliveryNumber)
     EditText sales_DeliveryNumbe;
-
-
+@BindView(R.id.footer)
+    LinearLayout footer;
+@BindView(R.id.progressBar2)
+    ProgressBar progressbar2;
+WebServiceAcess webServiceAcess;
 
     boolean isSignatureCaptured = false;
     String imagePath = "";
@@ -78,6 +90,7 @@ public class ConsumptionReceipt extends Activity implements View.OnClickListener
         signature.setOnClickListener(this);
         payment.setOnClickListener(this);
         print_email.setOnClickListener(this);
+        webServiceAcess=new WebServiceAcess();
         setValue( );
     }
 
@@ -104,7 +117,9 @@ public class ConsumptionReceipt extends Activity implements View.OnClickListener
                 break;
             case R.id.print_email:
                 if (isSignatureCaptured) {
-                    Utils.showAlertNormal(ConsumptionReceipt.this, "Invoice send to registered email Id");
+                   progressbar2.setVisibility(View.VISIBLE);
+                   footer.setVisibility(View.GONE);
+                   new EmailInvoice().execute();
                 } else {
                     Utils.showAlertNormal(ConsumptionReceipt.this, "Please capture signature");
                 }
@@ -136,7 +151,94 @@ public class ConsumptionReceipt extends Activity implements View.OnClickListener
                 isSignatureCaptured = true;
                 signature.setBackground(new BitmapDrawable(getResources(), bitmap));
                 signature.setText("");
+                new UploadSignature().execute();
             }
+        }
+    }
+
+
+    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+    public class EmailInvoice extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String val="1";
+            String inVoiceNumber=detailsModel.getSales_InvoiceNumber();
+            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONArray Fld = item.getJSONArray("FLD");
+                    JSONObject messageJsonObject=Fld.getJSONObject(1);
+                    JSONObject status=Fld.getJSONObject(0);
+                    String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
+                    int statusValue=status.isNull("content")?1: status.getInt("content");
+                    if(statusValue==2)
+                    {
+                        Utils.showAlertNormal(ConsumptionReceipt.this,message);
+                    }else{
+                        Utils.showAlertNormal(ConsumptionReceipt.this,message);
+                    }
+
+
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+                progressbar2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
+            } else {
+                progressbar2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
+            }
+
+        }
+    }
+    /*-------------------------------------------------------------------upload signature-------------------------------------------------------*/
+    public class UploadSignature extends AsyncTask<String, Void, String> {
+        ProgressDialog pd1;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd1=new ProgressDialog(ConsumptionReceipt.this);
+            pd1.setMessage("Uploading signature....");
+            pd1.setCancelable(false);
+            pd1.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{detailsModel.getSales_InvoiceNumber(),model.getCustomercode(),model.getCustomername(),Utils.getBase64(imagePath)});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONObject Fld = item.getJSONObject("FLD");
+                    String message =Fld.isNull("content")?"No Message From API": Fld.getString("content");
+                    Utils.showAlertNormal(ConsumptionReceipt.this,message);
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+            }
+            pd1.cancel();
+
         }
     }
 }

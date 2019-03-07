@@ -99,7 +99,7 @@ Button payNow;
                 finish();
                 break;
             case R.id.pay_now:
-                PayAll.customerNumberValue=model.getContract_Meternumber();
+                PayAll.customerNumberValue=model.getCustomercode();
                 String []value=getTotalOutStandingAmount();
                 PayAll.amount=value[0];
                 PayAll.unit=value[1];
@@ -173,8 +173,17 @@ Button payNow;
 
         /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class FetchInvoices extends AsyncTask<String,Void,String> {
-        @Override
+
+            @Override
+            protected void onPreExecute() {
+                totalAmount.setText("");
+                pendingInvoice.clear();
+                super.onPreExecute();
+            }
+
+            @Override
         protected String doInBackground(String... strings) {
+
             String result = webServiceAcess.runRequest(Common.runAction, Common.InvoiceSearch,new String[]{strings[0]});
             return result;
         }
@@ -228,8 +237,9 @@ Button payNow;
         for(int i=0;i<pendingInvoice.size();i++)
         {
             val+= Double.parseDouble(pendingInvoice.get(i).getOutstanding_amount());
-            currency=pendingInvoice.get(i).getOutstanding_amount_currency();
+
         }
+        currency=pendingInvoice.get(0).getOutstanding_amount_currency();
         return new String[]{val.toString(),currency};
     }
 

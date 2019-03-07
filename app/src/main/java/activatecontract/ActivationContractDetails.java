@@ -40,6 +40,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
     AppController controller;
     String contractId;
     model.ContractDetails model = null;
+
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.mainLayout)
@@ -208,6 +209,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                     if (modell.getStatus() == 2) {
                         if(modell.getAdminCharges().length()>0)
                         {model.setAdminInvoiceCharges(modell.getAdminCharges());
+                         model.setCustomerName(contractModel.getCustomername());
                             Print_Email.model=model;
                             Utils.showAlertNavigateToPrintEmail(ActivationContractDetails.this,modell.getMessage(),Print_Email.class);
                         }else {

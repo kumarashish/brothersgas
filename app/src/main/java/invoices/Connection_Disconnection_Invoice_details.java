@@ -24,6 +24,7 @@ import common.AppController;
 import common.Common;
 import common.WebServiceAcess;
 import contracts.ContractDetails;
+import model.ContractModel;
 import utils.Utils;
 
 public class Connection_Disconnection_Invoice_details  extends Activity implements View.OnClickListener {
@@ -31,6 +32,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     AppController controller;
     String contractId;
     model.ContractDetails model = null;
+    public static ContractModel contractModel=null;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.progressBar2)
@@ -224,14 +226,17 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                         if (calledMethod.equalsIgnoreCase("1"))
 
                         //
-                        {model.setDeposit_Invoice(depInvoice);
+                        {   model.setDeposit_Invoice(depInvoice);
+                            model.setContractNumber(contractId);
                             Deposit_Invoice.setText(model.getDeposit_Invoice());
 
 
                         } else {
                             model.setConnection_Disconnection_Invoice(depInvoice);
+                            model.setContractNumber(contractId);
                             Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
                         }
+                        model.setCustomerName(contractModel.getCustomername());
                         Print_Email.model=model;
                         Print_Email.calledMethod=calledMethod;
                          Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message, Print_Email.class);

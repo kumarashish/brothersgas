@@ -101,6 +101,7 @@ public void onClick(final ContractModel model) {
         runOnUiThread(new Runnable() {
 @Override
 public void run() {
+    Connection_Disconnection_Invoice_details.contractModel=model;
         Intent in=new Intent(Connection_Disconnection_Invoice.this,Connection_Disconnection_Invoice_details.class);
         in.putExtra("Data",model.getContract_Meternumber());
         startActivity(in);

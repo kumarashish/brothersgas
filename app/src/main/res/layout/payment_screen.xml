@@ -212,7 +212,8 @@ android:id="@+id/customer_number"
                                 android:id="@+id/amount_value"
 
                                 android:imeOptions="actionNext"
-
+                                android:textSize="14dp"
+                                android:singleLine="true"
                                 android:paddingRight="10dp"
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/fontnew"

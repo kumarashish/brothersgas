@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -37,7 +42,23 @@ public class Utils {
 
 
 
+public static String getBase64(String path)
+{
 
+    // File imageFile = new File(imageUrl);
+    BitmapFactory.Options options = new BitmapFactory.Options();
+    options.inSampleSize = 8;
+    Bitmap myBitmap = BitmapFactory.decodeFile(path,options);
+    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    myBitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+    byte [] b=baos.toByteArray();
+    String temp= Base64.encodeToString(b, Base64.DEFAULT);
+    System.out.print(temp);
+//        byte[] byteArray = getImageByteArray(imageFile);
+//        String encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+    return temp;
+
+}
     public static boolean isNetworkAvailable(Context context) {
         return ((ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE))

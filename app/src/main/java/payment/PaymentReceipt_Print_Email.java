@@ -1,6 +1,7 @@
 package payment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 import common.WebServiceAcess;
+import consumption.ConsumptionReceipt;
 import invoices.Print_Email;
 import model.PaymentReceiptModel;
 import utils.Utils;
@@ -32,7 +34,7 @@ public class PaymentReceipt_Print_Email extends Activity implements View.OnClick
    @BindView(R.id.payment_number)
    TextView paymentNumber;
     @BindView(R.id.Site)
-           TextView site;
+    TextView site;
     @BindView(R.id.customer)
     TextView customer;
     @BindView(R.id.Control_account_type)
@@ -163,4 +165,42 @@ public void setValue()
 
         }
     }
+//    /*-------------------------------------------------------------------upload signature-------------------------------------------------------*/
+//    public class UploadSignature extends AsyncTask<String, Void, String> {
+//        ProgressDialog pd1;
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            pd1=new ProgressDialog(PaymentReceipt_Print_Email.this);
+//            pd1.setMessage("Uploading signature....");
+//            pd1.setCancelable(false);
+//            pd1.show();
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... strings) {
+//            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{model.getPayment_Number(),model.getCustomercode(),model.getCustomername(),Utils.getBase64(imagePath)});
+//            return result;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            Log.e("value", "onPostExecute: ", null);
+//            if (s.length() > 0) {
+//                try {
+//                    JSONObject jsonObject = new JSONObject(s);
+//                    JSONObject result = jsonObject.getJSONObject("RESULT");
+//                    JSONArray jsonArray = result.getJSONArray("GRP");
+//                    JSONObject item = jsonArray.getJSONObject(1);
+//                    JSONObject Fld = item.getJSONObject("FLD");
+//                    String message =Fld.isNull("content")?"No Message From API": Fld.getString("content");
+//                    Utils.showAlertNormal(PaymentReceipt_Print_Email.this,message);
+//                } catch (Exception ex) {
+//                    ex.fillInStackTrace();
+//                }
+//            }
+//            pd1.cancel();
+//
+//        }
+//    }
 }

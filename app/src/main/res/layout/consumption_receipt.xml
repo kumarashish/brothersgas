@@ -496,7 +496,18 @@ android:enabled="false"
                             android:layout_height="match_parent" />
                     </LinearLayout>
 
-
+                    <ProgressBar
+                        android:visibility="gone"
+                        android:layout_width="50dp"
+                        android:id="@+id/progressBar2"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/pass_RL"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="40.0dip"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/colorPrimary"
+                        />
 
                     <LinearLayout
                         android:layout_marginLeft="30dp"
@@ -504,7 +515,7 @@ android:enabled="false"
                         android:layout_marginTop="30dp"
                         android:orientation="horizontal"
                         android:weightSum="2"
-
+                         android:id="@+id/footer"
                         android:layout_width="match_parent"
                         android:layout_height="50dp">
                     <Button

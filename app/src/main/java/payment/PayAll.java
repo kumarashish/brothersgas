@@ -87,7 +87,7 @@ public class PayAll  extends Activity implements View.OnClickListener  {
         submit.setOnClickListener(this);
         back.setOnClickListener(this);
         paymentMode.check(cheque.getId());
-        customerNumber.setText("Contract Number");
+        customerNumber.setText("Customer : ");
         invoice_numberValue.setText(customerNumberValue);
         amountValue.setText(amount);
         amountUnit.setText(unit);
@@ -177,7 +177,7 @@ public class PayAll  extends Activity implements View.OnClickListener  {
                 cheaueNumberString = cheaqueNumber.getText().toString();
                 mode = "2";
             }
-            String result = webServiceAcess.runRequest(Common.runAction, Common.PayAll, new String[]{customerNumberValue, cheaueNumberString, mode, amountValue.getText().toString()});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.PayAll, new String[]{customerNumberValue, cheaueNumberString, amountValue.getText().toString(),mode });
             return result;
         }
 
@@ -192,10 +192,15 @@ public class PayAll  extends Activity implements View.OnClickListener  {
                     JSONObject item = jsonArray.getJSONObject(1);
                     JSONArray fld = item.getJSONArray("FLD");
                     PaymentReceiptModel model = new PaymentReceiptModel(fld);
-                    PaymentReceipt_Print_Email.model = model;
-                    PaymentReceipt_Print_Email.isPaymentTakenByCheaque = paymentModeCheque;
-                    Utils.showAlertNavigateToPrintEmail(PayAll.this, "Paymet created Sucessfully.Payment Number " + model.getPayment_Number(), PaymentReceipt_Print_Email.class);
+                    if(model.getStatus().equalsIgnoreCase("2")) {
+                        PaymentReceipt_Print_Email.model = model;
+                        PaymentReceipt_Print_Email.isPaymentTakenByCheaque = paymentModeCheque;
+                        Utils.showAlertNavigateToPrintEmail(PayAll.this, model.getMessage(), PaymentReceipt_Print_Email.class);
+                    }else{
+                        Utils.showAlertNormal(PayAll.this,model.getMessage());
+                        submit.setVisibility(View.VISIBLE);
 
+                    }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }

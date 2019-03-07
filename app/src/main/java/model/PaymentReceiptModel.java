@@ -18,7 +18,8 @@ public class PaymentReceiptModel {
      public String Check_number = "";
      public String Address = "";
      public String Bank_Amount = "";
-
+     public String message="";
+     public String status="";
     public PaymentReceiptModel(JSONArray jsonArray) {
         try {
             for(int i=0;i<jsonArray.length();i++) {
@@ -47,11 +48,23 @@ public class PaymentReceiptModel {
                     Address = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
                 }else if (jsonObject.getString("NAME").equalsIgnoreCase(Common.Bank_Amount)) {
                     Bank_Amount = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
+                }else if (jsonObject.getString("NAME").equalsIgnoreCase("O_YGMESSAGE")) {
+                    message = jsonObject.isNull("content") ? "No Message From Api" : jsonObject.getString("content");
+                }else if (jsonObject.getString("NAME").equalsIgnoreCase("O_YSTATUS")) {
+                    status = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
                 }
             }
         } catch (Exception ex) {
             ex.fillInStackTrace();
         }
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getAccount() {

@@ -37,12 +37,14 @@ import common.Common;
 import common.WebServiceAcess;
 import consumption.Consumption;
 import model.BlockUnblockModel;
+import model.ContractModel;
 import utils.Utils;
 
 public class Block_Cancel_Details  extends Activity implements View.OnClickListener {
     WebServiceAcess webServiceAcess;
     AppController controller;
     String contractId;
+    public static ContractModel contractModel=null;
     model.ContractDetails model = null;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -324,6 +326,9 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                         if(modell.getStatus()==2)
                         {
                         if (modell.getAdminCharges().length()>0) {
+                            model.setCustomerName(contractModel.getCustomername());
+                            model.setContractNumber(contractModel.getContract_Meternumber());
+                            Print_Email.model=model;
                             Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this,modell.getMessage(),Print_Email.class);
                         }
                         } else {
@@ -377,6 +382,9 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                         if(modell.getStatus()==2)
                         {
                             if (modell.getAdminCharges().length()>0) {
+                                model.setCustomerName(contractModel.getCustomername());
+                                model.setContractNumber(contractModel.getContract_Meternumber());
+                                Print_Email.model=model;
                                 Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this,modell.getMessage(),Print_Email.class);
                             }
                         } else {

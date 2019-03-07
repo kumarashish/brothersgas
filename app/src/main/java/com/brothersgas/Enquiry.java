@@ -73,6 +73,8 @@ public class Enquiry extends Activity implements View.OnClickListener {
       android.widget.TextView total_dep_inv_amount;
     @BindView(R.id.total_con_dconn_amount)
       android.widget.TextView total_con_dconn_amount;
+    @BindView(R.id.teenant_change)
+    android.widget.TextView teenant_Change;
     private DatePicker datePicker;
     private Calendar calendar;
 
@@ -237,7 +239,8 @@ EnquiryModel model=null;
                 chequepayment_count.setText(model.getNumber_of_Cheque_Payments());
                 total_cheaqueamout.setText(model.getTotal_Cheque_payments_amount());
                 total_cheaque_cash_amount.setText(model.getTotal_Cheque_and_cheque_payments_amount());
-                dep_conn_dconn.setText(model.getNumber_of_Connections());
+                dep_conn_dconn.setText(model.getNumber_of_disconnection_invoices());
+                teenant_Change.setText(model.getNumber_of_Connections());
                 total_dep_inv_amount.setText(model.getTotal_Deposite_Invoices_amount());
                 total_con_dconn_amount.setText(model.getTotal_Disconnection_Invoices_amount());
             }

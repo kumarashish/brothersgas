@@ -227,7 +227,7 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                 cheaueNumberString=cheaqueNumber.getText().toString();
                 mode="2";
             }
-            String result = webServiceAcess.runRequest(Common.runAction,Common.CreatePayment, new String[]{invoiceNumber,cheaueNumberString,mode,amountValue.getText().toString()});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.CreatePayment, new String[]{invoiceNumber,cheaueNumberString,amountValue.getText().toString(),mode});
             return result;
         }
 
@@ -242,10 +242,15 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                     JSONObject item = jsonArray.getJSONObject(1);
                     JSONArray fld=item.getJSONArray("FLD");
                     PaymentReceiptModel model=new PaymentReceiptModel(fld);
-                    PaymentReceipt_Print_Email.model=model;
-                    PaymentReceipt_Print_Email.isPaymentTakenByCheaque=paymentModeCheque;
-                    Utils.showAlertNavigateToPrintEmail(PaymentReceipt.this,"Paymet created Sucessfully.Payment Number "+model.getPayment_Number(),PaymentReceipt_Print_Email.class);
+                    if(model.getStatus().equalsIgnoreCase("2")) {
+                        PaymentReceipt_Print_Email.model = model;
+                        PaymentReceipt_Print_Email.isPaymentTakenByCheaque = paymentModeCheque;
+                        Utils.showAlertNavigateToPrintEmail(PaymentReceipt.this, model.getMessage(), PaymentReceipt_Print_Email.class);
+                    }else{
+                        Utils.showAlertNormal(PaymentReceipt.this,model.getMessage());
+                        submit.setVisibility(View.VISIBLE);
 
+                    }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }

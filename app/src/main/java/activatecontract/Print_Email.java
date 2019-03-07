@@ -1,6 +1,7 @@
 package activatecontract;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -153,6 +154,7 @@ public class Print_Email  extends Activity implements View.OnClickListener {
                 isSignatureCaptured=true;
                 signature.setBackground( new BitmapDrawable(getResources(),bitmap));
                 signature.setText("");
+                new UploadSignature().execute();
             }
         }
     }
@@ -205,5 +207,42 @@ public class Print_Email  extends Activity implements View.OnClickListener {
 
         }
     }
+    /*-------------------------------------------------------------------upload signature-------------------------------------------------------*/
+    public class UploadSignature extends AsyncTask<String, Void, String> {
+        ProgressDialog pd1;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd1=new ProgressDialog(Print_Email.this);
+            pd1.setMessage("Uploading signature....");
+            pd1.setCancelable(false);
+            pd1.show();
+        }
 
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{model.getContractNumber(),model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONObject Fld = item.getJSONObject("FLD");
+                    String message =Fld.isNull("content")?"No Message From API": Fld.getString("content");
+                    Utils.showAlertNormal(Print_Email.this,message);
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+            }
+            pd1.cancel();
+
+        }
+    }
 }
