@@ -83,7 +83,7 @@ public class PaymentReceipt_Print_Email extends Activity implements View.OnClick
     }
 public void setValue()
 {
-   if(isPaymentTakenByCheaque)
+   if(isPaymentTakenByCheaque==false)
    {
        cheaqueView.setVisibility(View.GONE);
        amount.setText("Cash Amount");
@@ -97,7 +97,7 @@ public void setValue()
     Bank.setText(model.getBank());
     Currency.setText(model.getCurrencyal());
     BP_Amount.setText(model.getBP_Amount());
-   Check_number.setText(model.getCheck_number());
+    Check_number.setText(model.getCheck_number());
     Address.setText(model.getAddress());
    bankamount.setText(model.getBank_Amount());
 }
