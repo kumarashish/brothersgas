@@ -3,6 +3,7 @@
     package="com.brothersgas">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -72,6 +73,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name="payment.PayAll"
             android:screenOrientation="portrait"/>
+        <activity android:name="activatecontract.Print_Email"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

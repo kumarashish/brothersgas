@@ -21,6 +21,7 @@ public class ContractModel {
     public  String owner="";
     public  String ownerDesc="";
     public String adminCharges="";
+    public String connectionInvoice="";
 
 
     public ContractModel(JSONArray jsonArray)
@@ -153,5 +154,13 @@ public class ContractModel {
 
     public String getAdminInvoiceCharges() {
         return adminCharges;
+    }
+
+    public void setConnectionInvoice(String connectionInvoice) {
+        this.connectionInvoice = connectionInvoice;
+    }
+
+    public String getConnectionInvoice() {
+        return connectionInvoice;
     }
 }

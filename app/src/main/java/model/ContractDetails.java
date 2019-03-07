@@ -36,6 +36,7 @@ public class ContractDetails {
     public String blockFlag;
     public String closeFlag;
 public String adminCharges;
+public String consumptionInvoice="";
 public String customerName="";
 
  public ContractDetails(JSONArray jsonArray)
@@ -255,5 +256,13 @@ public String customerName="";
 
     public String getCustomerName() {
         return customerName;
+    }
+
+    public void setConsumptionInvoice(String connectionInvoice) {
+        this.consumptionInvoice= connectionInvoice;
+    }
+
+    public String getConsumptionInvoice() {
+        return consumptionInvoice;
     }
 }

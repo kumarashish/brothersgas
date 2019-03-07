@@ -83,12 +83,18 @@ public class Print_Email extends Activity implements View.OnClickListener {
     @BindView(R.id.signature)
     android.widget.TextView signature;
     public static model.ContractDetails model;
-    public static String  calledMethod;
+    public static String  calledMethod="";
     WebServiceAcess webServiceAcess;
     Boolean isSignatureCaptured=false;
     String imagePath=null;
     @BindView(R.id.progressBar2)
     ProgressBar progressBar;
+    @BindView(R.id.invoice_heading)
+    android.widget.TextView invoice_heading;
+    @BindView(R.id.admin_Invoice)
+    android.widget.TextView connectionInvoice;
+    @BindView(R.id.admin_invoice_view)
+    LinearLayout connection_Invoice_View;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +105,10 @@ public class Print_Email extends Activity implements View.OnClickListener {
         signature.setOnClickListener(this);
         payment.setOnClickListener(this);
         print_email.setOnClickListener(this);
+        if(model.getConsumptionInvoice().length()>0) {
+            invoice_heading.setText("Consumption Invoice");
+            connection_Invoice_View.setVisibility(View.VISIBLE);
+        }
         setValue();
     }
 
@@ -115,6 +125,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
         Initial_meter_reading.setText(model.getInitial_meter_reading());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
+        connectionInvoice.setText(model.getConsumptionInvoice());
         footer.setVisibility(View.VISIBLE);
     }
 
@@ -140,11 +151,12 @@ public class Print_Email extends Activity implements View.OnClickListener {
                 { if(calledMethod.equalsIgnoreCase("1")) {
 
                     PaymentReceipt.invoiceNumber = model.getDeposit_Invoice();
-                }else{
+                }else if(calledMethod.equalsIgnoreCase("2")){
                     PaymentReceipt.invoiceNumber = model.getConnection_Disconnection_Invoice();
-                }
-                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
                 }else{
+                    PaymentReceipt.invoiceNumber = model.getConsumptionInvoice();
+                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
+                }}else{
                     Utils.showAlertNormal(Print_Email.this,"Please capture signature");
                 }
 
@@ -183,6 +195,9 @@ public class Print_Email extends Activity implements View.OnClickListener {
             {
                 val="2";
                 inVoiceNumber=model.getConnection_Disconnection_Invoice();
+            }else if(model.getConsumptionInvoice().length()>0){
+                inVoiceNumber=model.getConsumptionInvoice();
+                val="3";
             }
 
             String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
@@ -244,6 +259,9 @@ if(statusValue==2)
             {
                 val="2";
                 inVoiceNumber=model.getConnection_Disconnection_Invoice();
+            }else if(model.getConsumptionInvoice().length()>0)
+            {
+                inVoiceNumber=model.getConsumptionInvoice();
             }
             String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{inVoiceNumber,model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
             return result;

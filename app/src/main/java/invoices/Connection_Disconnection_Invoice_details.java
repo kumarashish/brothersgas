@@ -221,7 +221,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     if((message.contains("Invoice Already Exists")||message.contains("No Message From API")))
 
                     {
-                        Utils.showAlert(Connection_Disconnection_Invoice_details.this, message);
+                        Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
                     }else{
                         if (calledMethod.equalsIgnoreCase("1"))
 
@@ -236,7 +236,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                             model.setContractNumber(contractId);
                             Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
                         }
-                        model.setCustomerName(contractModel.getCustomername());
+                        //model.setCustomerName(contractModel.getCustomername());
                         Print_Email.model=model;
                         Print_Email.calledMethod=calledMethod;
                          Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message, Print_Email.class);

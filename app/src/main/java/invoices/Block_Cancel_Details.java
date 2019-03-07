@@ -320,29 +320,27 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
-                    BlockUnblockModel modell=new BlockUnblockModel(item.getJSONArray("FLD"));
+                    BlockUnblockModel modell = new BlockUnblockModel(item.getJSONArray("FLD"));
 
-                    if(calledMethod.equalsIgnoreCase(Common.BlockUnBlock)) {
-                        if(modell.getStatus()==2)
-                        {
-                        if (modell.getAdminCharges().length()>0) {
+
+                    if (modell.getStatus() == 2) {
+                        if((modell.getAdminCharges().length() > 0)||(modell.getConsumption_invoice().length()>0)) {
                             model.setCustomerName(contractModel.getCustomername());
                             model.setContractNumber(contractModel.getContract_Meternumber());
-                            Print_Email.model=model;
-                            Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this,modell.getMessage(),Print_Email.class);
-                        }
+                            model.setConsumptionInvoice(modell.getConsumption_invoice());
+
+                            Print_Email.model = model;
+
+                            Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this, modell.getMessage(), Print_Email.class);
                         } else {
-
-                            Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());
+                            Utils.showAlertNormal(Block_Cancel_Details.this, modell.getMessage());
                         }
-                    }else{
+                        block.setVisibility(View.GONE);
+                    } else {
 
+                        Utils.showAlertNormal(Block_Cancel_Details.this, modell.getMessage());
+                    }
 
-                        Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());
-
-
-
-                        }
 
 
                 } catch (Exception ex) {
@@ -378,12 +376,11 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     JSONObject item = jsonArray.getJSONObject(1);
                     BlockUnblockModel modell=new BlockUnblockModel(item.getJSONArray("FLD"));
 
-                    if(calledMethod.equalsIgnoreCase(Common.BlockUnBlock)) {
+                    if(calledMethod.equalsIgnoreCase(Common.CancelContract)) {
                         if(modell.getStatus()==2)
                         {
                             if (modell.getAdminCharges().length()>0) {
                                 model.setCustomerName(contractModel.getCustomername());
-                                model.setContractNumber(contractModel.getContract_Meternumber());
                                 Print_Email.model=model;
                                 Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this,modell.getMessage(),Print_Email.class);
                             }
@@ -392,12 +389,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                             Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());
                         }
                     }else{
-
-
                         Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());
-
-
-
                     }
 
 

@@ -205,7 +205,7 @@ public class WebServiceAcess {
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
         //  request.addProperty("publicName", "YMTRLOGIN");
         request.addProperty("publicName", publicName);
-        request.addProperty("listSize", 999);
+        request.addProperty("listSize", 9999);
         SoapObject callcontext = new SoapObject("", "callContext");
         // Set all input params
         callcontext.addProperty("codeLang", "ENG");

@@ -165,12 +165,7 @@ public class Print_Email  extends Activity implements View.OnClickListener {
         @Override
         protected String doInBackground(String... strings) {
             String val="1";
-            String inVoiceNumber=model.getDeposit_Invoice();
-            if(calledMethod.equalsIgnoreCase(Common.Connection_Disconnection_Invoice))
-            {
-                val="2";
-                inVoiceNumber=model.getConnection_Disconnection_Invoice();
-            }
+            String inVoiceNumber=model.getAdminInvoiceCharges();
 
             String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
             return result;
@@ -221,7 +216,7 @@ public class Print_Email  extends Activity implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{model.getContractNumber(),model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{model.getAdminInvoiceCharges(),model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
             return result;
         }
 
