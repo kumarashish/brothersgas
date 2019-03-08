@@ -196,18 +196,29 @@ Button payNow;
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONObject tab=result.getJSONObject("TAB");
-                    JSONArray lin=tab.getJSONArray("LIN");
-                    for(int i=0;i<lin.length();i++)
-                    {JSONObject jsonObject1=lin.getJSONObject(i);
-                        JSONArray jsonArray =  jsonObject1.getJSONArray("FLD");
+                   Object obj=tab.get("LIN");
 
-                        InvoiceModel model=new InvoiceModel(jsonArray);
+                    if (obj instanceof JSONArray) {
+                        JSONArray lin =(JSONArray) obj;
+                        for (int i = 0; i < lin.length(); i++) {
+                            JSONObject jsonObject1 = lin.getJSONObject(i);
+                            JSONArray jsonArray = jsonObject1.getJSONArray("FLD");
+                            InvoiceModel model = new InvoiceModel(jsonArray);
+                            if(Double.parseDouble(model.getOutstanding_amount())>0) {
+                                pendingInvoice.add(model);
+                            }
+                        }
+
+                    }
+                    else if (obj instanceof JSONObject){
+                        JSONObject  lin =(JSONObject) obj;
+                        JSONArray jsonArray = lin.getJSONArray("FLD");
+                        InvoiceModel model = new InvoiceModel(jsonArray);
                         if(Double.parseDouble(model.getOutstanding_amount())>0) {
                             pendingInvoice.add(model);
                         }
+
                     }
-
-
 
                     if (pendingInvoice.size() > 0) {
                         hideKeyboard(InvoiceList.this);

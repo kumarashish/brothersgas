@@ -321,8 +321,6 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
                     BlockUnblockModel modell = new BlockUnblockModel(item.getJSONArray("FLD"));
-
-
                     if (modell.getStatus() == 2) {
                         if((modell.getAdminCharges().length() > 0)||(modell.getConsumption_invoice().length()>0)) {
                             model.setCustomerName(contractModel.getCustomername());
@@ -467,6 +465,7 @@ public void showAlert(String message)
         Pressure_Factor.setText(model.getPressure_Factor());
         Initial_meter_reading.setText(model.getInitial_meter_reading() +" "+model.getUnits());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
+        Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
         if (model.getBlock_unblockflag() == 2) {
             block.setVisibility(View.INVISIBLE);
         }

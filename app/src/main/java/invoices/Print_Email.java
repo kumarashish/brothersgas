@@ -151,8 +151,10 @@ public class Print_Email extends Activity implements View.OnClickListener {
                 { if(calledMethod.equalsIgnoreCase("1")) {
 
                     PaymentReceipt.invoiceNumber = model.getDeposit_Invoice();
+                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
                 }else if(calledMethod.equalsIgnoreCase("2")){
                     PaymentReceipt.invoiceNumber = model.getConnection_Disconnection_Invoice();
+                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
                 }else{
                     PaymentReceipt.invoiceNumber = model.getConsumptionInvoice();
                     startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
@@ -250,23 +252,19 @@ if(statusValue==2)
             pd1.setCancelable(false);
             pd1.show();
         }
-
         @Override
         protected String doInBackground(String... strings) {
             String val="1";
             String inVoiceNumber=model.getDeposit_Invoice();
             if(calledMethod.equalsIgnoreCase(Common.Connection_Disconnection_Invoice))
-            {
-                val="2";
+            {   val="2";
                 inVoiceNumber=model.getConnection_Disconnection_Invoice();
             }else if(model.getConsumptionInvoice().length()>0)
-            {
-                inVoiceNumber=model.getConsumptionInvoice();
+            { inVoiceNumber=model.getConsumptionInvoice();
             }
             String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{inVoiceNumber,model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
             return result;
         }
-
         @Override
         protected void onPostExecute(String s) {
             Log.e("value", "onPostExecute: ", null);
@@ -284,7 +282,6 @@ if(statusValue==2)
                 }
             }
             pd1.cancel();
-
         }
     }
 
