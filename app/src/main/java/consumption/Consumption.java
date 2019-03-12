@@ -56,6 +56,7 @@ import invoices.Block_Cancel_Details;
 import invoices.Connection_Disconnection_Invoice;
 import invoices.Connection_Disconnection_Invoice_details;
 import model.ContractModel;
+import model.ReasonsModel;
 import utils.Utils;
 
 public class Consumption  extends Activity implements View.OnClickListener {
@@ -132,14 +133,14 @@ ArrayList<String>reasons=new ArrayList<>();
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     issueList.setVisibility(View.VISIBLE);
-                    if(previousReading.getText().length()==0) {
+                    if((model.getPreviousReading().length()==0)||(model.getPreviousReading().equalsIgnoreCase("0"))) {
                         currentReading.setEnabled(true);
                         retype_currentReading.setEnabled(true);
                     }else{
                         currentReading.setEnabled(false);
                         retype_currentReading.setEnabled(false);
                     }
-                    retype_currentReading.setEnabled(false);
+
                 } else {
                     issueList.setVisibility(View.GONE);
                     currentReading.setEnabled(true);
@@ -294,7 +295,8 @@ ArrayList<String>reasons=new ArrayList<>();
                     JSONArray jsonArray = tab.getJSONArray("LIN");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
-                        reasons.add(item.getJSONObject("FLD").getString("content"));
+                        ReasonsModel model=new ReasonsModel(item.getJSONArray("FLD"));
+                        reasons.add(model.getReason());
                         }
 
                     if (list.size() > 0) {
@@ -340,7 +342,6 @@ ArrayList<String>reasons=new ArrayList<>();
                         JSONObject item = jsonArray.getJSONObject(i);
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
                         if ((model.getBlock_unblockflag() != 2)) {
-
                             if ((model.getDepositInvoice().length() == 0) || (model.getConnection_discconectionInvoice().length() == 0)) {
                                 list.add(model);
                             }
@@ -399,8 +400,14 @@ ArrayList<String>reasons=new ArrayList<>();
                     if(model!=null)
                     {
                         progressDialog.cancel();
+
                         previousDate.setText(Utils.getDate(model.getPreviousDate()));
-                        previousReading.setText(Utils.getDate(model.getPreviousReading()) +" "+model.getUnits());
+                        if((model.getPreviousReading().length()==0)||(model.getPreviousReading().equalsIgnoreCase("0")))
+                        {
+                            previousReading.setText(model.getInitial_meter_reading()+ " " + model.getUnits());
+                        }else {
+                            previousReading.setText(model.getPreviousReading()+ " " + model.getUnits());
+                        }
 
                     }
                 }catch (Exception ex)

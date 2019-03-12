@@ -132,7 +132,7 @@ public String customerName="";
     }
 
     public String getUnits() {
-        return units;
+        return "";
     }
 
     public void setConnection_Disconnection_Invoice(String connection_Disconnection_Invoice) {

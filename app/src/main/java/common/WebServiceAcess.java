@@ -39,8 +39,6 @@ public class WebServiceAcess {
             jsonObject.put("I_PWD", value[1]);
             break;
             case Common.ContractView:
-
-
                 jsonObject.put("I_CONTNO", value[0]);
                 break;
             case Common.CancelContract:
@@ -99,16 +97,29 @@ public class WebServiceAcess {
                 jsonObject.put("I_YCHKNO", value[1]);
                 jsonObject.put("I_YOAMT",value[2]);
                 jsonObject.put("I_YPAYTYP",value[3]);
+                jsonObject.put("I_YBANK",value[4]);
+                jsonObject.put("I_YCHQIMG",value[5]);
+                jsonObject.put("I_YCHKDATE",value[6]);
+
+
+
 
                 break;
+
+
+
             case Common.PayAll:
                 jsonObject.put("I_YBPR", value[0]);
                 jsonObject.put("I_YCHKNO",value[1]);
                 jsonObject.put("I_YOAMT",value[2]);
 
                 jsonObject.put("I_YPAYTYP", value[3]);
+                jsonObject.put("I_YBANK",value[4]);
+                jsonObject.put("I_YCHQIMG",value[5]);
+                jsonObject.put("I_YCHKDATE",value[6]);
 
                 break;
+
             case Common.Print_Email:
                 jsonObject.put("I_NUM", value[0]);
                         jsonObject.put("I_TYP", value[1]);
@@ -117,6 +128,7 @@ public class WebServiceAcess {
             case Common.ContractDetailsForConsumption:
             case Common.Reasons:
             case Common.BlockList:
+            case Common.BankList:
                 jsonObject.put("I_FLAG", value[0]);
                 break;
             case Common.Enqiry:
@@ -128,6 +140,11 @@ public class WebServiceAcess {
                 jsonObject.put("I_INVNUM", value[0]);
 
                 break;
+            case Common.CheaqueDateValidity:
+                jsonObject.put("I_YCHQDAT", value[0]);
+                break;
+
+
             case Common.UploadSignature:
                 jsonObject.put("I_CONTR", value[0]);
                 jsonObject.put("I_CUST", value[1]);
@@ -167,7 +184,7 @@ public class WebServiceAcess {
         request.addSoapObject(callcontext);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
-        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,60000);
         androidHttpTransport.debug = true;
         try {
             List<HeaderProperty> headerList = new ArrayList<HeaderProperty>();

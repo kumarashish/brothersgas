@@ -149,7 +149,7 @@ public void setValue()
                     String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
                     int statusValue=status.isNull("content")?1: status.getInt("content");
                     if(statusValue==2)
-                    {
+                    { print_email.setVisibility(View.GONE);
                         Utils.showAlertNormal(PaymentReceipt_Print_Email.this,message);
                     }else{
                         Utils.showAlertNormal(PaymentReceipt_Print_Email.this,message);

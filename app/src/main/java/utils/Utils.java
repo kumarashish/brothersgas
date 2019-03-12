@@ -4,16 +4,27 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.regex.Pattern;
+
+import common.Common;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -164,6 +175,111 @@ public static String getDate(String date)
     {date=date.replaceAll("/","");
         String newDate=date.substring(4,8)+""+date.substring(2,4)+""+date.substring(0,2);
         return newDate;
+    }
+    public static boolean isValidEmailId(String email){
+
+        return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
+    }
+
+    public static void makeFolder(String path, String folder) {
+        File directory = new File(path, folder);
+        if (directory.exists() == false) {
+            directory.mkdirs();
+        }
+    }
+
+
+    /* * camera module popup
+     *************************************/
+    public static void selectImageDialog(final Activity act) {
+        final CharSequence[] items = {"Take Photo", "Choose from gallery", "Cancel"};
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(act);
+        builder.setTitle("Profile Pic");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Take Photo")) {
+                    if (isDeviceSupportCamera(act)) {
+                        captureImage(act);
+                    } else {
+                        Toast.makeText(act, "Sorry! Your device doesn't support camera", Toast.LENGTH_LONG).show();
+                    }
+                } else if (items[item].equals("Choose from gallery")) {
+                    Intent intent = new Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType("image/*");
+                    act.startActivityForResult(
+                            Intent.createChooser(intent, "Select File"),
+                            Common.SELECT_FILE);
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    /**
+     * Checking device has camera hardware or not
+     */
+    private static boolean isDeviceSupportCamera(Activity act) {
+        if (act.getPackageManager().hasSystemFeature(
+                PackageManager.FEATURE_CAMERA)) {
+            // this device has a camera
+            return true;
+        } else {
+            // no camera on this device
+            return false;
+        }
+    }
+
+    public static void captureImage(Activity act) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        Common.imageUri = getOutputMediaFileUri(Common.MEDIA_TYPE_IMAGE);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Common.imageUri);
+
+        // start the image capture Intent
+        try {
+            act.startActivityForResult(intent, Common.CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+        } catch (Exception ex) {
+            ex.fillInStackTrace();
+        }
+    }
+
+    public static Uri getOutputMediaFileUri(int type) {
+        File tempFile = getOutputMediaFile(type);
+        Uri uri = Uri.fromFile(tempFile);
+        return uri;
+    }
+
+    private static File getOutputMediaFile(int type) {
+        // External sdcard location
+        File mediaStorageDir = new File(Common.sdCardPath);
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        File mediaFile;
+        if (type == Common.MEDIA_TYPE_IMAGE) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+        } else {
+            return null;
+        }
+        File files = mediaFile;
+        return mediaFile;
     }
 
 }

@@ -434,7 +434,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Admin Invoice : "
+                                android:text="Consumption Invoice : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />

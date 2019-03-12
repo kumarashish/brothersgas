@@ -123,7 +123,7 @@ public void onBlockClick(ContractModel model) {
 public class GetData extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... strings) {
-        String result = webServiceAcess.queryRequest(Common.queryAction, Common.ContractList);
+        String result = webServiceAcess.runRequest(Common.runAction,Common.BlockList,new String[]{"2"});
         return result;
     }
 
@@ -134,18 +134,20 @@ public class GetData extends AsyncTask<String,Void,String> {
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 JSONObject result = jsonObject.getJSONObject("RESULT");
-                JSONArray jsonArray = result.getJSONArray("LIN");
+                JSONObject tab=result.getJSONObject("TAB");
+                JSONArray jsonArray = tab.getJSONArray("LIN");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject item = jsonArray.getJSONObject(i);
                     ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+                    unblockedlist.add(model);
 
-                    if ((model.getBlock_unblockflag() != 2)) {
-
-                        if((model.getDepositInvoice().length()==0)||(model.getConnection_discconectionInvoice().length()==0))
-                        {
-                            unblockedlist.add(model);
-                        }
-                    }
+//                    if ((model.getBlock_unblockflag() != 2)) {
+//
+//                        if((model.getDepositInvoice().length()==0)||(model.getConnection_discconectionInvoice().length()==0))
+//                        {
+//                            unblockedlist.add(model);
+//                        }
+//                    }
                 }
                 if (unblockedlist.size() > 0) {
                     listView.setAdapter(new ContractListAdapter(unblockedlist, Connection_Disconnection_Invoice.this));
@@ -158,7 +160,9 @@ public class GetData extends AsyncTask<String,Void,String> {
                 }
             } catch (Exception ex) {
                 ex.fillInStackTrace();
+                progressBar.setVisibility(View.GONE);
             }
+
         } else {
             progressBar.setVisibility(View.GONE);
 

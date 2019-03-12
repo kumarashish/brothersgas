@@ -1,11 +1,15 @@
 package activatecontract;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -121,6 +125,33 @@ public static ContractModel model=null;
             }
         });
 
+
+        if(checkPermissionForReadExtertalStorage()==false)
+        {
+            try {
+                requestPermissionForReadExtertalStorage();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+    public void requestPermissionForReadExtertalStorage() throws Exception {
+        try {
+            ActivityCompat.requestPermissions(TenantChange.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    22);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public boolean checkPermissionForReadExtertalStorage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int result = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+            return result == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
     }
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
@@ -186,7 +217,11 @@ footer.setVisibility(View.GONE);
     }
     public boolean isFieldsValidated() {
         if ((current_reading.getText().length() > 0) && (em_id.getText().length() > 0) && (expiry_date.getText().length() > 0) && (address.getText().length() > 0) && (contact_number.getText().length() > 0) && (emailId.getText().length() > 0)) {
-        return true;
+        if(Utils.isValidEmailId(emailId.getText().toString())) {
+            return true;
+        }else{
+            Toast.makeText(TenantChange.this,"Please enter valid email id",Toast.LENGTH_SHORT).show();
+        }
         }else{
             if(current_reading.getText().length()==0)
             {

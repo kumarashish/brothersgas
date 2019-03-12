@@ -1,9 +1,11 @@
 package common;
 
 import android.app.Application;
+import android.os.Environment;
 
 import model.UserRole;
 import utils.Configuration;
+import utils.Utils;
 
 public class AppController extends Application {
     AppController controller;
@@ -19,6 +21,8 @@ public class AppController extends Application {
         if(role.length()>0) {
             userRole = new UserRole(role);
         }
+        Utils.makeFolder(String.valueOf(Environment.getExternalStorageDirectory()), "/BrothersGas");
+        Common.sdCardPath = Environment.getExternalStorageDirectory() + "/BrothersGas";
 
     }
 

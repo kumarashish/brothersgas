@@ -1,19 +1,37 @@
 package payment;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.brothersgas.R;
@@ -22,7 +40,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
+import activatecontract.Print_Email;
 import adapter.Invoice_ListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,9 +52,11 @@ import common.TextView;
 import common.WebServiceAcess;
 import consumption.Consumption;
 import invoices.Block_Cancel_Details;
+import model.BankModel;
 import model.ContractModel;
 import model.InvoiceModel;
 import model.PaymentReceiptModel;
+import model.ReasonsModel;
 import utils.Utils;
 
 /**
@@ -66,6 +88,8 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
     LinearLayout cheaqueNumberView;
     @BindView(R.id.bankView)
     LinearLayout bankView;
+    @BindView(R.id.cheaqueImageView)
+    LinearLayout cheaqueImageView;
     @BindView(R.id.amount_value)
     EditText amountValue;
     @BindView(R.id.amount_unit)
@@ -75,19 +99,27 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
     @BindView(R.id.cheaquenumber)
             EditText cheaqueNumber;
     @BindView(R.id.date)
-    EditText chequeDate;
+    Button chequeDate;
             @BindView(R.id.bank)
-            EditText bank;
+            Spinner bank;
             @BindView(R.id.progressBar)
             ProgressBar progressBar1;
             @BindView(R.id.mainLayout)
             LinearLayout mainLayout;
+    private Calendar calendar;
 
+    private int year, month, day;
 
     public static String invoiceNumber="";
     public static String amount="";
     public static String unit="";
-    boolean paymentModeCheque=false;
+    boolean paymentModeCheque=true;
+    ArrayList<BankModel>bankmodelList=new ArrayList<>();
+    ArrayList<String>bankNameList=new ArrayList<>();
+    String imagePath="";
+    @BindView(R.id.cheaqueImage)
+    Button cheaqueImage;
+    boolean isImageCaptured=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,10 +129,17 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
         ButterKnife.bind(this);
         submit.setOnClickListener(this);
         back.setOnClickListener(this);
+        cheaqueImage.setOnClickListener(this);
+        chequeDate.setOnClickListener(this);
         paymentMode.check(cheque.getId());
         invoice_numberValue.setText(invoiceNumber);
         amountValue.setText(amount);
         amountUnit.setText(unit);
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
         paymentMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -109,11 +148,13 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                     cheaqueNumberView.setVisibility(View.VISIBLE);
                     cheaqueDateView.setVisibility(View.VISIBLE);
                     bankView.setVisibility(View.VISIBLE);
+                    cheaqueImageView.setVisibility(View.VISIBLE);
                     paymentModeCheque=true;
                 }else {
                     cheaqueNumberView.setVisibility(View.GONE);
                     cheaqueDateView.setVisibility(View.GONE);
                     bankView.setVisibility(View.GONE);
+                    cheaqueImageView.setVisibility(View.GONE);
                     paymentModeCheque=false;
                 }
             }
@@ -123,7 +164,105 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
         { progressBar1.setVisibility(View.VISIBLE);
         mainLayout.setVisibility(View.GONE);
             new FetchInvoices().execute();
+        }else{
+            new FetchBankList().execute();
         }
+        if(checkPermissionForReadExtertalStorage()==false)
+        {
+            try {
+                requestPermissionForReadExtertalStorage();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if(checkPermissionForCamera()==false)
+        {
+            try {
+               requestPermissionForCamera();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+    public void requestPermissionForReadExtertalStorage() throws Exception {
+        try {
+            ActivityCompat.requestPermissions(PaymentReceipt.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    22);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public void requestPermissionForCamera() throws Exception {
+        try {
+            ActivityCompat.requestPermissions(PaymentReceipt.this, new String[]{Manifest.permission.CAMERA},
+                    21);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public boolean checkPermissionForReadExtertalStorage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int result = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+            return result == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
+    }
+    public boolean checkPermissionForCamera() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int result = checkSelfPermission(Manifest.permission.CAMERA);
+            return result == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
+    }
+
+    @SuppressWarnings("deprecation")
+    public void setDate(View view) {
+        showDialog(999);
+
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this,
+                    myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    showDate(arg1, arg2+1, arg3);
+                }
+            };
+    private void showDate(int year, int month, int day) {
+        String dayValue=Integer.toString(day);
+        String monthValue=Integer.toString(month);
+        if(month<10)
+        {
+            monthValue="0"+month;
+        }
+        if(day<10)
+        {
+            dayValue="0"+day;
+        }
+        chequeDate.setText(new StringBuilder().append(dayValue).append("/")
+                .append(monthValue).append("/").append(year));
+       new  CheckCheaqueDateValidity().execute();
+
+
     }
     public void showAlert(String message)
     {
@@ -149,10 +288,16 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
             case R.id.back_button:
                 finish();
                 break;
+            case R.id.cheaqueImage:
+                Utils.selectImageDialog(PaymentReceipt.this);
+                break;
+            case R.id.date:
+                setDate(v);
+                break;
             case R.id.submit:
                 if(paymentMode.getCheckedRadioButtonId()==cheque.getId())
                 {
-                    if((cheaqueNumber.getText().length()>0)&&(cheaqueNumber.getText().length()>0)&&(cheaqueNumber.getText().length()>0))
+                    if((cheaqueNumber.getText().length()>0)&&(chequeDate.getText().length()>0)&&(amountValue.getText().length()>0)&&(isImageCaptured==true))
                     {   progressBar.setVisibility(View.VISIBLE);
                         submit.setVisibility(View.GONE);
                         new CreatePayment().execute();
@@ -165,10 +310,14 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                         {
                             showAlert("Please enter cheque date");
                         }
-                        else if(bank.getText().length()==0)
+                        else if(amountValue.getText().length()==0)
                         {
-                            showAlert("Please enter bank details");
+                            showAlert("Please enter amount");
+                        }else if(isImageCaptured ==false)
+                        {
+                            showAlert("Please capture cheaque Image");
                         }
+
                     }
                 }else{
                     progressBar.setVisibility(View.VISIBLE);
@@ -179,6 +328,112 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                 break;
         }
     }
+    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+    public class FetchBankList extends AsyncTask<String,Void,String> {
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = webServiceAcess.runRequest(Common.runAction, Common.BankList,new String[]{"1"});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONObject tab = result.getJSONObject("TAB");
+                    JSONArray jsonArray = tab.getJSONArray("LIN");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        BankModel model = new BankModel(item.getJSONArray("FLD"));
+                        bankmodelList.add(model);
+                        bankNameList.add(model.getBankName());
+                    }
+
+                    if(bankNameList.size()>0)
+                    {
+                      bank.setAdapter(new ArrayAdapter<String>(PaymentReceipt.this,android.R.layout.simple_spinner_item,bankNameList));
+                    }
+
+
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+
+            } else {
+
+
+            }
+if(pd!=null)
+{
+    pd.cancel();
+}
+
+        }
+    }
+
+
+    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+    public class CheckCheaqueDateValidity extends AsyncTask<String,Void,String> {
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = webServiceAcess.runRequest(Common.runAction, Common.CheaqueDateValidity,new String[]{Utils.getFormatted(chequeDate.getText().toString())});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONObject tab = result.getJSONObject("TAB");
+                    JSONArray jsonArray = tab.getJSONArray("LIN");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        BankModel model = new BankModel(item.getJSONArray("FLD"));
+                        bankmodelList.add(model);
+                        bankNameList.add(model.getBankName());
+                    }
+
+                    if(bankNameList.size()>0)
+                    {
+                        bank.setAdapter(new ArrayAdapter<String>(PaymentReceipt.this,android.R.layout.simple_spinner_item,bankNameList));
+                    }
+
+
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+
+            } else {
+
+
+            }
+            if(pd!=null)
+            {
+                pd.cancel();
+            }
+
+        }
+    }
+
+
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class FetchInvoices extends AsyncTask<String,Void,String> {
         @Override
@@ -198,7 +453,7 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                     JSONArray fld = grp.getJSONArray("FLD");
                     amountValue.setText(fld.getJSONObject(1).getString("content"));
 
-
+                    new FetchBankList().execute();
 
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
@@ -221,13 +476,17 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
         @Override
         protected String doInBackground(String... strings) {
             String cheaueNumberString="";
+            String bankDetails="";
+                    String cheaqueIssueDate="";
             String mode="1";
             if(paymentMode.getCheckedRadioButtonId()==cheque.getId())
             {
                 cheaueNumberString=cheaqueNumber.getText().toString();
+               bankDetails= bank.getSelectedItem().toString();
+               cheaqueIssueDate=   Utils.getFormatted(chequeDate.getText().toString());
                 mode="2";
             }
-            String result = webServiceAcess.runRequest(Common.runAction,Common.CreatePayment, new String[]{invoiceNumber,cheaueNumberString,amountValue.getText().toString(),mode});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.CreatePayment, new String[]{invoiceNumber,cheaueNumberString,amountValue.getText().toString(),mode,bankDetails,Utils.getBase64(imagePath),cheaqueIssueDate});
             return result;
         }
 
@@ -259,6 +518,52 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
 
             }
             progressBar.setVisibility(View.GONE);
+
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Common.CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
+
+            if (resultCode == RESULT_OK) {
+                imagePath=Common.imageUri.getPath();
+                Common.tempPath = Common.imageUri.getPath();
+                isImageCaptured = true;
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
+                Bitmap myBitmap = BitmapFactory.decodeFile(Common.tempPath,options);
+                BitmapDrawable bdrawable = new BitmapDrawable(getResources(),myBitmap);
+                cheaqueImage.setBackground(bdrawable);
+            } else if (resultCode == RESULT_CANCELED) {
+
+                Toast.makeText(this, " Picture was not taken ", Toast.LENGTH_SHORT).show();
+            } else {
+
+                Toast.makeText(this, " Picture was not taken ", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == Common.SELECT_FILE) {
+            if (resultCode == RESULT_OK) {
+                Uri selectedImage = data.getData();
+                String[] filePath = {MediaStore.Images.Media.DATA};
+                Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
+                c.moveToFirst();
+                int columnIndex = c.getColumnIndex(filePath[0]);
+                Common.tempPath = c.getString(columnIndex);
+                imagePath = c.getString(columnIndex);
+                c.close();
+                isImageCaptured = true;
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
+                Bitmap myBitmap = BitmapFactory.decodeFile(Common.tempPath,options);
+                BitmapDrawable bdrawable = new BitmapDrawable(getResources(),myBitmap);
+                cheaqueImage.setBackground(bdrawable);
+                // Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath, options));
+
+            } else {
+                Toast.makeText(this, " This Image cannot be stored .please try with some other Image. ", Toast.LENGTH_SHORT).show();
+            }
 
         }
     }

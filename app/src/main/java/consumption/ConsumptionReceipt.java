@@ -1,8 +1,10 @@
 package consumption;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -92,6 +95,32 @@ WebServiceAcess webServiceAcess;
         print_email.setOnClickListener(this);
         webServiceAcess=new WebServiceAcess();
         setValue( );
+        if(checkPermissionForReadExtertalStorage()==false)
+        {
+            try {
+                requestPermissionForReadExtertalStorage();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+    public void requestPermissionForReadExtertalStorage() throws Exception {
+        try {
+            ActivityCompat.requestPermissions(ConsumptionReceipt.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    22);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public boolean checkPermissionForReadExtertalStorage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int result = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+            return result == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
     }
 
     public void setValue( )
@@ -184,7 +213,7 @@ WebServiceAcess webServiceAcess;
                     String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
                     int statusValue=status.isNull("content")?1: status.getInt("content");
                     if(statusValue==2)
-                    {
+                    { print_email.setVisibility(View.GONE);
                         Utils.showAlertNormal(ConsumptionReceipt.this,message);
                     }else{
                         Utils.showAlertNormal(ConsumptionReceipt.this,message);

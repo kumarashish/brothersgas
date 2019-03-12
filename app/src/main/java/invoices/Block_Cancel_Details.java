@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -38,6 +39,7 @@ import common.WebServiceAcess;
 import consumption.Consumption;
 import model.BlockUnblockModel;
 import model.ContractModel;
+import model.ReasonsModel;
 import utils.Utils;
 
 public class Block_Cancel_Details  extends Activity implements View.OnClickListener {
@@ -87,6 +89,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
     @BindView(R.id.heading)
     android.widget.TextView heading;
     ArrayList<String>reasons=new ArrayList<>();
+    ArrayList<ReasonsModel>reasonsModelList=new ArrayList<>();
     private DatePicker datePicker;
     private Calendar calendar;
     Button re_activeDate=null;
@@ -191,7 +194,9 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     JSONArray jsonArray = tab.getJSONArray("LIN");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
-                        reasons.add(item.getJSONObject("FLD").getString("content"));
+                        ReasonsModel model=new ReasonsModel(item.getJSONArray("FLD"));
+                        reasonsModelList.add(model);
+                        reasons.add(model.getReason());
                     }
 
 
@@ -252,11 +257,28 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.reason_alert);
+        final LinearLayout dateView=(LinearLayout)dialog.findViewById(R.id.dateView);
         final EditText currentmeterReading=(EditText)dialog.findViewById(R.id.current_reading) ;
         final Spinner   reason=(Spinner)dialog.findViewById(R.id.reason);
           re_activeDate = (Button) dialog.findViewById(R.id.react_date);
 
         reason.setAdapter(new ArrayAdapter<String>(Block_Cancel_Details.this, android.R.layout.simple_spinner_item,reasons));
+        reason.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(reasonsModelList.get(position).getReactivation()!=0)
+                {
+                    dateView.setVisibility(View.GONE);
+                }else{
+                    dateView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         Button submit = (Button) dialog.findViewById(R.id.submit);
         re_activeDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,25 +289,51 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((re_activeDate.getText().length()>0)&&(currentmeterReading.getText().length()>0)) {
+                String reactivationDate="";
+                if(re_activeDate.getText().toString().length()>0)
+                {
+                    reactivationDate=Utils.getFormatted(re_activeDate.getText().toString());
+                }
+                if(isFiledsValidated(reason,re_activeDate,currentmeterReading)) {
 
-                    new Block().execute(new String[]{Common.BlockUnBlock,"1",reason.getSelectedItem().toString(),Utils.getFormatted(re_activeDate.getText().toString()),currentmeterReading.getText().toString()});
+                    new Block().execute(new String[]{Common.BlockUnBlock,"1",reason.getSelectedItem().toString(),reactivationDate,currentmeterReading.getText().toString()});
                     progressBar2.setVisibility(View.VISIBLE);
                     footer.setVisibility(View.GONE);
                     //new ActivateContract().execute(new String[]{Common.UpdateInitialReading,reason.getText().toString()});
                     dialog.dismiss();
                 }else{
-                    if(currentmeterReading.getText().length()==0) {
-                        Toast.makeText(Block_Cancel_Details.this, "Please enter reason", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(Block_Cancel_Details.this, "Please select approx Re Activation date", Toast.LENGTH_SHORT).show();
-                    }
+
                 }
             }
         });
 
         dialog.show();
     }
+
+    public boolean isFiledsValidated(Spinner reason, Button re_activeDate, EditText currentmeterReading) {
+        boolean status = false;
+        if (reasonsModelList.get(reason.getSelectedItemPosition()).getReactivation()!= 0) {
+            if (currentmeterReading.getText().length() > 0) {
+                status = true;
+            } else {
+                Toast.makeText(Block_Cancel_Details.this, "Please enter Current meter reading", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            if ((re_activeDate.getText().length() > 0) && (currentmeterReading.getText().length() > 0)) {
+                status = true;
+            } else {
+                if (currentmeterReading.getText().length() == 0) {
+                    Toast.makeText(Block_Cancel_Details.this, "Please enter Current meter reading", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Block_Cancel_Details.this, "Please select approx Re Activation date", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+        }
+        return status;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

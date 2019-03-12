@@ -2,16 +2,20 @@ package activatecontract;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.brothersgas.R;
@@ -132,9 +136,8 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                 break;
 
             case R.id.dep_invoice:
-                footer.setVisibility(View.GONE);
-                progressBar2.setVisibility(View.VISIBLE);
-                new ActivateContract().execute(new String[]{""});
+                showAlert(ActivationContractDetails.this,"Would you like to Activate this contract");
+
                 break;
             case R.id.con_dcon_invoice:
                 TenantChange.model=contractModel;
@@ -143,7 +146,45 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
 
         }
     }
+    public void showInitialMeterReadingAlert()
+    {
+        final Dialog dialog = new Dialog(ActivationContractDetails.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.reason_alert);
+        final EditText currentmeterReading=(EditText)dialog.findViewById(R.id.current_reading) ;
+        LinearLayout reasonView=(LinearLayout)dialog.findViewById(R.id.reasonView);
+        LinearLayout dateView=(LinearLayout)dialog.findViewById(R.id.dateView);
+        dateView.setVisibility(View.GONE);
+        reasonView.setVisibility(View.GONE);
 
+        final Spinner reason=(Spinner)dialog.findViewById(R.id.reason);
+        Button re_activeDate = (Button) dialog.findViewById(R.id.react_date);
+        reason.setVisibility(View.GONE);
+        re_activeDate.setVisibility(View.GONE);
+
+
+        Button submit = (Button) dialog.findViewById(R.id.submit);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((currentmeterReading.getText().length()>0)) {
+
+                    footer.setVisibility(View.GONE);
+                    progressBar2.setVisibility(View.VISIBLE);
+                    new ActivateContract().execute(new String[]{"",currentmeterReading.getText().toString()});
+                    dialog.dismiss();
+                }else{
+
+                    Toast.makeText(ActivationContractDetails.this, "Please enter current meter reading", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+        dialog.show();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -154,6 +195,33 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
     }
 
 
+    public  void showAlert(final Activity act, String message)
+    {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder( act);
+        builder1.setMessage(message);
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("Yes",
+        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+                showInitialMeterReadingAlert();
+
+
+            }
+        });
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+
+
+                }
+                });
+
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetData extends AsyncTask<String, Void, String> {
@@ -192,7 +260,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
     public class ActivateContract extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockUnBlock, new String[]{contractId,"2",strings[0]});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockUnBlock, new String[]{contractId,"2",strings[0],"",strings[1]});
             return result;
         }
 
@@ -207,7 +275,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                     JSONObject item = jsonArray.getJSONObject(1);
                     BlockUnblockModel modell=new BlockUnblockModel(item.getJSONArray("FLD"));
                     if (modell.getStatus() == 2) {
-                        if(modell.getAdminCharges().length()>0)
+                        if(modell.getConsumption_invoice().length()>0)
                         {model.setAdminInvoiceCharges(modell.getAdminCharges());
                          model.setCustomerName(contractModel.getCustomername());
                             Print_Email.model=model;
@@ -235,33 +303,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
         }
     }
 
-    public void showReasonAlert()
-    {
-        final Dialog dialog = new Dialog(ActivationContractDetails.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true);
-        dialog.setContentView(R.layout.reason_alert);
 
-        final EditText reason = (EditText) dialog.findViewById(R.id.reason);
-
-
-        Button submit = (Button) dialog.findViewById(R.id.submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(reason.getText().length()>0) {
-                    footer.setVisibility(View.GONE);
-                    progressBar2.setVisibility(View.VISIBLE);
-                    new ActivateContract().execute(new String[]{reason.getText().toString()});
-                    dialog.dismiss();
-                }else{
-                    Toast.makeText(ActivationContractDetails.this,"Please enter reason",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        dialog.show();
-    }
     public void setValue() {
         site.setText(model.getSite_value());
         customer_id.setText(model.getCustomer_value());

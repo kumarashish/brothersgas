@@ -173,7 +173,7 @@ android:id="@+id/customer_number"
                             <View
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
-                            <EditText
+                            <Button
                                 android:id="@+id/date"
                                 android:gravity="center_vertical"
                                 android:imeOptions="actionNext"
@@ -181,6 +181,7 @@ android:id="@+id/customer_number"
                                 android:paddingRight="10dp"
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/fontnew"
+                                android:hint="Click for select cheaque date"
                                 android:background="@drawable/light_grey_box"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp" />
@@ -258,7 +259,12 @@ android:id="@+id/customer_number"
                             <View
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
-                            <EditText
+                            <LinearLayout
+                                android:background="@drawable/light_grey_box"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp">
+                            <Spinner
+                                android:layout_margin="10dp"
                                android:id="@+id/bank"
                                 android:gravity="center_vertical"
                                 android:imeOptions="actionDone"
@@ -266,11 +272,47 @@ android:id="@+id/customer_number"
                                 android:paddingRight="10dp"
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/fontnew"
-                                android:background="@drawable/light_grey_box"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp" />
+                            </LinearLayout>
                         </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/cheaqueImageView"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp">
+                                <TextView
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/fontnew"
+                                    android:text="Cheaque Image : "
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <View
+                                    android:layout_width="10dp"
+                                    android:layout_height="match_parent"/>
+                                <RelativeLayout
+                                    android:background="@drawable/light_grey_box"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                    <Button
+                                        android:layout_margin="10dp"
+                                      android:id="@+id/cheaqueImage"
+                                        android:layout_centerVertical="true"
+                                        android:imeOptions="actionNext"
+                                        android:textSize="14dp"
+                                        android:singleLine="true"
+                                        android:paddingRight="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:fontFamily="@font/fontnew"
+                                        android:background="@android:color/transparent"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent" />
 
+                                </RelativeLayout>
+                            </LinearLayout>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="30dp"/>

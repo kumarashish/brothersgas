@@ -229,17 +229,31 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                         {   model.setDeposit_Invoice(depInvoice);
                             model.setContractNumber(contractId);
                             Deposit_Invoice.setText(model.getDeposit_Invoice());
+                            if(model.getDeposit_Invoice().length()>0) {
+                                Print_Email.model = model;
+                                Print_Email.calledMethod = calledMethod;
+                                Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message, Print_Email.class);
+                            }else{
+                                Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
+                            }
+
 
 
                         } else {
-                            model.setConnection_Disconnection_Invoice(depInvoice);
-                            model.setContractNumber(contractId);
-                            Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
+
+                                model.setConnection_Disconnection_Invoice(depInvoice);
+                                model.setContractNumber(contractId);
+                                Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
+                            if(model.getConnection_Disconnection_Invoice().length()>0) {
+                                Print_Email.model = model;
+                                Print_Email.calledMethod = calledMethod;
+                                Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message, Print_Email.class);
+                            }else{
+                                Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
+                            }
                         }
                         //model.setCustomerName(contractModel.getCustomername());
-                        Print_Email.model=model;
-                        Print_Email.calledMethod=calledMethod;
-                         Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message, Print_Email.class);
+
 
                     }
                 } catch (Exception ex) {

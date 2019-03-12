@@ -1,5 +1,7 @@
 package common;
 
+import android.net.Uri;
+
 public class Common {
     public static String ip = "Ip";
     public static String PORT = "Port";
@@ -109,6 +111,7 @@ public class Common {
     final public static String DepositInvoice="YMTRSINV";
     final public static String CancelContract="YMTRCLOSE";
     final public static String BlockUnBlock="YMTRBLOCK";
+
     final public static String GenerateDeliveryNote="YMTRSDHSIH";
     final public static String UpdateInitialReading="YMTRCSAVE";
     final public static String InvoiceSearch="YMTROPNITM";
@@ -122,6 +125,9 @@ public class Common {
     final public static String Print_Email="YMTRWRKREP";
     final public static String BlockList="YMTRBLKLST";
     final public static String Reasons="YMTRBMREAS";
+    final public static String BankList="YMTRBNKACC";
+    final public static String CheaqueDateValidity="I_YCHQDAT";
+
 
 
 
@@ -161,6 +167,16 @@ public class Common {
 
     public static String runAction = "run";
     public static String queryAction = "query";
+
+    public static Uri imageUri = null;
+    public static String sdCardPath;
+    public static String folderName;
+    public static String tempPath;
+
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int SELECT_FILE = 2;
+    public static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 3;
+
 
 
 }
