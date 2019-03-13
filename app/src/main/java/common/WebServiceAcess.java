@@ -84,8 +84,12 @@ public class WebServiceAcess {
                 jsonObject.put("I_ADDLIG", value[4]);
                 jsonObject.put("I_CUSCONT", value[5]);
                 jsonObject.put("I_IDNUM", "");
-                jsonObject.put("I_IMAGE", "");
+                jsonObject.put("I_EMIMG", value[7]);
+                jsonObject.put("I_EMIMG1", value[8]);
                 jsonObject.put("I_EMAIL", value[6]);
+
+
+
 
 
                 break;
@@ -100,6 +104,7 @@ public class WebServiceAcess {
                 jsonObject.put("I_YBANK",value[4]);
                 jsonObject.put("I_YCHQIMG",value[5]);
                 jsonObject.put("I_YCHKDATE",value[6]);
+
 
 
 
@@ -192,6 +197,7 @@ public class WebServiceAcess {
             androidHttpTransport.call(SOAP_ACTION, envelope,headerList);
             SoapObject response = (SoapObject) envelope.getResponse();
             String resultXML = (String) response.getProperty("resultXml");
+            //String errorXml=(String) response.getProperty("message");
             if (resultXML != null && resultXML.length() > 0) {
                 JSONObject jsonObj = null;
                 try {

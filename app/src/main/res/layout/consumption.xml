@@ -218,7 +218,7 @@
 
                     android:textSize="14dp"
                     android:textColor="@color/grey"
-                    android:text="Real Estate Owner Description"
+                    android:text="Project"
                     android:fontFamily="@font/light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -434,6 +434,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+
                     android:paddingRight="5dp"
                     android:paddingLeft="5dp"
                     android:gravity="center_vertical"
@@ -444,7 +445,7 @@
                     android:text=""
                     android:id="@+id/currentReading"
 
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
                     android:textColor="@color/md_gray_light"
                     android:background="@drawable/light_grey_box"
@@ -470,7 +471,7 @@
                 <EditText
                     android:id="@+id/retype_currentReading"
 
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:paddingRight="5dp"
                     android:paddingLeft="5dp"
                     android:gravity="center_vertical"

@@ -145,6 +145,7 @@ android:id="@+id/customer_number"
                                android:layout_width="10dp"
                                android:layout_height="match_parent"/>
                            <EditText
+                               android:inputType="numberDecimal"
                                android:id="@+id/cheaquenumber"
                                android:gravity="center_vertical"
                                android:imeOptions="actionNext"
@@ -211,7 +212,7 @@ android:id="@+id/customer_number"
                                 android:paddingLeft="10dp"
                                 android:layout_centerVertical="true"
                                 android:id="@+id/amount_value"
-
+android:inputType="numberDecimal"
                                 android:imeOptions="actionNext"
                                 android:textSize="14dp"
                                 android:singleLine="true"
@@ -287,7 +288,7 @@ android:id="@+id/customer_number"
                                 <TextView
                                     android:layout_gravity="center_vertical"
                                     android:fontFamily="@font/fontnew"
-                                    android:text="Cheaque Image : "
+                                    android:text="Cheque Image : "
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
                                 <View

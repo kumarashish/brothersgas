@@ -61,7 +61,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
                             <EditText
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:id="@+id/current_reading"
                                 android:gravity="center_vertical"
                                 android:imeOptions="actionNext"

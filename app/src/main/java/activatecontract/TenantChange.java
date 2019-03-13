@@ -6,9 +6,16 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,6 +51,7 @@ import interfaces.ListItemClickListner;
 import invoices.Connection_Disconnection_Invoice_details;
 import model.ContractDetails;
 import model.ContractModel;
+import payment.PaymentReceipt;
 import utils.Utils;
 
 public class TenantChange extends Activity implements View.OnClickListener {
@@ -73,12 +81,20 @@ public class TenantChange extends Activity implements View.OnClickListener {
     Button back;
     @BindView(R.id.c_name)
     EditText customer_name;
+    @BindView(R.id.emirates_id_front)
+    Button em_id_front;
+    @BindView(R.id.emirates_id_back)
+    Button em_id_back;
     private DatePicker datePicker;
     private Calendar calendar;
 
     private int year, month, day;
 public static ContractModel model=null;
 
+int requestedType;
+int frontImage=1,backImage=2;
+String fronImagePath="";
+String backImagePath="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +110,8 @@ public static ContractModel model=null;
         customer_name.setText(model.getCustomername());
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-
+        em_id_front.setOnClickListener(this);
+        em_id_back.setOnClickListener(this);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         em_id.addTextChangedListener(new TextWatcher() {
@@ -134,9 +151,22 @@ public static ContractModel model=null;
                 e.printStackTrace();
             }
         }
+        if(checkPermissionForCamera()==false)
+        {
+            try {
+                requestPermissionForCamera();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
 
     }
+
+
+
+
+
     public void requestPermissionForReadExtertalStorage() throws Exception {
         try {
             ActivityCompat.requestPermissions(TenantChange.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -146,6 +176,24 @@ public static ContractModel model=null;
             throw e;
         }
     }
+    public void requestPermissionForCamera() throws Exception {
+        try {
+            ActivityCompat.requestPermissions(TenantChange.this, new String[]{Manifest.permission.CAMERA},
+                    21);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public boolean checkPermissionForCamera() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int result = checkSelfPermission(Manifest.permission.CAMERA);
+            return result == PackageManager.PERMISSION_GRANTED;
+        }
+        return false;
+    }
+
     public boolean checkPermissionForReadExtertalStorage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int result = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -201,6 +249,14 @@ public static ContractModel model=null;
             case R.id.back_button:
                 finish();
                 break;
+            case R.id.emirates_id_front:
+                requestedType=frontImage;
+                Utils.selectImageDialog(TenantChange.this,"EmirateId Front");
+                break;
+            case R.id.emirates_id_back:
+                requestedType=backImage;
+                Utils.selectImageDialog(TenantChange.this,"EmirateId Back");
+                break;
             case R.id.submit:
 if(isFieldsValidated())
 {progressBar.setVisibility(View.VISIBLE);
@@ -249,10 +305,23 @@ footer.setVisibility(View.GONE);
 
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class Update extends AsyncTask<String, Void, String> {
+
+        String frontImageValue="";
+        String backImageValue="";
+
+
         @Override
         protected String doInBackground(String... strings) {
+            if(fronImagePath.length()>0)
+            {
+                frontImageValue=Utils.getBase64(fronImagePath);
+            }
 
-            String result = webServiceAcess.runRequest(Common.runAction, Common.Tennant_Change, new String[]{model.getContract_Meternumber(), current_reading.getText().toString(),em_id.getText().toString(),Utils.getFormatted(expiry_date.getText().toString()),address.getText().toString(),contact_number.getText().toString(),emailId.getText().toString()});
+            if(backImagePath.length()>0)
+            {
+                backImageValue=Utils.getBase64(backImagePath);
+            }
+            String result = webServiceAcess.runRequest(Common.runAction, Common.Tennant_Change, new String[]{model.getContract_Meternumber(), current_reading.getText().toString(),em_id.getText().toString(),Utils.getFormatted(expiry_date.getText().toString()),address.getText().toString(),contact_number.getText().toString(),emailId.getText().toString(),frontImageValue,backImageValue});
             return result;
         }
 
@@ -272,6 +341,7 @@ footer.setVisibility(View.GONE);
                     String message = messageObject.isNull("content") ? "Message not available" : messageObject.getString("content");
                     if (message.contains("New")) {
                         contract_number.setText(contractNumber);
+
                         Utils.showAlertNavigateToInvoices(TenantChange.this, message,Connection_Disconnection_Invoice_details.class,contractNumber);
                         submit.setVisibility(View.GONE);
                     } else {
@@ -288,6 +358,71 @@ footer.setVisibility(View.GONE);
             footer.setVisibility(View.VISIBLE);
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Common.CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
 
+            if (resultCode == RESULT_OK) {
+
+                Common.tempPath = Common.imageUri.getPath();
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
+                Bitmap myBitmap = BitmapFactory.decodeFile(Common.tempPath,options);
+                BitmapDrawable bdrawable = new BitmapDrawable(getResources(),myBitmap);
+
+                switch (requestedType)
+                {
+                    case 1:
+                        fronImagePath=Common.imageUri.getPath();
+                        em_id_front.setBackground(bdrawable);
+                        break;
+                    case 2:
+                        backImagePath=Common.imageUri.getPath();
+                        em_id_back.setBackground(bdrawable);
+                        break;
+                }
+
+            } else if (resultCode == RESULT_CANCELED) {
+
+                Toast.makeText(this, " Picture was not taken ", Toast.LENGTH_SHORT).show();
+            } else {
+
+                Toast.makeText(this, " Picture was not taken ", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == Common.SELECT_FILE) {
+            if (resultCode == RESULT_OK) {
+                Uri selectedImage = data.getData();
+                String[] filePath = {MediaStore.Images.Media.DATA};
+                Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
+                c.moveToFirst();
+                int columnIndex = c.getColumnIndex(filePath[0]);
+                Common.tempPath = c.getString(columnIndex);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 8;
+                Bitmap myBitmap = BitmapFactory.decodeFile(Common.tempPath,options);
+                BitmapDrawable bdrawable = new BitmapDrawable(getResources(),myBitmap);
+                switch (requestedType)
+                {
+                    case 1:
+                        fronImagePath=c.getString(columnIndex);
+                        em_id_front.setBackground(bdrawable);
+                        break;
+                    case 2:
+                        backImagePath=c.getString(columnIndex);
+                        em_id_back.setBackground(bdrawable);
+                        break;
+                }
+                c.close();
+                // Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath, options));
+
+            } else {
+                Toast.makeText(this, " This Image cannot be stored .please try with some other Image. ", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 
 }

@@ -112,6 +112,7 @@ public class PayAll  extends Activity implements View.OnClickListener {
     Button cheaqueImage;
     boolean isImageCaptured=false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -266,61 +267,11 @@ public class PayAll  extends Activity implements View.OnClickListener {
         }
         chequeDate.setText(new StringBuilder().append(dayValue).append("/")
                 .append(monthValue).append("/").append(year));
-        new CheckCheaqueDateValidity().execute();
+
 
 
     }
-    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
-    public class CheckCheaqueDateValidity extends AsyncTask<String,Void,String> {
-        ProgressDialog pd;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
-        @Override
-        protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.CheaqueDateValidity,new String[]{Utils.getFormatted(chequeDate.getText().toString())});
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            Log.e("value", "onPostExecute: ", null);
-            if (s.length() > 0) {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONObject tab = result.getJSONObject("TAB");
-                    JSONArray jsonArray = tab.getJSONArray("LIN");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject item = jsonArray.getJSONObject(i);
-                        BankModel model = new BankModel(item.getJSONArray("FLD"));
-                        bankmodelList.add(model);
-                        bankNameList.add(model.getBankName());
-                    }
-
-                    if(bankNameList.size()>0)
-                    {
-                        bank.setAdapter(new ArrayAdapter<String>(PayAll.this,android.R.layout.simple_spinner_item,bankNameList));
-                    }
-
-
-                } catch (Exception ex) {
-                    ex.fillInStackTrace();
-                }
-
-            } else {
-
-
-            }
-            if(pd!=null)
-            {
-                pd.cancel();
-            }
-
-        }
-    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -331,14 +282,20 @@ public class PayAll  extends Activity implements View.OnClickListener {
                 setDate(v);
                 break;
             case R.id.cheaqueImage:
-                Utils.selectImageDialog(PayAll.this);
+                Utils.selectImageDialog(PayAll.this,"Cheque Image");
                 break;
             case R.id.submit:
                 if (paymentMode.getCheckedRadioButtonId() == cheque.getId()) {
-                    if ((cheaqueNumber.getText().length() > 0) && (chequeDate.getText().length() > 0) && (amountValue.getText().length() > 0)&&(isImageCaptured==true)) {
-                        progressBar.setVisibility(View.VISIBLE);
-                        submit.setVisibility(View.GONE);
-                        new CreatePayment().execute();
+                    if ((cheaqueNumber.getText().length() > 0) && (chequeDate.getText().length() > 0) && (amountValue.getText().length() > 0)) {
+                        if(Double.parseDouble(amountValue.getText().toString())<=Double.parseDouble(amount)) {
+
+                            progressBar.setVisibility(View.VISIBLE);
+                            submit.setVisibility(View.GONE);
+                            new CreatePayment().execute();
+                        }else{
+                            showAlert("Amount should be less or equal to maximum outstanding amount");
+                        }
+
                     } else {
                         if (cheaqueNumber.getText().length() == 0) {
                             showAlert("Please enter cheque number");
@@ -347,9 +304,6 @@ public class PayAll  extends Activity implements View.OnClickListener {
                         } else if(amountValue.getText().length()==0)
                         {
                             showAlert("Please enter amount");
-                        }else if(isImageCaptured ==false)
-                        {
-                            showAlert("Please capture cheaque Image");
                         }
                     }
                 } else {
@@ -371,13 +325,15 @@ public class PayAll  extends Activity implements View.OnClickListener {
             String mode = "1";
             String bankDetails="";
             String cheaqueIssueDate="";
+            String imageBase64="";
             if (paymentMode.getCheckedRadioButtonId() == cheque.getId()) {
                 cheaueNumberString = cheaqueNumber.getText().toString();
                 bankDetails= bank.getSelectedItem().toString();
                 cheaqueIssueDate=   Utils.getFormatted(chequeDate.getText().toString());
                 mode = "2";
+                imageBase64=Utils.getBase64(imagePath);
             }
-            String result = webServiceAcess.runRequest(Common.runAction, Common.PayAll, new String[]{customerNumberValue, cheaueNumberString, amountValue.getText().toString(), mode,bankDetails,Utils.getDate(imagePath),cheaqueIssueDate});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.PayAll, new String[]{customerNumberValue, cheaueNumberString, amountValue.getText().toString(), mode,bankDetails,imageBase64,cheaqueIssueDate});
             return result;
         }
 
@@ -508,5 +464,11 @@ public class PayAll  extends Activity implements View.OnClickListener {
             }
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Common.tempPath="";
+        super.onDestroy();
     }
 }

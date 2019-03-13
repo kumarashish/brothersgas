@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brothersgas.R;
@@ -88,12 +89,15 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
     Button cancel;
     @BindView(R.id.heading)
     android.widget.TextView heading;
+    @BindView(R.id.initial_meter_readingTv)
+    TextView  intialMeterReadingHeading;
     ArrayList<String>reasons=new ArrayList<>();
     ArrayList<ReasonsModel>reasonsModelList=new ArrayList<>();
     private DatePicker datePicker;
     private Calendar calendar;
     Button re_activeDate=null;
     private int year, month, day;
+    String currentMeterReading="";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +106,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         ButterKnife.bind(this);
         contractId = getIntent().getStringExtra("Data");
         heading.setText(contractId +"(Details)");
+        intialMeterReadingHeading.setText("Previous Meter Reading");
         block.setText("Block");
         cancel.setText("Close");
         controller = (AppController) getApplicationContext();
@@ -166,6 +171,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetReasons extends AsyncTask<String, Void, String> {
         ProgressDialog pd1;
+
         @Override
         protected void onPreExecute() {
 
@@ -179,6 +185,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
 
         @Override
         protected String doInBackground(String... strings) {
+
             String result = webServiceAcess.runRequest(Common.runAction, Common.Reasons,new String[]{"1"});
             return result;
         }
@@ -352,9 +359,11 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
     }    /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class Block extends AsyncTask<String, Void, String> {
         String calledMethod;
+        String currenttReading="";
         @Override
         protected String doInBackground(String... strings) {
             calledMethod=strings[0];
+            currenttReading=strings[4];
             String result = webServiceAcess.runRequest(Common.runAction,strings[0], new String[]{contractId,strings[1],strings[2],strings[3],strings[4]});
             return result;
         }
@@ -370,11 +379,11 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     JSONObject item = jsonArray.getJSONObject(1);
                     BlockUnblockModel modell = new BlockUnblockModel(item.getJSONArray("FLD"));
                     if (modell.getStatus() == 2) {
-                        if((modell.getAdminCharges().length() > 0)||(modell.getConsumption_invoice().length()>0)) {
+                        if((modell.getConsumption_invoice().length() > 0)||(modell.getConsumption_invoice().length()>0)) {
                             model.setCustomerName(contractModel.getCustomername());
                             model.setContractNumber(contractModel.getContract_Meternumber());
                             model.setConsumptionInvoice(modell.getConsumption_invoice());
-
+                            model.setCurrentMeterReading(currenttReading);
                             Print_Email.model = model;
 
                             Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this, modell.getMessage(), Print_Email.class);
@@ -404,9 +413,11 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class Cancel extends AsyncTask<String, Void, String> {
         String calledMethod;
+        String currenttReading="";
         @Override
         protected String doInBackground(String... strings) {
             calledMethod=strings[0];
+            currenttReading=strings[2];
             String result = webServiceAcess.runRequest(Common.runAction,strings[0], new String[]{contractId,strings[2]});
             return result;
         }
@@ -425,17 +436,19 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     if(calledMethod.equalsIgnoreCase(Common.CancelContract)) {
                         if(modell.getStatus()==2)
                         {
-                            if (modell.getAdminCharges().length()>0) {
+                            if (modell.getConsumption_invoice().length()>0) {
                                 model.setCustomerName(contractModel.getCustomername());
+                                model.setConsumptionInvoice(modell.getConsumption_invoice());
+                                model.setCurrentMeterReading(currenttReading);
                                 Print_Email.model=model;
                                 Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this,modell.getMessage(),Print_Email.class);
+                            }else{
+                                Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());
                             }
                         } else {
 
                             Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());
                         }
-                    }else{
-                        Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());
                     }
 
 
@@ -511,7 +524,12 @@ public void showAlert(String message)
         Connection_charges.setText(model.getConnection_charges()+" "+model.getCurrency());
         Disconnection_Charges.setText(model.getDisconnection_Charges()+" "+model.getCurrency());
         Pressure_Factor.setText(model.getPressure_Factor());
-        Initial_meter_reading.setText(model.getInitial_meter_reading() +" "+model.getUnits());
+        if((model.getPreviousReading().length()>0)&&(!model.getPreviousReading().equalsIgnoreCase("0")))
+        {
+            Initial_meter_reading.setText(model.getPreviousReading());
+        }else {
+            Initial_meter_reading.setText(model.getInitial_meter_reading() + " " + model.getUnits());
+        }
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
         if (model.getBlock_unblockflag() == 2) {

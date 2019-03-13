@@ -242,6 +242,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                     JSONObject item = jsonArray.getJSONObject(1);
                     model = new model.ContractDetails(item.getJSONArray("FLD"));
                     if (model != null) {
+
                         setValue();
                         progressBar.setVisibility(View.GONE);
                         mainLayout.setVisibility(View.VISIBLE);
@@ -258,8 +259,10 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
     }
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class ActivateContract extends AsyncTask<String, Void, String> {
+        String currentMeterReading="";
         @Override
         protected String doInBackground(String... strings) {
+            currentMeterReading=strings[1];
             String result = webServiceAcess.runRequest(Common.runAction, Common.BlockUnBlock, new String[]{contractId,"2",strings[0],"",strings[1]});
             return result;
         }
@@ -278,7 +281,10 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                         if(modell.getConsumption_invoice().length()>0)
                         {model.setAdminInvoiceCharges(modell.getAdminCharges());
                          model.setCustomerName(contractModel.getCustomername());
+                         model.setCurrentMeterReading(currentMeterReading);
+                         model.setConsumptionInvoice(modell.getConsumption_invoice());
                             Print_Email.model=model;
+                            activateTenant.setVisibility(View.INVISIBLE);
                             Utils.showAlertNavigateToPrintEmail(ActivationContractDetails.this,modell.getMessage(),Print_Email.class);
                         }else {
                             Utils.showAlertForReturnIntent(ActivationContractDetails.this, modell.getMessage());
@@ -314,7 +320,12 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
         Connection_charges.setText(model.getConnection_charges() + " " + model.getCurrency());
         Disconnection_Charges.setText(model.getDisconnection_Charges() + " " + model.getCurrency());
         Pressure_Factor.setText(model.getPressure_Factor());
-        Initial_meter_reading.setText(model.getInitial_meter_reading()+ " " + model.getUnits());
+        if((model.getPreviousReading().length()>0)&&(!model.getPreviousReading().equalsIgnoreCase("0")))
+        {
+            Initial_meter_reading.setText(model.getPreviousReading());
+        }else {
+            Initial_meter_reading.setText(model.getInitial_meter_reading() + " " + model.getUnits());
+        }
         Deposit_Invoice.setText(model.getDeposit_Invoice() );
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
 

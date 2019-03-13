@@ -178,12 +178,7 @@ public static String getDate(String date)
     }
     public static boolean isValidEmailId(String email){
 
-        return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
-                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
-                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
-                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
+        return Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$").matcher(email).matches();
     }
 
     public static void makeFolder(String path, String folder) {
@@ -196,10 +191,10 @@ public static String getDate(String date)
 
     /* * camera module popup
      *************************************/
-    public static void selectImageDialog(final Activity act) {
+    public static void selectImageDialog(final Activity act,String heading) {
         final CharSequence[] items = {"Take Photo", "Choose from gallery", "Cancel"};
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(act);
-        builder.setTitle("Profile Pic");
+        builder.setTitle(heading);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {

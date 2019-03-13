@@ -222,7 +222,7 @@ ArrayList<String>reasons=new ArrayList<>();
                 break;
             case R.id.submit:
              if(contractNumber.getText().length()>0)
-             {if((meterProblem.isChecked())&&(previousReading.getText().length()>0))
+             {if((meterProblem.isChecked())&&(!model.getPreviousReading().equalsIgnoreCase("0")))
              {
                  new GenerateInvoice().execute();
              }else {
@@ -231,18 +231,18 @@ ArrayList<String>reasons=new ArrayList<>();
                      if (currentReading.getText().toString().trim().equals(retype_currentReading.getText().toString().trim())) {
                          new GenerateInvoice().execute();
                      } else {
-                         Utils.showAlertNormal(Consumption.this, "Curent Reading and Retype Reading must be same");
+                         Utils.showAlertNormal(Consumption.this, "Current Reading and Re-type Reading must be same");
                      }
                  } else {
                      if (currentReading.getText().length() == 0) {
                          Utils.showAlertNormal(Consumption.this, "Please enter  Current Reading");
                      } else {
-                         Utils.showAlertNormal(Consumption.this, "Please enter value in Retype Current Reading");
+                         Utils.showAlertNormal(Consumption.this, "Please enter value in Re-type Current Reading");
                      }
                  }
              }
              }else{
-                 Utils.showAlertNormal(Consumption.this,"Please select consumer");
+                 Utils.showAlertNormal(Consumption.this,"Please select Customer");
              }
 
              break;
@@ -431,14 +431,15 @@ ArrayList<String>reasons=new ArrayList<>();
         previousReading.setText("");
         currentReading.setText("");
         retype_currentReading.setText("");
+        meterProblem.setChecked(false);
     }
     public void setValue( ContractModel model)
     {previousSearcchedContact=model.getCustomername();
                  consumer.setText(model.getCustomername());
                  contractNumber.setText(model.getContract_Meternumber());
                   date.setText(Utils.getDate(model.getContactcreationdate()));
-                  realEstateOwner.setText(model.getOwner());
-                  realEstateOwnerDescription.setText(model.getOwnerDesc());
+                  realEstateOwner.setText(model.getOwner() +" - "+model.getOwnerDesc());
+                  realEstateOwnerDescription.setText(model.getProject()+" - "+model.getProjectDesc());
        new GetContractDetails().execute();
     }
 

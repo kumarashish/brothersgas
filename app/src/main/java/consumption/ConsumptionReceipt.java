@@ -128,7 +128,14 @@ WebServiceAcess webServiceAcess;
         consumer.setText(model.getCustomername());
         contractNumber.setText(model.getContract_Meternumber());
         previousDate.setText(detailsModel.getPreviousDate());
-        previousReading.setText(detailsModel.getPreviousReading());
+        if((detailsModel.getPreviousReading().length()>0)&&(!detailsModel.getPreviousReading().equalsIgnoreCase("0")))
+        {
+            previousReading.setText(detailsModel.getPreviousReading());
+        }else {
+            previousReading.setText(detailsModel.getInitial_meter_reading());
+        }
+
+
         currentReading.setText(detailsModel.getCurrentReading());
         sales_DeliveryNumbe.setText(detailsModel.getSales_DeliveryNumber());
         sales_InvoiceNumber.setText(detailsModel.getSales_InvoiceNumber());

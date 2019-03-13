@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Teenant Change"
+                android:text="Tenant Change"
                 android:textColor="@android:color/white"
                 android:textSize="18dp" />
             <Button
@@ -124,7 +124,7 @@ android:focusable="false"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Contact Number : "
+                                android:text="Contract Number : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -166,7 +166,7 @@ android:focusable="false"
                                 android:textColor="@color/md_gray_light"
 android:imeOptions="actionNext"
                                 android:layout_marginLeft="10dp"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:id="@+id/current_reading"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="match_parent"
@@ -332,6 +332,86 @@ android:background="@android:color/transparent"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/em_id_ImageView1"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp">
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/fontnew"
+                                android:text="Emirates Id Front : "
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <RelativeLayout
+                                android:background="@drawable/light_grey_box"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <Button
+                                    android:layout_margin="10dp"
+                                    android:id="@+id/emirates_id_front"
+                                    android:layout_centerVertical="true"
+                                    android:imeOptions="actionNext"
+                                    android:textSize="14dp"
+                                    android:singleLine="true"
+                                    android:paddingRight="10dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/fontnew"
+                                    android:background="@android:color/transparent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"/>
+                        <LinearLayout
+                            android:id="@+id/cheaqueImageView"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp">
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/fontnew"
+                                android:text="Emirates Id Back : "
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"/>
+                            <RelativeLayout
+                                android:background="@drawable/light_grey_box"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <Button
+                                    android:layout_margin="10dp"
+                                    android:id="@+id/emirates_id_back"
+                                    android:layout_centerVertical="true"
+                                    android:imeOptions="actionNext"
+                                    android:textSize="14dp"
+                                    android:singleLine="true"
+                                    android:paddingRight="10dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/fontnew"
+                                    android:background="@android:color/transparent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"/>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="20dp"/>

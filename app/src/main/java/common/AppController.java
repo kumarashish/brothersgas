@@ -2,6 +2,7 @@ package common;
 
 import android.app.Application;
 import android.os.Environment;
+import android.os.StrictMode;
 
 import model.UserRole;
 import utils.Configuration;
@@ -23,6 +24,8 @@ public class AppController extends Application {
         }
         Utils.makeFolder(String.valueOf(Environment.getExternalStorageDirectory()), "/BrothersGas");
         Common.sdCardPath = Environment.getExternalStorageDirectory() + "/BrothersGas";
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
 
     }
 

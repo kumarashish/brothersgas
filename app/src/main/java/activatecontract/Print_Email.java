@@ -82,6 +82,10 @@ public class Print_Email  extends Activity implements View.OnClickListener {
     LinearLayout admin_invoice_view;
     @BindView(R.id.admin_Invoice)
     TextView admin_Invoice;
+    @BindView(R.id.current_meter_reading_header)
+    LinearLayout current_meter_reading_header;
+    @BindView(R.id.current_meter_reading)
+    android.widget.TextView currentMeterReading;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,11 +135,22 @@ public class Print_Email  extends Activity implements View.OnClickListener {
         Connection_charges.setText(model.getConnection_charges() + " " + model.getCurrency());
         Disconnection_Charges.setText(model.getDisconnection_Charges() + " " + model.getCurrency());
         Pressure_Factor.setText(model.getPressure_Factor());
-        Initial_meter_reading.setText(model.getInitial_meter_reading());
+        if((model.getPreviousReading().length()>0)&&(!model.getPreviousReading().equalsIgnoreCase("0")))
+        {
+            Initial_meter_reading.setText(model.getPreviousReading());
+        }else {
+            Initial_meter_reading.setText(model.getInitial_meter_reading() + " " + model.getUnits());
+        }
+
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
-        admin_Invoice.setText(model.getAdminInvoiceCharges());
+        admin_Invoice.setText(model.getConsumptionInvoice());
         footer.setVisibility(View.VISIBLE);
+        if(model.getCurrentMeterReading().length()>0)
+        {
+            current_meter_reading_header.setVisibility(View.VISIBLE);
+            currentMeterReading.setText(model.getCurrentMeterReading());
+        }
     }
 
     @Override
@@ -159,6 +174,7 @@ public class Print_Email  extends Activity implements View.OnClickListener {
                 if(isSignatureCaptured)
                 { PaymentReceipt.invoiceNumber=model.getAdminInvoiceCharges();
                     startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
+                    finish();
                 }else{
                     Utils.showAlertNormal(Print_Email.this,"Please capture signature");
                 }

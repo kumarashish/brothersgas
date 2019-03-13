@@ -260,7 +260,7 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
         }
         chequeDate.setText(new StringBuilder().append(dayValue).append("/")
                 .append(monthValue).append("/").append(year));
-       new  CheckCheaqueDateValidity().execute();
+
 
 
     }
@@ -289,7 +289,7 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                 finish();
                 break;
             case R.id.cheaqueImage:
-                Utils.selectImageDialog(PaymentReceipt.this);
+                Utils.selectImageDialog(PaymentReceipt.this,"Cheque Image");
                 break;
             case R.id.date:
                 setDate(v);
@@ -297,10 +297,15 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
             case R.id.submit:
                 if(paymentMode.getCheckedRadioButtonId()==cheque.getId())
                 {
-                    if((cheaqueNumber.getText().length()>0)&&(chequeDate.getText().length()>0)&&(amountValue.getText().length()>0)&&(isImageCaptured==true))
-                    {   progressBar.setVisibility(View.VISIBLE);
+                    if((cheaqueNumber.getText().length()>0)&&(chequeDate.getText().length()>0)&&(amountValue.getText().length()>0))
+                    {  if(Double.parseDouble(amountValue.getText().toString())<=Double.parseDouble(amount)) {
+
+                        progressBar.setVisibility(View.VISIBLE);
                         submit.setVisibility(View.GONE);
                         new CreatePayment().execute();
+                    }else{
+                        showAlert("Amount should be less or equal to maximum outstanding amount");
+                    }
                     }else{
                         if(cheaqueNumber.getText().length()==0)
                         {
@@ -313,9 +318,6 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                         else if(amountValue.getText().length()==0)
                         {
                             showAlert("Please enter amount");
-                        }else if(isImageCaptured ==false)
-                        {
-                            showAlert("Please capture cheaque Image");
                         }
 
                     }
@@ -452,6 +454,7 @@ if(pd!=null)
                     JSONObject grp = result.getJSONObject("GRP");
                     JSONArray fld = grp.getJSONArray("FLD");
                     amountValue.setText(fld.getJSONObject(1).getString("content"));
+                    amount=amountValue.getText().toString();
 
                     new FetchBankList().execute();
 
@@ -479,14 +482,15 @@ if(pd!=null)
             String bankDetails="";
                     String cheaqueIssueDate="";
             String mode="1";
+            String imagebase64="";
             if(paymentMode.getCheckedRadioButtonId()==cheque.getId())
-            {
-                cheaueNumberString=cheaqueNumber.getText().toString();
+            { cheaueNumberString=cheaqueNumber.getText().toString();
                bankDetails= bank.getSelectedItem().toString();
                cheaqueIssueDate=   Utils.getFormatted(chequeDate.getText().toString());
                 mode="2";
+                imagebase64=Utils.getBase64(imagePath);
             }
-            String result = webServiceAcess.runRequest(Common.runAction,Common.CreatePayment, new String[]{invoiceNumber,cheaueNumberString,amountValue.getText().toString(),mode,bankDetails,Utils.getBase64(imagePath),cheaqueIssueDate});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.CreatePayment, new String[]{invoiceNumber,cheaueNumberString,amountValue.getText().toString(),mode,bankDetails,imagebase64,cheaqueIssueDate});
             return result;
         }
 

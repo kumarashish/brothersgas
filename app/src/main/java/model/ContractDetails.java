@@ -38,6 +38,7 @@ public class ContractDetails {
 public String adminCharges;
 public String consumptionInvoice="";
 public String customerName="";
+public String currentMeterReading="";
 
  public ContractDetails(JSONArray jsonArray)
  {
@@ -105,7 +106,7 @@ public String customerName="";
              }
              else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.PreviousReading))
              {
-                 PreviousReading=jsonObject.isNull("content")?"":jsonObject.getString("content");
+                 PreviousReading=jsonObject.isNull("content")?"0":jsonObject.getString("content");
              }
              else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.units))
              {
@@ -260,6 +261,14 @@ public String customerName="";
 
     public void setConsumptionInvoice(String connectionInvoice) {
         this.consumptionInvoice= connectionInvoice;
+    }
+
+    public void setCurrentMeterReading(String currentMeterReading) {
+        this.currentMeterReading = currentMeterReading;
+    }
+
+    public String getCurrentMeterReading() {
+        return currentMeterReading;
     }
 
     public String getConsumptionInvoice() {

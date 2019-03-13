@@ -9,9 +9,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -25,6 +27,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
+import okhttp3.internal.Util;
+import utils.Utils;
+
 /**
  * Created by ashish.kumar on 22-02-2019.
  */
@@ -37,6 +42,8 @@ public class Signature extends Activity {
     String path;
     private static final String IMAGE_DIRECTORY = "/Brothers_Gas";
     private static final int PERMISSION_REQUEST_CODE = 1;
+    boolean isSignatureCaptured=false;
+    Bitmap emptyBitmap ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,19 +76,33 @@ public class Signature extends Activity {
             }
         });
 
+
         save.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 bitmap = signatureView.getSignatureBitmap();
-                path = saveImage(bitmap);
-                Intent data = new Intent();
-                data.putExtra("filepath",path);
-                setResult(RESULT_OK, data);
-                finish();
+               path = saveImage(bitmap);
+    Intent data = new Intent();
+    data.putExtra("filepath", path);
+    setResult(RESULT_OK, data);
+    finish();
+
             }
         });
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+
+            emptyBitmap = signatureView.getSignatureBitmap();
+        }catch (Exception ex)
+        {
+            ex.fillInStackTrace();
+        }
     }
 
     public String saveImage(Bitmap myBitmap) {

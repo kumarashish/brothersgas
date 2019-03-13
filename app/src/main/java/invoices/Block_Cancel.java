@@ -66,7 +66,7 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
         ButterKnife.bind(this);
         search.setOnClickListener(this);
         header.setVisibility(View.GONE);
-        heading.setText("Block & Cancel");
+        heading.setText("Block & Close");
         back.setOnClickListener(this);
         if(Utils.isNetworkAvailable(Block_Cancel.this)) {
             progressBar.setVisibility(View.VISIBLE);

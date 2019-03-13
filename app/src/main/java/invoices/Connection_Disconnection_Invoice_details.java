@@ -311,7 +311,12 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         Connection_charges.setText(model.getConnection_charges()+" "+model.getCurrency());
         Disconnection_Charges.setText(model.getDisconnection_Charges()+" "+model.getCurrency());
         Pressure_Factor.setText(model.getPressure_Factor());
-        Initial_meter_reading.setText(model.getInitial_meter_reading()+" "+model.getUnits());
+        if((model.getPreviousReading().length()>0)&&(!model.getPreviousReading().equalsIgnoreCase("0")))
+        {
+            Initial_meter_reading.setText(model.getPreviousReading());
+        }else {
+            Initial_meter_reading.setText(model.getInitial_meter_reading() + " " + model.getUnits());
+        }
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
         if((model.getDeposit_Invoice().length()>0)&&(model.getConnection_Disconnection_Invoice().length()>0))
