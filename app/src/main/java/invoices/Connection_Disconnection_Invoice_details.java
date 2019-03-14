@@ -31,7 +31,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     WebServiceAcess webServiceAcess;
     AppController controller;
     String contractId;
-    model.ContractDetails model = null;
+    public static model.ContractDetails model = null;
     public static ContractModel contractModel=null;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -172,7 +172,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                         Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
                         progressBar2.setVisibility(View.GONE);
                         editView.setVisibility(View.GONE);
-                        footer.setVisibility(View.VISIBLE);
+                        handleEditButton();
                     }else {
                         Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
                         progressBar2.setVisibility(View.GONE);
@@ -192,6 +192,32 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                 footer.setVisibility(View.GONE);
             }
 
+        }
+    }
+
+
+    public void handleEditButton()
+    {
+        if((model.getDeposit_Invoice().length()>0)&&(model.getConnection_Disconnection_Invoice().length()>0))
+        {
+            footer.setVisibility(View.GONE);
+            edit.setVisibility(View.GONE);
+        }else   if((model.getDeposit_Invoice().length()==0)&&(model.getConnection_Disconnection_Invoice().length()==0)){
+            footer.setVisibility(View.VISIBLE);
+            dep_Invoice.setVisibility(View.VISIBLE);
+            con_dconInvoice.setVisibility(View.VISIBLE);
+            edit.setVisibility(View.VISIBLE);
+        }
+        else {
+            if (model.getDeposit_Invoice().length() > 0) {
+                dep_Invoice.setVisibility(View.INVISIBLE);
+                edit.setVisibility(View.GONE);
+
+            } else if (model.getConnection_Disconnection_Invoice().length() > 0) {
+                con_dconInvoice.setVisibility(View.INVISIBLE);
+                edit.setVisibility(View.GONE);
+            }
+            footer.setVisibility(View.VISIBLE);
         }
     }
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
@@ -322,17 +348,21 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         if((model.getDeposit_Invoice().length()>0)&&(model.getConnection_Disconnection_Invoice().length()>0))
         {
             footer.setVisibility(View.GONE);
+            edit.setVisibility(View.GONE);
         }else   if((model.getDeposit_Invoice().length()==0)&&(model.getConnection_Disconnection_Invoice().length()==0)){
             footer.setVisibility(View.VISIBLE);
             dep_Invoice.setVisibility(View.VISIBLE);
             con_dconInvoice.setVisibility(View.VISIBLE);
+            edit.setVisibility(View.VISIBLE);
         }
         else {
           if (model.getDeposit_Invoice().length() > 0) {
                 dep_Invoice.setVisibility(View.INVISIBLE);
+              edit.setVisibility(View.GONE);
 
             } else if (model.getConnection_Disconnection_Invoice().length() > 0) {
                     con_dconInvoice.setVisibility(View.INVISIBLE);
+              edit.setVisibility(View.GONE);
             }
             footer.setVisibility(View.VISIBLE);
         }

@@ -110,11 +110,14 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if((requestCode==2)&&(resultCode==RESULT_OK))
-        {int index=unblockedlist.indexOf(Block_Cancel_Details.contractModel);
+        if ((requestCode == 2) && (resultCode == RESULT_OK)) {
+            int index = unblockedlist.indexOf(Block_Cancel_Details.contractModel);
             //int index=unblockedlist.remove(Block_Cancel_Details.contractModel);
+            if ((Block_Cancel_Details.contractModel.getBlock_unblockflag() == 2) && (Block_Cancel_Details.contractModel.getClosemeterreadingvalue() == 2)) {
+                removeContract(Block_Cancel_Details.contractModel.getContract_Meternumber());
+                adapter.notifyDataSetChanged();
+            }
 
-            adapter.notifyDataSetChanged();
         }
     }
 
@@ -126,6 +129,19 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
     @Override
     public void onBlockClick(ContractModel model) {
 
+    }
+
+
+    public void removeContract(String contractNumber)
+    {
+        for(int i=0;i<unblockedlist.size();i++)
+        {
+            if(unblockedlist.get(i).getContract_Meternumber().equalsIgnoreCase(contractNumber))
+            {
+                unblockedlist.remove(i);
+                break;
+            }
+        }
     }
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
@@ -155,8 +171,6 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
 //                                unblockedlist.add(model);
 //                            }
                         unblockedlist.add(model);
-
-
                     }
                     if (unblockedlist.size() > 0) {
                         adapter=(new ContractListAdapter(unblockedlist, Block_Cancel.this));
@@ -166,14 +180,12 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
                     }else{
                         progressBar.setVisibility(View.GONE);
                         Utils.showAlert(Block_Cancel.this,"No data Found");
-
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
             } else {
                 progressBar.setVisibility(View.GONE);
-
                 Toast.makeText(Block_Cancel.this, "Data not found", Toast.LENGTH_SHORT).show();
             }
 

@@ -116,6 +116,10 @@ public class ContractModel {
         this.block_unblockflag = block_unblockflag;
     }
 
+    public void setClosemeterreadingvalue(int closemeterreadingvalue) {
+        this.closemeterreadingvalue = closemeterreadingvalue;
+    }
+
     public  int getClosemeterreadingvalue() {
         return closemeterreadingvalue;
     }

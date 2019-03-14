@@ -122,13 +122,24 @@ public void onBlockClick(ContractModel model) {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if((requestCode==2)&&(resultCode==RESULT_OK))
-        {
-            unblockedlist.remove(Connection_Disconnection_Invoice_details.contractModel);
-            adapter.notifyDataSetChanged();
+        if ((requestCode == 2) && (resultCode == RESULT_OK)) {
+            if ((Connection_Disconnection_Invoice_details.model.getConnection_Disconnection_Invoice().length() > 0) && (Connection_Disconnection_Invoice_details.model.getDeposit_Invoice().length() > 0)) {
+                removeContract(Connection_Disconnection_Invoice_details.contractModel.getContract_Meternumber());
+                adapter.notifyDataSetChanged();
+            }
         }
     }
-
+    public void removeContract(String contractNumber)
+    {
+        for(int i=0;i<unblockedlist.size();i++)
+        {
+            if(unblockedlist.get(i).getContract_Meternumber().equalsIgnoreCase(contractNumber))
+            {
+                unblockedlist.remove(i);
+                break;
+            }
+        }
+    }
 /*-------------------------------------------------------------------getData-------------------------------------------------------*/
 public class GetData extends AsyncTask<String,Void,String> {
     @Override

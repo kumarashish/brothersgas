@@ -384,6 +384,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                             model.setContractNumber(contractModel.getContract_Meternumber());
                             model.setConsumptionInvoice(modell.getConsumption_invoice());
                             model.setCurrentMeterReading(currenttReading);
+                            contractModel.setBlock_unblockflag(2);
                             Print_Email.model = model;
                             Print_Email.calledMethod="3";
 
@@ -433,11 +434,11 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
                     BlockUnblockModel modell=new BlockUnblockModel(item.getJSONArray("FLD"));
-
                             if (modell.getConsumption_invoice().length()>0) {
                                 model.setCustomerName(contractModel.getCustomername());
                                 model.setConsumptionInvoice(modell.getConsumption_invoice());
                                 model.setCurrentMeterReading(currenttReading);
+                                contractModel.setClosemeterreadingvalue(2);
                                 Print_Email.model=model;
                                 Print_Email.calledMethod="3";
                                 cancel.setVisibility(View.INVISIBLE);

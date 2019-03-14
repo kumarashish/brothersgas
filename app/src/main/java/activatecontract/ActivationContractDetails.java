@@ -285,10 +285,13 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                          model.setConsumptionInvoice(modell.getConsumption_invoice());
                             Print_Email.model=model;
                             activateTenant.setVisibility(View.INVISIBLE);
+
                             Utils.showAlertNavigateToPrintEmail(ActivationContractDetails.this,modell.getMessage(),Print_Email.class);
                         }else {
                             Utils.showAlertForReturnIntent(ActivationContractDetails.this, modell.getMessage());
+                            activateTenant.setVisibility(View.INVISIBLE);
                         }
+                        contractModel.setBlock_unblockflag(1);
                     } else {
 
                         Toast.makeText(ActivationContractDetails.this, modell.getMessage(), Toast.LENGTH_SHORT).show();

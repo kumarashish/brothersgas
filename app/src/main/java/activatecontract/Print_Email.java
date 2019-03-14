@@ -202,7 +202,6 @@ public class Print_Email  extends Activity implements View.OnClickListener {
             }
         }
     }
-
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class EmailInvoice extends AsyncTask<String, Void, String> {
 
@@ -243,7 +242,6 @@ public class Print_Email  extends Activity implements View.OnClickListener {
                 }
             } else {
             }
-
         }
     }
     /*-------------------------------------------------------------------upload signature-------------------------------------------------------*/
@@ -257,10 +255,9 @@ public class Print_Email  extends Activity implements View.OnClickListener {
             pd1.setCancelable(false);
             pd1.show();
         }
-
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{model.getAdminInvoiceCharges(),model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{model.getConsumptionInvoice(),model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
             return result;
         }
 

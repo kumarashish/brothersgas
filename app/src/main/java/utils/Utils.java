@@ -123,6 +123,8 @@ public static String getBase64(String path)
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                       act.startActivity(new Intent(act, b));
+                        Intent data = new Intent();
+                        act.setResult(RESULT_OK,data);
                         act.finish();
                     }
                 });

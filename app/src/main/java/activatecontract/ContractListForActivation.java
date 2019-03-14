@@ -34,6 +34,7 @@ import contracts.ContractDetails;
 import contracts.Contracts;
 import contracts.Search;
 import interfaces.ListItemClickListner;
+import invoices.Block_Cancel_Details;
 import model.BlockUnblockModel;
 import model.ContractModel;
 import utils.Utils;
@@ -126,11 +127,26 @@ public class ContractListForActivation extends Activity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
         if((requestCode==2)&&(resultCode==RESULT_OK))
         {
-            blockedlist.remove(ActivationContractDetails.contractModel);
-            adapter.notifyDataSetChanged();
+            if(ActivationContractDetails.contractModel.getBlock_unblockflag()==1)
+            {
+                removeContract(ActivationContractDetails.contractModel.getContract_Meternumber());
+                adapter.notifyDataSetChanged();
+            }
+
+
         }
     }
-
+    public void removeContract(String contractNumber)
+    {
+        for(int i=0;i<blockedlist.size();i++)
+        {
+            if(blockedlist.get(i).getContract_Meternumber().equalsIgnoreCase(contractNumber))
+            {
+                blockedlist.remove(i);
+                break;
+            }
+        }
+    }
     @Override
     public void onCancelClick(ContractModel model) {
 
@@ -190,4 +206,7 @@ public class ContractListForActivation extends Activity implements View.OnClickL
 
 
         }
-    }}
+    }
+
+
+}

@@ -443,7 +443,6 @@
                                 android:background="@drawable/green_btn"
                                 android:text="Payment"
                                 android:textColor="@color/white"
-
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="match_parent"  />
@@ -455,7 +454,6 @@
                                 android:background="@drawable/green_btn"
                                 android:text="@string/print_email"
                                 android:textColor="@color/white"
-
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="match_parent" />
@@ -464,13 +462,9 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="20dp"/>
-
-
                     </LinearLayout>
                 </ScrollView>
             </RelativeLayout>
-
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"/>

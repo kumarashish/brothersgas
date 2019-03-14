@@ -16,6 +16,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        dexOptions {
+            javaMaxHeapSize "4G"
+        }
         repositories {
             maven { url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases/' }
             maven {
