@@ -59,6 +59,7 @@ Button back;
 TextView heading;
     @BindView(R.id.header)
     RelativeLayout header;
+    ContractListAdapter adapter;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +105,7 @@ public void run() {
     Connection_Disconnection_Invoice_details.contractModel=model;
         Intent in=new Intent(Connection_Disconnection_Invoice.this,Connection_Disconnection_Invoice_details.class);
         in.putExtra("Data",model.getContract_Meternumber());
-        startActivity(in);
+        startActivityForResult(in,2);
         }
         });
         }
@@ -118,6 +119,15 @@ public void onCancelClick(ContractModel model) {
 public void onBlockClick(ContractModel model) {
 
         }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if((requestCode==2)&&(resultCode==RESULT_OK))
+        {
+            unblockedlist.remove(Connection_Disconnection_Invoice_details.contractModel);
+            adapter.notifyDataSetChanged();
+        }
+    }
 
 /*-------------------------------------------------------------------getData-------------------------------------------------------*/
 public class GetData extends AsyncTask<String,Void,String> {
@@ -150,7 +160,8 @@ public class GetData extends AsyncTask<String,Void,String> {
 //                    }
                 }
                 if (unblockedlist.size() > 0) {
-                    listView.setAdapter(new ContractListAdapter(unblockedlist, Connection_Disconnection_Invoice.this));
+                   adapter= new ContractListAdapter(unblockedlist, Connection_Disconnection_Invoice.this);
+                    listView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                     contentView.setVisibility(View.VISIBLE);
                 }else{

@@ -571,6 +571,13 @@ if(pd!=null)
 
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        amount="";
+        invoiceNumber="";
+    }
 }
 
 

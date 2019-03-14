@@ -302,10 +302,10 @@ if(statusValue==2)
         }
         @Override
         protected String doInBackground(String... strings) {
-            String val="1";
+
             String inVoiceNumber=model.getDeposit_Invoice();
-            if(calledMethod.equalsIgnoreCase(Common.Connection_Disconnection_Invoice))
-            {   val="2";
+            if(calledMethod.equalsIgnoreCase("2"))
+            {
                 inVoiceNumber=model.getConnection_Disconnection_Invoice();
             }else if(model.getConsumptionInvoice().length()>0)
             { inVoiceNumber=model.getConsumptionInvoice();

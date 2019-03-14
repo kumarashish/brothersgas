@@ -56,7 +56,7 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
     TextView heading;
     @BindView(R.id.header)
     RelativeLayout header;
-
+    ContractListAdapter adapter=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,9 +102,20 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
                 Intent in=new Intent(Block_Cancel.this,Block_Cancel_Details.class);
                 Block_Cancel_Details.contractModel=model;
                 in.putExtra("Data",model.getContract_Meternumber());
-                startActivity(in);
+                startActivityForResult(in,2);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if((requestCode==2)&&(resultCode==RESULT_OK))
+        {int index=unblockedlist.indexOf(Block_Cancel_Details.contractModel);
+            //int index=unblockedlist.remove(Block_Cancel_Details.contractModel);
+
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -148,7 +159,8 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
 
                     }
                     if (unblockedlist.size() > 0) {
-                        listView.setAdapter(new ContractListAdapter(unblockedlist, Block_Cancel.this));
+                        adapter=(new ContractListAdapter(unblockedlist, Block_Cancel.this));
+                        listView.setAdapter(adapter);
                         progressBar.setVisibility(View.GONE);
                         contentView.setVisibility(View.VISIBLE);
                     }else{

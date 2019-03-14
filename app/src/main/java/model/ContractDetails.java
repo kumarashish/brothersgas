@@ -113,10 +113,10 @@ public String currentMeterReading="";
                  units=jsonObject.isNull("content")?"":jsonObject.getString("content");
              } else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.blockFlag))
              {
-                 blockFlag=jsonObject.isNull("content")?"":jsonObject.getString("content");
+                 blockFlag=jsonObject.isNull("content")?"1":jsonObject.getString("content");
              }else  if(jsonObject.getString("NAME").equalsIgnoreCase(Common.closeFlag))
              {
-                 closeFlag=jsonObject.isNull("content")?"":jsonObject.getString("content");
+                 closeFlag=jsonObject.isNull("content")?"1":jsonObject.getString("content");
              }
          }}catch (Exception ex)
      {
@@ -160,8 +160,16 @@ public String currentMeterReading="";
         return block_unblockflag;
     }
 
+    public void setBlock_unblockflag(int block_unblockflag) {
+        this.block_unblockflag = block_unblockflag;
+    }
+
     public int getClosemeterreadingvalue() {
         return closemeterreadingvalue;
+    }
+
+    public void setClosemeterreadingvalue(int closemeterreadingvalue) {
+        this.closemeterreadingvalue = closemeterreadingvalue;
     }
 
     public String getConnection_charges() {

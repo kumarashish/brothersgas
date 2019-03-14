@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -367,7 +368,6 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
             String result = webServiceAcess.runRequest(Common.runAction,strings[0], new String[]{contractId,strings[1],strings[2],strings[3],strings[4]});
             return result;
         }
-
         @Override
         protected void onPostExecute(String s) {
             Log.e("value", "onPostExecute: ", null);
@@ -385,18 +385,19 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                             model.setConsumptionInvoice(modell.getConsumption_invoice());
                             model.setCurrentMeterReading(currenttReading);
                             Print_Email.model = model;
+                            Print_Email.calledMethod="3";
 
                             Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this, modell.getMessage(), Print_Email.class);
                         } else {
                             Utils.showAlertNormal(Block_Cancel_Details.this, modell.getMessage());
+
                         }
-                        block.setVisibility(View.GONE);
+
+                        block.setVisibility(View.INVISIBLE);
                     } else {
 
                         Utils.showAlertNormal(Block_Cancel_Details.this, modell.getMessage());
                     }
-
-
 
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
@@ -433,25 +434,17 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     JSONObject item = jsonArray.getJSONObject(1);
                     BlockUnblockModel modell=new BlockUnblockModel(item.getJSONArray("FLD"));
 
-                    if(calledMethod.equalsIgnoreCase(Common.CancelContract)) {
-                        if(modell.getStatus()==2)
-                        {
                             if (modell.getConsumption_invoice().length()>0) {
                                 model.setCustomerName(contractModel.getCustomername());
                                 model.setConsumptionInvoice(modell.getConsumption_invoice());
                                 model.setCurrentMeterReading(currenttReading);
                                 Print_Email.model=model;
+                                Print_Email.calledMethod="3";
+                                cancel.setVisibility(View.INVISIBLE);
                                 Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this,modell.getMessage(),Print_Email.class);
                             }else{
                                 Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());
                             }
-                        } else {
-
-                            Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());
-                        }
-                    }
-
-
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
@@ -532,11 +525,11 @@ public void showAlert(String message)
         }
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
-        if (model.getBlock_unblockflag() == 2) {
-            block.setVisibility(View.INVISIBLE);
-        }
-        if (model.getClosemeterreadingvalue() == 2) {
+        if (Integer.parseInt(model.getCloseFlag()) == 2) {
             cancel.setVisibility(View.INVISIBLE);
+        }
+        if (Integer.parseInt(model.getBlockFlag()) == 2) {
+            block.setVisibility(View.INVISIBLE);
         }
     }
 }
