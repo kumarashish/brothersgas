@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:background="@color/colorPrimary">
+           >
 
             <Button
                 android:layout_alignParentLeft="true"
                 android:id="@+id/back_button"
 
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/black"
                 android:background="@drawable/back" />
 
-            <TextView
-                android:id="@+id/heading"
 
-                android:fontFamily="@font/fontnew"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Preview"
-                android:textColor="@android:color/white"
-                android:textSize="18dp" />
 
         </RelativeLayout>
+        <ImageView
+            android:src="@drawable/brogas_logo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
         <ProgressBar
             android:visibility="gone"
             android:layout_width="50dp"
@@ -57,7 +55,13 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:text="TAX INVOICE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                 <ScrollView
+                    android:layout_marginTop="10dp"
                     android:scrollbars="none"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -855,6 +859,17 @@ android:gravity="center"
                             android:background="@color/black"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/red"
+
+                            android:fontFamily="@font/fontnew"
+                            android:text="Note :- This is computer generated document does not require signature "
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
                         <View
                             android:layout_width="match_parent"
