@@ -188,9 +188,10 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==2)
+        if((requestCode==2)&&(resultCode==-1))
         {
-            finish();
+            changeTenant.setVisibility(View.GONE);
+
         }
     }
 
@@ -280,12 +281,11 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                     if (modell.getStatus() == 2) {
                         if(modell.getConsumption_invoice().length()>0)
                         {model.setAdminInvoiceCharges(modell.getAdminCharges());
-                         model.setCustomerName(contractModel.getCustomername());
+                         model.setCustomerName(contractModel.getCustomercode());
                          model.setCurrentMeterReading(currentMeterReading);
                          model.setConsumptionInvoice(modell.getConsumption_invoice());
                             Print_Email.model=model;
                             activateTenant.setVisibility(View.INVISIBLE);
-
                             Utils.showAlertNavigateToPrintEmail(ActivationContractDetails.this,modell.getMessage(),Print_Email.class);
                         }else {
                             Utils.showAlertForReturnIntent(ActivationContractDetails.this, modell.getMessage());

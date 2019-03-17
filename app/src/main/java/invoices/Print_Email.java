@@ -103,7 +103,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
     @BindView(R.id.current_meter_reading)
     android.widget.TextView currentMeterReading;
 
-
+int sendAttempt=0;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.print_email_pdf);
@@ -269,8 +269,15 @@ public class Print_Email extends Activity implements View.OnClickListener {
                    int statusValue=status.isNull("content")?1: status.getInt("content");
 if(statusValue==2)
 {
+    sendAttempt=sendAttempt+1;
+    if(sendAttempt==1)
+    {
+        print_email.setText("Resend");
+    }else {
+        print_email.setVisibility(View.GONE);
+    }
     Utils.showAlertNormal(Print_Email.this,message);
-    print_email.setVisibility(View.GONE);
+
 }else{
     Utils.showAlertNormal(Print_Email.this,message);
 }
@@ -310,7 +317,7 @@ if(statusValue==2)
             }else if(model.getConsumptionInvoice().length()>0)
             { inVoiceNumber=model.getConsumptionInvoice();
             }
-            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{inVoiceNumber,model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{inVoiceNumber,model.getCustomerName(),model.getCustomer_value(),Utils.getBase64(imagePath)});
             return result;
         }
         @Override

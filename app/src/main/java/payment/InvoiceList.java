@@ -103,7 +103,7 @@ Button payNow;
                 String []value=getTotalOutStandingAmount();
                 PayAll.amount=value[0];
                 PayAll.unit=value[1];
-                startActivity(new Intent(InvoiceList.this,PayAll.class));
+                startActivityForResult(new Intent(InvoiceList.this,PayAll.class),2);
                 break;
 
         }
@@ -114,8 +114,19 @@ Button payNow;
         PaymentReceipt.invoiceNumber=model.getSales_Invoice_Number();
         PaymentReceipt.amount=model.getOutstanding_amount();
         PaymentReceipt.unit=model.getOutstanding_amount_currency();
-        startActivity(new Intent(InvoiceList.this,PaymentReceipt.class));
+        startActivityForResult(new Intent(InvoiceList.this,PaymentReceipt.class),2);
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if((requestCode==2)) {
+            progressBar.setVisibility(View.VISIBLE);
+            footer.setVisibility(View.GONE);
+            new FetchInvoices().execute(new String[]{model.getCustomercode()});
+        }
 
     }
 
@@ -227,6 +238,8 @@ Button payNow;
                         listView.setAdapter(new Invoice_ListAdapter(pendingInvoice, InvoiceList.this));
                         footer.setVisibility(View.VISIBLE);
 
+                    }else{
+                        Utils.showAlertNormal(InvoiceList.this,"No Invoic Found for payment");
                     }
 
                 } catch (Exception ex) {

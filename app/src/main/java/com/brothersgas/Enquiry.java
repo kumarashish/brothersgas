@@ -21,7 +21,10 @@ import com.itextpdf.text.pdf.PdfPRow;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,23 +108,63 @@ EnquiryModel model=null;
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
     }
-    @SuppressWarnings("deprecation")
-    public void setDate(View view) {
-        showDialog(999);
+public long getMinDate(String datee) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+    try {
+        //formatting the dateString to convert it into a Date
+        Date date = sdf.parse(datee);
+        System.out.println("Given Time in milliseconds : " + date.getTime());
+
+        Calendar calendar = Calendar.getInstance();
+        //Setting the Calendar date and time to the given date and time
+        calendar.setTime(date);
+        System.out.println("Given Time in milliseconds : " + calendar.getTimeInMillis());
+return calendar.getTimeInMillis();
+    } catch (ParseException e) {
+        e.printStackTrace();
     }
+    return 0;
+}
 
     @Override
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
         if (id == 999) {
-            return new DatePickerDialog(this,
-                    myDateListener, year, month, day);
+            DatePickerDialog dialog=  new DatePickerDialog(this, myDateListener, year, month, day);
+            if(endDate.getText().length()>0) {
+                dialog.getDatePicker().setMaxDate(getMinDate(endDate.getText().toString()));
+            }else{
+                dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+            }
+            return dialog;
+        }
+        else if (id == 991) {
+            DatePickerDialog dialog=  new DatePickerDialog(this, myDateListener2, year, month, day);
+            if(startDate.getText().length()>0) {
+                dialog.getDatePicker().setMinDate(getMinDate(startDate.getText().toString()));
+                dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+            }
+            return dialog;
+
         }
         return null;
     }
 
     private DatePickerDialog.OnDateSetListener myDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    showDate(arg1, arg2+1, arg3);
+                }
+            };
+
+    private DatePickerDialog.OnDateSetListener myDateListener2 = new
             DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker arg0,
@@ -152,8 +195,7 @@ EnquiryModel model=null;
                 startDateSlected=true;
                 break;
             case 2:
-               endDate.setText(new StringBuilder().append(dayValue).append("/")
-                        .append(monthValue).append("/").append(year));
+                endDate.setText(new StringBuilder().append(dayValue).append("/").append(monthValue).append("/").append(year));
                 endDateSlected=true;
                 break;
         }
@@ -169,12 +211,12 @@ EnquiryModel model=null;
                 break;
             case R.id.s_date:
                 selectedOption=startDateSelcted;
-                setDate(v);
+                showDialog(999);;
 
                 break;
             case R.id.e_date:
                 selectedOption=endDateSelected;
-                setDate(v);
+                showDialog(991);;
                 break;
             case R.id.search:
                 if((startDateSlected==true)&&(endDateSlected==true))

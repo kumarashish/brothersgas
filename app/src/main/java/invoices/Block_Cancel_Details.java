@@ -435,13 +435,14 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     JSONObject item = jsonArray.getJSONObject(1);
                     BlockUnblockModel modell=new BlockUnblockModel(item.getJSONArray("FLD"));
                             if (modell.getConsumption_invoice().length()>0) {
-                                model.setCustomerName(contractModel.getCustomername());
+                                model.setCustomerName(contractModel.getCustomercode());
                                 model.setConsumptionInvoice(modell.getConsumption_invoice());
                                 model.setCurrentMeterReading(currenttReading);
                                 contractModel.setClosemeterreadingvalue(2);
                                 Print_Email.model=model;
                                 Print_Email.calledMethod="3";
                                 cancel.setVisibility(View.INVISIBLE);
+                                block.setVisibility(View.INVISIBLE);
                                 Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this,modell.getMessage(),Print_Email.class);
                             }else{
                                 Utils.showAlertNormal(Block_Cancel_Details.this,modell.getMessage());

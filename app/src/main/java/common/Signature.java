@@ -38,12 +38,14 @@ public class Signature extends Activity {
 
     Bitmap bitmap;
     Button clear, save;
-    SignatureView signatureView;
+    SigantureView signatureView;
     String path;
     private static final String IMAGE_DIRECTORY = "/Brothers_Gas";
     private static final int PERMISSION_REQUEST_CODE = 1;
     boolean isSignatureCaptured=false;
     Bitmap emptyBitmap ;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +67,7 @@ public class Signature extends Activity {
             // Do next code
         }
 
-        signatureView = (SignatureView) findViewById(R.id.signature_view);
+        signatureView = (SigantureView) findViewById(R.id.signature_view);
         clear = (Button) findViewById(R.id.clear);
         save = (Button) findViewById(R.id.save);
 
@@ -77,16 +79,25 @@ public class Signature extends Activity {
         });
 
 
+
+
         save.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                bitmap = signatureView.getSignatureBitmap();
-               path = saveImage(bitmap);
+if(signatureView.isSignatureCaptured) {
+    bitmap = signatureView.getSignatureBitmap();
+
+    path = saveImage(bitmap);
     Intent data = new Intent();
     data.putExtra("filepath", path);
     setResult(RESULT_OK, data);
     finish();
+}else {
+    Utils.showAlertNormal(Signature.this,"Please capture signature");
+}
+
+
 
             }
         });

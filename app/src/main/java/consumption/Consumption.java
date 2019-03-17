@@ -38,9 +38,11 @@ import com.whygraphics.multilineradiogroup.MultiLineRadioGroup;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Formatter;
 
 import adapter.ContractListAdapter;
 import adapter.CustomListAdapter;
@@ -97,17 +99,17 @@ public class Consumption  extends Activity implements View.OnClickListener {
 
     ScrollView contentView;
     @BindView(R.id.previousReading)
-            EditText previousReading;
+    EditText previousReading;
     ArrayList<ContractModel> list = new ArrayList<>();
     ProgressDialog progressDialog;
-@BindView(R.id.retype_currentReading)
-EditText retype_currentReading;
-@BindView(R.id.currentReading)
-EditText currentReading;
-ArrayList<String>reasons=new ArrayList<>();
+    @BindView(R.id.retype_currentReading)
+    EditText retype_currentReading;
+    @BindView(R.id.currentReading)
+    EditText currentReading;
+    ArrayList<String> reasons = new ArrayList<>();
 
-    ContractModel model2=null;
-    String previousSearcchedContact="";
+    ContractModel model2 = null;
+    String previousSearcchedContact = "";
     @BindView(R.id.reason)
     Spinner reason;
 
@@ -121,7 +123,7 @@ ArrayList<String>reasons=new ArrayList<>();
         submit.setOnClickListener(this);
         back.setOnClickListener(this);
         currentDate.setOnClickListener(this);
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setIndeterminate(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         calendar = Calendar.getInstance();
@@ -131,12 +133,12 @@ ArrayList<String>reasons=new ArrayList<>();
         meterProblem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     issueList.setVisibility(View.VISIBLE);
-                    if((model.getPreviousReading().length()==0)||(model.getPreviousReading().equalsIgnoreCase("0"))) {
+                    if ((model.getPreviousReading().length() == 0) || (model.getPreviousReading().equalsIgnoreCase("0"))) {
                         currentReading.setEnabled(true);
                         retype_currentReading.setEnabled(true);
-                    }else{
+                    } else {
                         currentReading.setEnabled(false);
                         retype_currentReading.setEnabled(false);
                     }
@@ -166,14 +168,77 @@ ArrayList<String>reasons=new ArrayList<>();
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(!previousSearcchedContact.equalsIgnoreCase(s.toString()))
-                {
-                 clearAllFields();
+                if (!previousSearcchedContact.equalsIgnoreCase(s.toString())) {
+                    clearAllFields();
                 }
             }
         });
+        currentReading.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+           if(s.toString().contains("."))
+           {   int index=s.toString().indexOf(".");
+               int count=currentReading.getText().toString().substring( index,s.length()).length();
+               if(count>=5)
+               {   Double pi = Double.parseDouble(s.toString());
+
+
+                   currentReading.setText( String.format("%.3f", pi));
+                   currentReading.setSelection(currentReading.getText().length());
+
+               }
+
+
+           }
+            }
+        });
+
+        retype_currentReading.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().contains("."))
+                {   int index=s.toString().indexOf(".");
+                    int count=retype_currentReading.getText().toString().substring( index,s.length()).length();
+                    if(count>=5)
+                    {   Double pi = Double.parseDouble(s.toString());
+
+
+                        retype_currentReading.setText( String.format("%.3f", pi));
+                        retype_currentReading.setSelection(retype_currentReading.getText().length());
+
+                    }
+
+
+                }
+
+
 
     }
+});
+    }
+
+
 
     @Override
     protected Dialog onCreateDialog(int id) {

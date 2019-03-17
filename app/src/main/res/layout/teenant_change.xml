@@ -129,6 +129,8 @@ android:focusable="false"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <EditText
+                                android:enabled="false"
+                                android:focusable="false"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginRight="10dp"
                                 android:background="@android:color/transparent"
@@ -165,6 +167,8 @@ android:focusable="false"
                                 android:background="@android:color/transparent"
                                 android:textColor="@color/md_gray_light"
 android:imeOptions="actionNext"
+
+                                android:maxLength="10"
                                 android:layout_marginLeft="10dp"
                                 android:inputType="numberDecimal"
                                 android:id="@+id/current_reading"

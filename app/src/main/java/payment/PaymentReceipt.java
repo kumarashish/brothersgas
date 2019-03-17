@@ -508,6 +508,8 @@ if(pd!=null)
                     if(model.getStatus().equalsIgnoreCase("2")) {
                         PaymentReceipt_Print_Email.model = model;
                         PaymentReceipt_Print_Email.isPaymentTakenByCheaque = paymentModeCheque;
+                        PaymentReceipt_Print_Email.number=invoiceNumber;
+                        PaymentReceipt_Print_Email.isCalledFromPayAll=false;
                         Utils.showAlertNavigateToPrintEmail(PaymentReceipt.this, model.getMessage(), PaymentReceipt_Print_Email.class);
                     }else{
                         Utils.showAlertNormal(PaymentReceipt.this,model.getMessage());

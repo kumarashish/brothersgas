@@ -10,7 +10,7 @@ import common.Common;
 
 
 
-public class ContractDetails {
+public class  ContractDetails {
  public String Site_value="";
  public  String Customer_value="";
  public String Contract_Date="";

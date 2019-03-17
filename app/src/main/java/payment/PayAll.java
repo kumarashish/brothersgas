@@ -351,6 +351,9 @@ public class PayAll  extends Activity implements View.OnClickListener {
                     if (model.getStatus().equalsIgnoreCase("2")) {
                         PaymentReceipt_Print_Email.model = model;
                         PaymentReceipt_Print_Email.isPaymentTakenByCheaque = paymentModeCheque;
+                        PaymentReceipt_Print_Email.number=customerNumberValue;
+                        PaymentReceipt_Print_Email.isCalledFromPayAll=true;
+
                         Utils.showAlertNavigateToPrintEmail(PayAll.this, model.getMessage(), PaymentReceipt_Print_Email.class);
                     } else {
                         Utils.showAlertNormal(PayAll.this, model.getMessage());

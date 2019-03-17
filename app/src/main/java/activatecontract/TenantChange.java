@@ -211,8 +211,10 @@ String backImagePath="";
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
         if (id == 999) {
-            return new DatePickerDialog(this,
+            DatePickerDialog dialog= new DatePickerDialog(this,
                     myDateListener, year, month, day);
+            dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            return dialog;
         }
         return null;
     }
@@ -341,8 +343,8 @@ footer.setVisibility(View.GONE);
                     String message = messageObject.isNull("content") ? "Message not available" : messageObject.getString("content");
                     if (message.contains("New")) {
                         contract_number.setText(contractNumber);
-
                         Utils.showAlertNavigateToInvoices(TenantChange.this, message,Connection_Disconnection_Invoice_details.class,contractNumber);
+
                         submit.setVisibility(View.GONE);
                     } else {
                         Utils.showAlertNormal(TenantChange.this, message);

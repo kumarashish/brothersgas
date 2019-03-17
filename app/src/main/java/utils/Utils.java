@@ -141,9 +141,9 @@ public static String getBase64(String path)
                 "Ok",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent in=new Intent(act,b);
-                        in.putExtra("Data",data);
-                        act.startActivity(in);
+                        act.startActivity(new Intent(act, b));
+                        Intent data = new Intent();
+                        act.setResult(RESULT_OK,data);
                         act.finish();
                     }
                 });

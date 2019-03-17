@@ -86,7 +86,7 @@ public class Print_Email  extends Activity implements View.OnClickListener {
     LinearLayout current_meter_reading_header;
     @BindView(R.id.current_meter_reading)
     android.widget.TextView currentMeterReading;
-
+int sendAttempt=0;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.print_email_pdf);
@@ -208,6 +208,7 @@ public class Print_Email  extends Activity implements View.OnClickListener {
         @Override
         protected String doInBackground(String... strings) {
             String val="1";
+
             String inVoiceNumber=model.getAdminInvoiceCharges();
 
             String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
@@ -229,7 +230,7 @@ public class Print_Email  extends Activity implements View.OnClickListener {
                     String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
                     int statusValue=status.isNull("content")?1: status.getInt("content");
                     if(statusValue==2)
-                    { print_email.setVisibility(View.GONE);
+                    {
                         Utils.showAlertNormal(Print_Email.this,message);
                     }else{
                         Utils.showAlertNormal(Print_Email.this,message);
@@ -257,7 +258,7 @@ public class Print_Email  extends Activity implements View.OnClickListener {
         }
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature, new String[]{model.getConsumptionInvoice(),model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.UploadSignature,  new String[]{model.getConsumptionInvoice(),model.getCustomer_value(),model.getCustomerName(),Utils.getBase64(imagePath)});
             return result;
         }
 

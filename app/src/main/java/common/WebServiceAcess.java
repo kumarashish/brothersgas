@@ -127,7 +127,7 @@ public class WebServiceAcess {
 
             case Common.Print_Email:
                 jsonObject.put("I_NUM", value[0]);
-                        jsonObject.put("I_TYP", value[1]);
+                jsonObject.put("I_TYP", value[1]);
 
                 break;
             case Common.ContractDetailsForConsumption:
@@ -155,6 +155,9 @@ public class WebServiceAcess {
                 jsonObject.put("I_CUST", value[1]);
                 jsonObject.put("I_CUSNAM", value[2]);
                 jsonObject.put("I_SIGN", value[3]);
+
+
+
                 break;
 
 

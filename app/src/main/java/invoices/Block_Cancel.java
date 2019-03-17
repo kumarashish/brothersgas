@@ -116,6 +116,10 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
             if ((Block_Cancel_Details.contractModel.getBlock_unblockflag() == 2) && (Block_Cancel_Details.contractModel.getClosemeterreadingvalue() == 2)) {
                 removeContract(Block_Cancel_Details.contractModel.getContract_Meternumber());
                 adapter.notifyDataSetChanged();
+            }else if(Block_Cancel_Details.contractModel.getClosemeterreadingvalue() == 2)
+            {    removeContract(Block_Cancel_Details.contractModel.getContract_Meternumber());
+                adapter.notifyDataSetChanged();
+
             }
 
         }

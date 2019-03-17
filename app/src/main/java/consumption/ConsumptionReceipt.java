@@ -83,6 +83,7 @@ WebServiceAcess webServiceAcess;
 
     boolean isSignatureCaptured = false;
     String imagePath = "";
+    int sendAttempt=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,7 +221,13 @@ WebServiceAcess webServiceAcess;
                     String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
                     int statusValue=status.isNull("content")?1: status.getInt("content");
                     if(statusValue==2)
-                    { print_email.setVisibility(View.GONE);
+                    { sendAttempt=sendAttempt+1;
+                        if(sendAttempt==1)
+                        {
+                            print_email.setText("Resend");
+                        }else {
+                            print_email.setVisibility(View.GONE);
+                        }
                         Utils.showAlertNormal(ConsumptionReceipt.this,message);
                     }else{
                         Utils.showAlertNormal(ConsumptionReceipt.this,message);

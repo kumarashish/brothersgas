@@ -67,15 +67,26 @@ public class PaymentReceipt_Print_Email extends Activity implements View.OnClick
     ProgressBar progressBar;
     @BindView(R.id.footer)
     LinearLayout footer;
-
+@BindView(R.id.invoicenumber_heading)
+        TextView invoiceNumberHeading;
     WebServiceAcess webServiceAcess;
-
+    @BindView(R.id.invoice_number)
+    TextView invoice_number;
+    public static String number="";
+   public static boolean isCalledFromPayAll=false;
+   int sendAttempt=0;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_receipt_print_email);
         ButterKnife.bind(this);
         back.setOnClickListener(this);
+        if(isCalledFromPayAll==true)
+        {
+            invoiceNumberHeading.setText("Customer : ");
+
+        }
+        invoice_number.setText(number);
         print_email.setOnClickListener(this);
         webServiceAcess = new WebServiceAcess();
 
@@ -149,7 +160,13 @@ public void setValue()
                     String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
                     int statusValue=status.isNull("content")?1: status.getInt("content");
                     if(statusValue==2)
-                    { print_email.setVisibility(View.GONE);
+                    { sendAttempt=sendAttempt+1;
+                        if(sendAttempt==1)
+                        {
+                            print_email.setText("Resend");
+                        }else {
+                            print_email.setVisibility(View.GONE);
+                        }
                         Utils.showAlertNormal(PaymentReceipt_Print_Email.this,message);
                     }else{
                         Utils.showAlertNormal(PaymentReceipt_Print_Email.this,message);

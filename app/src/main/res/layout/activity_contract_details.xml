@@ -330,6 +330,45 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/in_meterReading_View"
+                    android:background="@drawable/light_grey_box"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+                    <View
+                        android:background="@drawable/green_column"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
+                        android:text="Previous Meter Reading : "
+                        android:fontFamily="@font/aller_rg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:inputType="numberDecimal"
+                        android:maxLength="10"
+                        android:enabled="false"
+                        android:text=""
+                        android:textSize="16dp"
+android:focusable="false"
+
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/md_gray_light"
+                        android:id="@+id/in_meter_reading"
+                        android:fontFamily="@font/aller_rg"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
 
                     android:background="@drawable/light_grey_box"
                     android:layout_margin="5dp"
@@ -350,10 +389,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <EditText
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
+                        android:maxLength="10"
                         android:enabled="false"
                         android:text=""
                         android:textSize="16dp"
+
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"

@@ -79,6 +79,10 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     Button submit;
     @BindView(R.id.editView)
     LinearLayout editView;
+    @BindView(R.id.in_meter_reading)
+    EditText in_meter_reading;
+    @BindView(R.id.in_meterReading_View)
+    LinearLayout in_meterReading_View;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -254,9 +258,11 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                         //
                         {   model.setDeposit_Invoice(depInvoice);
                             model.setContractNumber(contractId);
+                           model.setCustomerName(contractModel.getCustomercode());
                             Deposit_Invoice.setText(model.getDeposit_Invoice());
                             if(model.getDeposit_Invoice().length()>0) {
                                 Print_Email.model = model;
+
                                 Print_Email.calledMethod = calledMethod;
                                 Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message, Print_Email.class);
                             }else{
@@ -269,6 +275,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
 
                                 model.setConnection_Disconnection_Invoice(depInvoice);
                                 model.setContractNumber(contractId);
+                               model.setCustomerName(contractModel.getCustomercode());
                                 Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
                             if(model.getConnection_Disconnection_Invoice().length()>0) {
                                 Print_Email.model = model;
@@ -337,12 +344,9 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         Connection_charges.setText(model.getConnection_charges()+" "+model.getCurrency());
         Disconnection_Charges.setText(model.getDisconnection_Charges()+" "+model.getCurrency());
         Pressure_Factor.setText(model.getPressure_Factor());
-        if((model.getPreviousReading().length()>0)&&(!model.getPreviousReading().equalsIgnoreCase("0")))
-        {
-            Initial_meter_reading.setText(model.getPreviousReading());
-        }else {
-            Initial_meter_reading.setText(model.getInitial_meter_reading() + " " + model.getUnits());
-        }
+        in_meter_reading.setText(model.getInitial_meter_reading());
+        in_meterReading_View.setVisibility(View.VISIBLE);
+        Initial_meter_reading.setText(model.getPreviousReading());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
         if((model.getDeposit_Invoice().length()>0)&&(model.getConnection_Disconnection_Invoice().length()>0))
