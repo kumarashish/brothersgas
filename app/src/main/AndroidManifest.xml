@@ -25,7 +25,7 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="common.GeneratePdf">
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,6 +79,8 @@
         <activity android:name="payment.PayAll"
             android:screenOrientation="portrait"/>
         <activity android:name="activatecontract.Print_Email"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.GeneratePdf"
             android:screenOrientation="portrait"/>
 
     </application>

@@ -1,47 +1,28 @@
-package common;
+package invoices;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
 import com.brothersgas.R;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.draw.LineSeparator;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import invoices.Block_Cancel_Details;
-import invoices.Connection_Disconnection_Invoice;
-import invoices.Print_Email;
-import model.BlockUnblockModel;
+import common.AppController;
+import common.Common;
+import common.NumberToWords;
+import common.WebServiceAcess;
 import model.Connection_Disconnection_Invoice_Preview_Model;
-import payment.InvoiceList;
 import utils.Utils;
 
 
-public class GeneratePdf extends Activity {
+public class GeneratePdf extends Activity implements View.OnClickListener {
     @BindView(R.id. invoice_number)
     android.widget.TextView invoice_number;
     @BindView(R.id. project_name)
@@ -74,7 +55,7 @@ public class GeneratePdf extends Activity {
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-    String invoice="CDC-U109-19000053";
+    public static String invoice="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -82,6 +63,9 @@ public class GeneratePdf extends Activity {
     ScrollView contentView;
     @BindView(R.id.content)
     LinearLayout content;
+    @BindView(R.id.back_button)
+    Button back_button;
+    public static String imagePath="";
 
 
     @Override
@@ -92,6 +76,7 @@ public class GeneratePdf extends Activity {
         webServiceAcess = new WebServiceAcess();
         controller=(AppController)getApplicationContext();
         numToWords=new NumberToWords();
+        back_button.setOnClickListener(this);
         if(Utils.isNetworkAvailable(GeneratePdf.this)) {
             progress.setVisibility(View.VISIBLE);
             contentView.setVisibility(View.GONE);
@@ -99,6 +84,17 @@ public class GeneratePdf extends Activity {
         }
 
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id. back_button:
+                finish();
+                break;
+        }
+    }
+
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class GetInvoiceDetails extends AsyncTask<String, Void, String> {
 
@@ -167,6 +163,9 @@ public class GeneratePdf extends Activity {
         progress.setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
         total_inwords.setText("AED "+ numToWords.convertNumberToWords((int)Math.round(Double.parseDouble(model.getTotalIncludingTaxValue())))+" Only /-");
-//        signature
+
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        signature.setImageBitmap(bitmap);
+
     }
 }

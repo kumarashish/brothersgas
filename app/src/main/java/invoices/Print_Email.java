@@ -103,7 +103,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
     @BindView(R.id.current_meter_reading)
     android.widget.TextView currentMeterReading;
 
-int sendAttempt=0;
+    int sendAttempt=0;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.print_email_pdf);
@@ -170,7 +170,10 @@ int sendAttempt=0;
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
         connectionInvoice.setText(model.getConsumptionInvoice());
+        payment.setText("Submit");
+        print_email.setVisibility(View.INVISIBLE);
         footer.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -191,22 +194,25 @@ int sendAttempt=0;
                 }
                 break;
             case R.id.payment:
-                if(isSignatureCaptured)
-                { if(calledMethod.equalsIgnoreCase("1")) {
+                if(isSignatureCaptured) {
+//                { if(calledMethod.equalsIgnoreCase("1")) {
+//
+//                    PaymentReceipt.invoiceNumber = model.getDeposit_Invoice();
+//                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
+//                    finish();
+//                }else if(calledMethod.equalsIgnoreCase("2")){
+//                    PaymentReceipt.invoiceNumber = model.getConnection_Disconnection_Invoice();
+//                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
+//                    finish();
+//                }else{
+                    GeneratePdf.invoice = model.getConnection_Disconnection_Invoice();
+                    GeneratePdf.imagePath=imagePath;
+                    startActivity(new Intent(Print_Email.this,GeneratePdf.class));
 
-                    PaymentReceipt.invoiceNumber = model.getDeposit_Invoice();
-                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
-                    finish();
-                }else if(calledMethod.equalsIgnoreCase("2")){
-                    PaymentReceipt.invoiceNumber = model.getConnection_Disconnection_Invoice();
-                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
-                    finish();
+//                }
+
                 }else{
-                    PaymentReceipt.invoiceNumber = model.getConsumptionInvoice();
-                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
-                    finish();
-                }}else{
-                    Utils.showAlertNormal(Print_Email.this,"Please capture signature");
+                    Utils.showAlertNormal(Print_Email.this, "Please capture signature");
                 }
 
                 break;
