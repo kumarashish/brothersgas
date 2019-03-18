@@ -105,11 +105,9 @@ public class WebServiceAcess {
                 jsonObject.put("I_YCHQIMG",value[5]);
                 jsonObject.put("I_YCHKDATE",value[6]);
 
-
-
-
-
                 break;
+
+
 
 
 
@@ -148,15 +146,16 @@ public class WebServiceAcess {
             case Common.CheaqueDateValidity:
                 jsonObject.put("I_YCHQDAT", value[0]);
                 break;
-
+            case Common.DepositInvoiceDetails:
+            case Common.Connection_DisconnectionInvoiceDetails:
+                jsonObject.put("I_SINV", value[0]);
+                break;
 
             case Common.UploadSignature:
                 jsonObject.put("I_CONTR", value[0]);
                 jsonObject.put("I_CUST", value[1]);
                 jsonObject.put("I_CUSNAM", value[2]);
                 jsonObject.put("I_SIGN", value[3]);
-
-
 
                 break;
 

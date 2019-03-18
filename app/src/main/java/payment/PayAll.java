@@ -45,7 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
-import common.TextView;
+
 import common.WebServiceAcess;
 import model.BankModel;
 import model.PaymentReceiptModel;

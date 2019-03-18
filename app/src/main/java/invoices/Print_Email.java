@@ -38,7 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.Common;
 import common.Signature;
-import common.TextView;
+
 import common.WebServiceAcess;
 import consumption.ConsumptionReceipt;
 import payment.PaymentReceipt;

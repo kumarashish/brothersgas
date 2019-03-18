@@ -28,11 +28,6 @@
 
 
         </RelativeLayout>
-        <ImageView
-            android:src="@drawable/brogas_logo"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
-
         <ProgressBar
             android:visibility="gone"
             android:layout_width="50dp"
@@ -44,6 +39,23 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:indeterminateTint="@color/colorPrimary"/>
+        <ScrollView
+            android:visibility="gone"
+            android:id="@+id/contentView"
+            android:layout_marginTop="20dp"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/brogas_logo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+
         <LinearLayout
             android:id="@+id/mainLayout"
             android:layout_margin="5dp"
@@ -60,17 +72,19 @@
                     android:text="TAX INVOICE"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                <ScrollView
-                    android:layout_marginTop="20dp"
-                    android:scrollbars="none"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+
                     <LinearLayout
                         android:layout_margin="10dp"
-                        android:background="@drawable/light_grey_box"
+
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/light_grey_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
                         <LinearLayout
                             android:layout_marginRight="5dp"
 
@@ -347,12 +361,13 @@ android:gravity="center"
 
                                 android:layout_weight="1"
                                 android:gravity="center"
+                                android:layout_marginRight="5dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="5dp"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
-                                android:text="Units Of Measure  "
+                                android:text="Units Measure"
 
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" />
@@ -411,172 +426,12 @@ android:gravity="center"
                             android:background="@color/black"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
-                        <LinearLayout
+                       <LinearLayout
+                           android:orientation="vertical"
+                           android:id="@+id/content"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"/>
 
-                            android:weightSum="5"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp">
-
-                            <TextView
-                                android:layout_weight="1.5"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center"
-                                android:textColor="@color/black"
-
-                                android:fontFamily="@font/fontnew"
-                                android:text="Connection Charges "
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-
-                                android:layout_weight="0.5"
-                                android:gravity="center"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="5dp"
-                                android:textColor="@color/black"
-
-                                android:fontFamily="@font/fontnew"
-                                android:text="UN"
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/black"
-
-                                android:gravity="center"
-                                android:fontFamily="@font/fontnew"
-                                android:text="1"
-                                android:layout_marginRight="5dp"
-
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/black"
-                                android:gravity="center"
-
-                                android:fontFamily="@font/fontnew"
-                                android:text="100"
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-                            <View
-                                android:background="@color/black"
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"/>
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/black"
-
-                                android:fontFamily="@font/fontnew"
-                                android:text="100.00"
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-                        <View
-                            android:background="@color/black"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"/>
-                        <LinearLayout
-
-                            android:weightSum="5"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp">
-
-                            <TextView
-                                android:layout_weight="1.5"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="center"
-                                android:textColor="@color/black"
-
-                                android:fontFamily="@font/fontnew"
-                                android:text="VAT(5%)"
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-
-                                android:layout_weight="0.5"
-                                android:gravity="center"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="5dp"
-                                android:textColor="@color/black"
-
-                                android:fontFamily="@font/fontnew"
-                                android:text=""
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/black"
-
-                                android:gravity="center"
-                                android:fontFamily="@font/fontnew"
-                                android:text=""
-                                android:layout_marginRight="5dp"
-
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/black"
-                                android:gravity="center"
-
-                                android:fontFamily="@font/fontnew"
-                                android:text=""
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-                            <View
-                                android:background="@color/black"
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"/>
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/black"
-
-                                android:fontFamily="@font/fontnew"
-                                android:text="5.00"
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-                        <View
-                            android:background="@color/black"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"/>
                         <LinearLayout
 
                             android:weightSum="5"
@@ -635,9 +490,9 @@ android:gravity="center"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/black"
-
+                               android:id="@+id/total_excluding_vat"
                                 android:fontFamily="@font/fontnew"
-                                android:text="300.00"
+                                android:text=""
 
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" />
@@ -706,9 +561,9 @@ android:gravity="center"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/black"
-
+                                android:id="@+id/vat_value"
                                 android:fontFamily="@font/fontnew"
-                                android:text="15.00"
+                                android:text=""
 
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" />
@@ -778,8 +633,8 @@ android:gravity="center"
                                 android:textColor="@color/black"
 
                                 android:fontFamily="@font/fontnew"
-                                android:text="300.00"
-
+                                android:text=""
+                                android:id="@+id/total_includingvat"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" />
 
@@ -804,7 +659,7 @@ android:gravity="center"
                                 android:textColor="@color/black"
 
                                 android:fontFamily="@font/fontnew"
-                                android:text="Total Amount in Words : "
+                                android:text="Amount in Words : "
 
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" />
@@ -816,9 +671,9 @@ android:gravity="center"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/black"
-
+                                android:id="@+id/total_inwords"
                                 android:fontFamily="@font/fontnew"
-                                android:text="AED Three hundred Fifty Only/-"
+                                android:text=""
 
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" />
@@ -847,6 +702,7 @@ android:gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <ImageView
+
                                 android:layout_marginLeft="10dp"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/black"
@@ -855,10 +711,8 @@ android:gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
-                        <View
-                            android:background="@color/black"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"/>
+
+                        </LinearLayout>
                         <TextView
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center_vertical"
@@ -927,7 +781,7 @@ android:gravity="center"
                         </LinearLayout>
 
                     </LinearLayout>
-                </ScrollView>
+
             </RelativeLayout>
                         <View
                             android:layout_width="match_parent"
@@ -937,6 +791,8 @@ android:gravity="center"
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"/>
+        </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

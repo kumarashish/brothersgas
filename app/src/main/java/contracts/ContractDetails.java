@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
-import common.TextView;
+
 import common.WebServiceAcess;
 import invoices.Block_Cancel_Details;
 import model.ContractModel;

@@ -127,7 +127,8 @@ public class Common {
     final public static String Reasons="YMTRBMREAS";
     final public static String BankList="YMTRBNKACC";
     final public static String CheaqueDateValidity="I_YCHQDAT";
-
+    final public static String DepositInvoiceDetails="YMTRINVDET";
+    final public static String Connection_DisconnectionInvoiceDetails="YMTRCONINV";
 
 
 
@@ -162,6 +163,11 @@ public class Common {
     final public static String Total_Deposite_Invoices_amount="O_TOTDEPINVAMT";
     final public static String Total_Disconnection_Invoices_amount="O_TOTDISCINVAMT";
     final public static String Total_Consumable_Invoices_amount="O_TOTCONSINVAMT";
+
+
+
+
+
 
 
 
