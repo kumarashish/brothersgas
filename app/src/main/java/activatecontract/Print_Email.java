@@ -172,7 +172,7 @@ int sendAttempt=0;
                 break;
             case R.id.payment:
                 if(isSignatureCaptured)
-                { PaymentReceipt.invoiceNumber=model.getAdminInvoiceCharges();
+                { PaymentReceipt.invoiceNumber=model.getConsumptionInvoice();
                     startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
                     finish();
                 }else{

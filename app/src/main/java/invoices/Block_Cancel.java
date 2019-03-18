@@ -113,13 +113,9 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
         if ((requestCode == 2) && (resultCode == RESULT_OK)) {
             int index = unblockedlist.indexOf(Block_Cancel_Details.contractModel);
             //int index=unblockedlist.remove(Block_Cancel_Details.contractModel);
-            if ((Block_Cancel_Details.contractModel.getBlock_unblockflag() == 2) && (Block_Cancel_Details.contractModel.getClosemeterreadingvalue() == 2)) {
+            if ((Block_Cancel_Details.contractModel.getBlock_unblockflag() == 2) ||(Block_Cancel_Details.contractModel.getClosemeterreadingvalue() == 2)) {
                 removeContract(Block_Cancel_Details.contractModel.getContract_Meternumber());
                 adapter.notifyDataSetChanged();
-            }else if(Block_Cancel_Details.contractModel.getClosemeterreadingvalue() == 2)
-            {    removeContract(Block_Cancel_Details.contractModel.getContract_Meternumber());
-                adapter.notifyDataSetChanged();
-
             }
 
         }

@@ -390,11 +390,12 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
 
                             Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this, modell.getMessage(), Print_Email.class);
                         } else {
-                            Utils.showAlertNormal(Block_Cancel_Details.this, modell.getMessage());
+                            Utils.showAlertForReturnIntent(Block_Cancel_Details.this, modell.getMessage());
 
                         }
 
                         block.setVisibility(View.INVISIBLE);
+                        cancel.setVisibility(View.INVISIBLE);
                     } else {
 
                         Utils.showAlertNormal(Block_Cancel_Details.this, modell.getMessage());

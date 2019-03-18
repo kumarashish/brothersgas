@@ -1,14 +1,16 @@
 package invoices;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.brothersgas.R;
 
@@ -19,23 +21,23 @@ import common.Common;
 import common.NumberToWords;
 import common.WebServiceAcess;
 import model.Connection_Disconnection_Invoice_Preview_Model;
+import model.Deposit_Invoice_Model;
 import utils.Utils;
 
-
-public class GeneratePdf extends Activity implements View.OnClickListener {
-    @BindView(R.id. invoice_number)
+public class DepositInvoicePreview extends Activity implements View.OnClickListener {
+    @BindView(R.id.invoice_number)
     android.widget.TextView invoice_number;
-    @BindView(R.id. project_name)
+    @BindView(R.id.project_name)
     android.widget.TextView project_name;
-    @BindView(R.id. teenant_name)
+    @BindView(R.id.teenant_name)
     android.widget.TextView teenant_name;
-    @BindView(R.id. customer_name)
+    @BindView(R.id.customer_name)
     android.widget.TextView customer_name;
-    @BindView(R.id. customer_trn)
+    @BindView(R.id.customer_trn)
     android.widget.TextView customer_trn;
-    @BindView(R.id. customer_address)
+    @BindView(R.id.customer_address)
     android.widget.TextView customer_address;
-    @BindView(R.id. suplier_name)
+    @BindView(R.id.suplier_name)
     android.widget.TextView suplier_name;
     @BindView(R.id.date_time)
     android.widget.TextView date_time;
@@ -43,24 +45,21 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
     android.widget.TextView name_id;
 
 
-    @BindView(R.id. total_excluding_vat)
-    android.widget.TextView total_excluding_vat;
-    @BindView(R.id. vat_value)
-    android.widget.TextView vat_value;
-    @BindView(R.id. total_includingvat)
-    android.widget.TextView total_includingvat;
-    @BindView(R.id. total_inwords)
+
+    @BindView(R.id.total)
+    android.widget.TextView total;
+    @BindView(R.id.total_inwords)
     android.widget.TextView total_inwords;
-    @BindView(R.id. supplier_trn)
+    @BindView(R.id.supplier_trn)
     android.widget.TextView supplier_trn;
-    @BindView(R.id. registered_supplier_address)
+    @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
-    @BindView(R.id. signature)
+    @BindView(R.id.signature)
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-    public static String invoice="";
-   //public static String invoice="CDC-U109-19000053";
+    //public static String invoice="";
+    public static String invoice = "CDC-U109-19000053";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -70,19 +69,18 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
     LinearLayout content;
     @BindView(R.id.back_button)
     Button back_button;
-  public static String imagePath="";
-
+    public static String imagePath = "";
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preview_screen);
+        setContentView(R.layout.deposit_invoice_preview);
         ButterKnife.bind(this);
         webServiceAcess = new WebServiceAcess();
-        controller=(AppController)getApplicationContext();
-        numToWords=new NumberToWords();
+        controller = (AppController) getApplicationContext();
+        numToWords = new NumberToWords();
         back_button.setOnClickListener(this);
-        if(Utils.isNetworkAvailable(GeneratePdf.this)) {
+        if (Utils.isNetworkAvailable(DepositInvoicePreview.this)) {
             progress.setVisibility(View.VISIBLE);
             contentView.setVisibility(View.GONE);
             new GetInvoiceDetails().execute();
@@ -92,9 +90,8 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id. back_button:
+        switch (v.getId()) {
+            case R.id.back_button:
                 finish();
                 break;
         }
@@ -106,7 +103,7 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
         @Override
         protected String doInBackground(String... strings) {
 
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Connection_DisconnectionInvoiceDetails, new String[]{invoice});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.DepositInvoiceDetails, new String[]{invoice});
             return result;
         }
 
@@ -115,9 +112,8 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
             Log.e("value", "onPostExecute: ", null);
             if (s.length() > 0) {
                 try {
-                    Connection_Disconnection_Invoice_Preview_Model model=new  Connection_Disconnection_Invoice_Preview_Model(s);
-                    if(model.getStatus()==2)
-                    {
+                    Deposit_Invoice_Model model = new  Deposit_Invoice_Model(s);
+                    if (model.getStatus() == 2) {
                         setValues(model);
                     }
 
@@ -131,7 +127,7 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
         }
     }
 
-    public void setValues(Connection_Disconnection_Invoice_Preview_Model model) {
+    public void setValues(Deposit_Invoice_Model model) {
         invoice_number.setText(model.getInvoice_NumberValue());
         project_name.setText(model.getProjectnameValue());
         teenant_name.setText(model.getTenantNameValue());
@@ -141,38 +137,53 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
         suplier_name.setText(model.getSuppliername());
         supplier_trn.setText(model.getSupplierTRN());
         registered_supplier_address.setText(model.getRegisteredAddress());
-        date_time.setText(Utils.getNewDate(model.getDateValue()) +" : "+model.getTime());
-        name_id.setText(model.getUserNameValue()+" & "+model.getUserIDValue());
+        date_time.setText(Utils.getNewDate(model.getDateValue()) + " : " + model.getTime());
+        name_id.setText(model.getUserNameValue() + " & " + model.getUserIDValue());
 
         for (int i = 0; i < model.getDetails_list().size(); i++) {
-            View view = getLayoutInflater().inflate(R.layout.content_row, null);
+            View view = getLayoutInflater().inflate(R.layout.deposit_content_row, null);
             TextView item_name = (TextView) view.findViewById(R.id.item_name);
             TextView unit = (TextView) view.findViewById(R.id.unit);
             TextView quantity = (TextView) view.findViewById(R.id.quantity);
             TextView unit_price = (TextView) view.findViewById(R.id.unit_price);
             TextView total_price = (TextView) view.findViewById(R.id.total_price);
-            TextView total_vat = (TextView) view.findViewById(R.id.total_vat);
-            TextView vat_percentage = (TextView) view.findViewById(R.id.vat_percentage);
+
             item_name.setText(model.getDetails_list().get(i).getItemNameValue());
             unit.setText(model.getDetails_list().get(i).getUnitofMeasureValue());
             quantity.setText(model.getDetails_list().get(i).getQuantityValue());
             unit_price.setText(model.getDetails_list().get(i).getUnitPriceValue());
             total_price.setText(model.getDetails_list().get(i).getTotalpriceValue());
-            vat_percentage.setText("VAT @ " + model.getDetails_list().get(i).getVat_percentageValue() + "%");
-            total_vat.setText(model.getDetails_list().get(i).getVatAmountValue());
+
             content.addView(view);
         }
 
 
-        total_excluding_vat.setText(model.getTotalExcludingTaxValue());
-        vat_value.setText(model.getTotalVatValue());
-        total_includingvat.setText(model.getTotalIncludingTaxValue());
-        progress.setVisibility(View.GONE);
-        contentView.setVisibility(View.VISIBLE);
-        total_inwords.setText("AED "+ numToWords.convertNumberToWords((int)Math.round(Double.parseDouble(model.getTotalIncludingTaxValue())))+" Only /-");
+if(model.getTotalIncludingTaxValue()==null)
+{
+    String totalval=getTotal(model);
+    total.setText(totalval);
+    total_inwords.setText("AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(totalval))) + " Only /-");
 
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-        signature.setImageBitmap(bitmap);
+}else {
+    total.setText(model.getTotalIncludingTaxValue());
+    total_inwords.setText("AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(model.getTotalIncludingTaxValue()))) + " Only /-");
+}
+
+       progress.setVisibility(View.GONE);
+        contentView.setVisibility(View.VISIBLE);
+
+        // Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        // signature.setImageBitmap(bitmap);
 
     }
-}
+
+    public String getTotal(Deposit_Invoice_Model model)
+    {
+        double total=0.0;
+        for (int i = 0; i < model.getDetails_list().size(); i++) {
+            total=total+Double.parseDouble(model.getDetails_list().get(i).getTotalpriceValue());
+        }
+            return Double.toString(total);
+        }
+    }
+

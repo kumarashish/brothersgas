@@ -166,6 +166,22 @@ ArrayList<BillDetails> details_list=new ArrayList<>();
         }
     }
 
+    public String getUserNameValue() {
+        return UserNameValue;
+    }
+
+    public String getUserIDValue() {
+        return UserIDValue;
+    }
+
+    public String getDateValue() {
+        return DateValue;
+    }
+
+    public String getTimeValue() {
+        return TimeValue;
+    }
+
     public  String getEmail() {
         return EmailValue;
     }

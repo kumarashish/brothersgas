@@ -173,6 +173,11 @@ public static String getDate(String date)
     //String newDate=date.substring(6,8)+"-"+date.substring(4,6)+"-"+date.substring(0,4);
     return date;
 }
+    public static String getNewDate(String date)
+    {
+        String newDate=date.substring(6,8)+"/"+date.substring(4,6)+"/"+date.substring(0,4);
+        return newDate;
+    }
     public static String getFormatted(String date)
     {date=date.replaceAll("/","");
         String newDate=date.substring(4,8)+""+date.substring(2,4)+""+date.substring(0,2);
