@@ -82,7 +82,7 @@ public class Deposit_Invoice_Model {
                 JSONArray group=result.getJSONArray("GRP");
                 JSONArray headerData=group.getJSONObject(0).getJSONArray("FLD");
                 JSONArray statusData=group.getJSONObject(1).getJSONArray("FLD");
-                JSONArray dataArray=tab.getJSONArray("LIN");
+
 
                 for (int i = 0; i < statusData.length(); i++) {
                     JSONObject jObject = statusData.getJSONObject(i);
@@ -153,9 +153,16 @@ public class Deposit_Invoice_Model {
 
                 }
                 /*************************************************************************************************************/
-                for(int i=0;i<dataArray.length();i++)
-                {
-                    BillDetails model=new BillDetails(dataArray.getJSONObject(i).getJSONArray("FLD"));
+                Object intervention=tab.get("LIN");
+                if(intervention instanceof JSONArray) {
+                    JSONArray dataArray=(JSONArray)intervention;
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        BillDetails model = new BillDetails(dataArray.getJSONObject(i).getJSONArray("FLD"));
+                        details_list.add(model);
+                    }
+                }else{
+                    JSONObject object=(JSONObject)intervention;
+                    BillDetails model = new BillDetails(object.getJSONArray("FLD"));
                     details_list.add(model);
                 }
             }catch (Exception ex)

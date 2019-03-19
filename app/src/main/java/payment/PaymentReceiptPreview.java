@@ -219,12 +219,15 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
                         Utils.showAlertNormal(PaymentReceiptPreview.this,message);
                     }
 
-                    progressbar2.setVisibility(View.VISIBLE);
-                    footer.setVisibility(View.GONE);
+
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
+                progressbar2.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
             } else {
+                progressbar2.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
             }
 
         }

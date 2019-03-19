@@ -122,6 +122,8 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
                 finish();
                 break;
             case R.id.print_email:
+                progressbar2.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
                new EmailInvoice().execute();
                 break;
         }

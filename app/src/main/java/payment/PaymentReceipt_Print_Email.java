@@ -2,6 +2,7 @@ package payment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -111,6 +112,7 @@ public void setValue()
     Check_number.setText(model.getCheck_number());
     Address.setText(model.getAddress());
    bankamount.setText(model.getBank_Amount());
+   print_email.setText("Submit");
 }
 
     @Override
@@ -121,9 +123,9 @@ public void setValue()
                 finish();
                 break;
             case R.id.print_email:
-                progressBar.setVisibility(View.VISIBLE);
-                footer.setVisibility(View.GONE);
-                new EmailInvoice().execute();
+               PaymentReceiptPreview.invoice=model.getPayment_Number();
+               startActivity(new Intent(PaymentReceipt_Print_Email.this,PaymentReceiptPreview.class));
+               finish();
                 break;
         }
 

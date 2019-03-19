@@ -2,6 +2,8 @@ package invoices;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,8 +65,8 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-    //public static String invoice="";
-    public static String invoice ;
+   public static String invoice="DMR-U109-19000202";
+    //public static String invoice ;
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -198,8 +200,8 @@ if(model.getTotalIncludingTaxValue()==null)
        progress.setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
 
-        // Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-        // signature.setImageBitmap(bitmap);
+         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+         signature.setImageBitmap(bitmap);
 
     }
 

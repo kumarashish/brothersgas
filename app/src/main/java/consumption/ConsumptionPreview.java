@@ -233,8 +233,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
         @Override
         protected String doInBackground(String... strings) {
-            String inVoiceNumber=detailsModel.getSales_InvoiceNumber();
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,"3"});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{invoice,"3"});
             return result;
         }
 
