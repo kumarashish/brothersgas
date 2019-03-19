@@ -41,7 +41,7 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     Button back_button;
     AppController controller;
     WebServiceAcess webServiceAcess;
-    public static String invoice="RMRQ-U1L1900023";
+    public static String invoice="";
 
     NumberToWords numToWords;
     @BindView(R.id.progressBar)

@@ -40,6 +40,7 @@ import common.Common;
 import common.Signature;
 
 import common.WebServiceAcess;
+import consumption.ConsumptionPreview;
 import consumption.ConsumptionReceipt;
 import model.Connection_Disconnection_Invoice_Preview_Model;
 import payment.PaymentReceipt;
@@ -88,6 +89,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
     android.widget.TextView signature;
     public static model.ContractDetails model;
     public static String  calledMethod="";
+    public static String  creditNote="";
     WebServiceAcess webServiceAcess;
     Boolean isSignatureCaptured=false;
     String imagePath=null;
@@ -132,7 +134,6 @@ public class Print_Email extends Activity implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
-
 
     }
     public void requestPermissionForReadExtertalStorage() throws Exception {
@@ -208,6 +209,20 @@ public class Print_Email extends Activity implements View.OnClickListener {
                             Connection_Disconnection_Preview.imagePath=imagePath;
                             Connection_Disconnection_Preview.invoice=model.getConnection_Disconnection_Invoice();
                             startActivity(new Intent(Print_Email.this, Connection_Disconnection_Preview.class));
+                            finish();
+                        } else if (calledMethod.equalsIgnoreCase("3")) {
+                            //PaymentReceipt.invoiceNumber = model.getConnection_Disconnection_Invoice();
+                            ConsumptionPreview.imagePath=imagePath;
+                            ConsumptionPreview.invoice=model.getConsumptionInvoice();
+                            startActivity(new Intent(Print_Email.this, ConsumptionPreview.class));
+                            finish();
+                        }
+                        else if (calledMethod.equalsIgnoreCase("4")) {
+                            //PaymentReceipt.invoiceNumber = model.getConnection_Disconnection_Invoice();
+                            Consumption_DeliveryNote_Preview.imagePath=imagePath;
+                            Consumption_DeliveryNote_Preview.invoice=model.getConsumptionInvoice();
+                            Consumption_DeliveryNote_Preview.creditInvoiceNumber=creditNote;
+                            startActivity(new Intent(Print_Email.this, Consumption_DeliveryNote_Preview.class));
                             finish();
                         }
 

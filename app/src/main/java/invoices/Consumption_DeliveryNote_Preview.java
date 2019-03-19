@@ -1,6 +1,7 @@
 package invoices;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 
 import com.brothersgas.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.Common;
@@ -26,6 +30,7 @@ import common.WebServiceAcess;
 import consumption.ConsumptionPreview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
 import model.CreditNoteModel;
+import payment.PaymentReceipt;
 import utils.Utils;
 
 
@@ -112,10 +117,12 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     public static String invoice="";
     //public static String invoice="CDC-U109-19000053";
     //String creditInvoiceNumber="CCM-U109-19000013";
-    String creditInvoiceNumber="";
+   public static String creditInvoiceNumber="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
+    @BindView(R.id.progressBar2)
+    ProgressBar progress2;
     @BindView(R.id.contentView)
     ScrollView contentView;
     @BindView(R.id.content)
@@ -132,6 +139,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     Button print_email;
     @BindView(R.id.payment)
     Button payment;
+    int sendAttempt=0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +154,8 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
             contentView.setVisibility(View.GONE);
             new GetInvoiceDetails().execute();
         }
+        print_email.setOnClickListener(this);
+        payment.setOnClickListener(this);
     }
 
 
@@ -164,6 +174,15 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
         {
             case R.id. back_button:
                 finish();
+                break;
+            case R.id.print_email:
+                progress2.setVisibility(View.VISIBLE);
+                footer.setVisibility(View.GONE);
+                new EmailInvoice().execute();
+                break;
+            case R.id.payment:
+                PaymentReceipt.invoiceNumber =invoice;
+                startActivity(new Intent(this, PaymentReceipt.class));
                 break;
         }
     }
@@ -295,6 +314,60 @@ public void setCreditNoteValues(CreditNoteModel model)
         signature.setImageBitmap(bitmap);
         GetCreditNoteData();
 
+    }
+    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+    public class EmailInvoice extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+
+
+            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{invoice,"3"});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONArray Fld = item.getJSONArray("FLD");
+                    JSONObject messageJsonObject=Fld.getJSONObject(1);
+                    JSONObject status=Fld.getJSONObject(0);
+                    String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
+                    int statusValue=status.isNull("content")?1: status.getInt("content");
+                    if(statusValue==2)
+                    {
+                        sendAttempt=sendAttempt+1;
+                        if(sendAttempt==1)
+                        {
+                            print_email.setText("Resend");
+                        }else {
+                            print_email.setVisibility(View.GONE);
+                        }
+                        Utils.showAlertNormal(Consumption_DeliveryNote_Preview.this,message);
+
+                    }else{
+                        Utils.showAlertNormal(Consumption_DeliveryNote_Preview.this,message);
+                    }
+
+
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+                progress2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
+            } else {
+                progress2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
+            }
+
+        }
     }
 
 }

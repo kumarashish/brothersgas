@@ -11,6 +11,7 @@ public class BlockUnblockModel {
     String adminCharges="";
     String consumption_invoice;
     String currentMeterReading="";
+    String creditNote="";
    public  BlockUnblockModel(JSONArray jsonArray)
    {  try {
        for (int i = 0; i < jsonArray.length(); i++) {
@@ -26,12 +27,19 @@ public class BlockUnblockModel {
            }else if(jsonObject.getString("NAME").equalsIgnoreCase("O_CONSINVNO"))
            {
                consumption_invoice= jsonObject.isNull("content") ? "" : jsonObject.getString("content");
+           }else if(jsonObject.getString("NAME").equalsIgnoreCase("O_CREDNO"))
+           {
+               creditNote= jsonObject.isNull("content") ? "" : jsonObject.getString("content");
            }
        }
    }catch (Exception ex)
    { ex.fillInStackTrace();
    }
    }
+
+    public String getCreditNote() {
+        return creditNote;
+    }
 
     public void setCurrentMeterReading(String currentMeterReading) {
         this.currentMeterReading = currentMeterReading;

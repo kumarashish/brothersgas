@@ -441,7 +441,8 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                                 model.setCurrentMeterReading(currenttReading);
                                 contractModel.setClosemeterreadingvalue(2);
                                 Print_Email.model=model;
-                                Print_Email.calledMethod="3";
+                                Print_Email.calledMethod="4";
+                                Print_Email.creditNote=modell.getCreditNote();
                                 cancel.setVisibility(View.INVISIBLE);
                                 block.setVisibility(View.INVISIBLE);
                                 Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this,modell.getMessage(),Print_Email.class);

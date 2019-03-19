@@ -31,6 +31,8 @@ import butterknife.ButterKnife;
 import common.Common;
 import common.Signature;
 import common.WebServiceAcess;
+import consumption.Consumption;
+import consumption.ConsumptionPreview;
 import payment.PaymentReceipt;
 import utils.Utils;
 
@@ -151,6 +153,8 @@ int sendAttempt=0;
             current_meter_reading_header.setVisibility(View.VISIBLE);
             currentMeterReading.setText(model.getCurrentMeterReading());
         }
+        print_email.setVisibility(View.INVISIBLE);
+        payment.setText("Submit");
     }
 
     @Override
@@ -160,20 +164,21 @@ int sendAttempt=0;
                 finish();
                 break;
             case R.id.print_email:
-                if(isSignatureCaptured)
-                {
-                    progressBar.setVisibility(View.VISIBLE);
-                    footer.setVisibility(View.GONE);
-                    new EmailInvoice().execute();
-
-                }else{
-                    Utils.showAlertNormal(Print_Email.this,"Please capture signature");
-                }
+//                if(isSignatureCaptured)
+//                {
+//                    progressBar.setVisibility(View.VISIBLE);
+//                    footer.setVisibility(View.GONE);
+//                    new EmailInvoice().execute();
+//
+//                }else{
+//                    Utils.showAlertNormal(Print_Email.this,"Please capture signature");
+//                }
                 break;
             case R.id.payment:
                 if(isSignatureCaptured)
-                { PaymentReceipt.invoiceNumber=model.getConsumptionInvoice();
-                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
+                {  ConsumptionPreview.invoice=model.getConsumptionInvoice();
+                   ConsumptionPreview.imagePath=imagePath;
+                    startActivity(new Intent(Print_Email.this, ConsumptionPreview.class));
                     finish();
                 }else{
                     Utils.showAlertNormal(Print_Email.this,"Please capture signature");
@@ -202,49 +207,7 @@ int sendAttempt=0;
             }
         }
     }
-    /*-------------------------------------------------------------------block-------------------------------------------------------*/
-    public class EmailInvoice extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected String doInBackground(String... strings) {
-            String val="1";
-
-            String inVoiceNumber=model.getAdminInvoiceCharges();
-
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            Log.e("value", "onPostExecute: ", null);
-            if (s.length() > 0) {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONArray jsonArray = result.getJSONArray("GRP");
-                    JSONObject item = jsonArray.getJSONObject(1);
-                    JSONArray Fld = item.getJSONArray("FLD");
-                    JSONObject messageJsonObject=Fld.getJSONObject(1);
-                    JSONObject status=Fld.getJSONObject(0);
-                    String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
-                    int statusValue=status.isNull("content")?1: status.getInt("content");
-                    if(statusValue==2)
-                    {
-                        Utils.showAlertNormal(Print_Email.this,message);
-                    }else{
-                        Utils.showAlertNormal(Print_Email.this,message);
-                    }
-
-                    progressBar.setVisibility(View.GONE);
-                    footer.setVisibility(View.VISIBLE);
-                } catch (Exception ex) {
-                    ex.fillInStackTrace();
-                }
-            } else {
-            }
-        }
-    }
     /*-------------------------------------------------------------------upload signature-------------------------------------------------------*/
     public class UploadSignature extends AsyncTask<String, Void, String> {
         ProgressDialog pd1;

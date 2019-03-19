@@ -139,7 +139,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
                 new EmailInvoice().execute();
                 break;
             case R.id. payment:
-                PaymentReceipt.invoiceNumber=detailsModel.getSales_InvoiceNumber();
+                PaymentReceipt.invoiceNumber=invoice;
                 startActivity(new Intent(ConsumptionPreview.this, PaymentReceipt.class));
                 break;
         }
@@ -233,9 +233,8 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
         @Override
         protected String doInBackground(String... strings) {
-            String val="1";
             String inVoiceNumber=detailsModel.getSales_InvoiceNumber();
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,"3"});
             return result;
         }
 

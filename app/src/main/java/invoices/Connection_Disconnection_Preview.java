@@ -1,6 +1,7 @@
 package invoices;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -23,6 +24,7 @@ import common.NumberToWords;
 import common.WebServiceAcess;
 import consumption.ConsumptionPreview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
+import payment.PaymentReceipt;
 import utils.Utils;
 
 
@@ -115,7 +117,9 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
                 finish();
                 break;
             case R.id.payment:
-
+                PaymentReceipt.invoiceNumber=invoice;
+                startActivity(new Intent(this, PaymentReceipt.class));
+                finish();
                 break;
             case R.id.print_email:
                new EmailInvoice().execute();
@@ -202,18 +206,10 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
 
         @Override
         protected String doInBackground(String... strings) {
-            String val="1";
-            String inVoiceNumber=model.getDeposit_Invoice();
-            if(calledMethod.equalsIgnoreCase(Common.Connection_Disconnection_Invoice))
-            {
-                val="2";
-                inVoiceNumber=model.getConnection_Disconnection_Invoice();
-            }else if(model.getConsumptionInvoice().length()>0){
-                inVoiceNumber=model.getConsumptionInvoice();
-                val="3";
-            }
 
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
+
+
+            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{invoice,"2"});
             return result;
         }
 
