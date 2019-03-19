@@ -120,6 +120,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
             case R.id.payment:
                 PaymentReceipt.invoiceNumber =invoice;
                 startActivity(new Intent(this, PaymentReceipt.class));
+                finish();
                 break;
 
         }

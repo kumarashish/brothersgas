@@ -173,7 +173,7 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
             chequeView.setVisibility(View.GONE);
         }
         chequenumber.setText(model.getChequeNumberValue());
-        chequedate.setText(model.getChequeDateValue());
+        chequedate.setText(Utils.getNewDate(model.getChequeDateValue()));
         bank.setText(model.getBankValue());
         invoice_numbers.setText(model.getInvoiceNumbrsValue());
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
@@ -223,11 +223,11 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
-                progressbar2.setVisibility(View.VISIBLE);
-                footer.setVisibility(View.GONE);
+                progressbar2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
             } else {
-                progressbar2.setVisibility(View.VISIBLE);
-                footer.setVisibility(View.GONE);
+                progressbar2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
             }
 
         }

@@ -580,10 +580,7 @@ android:id="@+id/chequenumber"
 
 
         </LinearLayout>
-        <View
-            android:background="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+
         <LinearLayout
 android:visibility="gone"
             android:layout_marginLeft="5dp"

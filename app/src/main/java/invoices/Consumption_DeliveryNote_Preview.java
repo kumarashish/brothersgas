@@ -183,6 +183,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
             case R.id.payment:
                 PaymentReceipt.invoiceNumber =invoice;
                 startActivity(new Intent(this, PaymentReceipt.class));
+                finish();
                 break;
         }
     }

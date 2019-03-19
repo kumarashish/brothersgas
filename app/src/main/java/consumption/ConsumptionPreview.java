@@ -141,6 +141,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
             case R.id. payment:
                 PaymentReceipt.invoiceNumber=invoice;
                 startActivity(new Intent(ConsumptionPreview.this, PaymentReceipt.class));
+                finish();
                 break;
         }
     }
