@@ -137,8 +137,10 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
         if (id == 999) {
-            return new DatePickerDialog(this,
+            DatePickerDialog dailog=new DatePickerDialog(this,
                     myDateListener, year, month, day);
+            dailog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+            return dailog ;
         }
         return null;
     }

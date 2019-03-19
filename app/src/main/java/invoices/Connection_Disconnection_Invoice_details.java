@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brothersgas.R;
@@ -59,6 +60,8 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     android.widget.TextView Pressure_Factor;
     @BindView(R.id.Initial_meter_reading)
     EditText Initial_meter_reading;
+    @BindView(R.id.initial_meter_readingTv)
+    TextView initial_meter_readingTv;
     @BindView(R.id.Deposit_Invoice)
     android.widget.TextView Deposit_Invoice;
     @BindView(R.id.Connection_Disconnection_Invoice)
@@ -95,6 +98,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         footer.setVisibility(View.VISIBLE);
         con_dconInvoice.setOnClickListener(this);
         dep_Invoice.setOnClickListener(this);
+        initial_meter_readingTv.setText("Initial Meter Reading");
         edit.setVisibility(View.VISIBLE);
         edit.setOnClickListener(this);
         submit.setOnClickListener(this);
@@ -344,9 +348,9 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         Connection_charges.setText(model.getConnection_charges()+" "+model.getCurrency());
         Disconnection_Charges.setText(model.getDisconnection_Charges()+" "+model.getCurrency());
         Pressure_Factor.setText(model.getPressure_Factor());
-        in_meter_reading.setText(model.getInitial_meter_reading());
-        in_meterReading_View.setVisibility(View.VISIBLE);
-        Initial_meter_reading.setText(model.getPreviousReading());
+        //in_meter_reading.setText(model.getInitial_meter_reading());
+        in_meterReading_View.setVisibility(View.GONE);
+        Initial_meter_reading.setText(model.getInitial_meter_reading());
         Deposit_Invoice.setText(model.getDeposit_Invoice());
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
         if((model.getDeposit_Invoice().length()>0)&&(model.getConnection_Disconnection_Invoice().length()>0))
