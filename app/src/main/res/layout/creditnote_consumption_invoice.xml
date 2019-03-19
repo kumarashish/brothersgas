@@ -1,0 +1,1595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            >
+
+            <Button
+                android:layout_alignParentLeft="true"
+                android:id="@+id/back_button"
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/black"
+                android:background="@drawable/back" />
+
+            <ImageView
+                android:src="@drawable/brogas_logo"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+        </RelativeLayout>
+        <ProgressBar
+            android:visibility="gone"
+            android:layout_width="50dp"
+            android:id="@+id/progressBar"
+            android:layout_height="50dp"
+            android:layout_below="@+id/pass_RL"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40.0dip"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/colorPrimary"/>
+        <ScrollView
+android:visibility="gone"
+            android:id="@+id/contentView"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+                <LinearLayout
+                    android:id="@+id/mainLayout"
+                    android:layout_margin="5dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:gravity="center"
+                            android:text="CONSUMPTION INVOICE"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:layout_margin="10dp"
+
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_marginTop="20dp"
+                                android:background="@drawable/light_grey_box"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_marginRight="5dp"
+
+                                    android:layout_marginLeft="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="35dp">
+
+                                    <TextView
+
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Invoice Number : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/invoice_number"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:id="@+id/projectname"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+
+                                        android:text="Project Name : "
+                                        android:fontFamily="@font/aller_rg"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/project_name"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+
+                                        android:text="Tenant Name : "
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/teenant_name"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Customer Name : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/customer_name"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Customer TRN : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/customer_trn"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Customer Address: "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/customer_address"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+
+
+                                <TextView
+
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="15dp"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/aller_rg"
+                                    android:text="Supplier Name "
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <TextView
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:textColor="@color/black"
+                                    android:id="@+id/suplier_name"
+                                    android:fontFamily="@font/fontnew"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Supplier TRN : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/supplier_trn"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Registered Address : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/registered_supplier_address"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="UserName and User Id : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/name_id"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Date and Time : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/date_time"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <View
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp">
+
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Prev. Reading "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Present Reading"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:gravity="center"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Units Consumed"
+                                        android:layout_marginRight="5dp"
+
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:gravity="center"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Press. Factor"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Actual Units"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <View
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp">
+<LinearLayout
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+                                    <TextView
+                                        android:id="@+id/previousUnits"
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center"
+                                        android:textColor="@color/black"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text="574 "
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <LinearLayout
+                                        android:layout_weight="1"
+                                        android:layout_width="0dp"
+                                        android:orientation="vertical"
+                                        android:layout_height="match_parent">
+                                        <TextView
+                                            android:layout_weight="1"
+                                            android:layout_gravity="center_vertical"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"
+                                            android:fontFamily="@font/fontnew"
+                                            android:text=""
+                                            android:id="@+id/currentUnits"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content" />
+
+                                    </LinearLayout>
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/consumedUnits"
+                                        android:gravity="center"
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+                                        android:layout_marginRight="5dp"
+
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:gravity="center"
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=" "
+                                        android:id="@+id/pressure_Factor"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+                                        android:id="@+id/actual_consumed_units"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <View
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="20dp"/>
+                                <View
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Item Name "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Units Measure"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:gravity="center"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Quantity"
+                                        android:layout_marginRight="5dp"
+
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:gravity="center"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Units Price  "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Amount (AED)  "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <View
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:id="@+id/content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+
+
+
+
+
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_weight="2.5"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="left"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/fontnew"
+                                        android:text="Total Excluding VAT"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+
+                                        android:layout_weight="1.05"
+                                        android:gravity="center"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/black"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+
+
+                                    <TextView
+                                        android:layout_weight="0.5"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:gravity="center"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:gravity="end"
+                                        android:layout_gravity="end|center_vertical"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/total_excluding_vat"
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <View
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_weight="2.5"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center_vertical"
+                                        android:textColor="@color/black"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=" VAT"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+
+                                        android:layout_weight="1.09"
+                                        android:gravity="center"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/black"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+
+
+                                    <TextView
+                                        android:layout_weight="0.4"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:gravity="center"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:layout_marginLeft="10dp"
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:gravity="end"
+                                        android:layout_weight="1"
+                                        android:layout_gravity="end|center_vertical"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/vat_value"
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <View
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_weight="2.5"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="left"
+                                        android:textColor="@color/black"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text="Total Including VAT"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+
+                                        android:layout_weight="1.05"
+                                        android:gravity="center"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/black"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+
+
+                                    <TextView
+                                        android:layout_weight="0.5"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:gravity="center"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="1"
+                                        android:gravity="end"
+                                        android:layout_gravity="end|center_vertical"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/black"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+                                        android:id="@+id/total_includingvat"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+
+                                <View
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_weight="2.4"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="left"
+                                        android:textColor="@color/black"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:text="Amount in Words : "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+
+
+                                    <TextView
+                                        android:layout_weight="2.6"
+                                        android:layout_gravity="end|center_vertical"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_marginLeft="5dp"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/total_inwords"
+                                        android:gravity="end"
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <View
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="80dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Customer Signature : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <ImageView
+
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/signature"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                            <TextView
+                                android:layout_marginTop="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/red"
+
+                                android:fontFamily="@font/fontnew"
+                                android:text="Note :- This is computer generated document does not require signature "
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"/>
+                            <View
+                                android:background="@color/black"
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"/>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"/>
+
+                        <LinearLayout
+                            android:id="@+id/credit_note_view"
+                            android:layout_margin="5dp"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            <TextView
+                                android:gravity="center"
+                                android:text="CREDIT NOTE"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                            </RelativeLayout>
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:background="@drawable/light_grey_box"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_marginRight="5dp"
+
+                                    android:layout_marginLeft="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="35dp">
+
+                                    <TextView
+
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Invoice Number : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/invoice_number2"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+
+                                        android:text="Company  Name : "
+                                        android:fontFamily="@font/aller_rg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/companyname"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+
+
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+                                    <TextView
+                                        android:id="@+id/projectname2"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+
+                                        android:text="Company  Trn : "
+                                        android:fontFamily="@font/aller_rg"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/companytrn"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+
+                                        android:text="Company Address : "
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/companyaddress"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Customer Name : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/customer_name2"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Customer TRN : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/customer_trn2"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Customer Address: "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/customer_address2"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+
+
+
+
+
+
+
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="UserName and User Id : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/name_id2"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Date and Time : "
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/date_time2"
+                                        android:fontFamily="@font/fontnew"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+                                </LinearLayout>
+                                <View
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+
+                                        android:layout_weight="2.5"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Item "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="2.5"
+                                        android:gravity="center"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Amount (AED)  "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <View
+
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+
+                                        android:layout_weight="2.5"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="left|center_vertical"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Credit Note Amount"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:id="@+id/credit_amount"
+                                        android:layout_weight="2.5"
+                                        android:gravity="end|center_vertical"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text=""
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+                                        android:id="@+id/vatpercentage"
+                                        android:layout_weight="2.5"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="left|center_vertical"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="VAT"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:id="@+id/vatamount"
+                                        android:layout_weight="2.5"
+                                        android:gravity="end|center_vertical"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=" "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+
+                                        android:layout_weight="2.5"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="left|center_vertical"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Total  "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:layout_weight="2.5"
+                                        android:gravity="end|center_vertical"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/fontnew"
+                                        android:text=" "
+                                         android:id="@+id/total_amount"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <View
+
+                                    android:background="@color/black"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"/>
+                                <LinearLayout
+
+                                    android:weightSum="5"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp">
+
+                                    <TextView
+
+                                        android:layout_weight="2.5"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="left|center_vertical"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Total Amount in words"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+
+                                    <View
+                                        android:background="@color/black"
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"/>
+                                    <TextView
+                                        android:id="@+id/total_Amount_words"
+                                        android:layout_weight="2.5"
+                                        android:gravity="end|center_vertical"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="AED Two Thosand Only /- "
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+                            <TextView
+                                android:layout_marginTop="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/red"
+
+                                android:fontFamily="@font/fontnew"
+                                android:text="Note :- This is computer generated document does not require signature "
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"/>
+
+                            <ProgressBar
+                                android:visibility="gone"
+                                android:layout_width="50dp"
+                                android:id="@+id/progressBar2"
+                                android:layout_height="50dp"
+                                android:layout_below="@+id/pass_RL"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:indeterminateTint="@color/colorPrimary"/>
+                            <LinearLayout
+
+                                android:id="@+id/footer"
+
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp">
+                                <Button
+                                    android:layout_marginLeft="10dp"
+                                    android:padding="5dp"
+                                    android:id="@+id/print_email"
+                                    android:textSize="10dp"
+                                    android:fontFamily="@font/light"
+                                    android:background="@drawable/green_btn"
+                                    android:text="@string/print_email"
+                                    android:textColor="@color/white"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="match_parent" />
+
+                                <Button
+                                    android:layout_marginRight="10dp"
+
+                                    android:id="@+id/payment"
+                                    android:padding="5dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:textSize="10dp"
+                                    android:fontFamily="@font/light"
+                                    android:background="@drawable/green_btn"
+                                    android:text="Payment"
+                                    android:textColor="@color/white"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="match_parent"  />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

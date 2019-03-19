@@ -25,7 +25,7 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="invoices.DepositInvoicePreview">
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -81,6 +81,14 @@
         <activity android:name="activatecontract.Print_Email"
             android:screenOrientation="portrait"/>
         <activity android:name="invoices.GeneratePdf"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.DepositInvoicePreview"
+            android:screenOrientation="portrait"/>
+        <activity android:name="payment.PaymentReceiptPreview"
+            android:screenOrientation="portrait"/>
+        <activity android:name="invoices.Consumption_DeliveryNote_Preview"
+            android:screenOrientation="portrait"/>
+        <activity android:name="consumption.ConsumptionPreview"
             android:screenOrientation="portrait"/>
 
     </application>

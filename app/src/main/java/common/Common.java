@@ -129,6 +129,8 @@ public class Common {
     final public static String CheaqueDateValidity="I_YCHQDAT";
     final public static String DepositInvoiceDetails="YMTRINVDET";
     final public static String Connection_DisconnectionInvoiceDetails="YMTRCONINV";
+    final public static String PaymentInoviceDetails="YMTRPAYDET";
+    final public static String CreditNoteDetails="YMTRCNOTE";
 
 
 

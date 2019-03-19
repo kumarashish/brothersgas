@@ -83,6 +83,7 @@ ArrayList<BillDetails> details_list=new ArrayList<>();
             JSONObject tab=result.getJSONObject("TAB");
             JSONArray group=result.getJSONArray("GRP");
             JSONArray headerData=group.getJSONObject(0).getJSONArray("FLD");
+            JSONArray previousReadingData=group.getJSONObject(1).getJSONArray("FLD");
             JSONArray statusData=group.getJSONObject(2).getJSONArray("FLD");
             JSONArray dataArray=tab.getJSONArray("LIN");
 
@@ -96,7 +97,25 @@ ArrayList<BillDetails> details_list=new ArrayList<>();
                 }
             }
 
-            /*************************************************************************************************************/
+            /***********************************************************************************************************/
+            for (int i = 0; i < previousReadingData.length(); i++) {
+                JSONObject jsonObject = previousReadingData.getJSONObject(i);
+                if (jsonObject.getString("NAME").equalsIgnoreCase(PreviousMeterreading )) {
+                    PreviousMeterreadingValue = jsonObject.isNull("content") ? "": jsonObject.getString("content");
+                } else if (jsonObject.getString("NAME").equalsIgnoreCase(PresentMeterreading)) {
+                    PresentMeterreadingValue = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
+                }else  if (jsonObject.getString("NAME").equalsIgnoreCase(UnitsConsumed )) {
+                    UnitsConsumedValue = jsonObject.isNull("content") ? "": jsonObject.getString("content");
+                } else if (jsonObject.getString("NAME").equalsIgnoreCase(PressureFactor)) {
+                    PressureFactorValue = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
+                } else if (jsonObject.getString("NAME").equalsIgnoreCase(ActualUnitConsumed)) {
+                    ActualUnitConsumedValue = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
+                }
+
+
+            }
+
+                /*************************************************************************************************************/
             for (int i = 0; i < headerData.length(); i++) {
                 JSONObject jsonObject =headerData.getJSONObject(i);
 
@@ -164,6 +183,26 @@ ArrayList<BillDetails> details_list=new ArrayList<>();
         {
             ex.fillInStackTrace();
         }
+    }
+
+    public  String getUnitsConsumed() {
+        return   UnitsConsumedValue ;
+    }
+
+    public String getPresentMeterreadingValue() {
+        return PresentMeterreadingValue;
+    }
+
+    public String getPreviousMeterreadingValue() {
+        return PreviousMeterreadingValue;
+    }
+
+    public static String getActualUnitConsumed() {
+        return ActualUnitConsumed;
+    }
+
+    public String getPressureFactorValue() {
+        return PressureFactorValue;
     }
 
     public String getUserNameValue() {

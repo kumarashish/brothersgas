@@ -12,17 +12,21 @@ import android.widget.*;
 
 import com.brothersgas.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 import common.NumberToWords;
 import common.WebServiceAcess;
+import consumption.ConsumptionPreview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
 import utils.Utils;
 
 
-public class GeneratePdf extends Activity implements View.OnClickListener {
+public class Connection_Disconnection_Preview extends Activity implements View.OnClickListener {
     @BindView(R.id. invoice_number)
     android.widget.TextView invoice_number;
     @BindView(R.id. project_name)
@@ -64,6 +68,7 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
+
     @BindView(R.id.contentView)
     ScrollView contentView;
     @BindView(R.id.content)
@@ -72,7 +77,17 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
     Button back_button;
   public static String imagePath="";
 
-
+    @BindView(R.id.progressBar2)
+    ProgressBar progressbar2;
+    public static model.ContractDetails model;
+    public static String  calledMethod="";
+    int sendAttempt=0;
+    @BindView(R.id.footer)
+    LinearLayout footer;
+    @BindView(R.id.print_email)
+    Button print_email;
+    @BindView(R.id.payment)
+    Button payment;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +97,9 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
         controller=(AppController)getApplicationContext();
         numToWords=new NumberToWords();
         back_button.setOnClickListener(this);
-        if(Utils.isNetworkAvailable(GeneratePdf.this)) {
+        payment.setOnClickListener(this);
+        print_email.setOnClickListener(this);
+        if(Utils.isNetworkAvailable(Connection_Disconnection_Preview.this)) {
             progress.setVisibility(View.VISIBLE);
             contentView.setVisibility(View.GONE);
             new GetInvoiceDetails().execute();
@@ -96,6 +113,12 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
         {
             case R.id. back_button:
                 finish();
+                break;
+            case R.id.payment:
+
+                break;
+            case R.id.print_email:
+               new EmailInvoice().execute();
                 break;
         }
     }
@@ -120,7 +143,6 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
                     {
                         setValues(model);
                     }
-
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
@@ -175,4 +197,68 @@ public class GeneratePdf extends Activity implements View.OnClickListener {
         signature.setImageBitmap(bitmap);
 
     }
+    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+    public class EmailInvoice extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String val="1";
+            String inVoiceNumber=model.getDeposit_Invoice();
+            if(calledMethod.equalsIgnoreCase(Common.Connection_Disconnection_Invoice))
+            {
+                val="2";
+                inVoiceNumber=model.getConnection_Disconnection_Invoice();
+            }else if(model.getConsumptionInvoice().length()>0){
+                inVoiceNumber=model.getConsumptionInvoice();
+                val="3";
+            }
+
+            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    JSONArray Fld = item.getJSONArray("FLD");
+                    JSONObject messageJsonObject=Fld.getJSONObject(1);
+                    JSONObject status=Fld.getJSONObject(0);
+                    String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
+                    int statusValue=status.isNull("content")?1: status.getInt("content");
+                    if(statusValue==2)
+                    {
+                        sendAttempt=sendAttempt+1;
+                        if(sendAttempt==1)
+                        {
+                            print_email.setText("Resend");
+                        }else {
+                            print_email.setVisibility(View.GONE);
+                        }
+                        Utils.showAlertNormal(Connection_Disconnection_Preview.this,message);
+
+                    }else{
+                        Utils.showAlertNormal(Connection_Disconnection_Preview.this,message);
+                    }
+
+
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+                progressbar2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
+            } else {
+                progressbar2.setVisibility(View.GONE);
+                footer.setVisibility(View.VISIBLE);
+            }
+
+        }
+    }
+
+
 }

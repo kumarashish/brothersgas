@@ -148,9 +148,13 @@ public class WebServiceAcess {
                 break;
             case Common.DepositInvoiceDetails:
             case Common.Connection_DisconnectionInvoiceDetails:
+            case Common.CreditNoteDetails:
                 jsonObject.put("I_SINV", value[0]);
                 break;
+            case Common.PaymentInoviceDetails:
+                jsonObject.put("I_PAYNUM", value[0]);
 
+                break;
             case Common.UploadSignature:
                 jsonObject.put("I_CONTR", value[0]);
                 jsonObject.put("I_CUST", value[1]);

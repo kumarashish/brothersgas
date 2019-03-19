@@ -41,6 +41,7 @@ import common.Signature;
 
 import common.WebServiceAcess;
 import consumption.ConsumptionReceipt;
+import model.Connection_Disconnection_Invoice_Preview_Model;
 import payment.PaymentReceipt;
 import utils.Utils;
 
@@ -183,37 +184,38 @@ public class Print_Email extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.print_email:
-                if(isSignatureCaptured)
-                {
-                    progressBar.setVisibility(View.VISIBLE);
-                    footer.setVisibility(View.GONE);
-                    new EmailInvoice().execute();
-
-                }else{
-                    Utils.showAlertNormal(Print_Email.this,"Please capture signature");
-                }
+//                if(isSignatureCaptured)
+//                {
+////                    progressBar.setVisibility(View.VISIBLE);
+////                    footer.setVisibility(View.GONE);
+////                    new EmailInvoice().execute();
+//
+//                }else{
+//                    Utils.showAlertNormal(Print_Email.this,"Please capture signature");
+//                }
                 break;
             case R.id.payment:
                 if(isSignatureCaptured) {
-//                { if(calledMethod.equalsIgnoreCase("1")) {
-//
-//                    PaymentReceipt.invoiceNumber = model.getDeposit_Invoice();
-//                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
-//                    finish();
-//                }else if(calledMethod.equalsIgnoreCase("2")){
-//                    PaymentReceipt.invoiceNumber = model.getConnection_Disconnection_Invoice();
-//                    startActivity(new Intent(Print_Email.this, PaymentReceipt.class));
-//                    finish();
-//                }else{
-                    GeneratePdf.invoice = model.getConnection_Disconnection_Invoice();
-                    GeneratePdf.imagePath=imagePath;
-                    startActivity(new Intent(Print_Email.this,GeneratePdf.class));
 
-//                }
+                        if (calledMethod.equalsIgnoreCase("1")) {
 
-                }else{
+                            DepositInvoicePreview.invoice = model.getDeposit_Invoice();
+                            DepositInvoicePreview.imagePath=imagePath;
+                            startActivity(new Intent(Print_Email.this, DepositInvoicePreview.class));
+                            finish();
+                        } else if (calledMethod.equalsIgnoreCase("2")) {
+                            //PaymentReceipt.invoiceNumber = model.getConnection_Disconnection_Invoice();
+                            Connection_Disconnection_Preview.imagePath=imagePath;
+                            Connection_Disconnection_Preview.invoice=model.getConnection_Disconnection_Invoice();
+                            startActivity(new Intent(Print_Email.this, Connection_Disconnection_Preview.class));
+                            finish();
+                        }
+
+
+                    }else{
                     Utils.showAlertNormal(Print_Email.this, "Please capture signature");
                 }
+
 
                 break;
             case R.id.signature:

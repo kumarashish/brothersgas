@@ -94,6 +94,8 @@ WebServiceAcess webServiceAcess;
         signature.setOnClickListener(this);
         payment.setOnClickListener(this);
         print_email.setOnClickListener(this);
+        print_email.setVisibility(View.INVISIBLE);
+        payment.setText("Submit");
         webServiceAcess=new WebServiceAcess();
         setValue( );
         if(checkPermissionForReadExtertalStorage()==false)
@@ -152,19 +154,12 @@ WebServiceAcess webServiceAcess;
             case R.id.back_button:
                 finish();
                 break;
-            case R.id.print_email:
-                if (isSignatureCaptured) {
-                   progressbar2.setVisibility(View.VISIBLE);
-                   footer.setVisibility(View.GONE);
-                   new EmailInvoice().execute();
-                } else {
-                    Utils.showAlertNormal(ConsumptionReceipt.this, "Please capture signature");
-                }
-                break;
+
             case R.id.payment:
                 if (isSignatureCaptured) {
-                    PaymentReceipt.invoiceNumber=detailsModel.getSales_InvoiceNumber();
-                    startActivity(new Intent(ConsumptionReceipt.this, PaymentReceipt.class));
+                    ConsumptionPreview.detailsModel=detailsModel;
+                    ConsumptionPreview.model=model;
+                    startActivity(new Intent(ConsumptionReceipt.this,ConsumptionPreview.class));
 
                 } else {
                     Utils.showAlertNormal(ConsumptionReceipt.this, "Please capture signature");
