@@ -249,7 +249,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
         }
     }
 public void setCreditNoteValues(CreditNoteModel model)
-{   invoice_number2.setText(model.getInvoicenumberValue());
+{   invoice_number2.setText(creditInvoiceNumber);
     companyname.setText(model.getCompanyNameValue());
     companyaddress.setText(model.getCompanyAddressValue());
     companytrn.setText(model.getCompanyTRTValue());

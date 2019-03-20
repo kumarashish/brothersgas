@@ -41,8 +41,8 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     Button back_button;
     AppController controller;
     WebServiceAcess webServiceAcess;
+   //public static String invoice="RMRC-U1L1900113";
     public static String invoice="";
-
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -143,12 +143,25 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
                     if(model.getStatusValue()==2)
                     {
                         setValues(model);
+                    }else{
+                        Utils.showAlertNormal(PaymentReceiptPreview.this,model.getMessageValue());
+                        progress.setVisibility(View.GONE);
+                        footer.setVisibility(View.GONE);
+
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
-                }
-            } else {
+                    Utils.showAlertNormal(PaymentReceiptPreview.this,"format changed");
+                    progress.setVisibility(View.GONE);
+                    footer.setVisibility(View.GONE);
 
+                }
+
+
+            } else {
+                Utils.showAlertNormal(PaymentReceiptPreview.this,"Data not available.");
+                progress.setVisibility(View.GONE);
+                footer.setVisibility(View.GONE);
             }
 
         }
@@ -169,15 +182,16 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
         payment_method.setText("By " + model.getPaymentTypeValue());
         if (model.getPaymentTypeValue().equalsIgnoreCase("cheque")) {
             chequeView.setVisibility(View.VISIBLE);
+            chequenumber.setText(model.getChequeNumberValue());
+            chequedate.setText(Utils.getNewDate(model.getChequeDateValue()));
+            bank.setText(model.getBankValue());
         } else {
             chequeView.setVisibility(View.GONE);
         }
-        chequenumber.setText(model.getChequeNumberValue());
-        chequedate.setText(Utils.getNewDate(model.getChequeDateValue()));
-        bank.setText(model.getBankValue());
+
         invoice_numbers.setText(model.getInvoiceNumbrsValue());
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-        signature.setImageBitmap(bitmap);
+//        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+//        signature.setImageBitmap(bitmap);
         progress.setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
     }
