@@ -123,12 +123,14 @@ public class Common {
     final public static String PayAll="YMTRPAYALL";
     final public static String AmountForInvoice="YMTRINVAMT";
     final public static String Print_Email="YMTRWRKREP";
+    final public static String Print_EmailInvoice_CreditNote="YMTRCONWRK";
     final public static String BlockList="YMTRBLKLST";
     final public static String Reasons="YMTRBMREAS";
     final public static String BankList="YMTRBNKACC";
     final public static String CheaqueDateValidity="I_YCHQDAT";
     final public static String DepositInvoiceDetails="YMTRINVDET";
     final public static String Connection_DisconnectionInvoiceDetails="YMTRCONINV";
+    final public static String ConsumptionPreview="YMTRCOSINV";
     final public static String PaymentInoviceDetails="YMTRPAYDET";
     final public static String CreditNoteDetails="YMTRCNOTE";
 

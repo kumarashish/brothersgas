@@ -114,10 +114,10 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     android.widget.TextView supplier_trn;
     @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
-    public static String invoice="";
     //public static String invoice="CDC-U109-19000053";
+    public static String invoice="";
     //String creditInvoiceNumber="CCM-U109-19000013";
-   public static String creditInvoiceNumber="";
+ public static String creditInvoiceNumber="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -140,6 +140,10 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     @BindView(R.id.payment)
     Button payment;
     int sendAttempt=0;
+    @BindView(R.id.heading)
+    TextView heading;
+    @BindView(R.id.consumptionInvoice)
+    LinearLayout consumptionInvoice;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,9 +154,17 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
         numToWords = new NumberToWords();
         back_button.setOnClickListener(this);
         if (Utils.isNetworkAvailable(Consumption_DeliveryNote_Preview.this)) {
-            progress.setVisibility(View.VISIBLE);
-            contentView.setVisibility(View.GONE);
-            new GetInvoiceDetails().execute();
+
+            if (invoice.length() > 0) {
+                progress.setVisibility(View.VISIBLE);
+                contentView.setVisibility(View.GONE);
+                new GetInvoiceDetails().execute();
+
+            } else {
+                consumptionInvoice.setVisibility(View.GONE);
+                heading.setText("");
+                GetCreditNoteData();
+            }
         }
         print_email.setOnClickListener(this);
         payment.setOnClickListener(this);
@@ -324,7 +336,7 @@ public void setCreditNoteValues(CreditNoteModel model)
 
 
 
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{invoice,"3"});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_EmailInvoice_CreditNote, new String[]{invoice,creditInvoiceNumber});
             return result;
         }
 
@@ -371,4 +383,10 @@ public void setCreditNoteValues(CreditNoteModel model)
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        creditInvoiceNumber="";
+        invoice="";
+        super.onDestroy();
+    }
 }

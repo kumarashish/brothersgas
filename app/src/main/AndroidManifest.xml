@@ -80,7 +80,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name="invoices.DepositInvoicePreview"
             android:screenOrientation="portrait"/>
-        <activity android:name="payment.PaymentReceiptPreview"
+        <activity
+            android:name="payment.PaymentReceiptPreview"
             android:screenOrientation="portrait"/>
         <activity android:name="invoices.Consumption_DeliveryNote_Preview"
             android:screenOrientation="portrait"/>

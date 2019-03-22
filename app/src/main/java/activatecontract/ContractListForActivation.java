@@ -127,11 +127,10 @@ public class ContractListForActivation extends Activity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
         if((requestCode==2)&&(resultCode==RESULT_OK))
         {
-            if(ActivationContractDetails.contractModel.getBlock_unblockflag()==1)
-            {
+
                 removeContract(ActivationContractDetails.contractModel.getContract_Meternumber());
                 adapter.notifyDataSetChanged();
-            }
+
 
 
         }

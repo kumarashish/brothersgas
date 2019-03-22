@@ -19,7 +19,9 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -131,6 +133,24 @@ public static String getBase64(String path)
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+    public static long getMinDate(String datee) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            //formatting the dateString to convert it into a Date
+            Date date = sdf.parse(datee);
+            System.out.println("Given Time in milliseconds : " + date.getTime());
+
+            Calendar calendar = Calendar.getInstance();
+            //Setting the Calendar date and time to the given date and time
+            calendar.setTime(date);
+            System.out.println("Given Time in milliseconds : " + calendar.getTimeInMillis());
+            return calendar.getTimeInMillis();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
     public static void showAlertNavigateToInvoices(final Activity act, String message, final Class b, final String data)
     {

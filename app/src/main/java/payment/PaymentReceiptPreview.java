@@ -3,28 +3,52 @@ package payment;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PersistableBundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.brothersgas.R;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 import common.NumberToWords;
+import common.ScreenshotUtils;
 import common.WebServiceAcess;
 import consumption.ConsumptionPreview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
@@ -41,14 +65,15 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     Button back_button;
     AppController controller;
     WebServiceAcess webServiceAcess;
-   //public static String invoice="RMRC-U1L1900113";
-    public static String invoice="";
+   // public static String invoice="RMRC-U1L1900113";
+   public static String invoice="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
     @BindView(R.id.contentView)
     ScrollView contentView;
-
+    @BindView(R.id.mainLayout)
+    LinearLayout mainLayout;
     @BindView(R.id. received_from)
     android.widget.TextView received_from;
     @BindView(R.id. receiptno)
@@ -89,6 +114,7 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     @BindView(R.id.print_email)
     Button print_email;
     int sendAttempt=0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,6 +220,9 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
 //        signature.setImageBitmap(bitmap);
         progress.setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
+
+
+
     }
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class EmailInvoice extends AsyncTask<String, Void, String> {
@@ -246,4 +275,62 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
 
         }
     }
-}
+
+    public void generatePdf() throws IOException, DocumentException {
+        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/BrothersGas/";
+        File f=new File(directory_path);
+        if(!f.exists())
+        {
+            f.mkdir();
+        }
+        String targetPdf = directory_path+"consumption.pdf";
+        Document document = new Document();
+// Location to save
+        PdfWriter.getInstance(document, new FileOutputStream(targetPdf ));
+
+
+// Open to write
+        document.open();
+        document.setPageSize(PageSize.A4);
+        document.addCreationDate();
+        document.addAuthor("Ashish");
+        document.addCreator("Brothers Gas");
+        /***
+         * Variables for further use....
+         */
+        BaseColor mColorAccent = new BaseColor(0, 153, 204, 255);
+        float mHeadingFontSize = 20.0f;
+        float mValueFontSize = 26.0f;
+/**
+ * How to USE FONT....
+ */
+        // BaseFont urName = BaseFont.createFont("assets/fontnew.otf", "UTF-8", BaseFont.EMBEDDED);
+        // LINE SEPARATOR
+        LineSeparator lineSeparator = new LineSeparator();
+        lineSeparator.setLineColor(new BaseColor(0, 0, 0, 68));
+        // Title Order Details...
+// Adding Title....
+        //Font mOrderDetailsTitleFont = new Font(urName, 36.0f, Font.NORMAL, BaseColor.BLACK);
+// Creating Chunk
+        Chunk mOrderDetailsTitleChunk = new Chunk("Consumption Invoice");
+// Creating Paragraph to add...
+        Paragraph mOrderDetailsTitleParagraph = new Paragraph(mOrderDetailsTitleChunk);
+// Setting Alignment for Heading
+        mOrderDetailsTitleParagraph.setAlignment(Element.ALIGN_CENTER);
+// Finally Adding that Chunk
+        document.add(mOrderDetailsTitleParagraph);
+        document.add(new Paragraph(""));
+        document.add(new Chunk(lineSeparator));
+        document.add(new Paragraph(""));
+        document.add(new Chunk(lineSeparator));
+        document.add(new Paragraph(" Page End"));
+        document.add(new Chunk(lineSeparator));
+
+        document.close();
+    }
+
+
+
+
+    }
+

@@ -120,7 +120,7 @@ public long getMinDate(String datee) {
         //Setting the Calendar date and time to the given date and time
         calendar.setTime(date);
         System.out.println("Given Time in milliseconds : " + calendar.getTimeInMillis());
-return calendar.getTimeInMillis();
+        return calendar.getTimeInMillis();
     } catch (ParseException e) {
         e.printStackTrace();
     }
@@ -132,19 +132,16 @@ return calendar.getTimeInMillis();
         // TODO Auto-generated method stub
         if (id == 999) {
             DatePickerDialog dialog=  new DatePickerDialog(this, myDateListener, year, month, day);
-            if(endDate.getText().length()>0) {
-                dialog.getDatePicker().setMaxDate(getMinDate(endDate.getText().toString()));
-            }else{
+
                 dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
-            }
             return dialog;
         }
         else if (id == 991) {
             DatePickerDialog dialog=  new DatePickerDialog(this, myDateListener2, year, month, day);
-            if(startDate.getText().length()>0) {
-                dialog.getDatePicker().setMinDate(getMinDate(startDate.getText().toString()));
+
+                //dialog.getDatePicker().setMinDate(getMinDate(startDate.getText().toString()));
                 dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
-            }
+
             return dialog;
 
         }
@@ -190,13 +187,31 @@ return calendar.getTimeInMillis();
         switch (selectedOption)
         {
             case 1:
-                startDate.setText(new StringBuilder().append(dayValue).append("/")
-                        .append(monthValue).append("/").append(year));
-                startDateSlected=true;
+                if(getMinDate(new StringBuilder().append(dayValue).append("/")
+                        .append(monthValue).append("/").append(year).toString())<=Calendar.getInstance().getTimeInMillis()){
+                    startDate.setText(new StringBuilder().append(dayValue).append("/")
+                            .append(monthValue).append("/").append(year));
+                    startDateSlected=true;
+                }else{
+                    Utils.showAlertNormal(Enquiry.this,"You cannot select future date");
+                }
+
                 break;
             case 2:
-                endDate.setText(new StringBuilder().append(dayValue).append("/").append(monthValue).append("/").append(year));
-                endDateSlected=true;
+                if(getMinDate(new StringBuilder().append(dayValue).append("/")
+                        .append(monthValue).append("/").append(year).toString())<=Calendar.getInstance().getTimeInMillis()) {
+                    if (getMinDate(new StringBuilder().append(dayValue).append("/")
+                            .append(monthValue).append("/").append(year).toString()) >= getMinDate(startDate.getText().toString())) {
+                        endDate.setText(new StringBuilder().append(dayValue).append("/").append(monthValue).append("/").append(year));
+                        endDateSlected = true;
+                    } else {
+                        Utils.showAlertNormal(Enquiry.this, "End date should be greater than or equal to start date");
+                    }
+                }
+                else{
+                        Utils.showAlertNormal(Enquiry.this,"You cannot select future date");
+                    }
+
                 break;
         }
 
@@ -210,13 +225,19 @@ return calendar.getTimeInMillis();
                 finish();
                 break;
             case R.id.s_date:
+                clearValue();
                 selectedOption=startDateSelcted;
-                showDialog(999);;
-
+                showDialog(999);
+clearValue();
                 break;
             case R.id.e_date:
-                selectedOption=endDateSelected;
-                showDialog(991);;
+                if(startDate.getText().length()>0) {
+                    selectedOption = endDateSelected;
+                    showDialog(991);
+                    clearValue();
+                }else{
+                    Utils.showAlertNormal(Enquiry.this,"Please select start date first");
+                }
                 break;
             case R.id.search:
                 if((startDateSlected==true)&&(endDateSlected==true))
@@ -272,22 +293,41 @@ return calendar.getTimeInMillis();
             }
         }
 
-        public void setValue() {
-            if (model != null) {
 
-                generatedInvoicecount.setText(model.getNumber_of_invoices());
-                number_cash_payment.setText(model.getNumber_of_Cash_Payments());
-                total_cash_amount_collected.setText(model.getTotal_Cash_payments_amount());
-                chequepayment_count.setText(model.getNumber_of_Cheque_Payments());
-                total_cheaqueamout.setText(model.getTotal_Cheque_payments_amount());
-                total_cheaque_cash_amount.setText(model.getTotal_Cheque_and_cheque_payments_amount());
-                dep_conn_dconn.setText(model.getNumber_of_disconnection_invoices());
-                teenant_Change.setText(model.getNumber_of_Connections());
-                total_dep_inv_amount.setText(model.getTotal_Deposite_Invoices_amount());
-                total_con_dconn_amount.setText(model.getTotal_Disconnection_Invoices_amount());
-            }
-            mainLayout.setVisibility(View.VISIBLE);
-        }
     }
+    public void setValue() {
+        if (model != null) {
+
+            generatedInvoicecount.setText(model.getNumber_of_invoices());
+            number_cash_payment.setText(model.getNumber_of_Cash_Payments());
+            total_cash_amount_collected.setText(model.getTotal_Cash_payments_amount());
+            chequepayment_count.setText(model.getNumber_of_Cheque_Payments());
+            total_cheaqueamout.setText(model.getTotal_Cheque_payments_amount());
+            total_cheaque_cash_amount.setText(model.getTotal_Cheque_and_cheque_payments_amount());
+            dep_conn_dconn.setText(model.getNumber_of_disconnection_invoices());
+            teenant_Change.setText(model.getNumber_of_Connections());
+            total_dep_inv_amount.setText(model.getTotal_Deposite_Invoices_amount());
+            total_con_dconn_amount.setText(model.getTotal_Disconnection_Invoices_amount());
+        }
+        mainLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void clearValue() {
+
+
+        generatedInvoicecount.setText("");
+        number_cash_payment.setText("");
+        total_cash_amount_collected.setText("");
+        chequepayment_count.setText("");
+        total_cheaqueamout.setText("");
+        total_cheaque_cash_amount.setText("");
+        dep_conn_dconn.setText("");
+        teenant_Change.setText("");
+        total_dep_inv_amount.setText("");
+        total_con_dconn_amount.setText("");
+
+        mainLayout.setVisibility(View.GONE);
+    }
+
 }
 

@@ -14,22 +14,27 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brothersgas.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 import common.NumberToWords;
+import common.ScreenshotUtils;
 import common.WebServiceAcess;
 import model.Connection_Disconnection_Invoice_Preview_Model;
 import model.ContractDetails;
 import model.ContractModel;
 import payment.PaymentReceipt;
+import payment.PaymentReceiptPreview;
 import utils.Utils;
 
 /**
@@ -78,13 +83,15 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     android.widget.TextView supplier_trn;
     @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
-   public static String invoice="";
-    //public static String invoice="CDC-U109-19000053";
+   // public static String invoice="";
+   public static String invoice="CDC-U109-19000053";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
     @BindView(R.id.contentView)
     ScrollView contentView;
+    @BindView(R.id.mainLayout)
+    LinearLayout mainLayout;
     @BindView(R.id.content)
     LinearLayout content;
     @BindView(R.id.back_button)
@@ -132,6 +139,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
         {
             case R.id. back_button:
                 finish();
+
                 break;
             case R.id.print_email:
                 progressbar2.setVisibility(View.VISIBLE);

@@ -298,7 +298,6 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                 {
                     if((cheaqueNumber.getText().length()>0)&&(chequeDate.getText().length()>0)&&(amountValue.getText().length()>0))
                     {  if(Double.parseDouble(amountValue.getText().toString())<=Double.parseDouble(amount)) {
-
                         progressBar.setVisibility(View.VISIBLE);
                         submit.setVisibility(View.GONE);
                         new CreatePayment().execute();
@@ -318,13 +317,15 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
                         {
                             showAlert("Please enter amount");
                         }
-
                     }
                 }else{
-                    progressBar.setVisibility(View.VISIBLE);
-                    submit.setVisibility(View.GONE);
-                    new CreatePayment().execute();
-
+                     if(Double.parseDouble(amountValue.getText().toString())<=Double.parseDouble(amount)) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        submit.setVisibility(View.GONE);
+                        new CreatePayment().execute();
+                    }else{
+                        showAlert("Amount should be less or equal to maximum outstanding amount");
+                    }
                 }
                 break;
         }
@@ -472,7 +473,8 @@ if(pd!=null)
     }
 
 
-    /*-------------------------------------------------------------------block-------------------------------------------------------*/
+    /*--------------------------------------------------------------block-------------------------------------------------------*/
+
     public class CreatePayment extends AsyncTask<String, Void, String> {
 
         @Override
@@ -485,7 +487,7 @@ if(pd!=null)
             if(paymentMode.getCheckedRadioButtonId()==cheque.getId())
             { cheaueNumberString=cheaqueNumber.getText().toString();
                bankDetails= bank.getSelectedItem().toString();
-               cheaqueIssueDate=   Utils.getFormatted(chequeDate.getText().toString());
+               cheaqueIssueDate=Utils.getFormatted(chequeDate.getText().toString());
                 mode="2";
                 imagebase64=Utils.getBase64(imagePath);
             }

@@ -162,7 +162,12 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
         Button re_activeDate = (Button) dialog.findViewById(R.id.react_date);
         reason.setVisibility(View.GONE);
         re_activeDate.setVisibility(View.GONE);
-
+        if((model.getPreviousReading().length()>0)&&(!model.getPreviousReading().equalsIgnoreCase("0")))
+        {
+            Initial_meter_reading.setText(model.getPreviousReading());
+        }else {
+            Initial_meter_reading.setText(model.getInitial_meter_reading() + " " + model.getUnits());
+        }
 
         Button submit = (Button) dialog.findViewById(R.id.submit);
 
@@ -191,6 +196,9 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
         if((requestCode==2)&&(resultCode==-1))
         {
             changeTenant.setVisibility(View.GONE);
+            Intent dataa = new Intent();
+           setResult(RESULT_OK,dataa);
+            finish();
 
         }
     }

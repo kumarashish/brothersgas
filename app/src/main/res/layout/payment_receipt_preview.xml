@@ -43,6 +43,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:indeterminateTint="@color/colorPrimary"/>
+
     <ScrollView
 
         android:id="@+id/contentView"
@@ -50,6 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <LinearLayout
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -281,7 +283,7 @@ android:id="@+id/receiptno"
                 android:layout_height="match_parent">
                 <TextView
 
-                    android:text="Username : "
+                    android:text="User Name : "
                     android:gravity="center_vertical"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -314,7 +316,7 @@ android:id="@+id/receiptno"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
                 <TextView
-                    android:text="UserId : "
+                    android:text="User Id : "
                     android:gravity="center_vertical|end"
                     android:layout_weight="1"
                     android:textColor="@color/black"
@@ -382,9 +384,9 @@ android:id="@+id/amount"
 
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="80dp">
             <TextView
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|left"
                 android:text="Amount In Words: "
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -684,6 +686,7 @@ android:visibility="gone"
     </LinearLayout>
     </LinearLayout>
     </ScrollView>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

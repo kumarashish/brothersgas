@@ -196,19 +196,83 @@ android:imeOptions="actionNext"
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
+                            <LinearLayout
+                                android:weightSum="8.0"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
                             <EditText
-                                android:maxLength="18"
-                                android:inputType="textPersonName"
-                                android:layout_marginRight="10dp"
+                                android:maxLength="3"
+                                android:inputType="number"
+                                android:gravity="center"
                                 android:background="@android:color/transparent"
                                 android:imeOptions="actionNext"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/md_gray_light"
-                                android:id="@+id/em_id"
+                                android:id="@+id/em_id1"
                                 android:fontFamily="@font/aller_rg"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_width="0dp"
+                                android:layout_weight="1.5"
+                                android:layout_height="match_parent" />
+                                <TextView
+                                    android:text="-"
+                                    android:gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent" />
+                                <EditText
+                                    android:maxLength="4"
+                                    android:inputType="number"
+                                    android:gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:imeOptions="actionNext"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/md_gray_light"
+                                    android:id="@+id/em_id2"
+                                    android:fontFamily="@font/aller_rg"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2"
+                                    android:layout_height="match_parent"/>
+                                <TextView
+                                    android:text="-"
+                                    android:gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent" />
+                                <EditText
+                                    android:maxLength="7"
+                                    android:inputType="number"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="3"
+                                    android:background="@android:color/transparent"
+                                    android:imeOptions="actionNext"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/md_gray_light"
+                                    android:id="@+id/em_id3"
+                                    android:fontFamily="@font/aller_rg"
+                                    android:gravity="center"
+                                    android:layout_height="match_parent" />
+                                <TextView
+                                    android:text="-"
+                                    android:gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent" />
+                                <EditText
+                                    android:maxLength="1"
+                                    android:inputType="number"
+                                    android:gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:imeOptions="actionNext"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/md_gray_light"
+                                    android:id="@+id/em_id4"
+                                    android:fontFamily="@font/aller_rg"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="0.5"
+                                    android:layout_height="match_parent" />
+                            </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
 
@@ -255,7 +319,7 @@ android:background="@android:color/transparent"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
-                                android:text="Address : "
+                                android:text="Name : "
                                 android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />

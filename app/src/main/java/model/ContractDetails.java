@@ -232,6 +232,10 @@ public String currentMeterReading="";
         this.sales_InvoiceNumber = sales_InvoiceNumber;
     }
 
+    public void setInitial_meter_reading(String initial_meter_reading) {
+        Initial_meter_reading = initial_meter_reading;
+    }
+
     public void setCurrentReading(String currentReading) {
         this.currentReading = currentReading;
     }

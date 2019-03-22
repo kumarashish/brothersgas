@@ -61,8 +61,14 @@ public class TenantChange extends Activity implements View.OnClickListener {
     EditText contract_number;
             @BindView(R.id.current_reading)
             EditText current_reading;
-            @BindView(R.id.em_id)
-            EditText em_id;
+    @BindView(R.id.em_id1)
+    EditText em_id1;
+    @BindView(R.id.em_id2)
+    EditText em_id2;
+    @BindView(R.id.em_id3)
+    EditText em_id3;
+    @BindView(R.id.em_id4)
+    EditText em_id4;
             @BindView(R.id.expiry_date)
             Button expiry_date;
             @BindView(R.id.address)
@@ -114,7 +120,7 @@ String backImagePath="";
         em_id_back.setOnClickListener(this);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        em_id.addTextChangedListener(new TextWatcher() {
+        em_id1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -127,18 +133,48 @@ String backImagePath="";
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()==3)
-                {
-                    s.append("-");
-                }
-                else if(s.length()==8)
-                {
-                    s.append("-");
-                }else if(s.length()==16)
-                {
-                    s.append("-");
+                if(s.length()==3) {
+                    em_id2.requestFocus();
                 }
 
+            }
+        });
+        em_id2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()==4) {
+                    em_id3.requestFocus();
+                }
+
+            }
+        });
+        em_id3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.length()==7) {
+                    em_id4.requestFocus();
+                }
             }
         });
 
@@ -273,8 +309,21 @@ footer.setVisibility(View.GONE);
 
         }
     }
+public String getEmId()
+{
+    return em_id1.getText().toString()+"-"+em_id2.getText().toString()+"-"+em_id3.getText().toString()+"-"+em_id4.getText().toString();
+}
+    public boolean isEmidValidated() {
+        if ((em_id1.getText().length() == 3) && (em_id2.getText().length() == 4) && (em_id3.getText().length() == 7) && (em_id4.getText().length() == 1)) {
+            return true;
+        } else {
+            em_id1.requestFocus();
+            Toast.makeText(TenantChange.this, "Please enter emirates Id", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
     public boolean isFieldsValidated() {
-        if ((current_reading.getText().length() > 0) && (em_id.getText().length() > 0) && (expiry_date.getText().length() > 0) && (address.getText().length() > 0) && (contact_number.getText().length() > 0) && (emailId.getText().length() > 0)) {
+        if ((current_reading.getText().length() > 0)  && (expiry_date.getText().length() > 0)&&(isEmidValidated()) && (address.getText().length() > 0) && (contact_number.getText().length() > 0) && (emailId.getText().length() > 0)) {
         if(Utils.isValidEmailId(emailId.getText().toString())) {
             return true;
         }else{
@@ -284,9 +333,6 @@ footer.setVisibility(View.GONE);
             if(current_reading.getText().length()==0)
             {
                 Toast.makeText(TenantChange.this,"Please enter current reading",Toast.LENGTH_SHORT).show();
-            }else if(em_id.getText().length()==0)
-            {
-                Toast.makeText(TenantChange.this,"Please enter emirates Id",Toast.LENGTH_SHORT).show();
             }else if(expiry_date.getText().length()==0)
             {
                 Toast.makeText(TenantChange.this,"Please enter expiry date",Toast.LENGTH_SHORT).show();
@@ -323,7 +369,7 @@ footer.setVisibility(View.GONE);
             {
                 backImageValue=Utils.getBase64(backImagePath);
             }
-            String result = webServiceAcess.runRequest(Common.runAction, Common.Tennant_Change, new String[]{model.getContract_Meternumber(), current_reading.getText().toString(),em_id.getText().toString(),Utils.getFormatted(expiry_date.getText().toString()),address.getText().toString(),contact_number.getText().toString(),emailId.getText().toString(),frontImageValue,backImageValue});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.Tennant_Change, new String[]{model.getContract_Meternumber(), current_reading.getText().toString(), getEmId(),Utils.getFormatted(expiry_date.getText().toString()),address.getText().toString(),contact_number.getText().toString(),emailId.getText().toString(),frontImageValue,backImageValue});
             return result;
         }
 
@@ -346,6 +392,9 @@ footer.setVisibility(View.GONE);
                         Utils.showAlertNavigateToInvoices(TenantChange.this, message,Connection_Disconnection_Invoice_details.class,contractNumber);
 
                         submit.setVisibility(View.GONE);
+                        Intent data = new Intent();
+                       setResult(RESULT_OK,data);
+                        finish();
                     } else {
                         Utils.showAlertNormal(TenantChange.this, message);
                         submit.setVisibility(View.VISIBLE);

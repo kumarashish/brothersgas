@@ -176,6 +176,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     if(status==2) {
 
                         Initial_meter_reading.setEnabled(false);
+                        model.setInitial_meter_reading(Initial_meter_reading.getText().toString());
 
                         Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
                         progressBar2.setVisibility(View.GONE);
@@ -250,6 +251,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     JSONArray Fld = item.getJSONArray("FLD");
                     JSONObject messageJsonObject=Fld.getJSONObject(1);
                     JSONObject depJsonObject=Fld.getJSONObject(0);
+
                     String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
                     String depInvoice=depJsonObject.isNull("content")?"": depJsonObject.getString("content");
                     if((message.contains("Invoice Already Exists")||message.contains("No Message From API")))
@@ -262,7 +264,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                         //
                         {   model.setDeposit_Invoice(depInvoice);
                             model.setContractNumber(contractId);
-                           model.setCustomerName(contractModel.getCustomercode());
+                            model.setCustomerName(contractModel.getCustomercode());
                             Deposit_Invoice.setText(model.getDeposit_Invoice());
                             if(model.getDeposit_Invoice().length()>0) {
                                 Print_Email.model = model;

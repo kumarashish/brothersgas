@@ -24,6 +24,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brothersgas.Enquiry;
 import com.brothersgas.R;
 
 import org.json.JSONArray;
@@ -139,7 +140,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         if (id == 999) {
             DatePickerDialog dailog=new DatePickerDialog(this,
                     myDateListener, year, month, day);
-            dailog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+            dailog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
             return dailog ;
         }
         return null;
@@ -168,8 +169,16 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         {
             dayValue="0"+day;
         }
-        re_activeDate.setText(new StringBuilder().append(dayValue).append("/")
-                .append(monthValue).append("/").append(year));
+
+        if(Utils.getMinDate(new StringBuilder().append(dayValue).append("/")
+                .append(monthValue).append("/").append(year).toString())>=Calendar.getInstance().getTimeInMillis()) {
+            re_activeDate.setText(new StringBuilder().append(dayValue).append("/")
+                    .append(monthValue).append("/").append(year));
+        }
+          else{
+                Utils.showAlertNormal(Block_Cancel_Details.this,"You cannot select past Dates");
+
+        }
     }
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetReasons extends AsyncTask<String, Void, String> {

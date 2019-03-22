@@ -23,22 +23,27 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brothersgas.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
+import common.ScreenshotUtils;
 import common.Signature;
 import common.WebServiceAcess;
 import invoices.Print_Email;
 import model.ContractDetails;
 import model.ContractModel;
 import payment.PaymentReceipt;
+import payment.PaymentReceiptPreview;
 import utils.Utils;
 
 public class ConsumptionReceipt extends Activity implements View.OnClickListener {
@@ -159,7 +164,10 @@ WebServiceAcess webServiceAcess;
                 if (isSignatureCaptured) {
                     ConsumptionPreview.detailsModel=detailsModel;
                     ConsumptionPreview.model=model;
+                    ConsumptionPreview.imagePath=imagePath;
+                    ConsumptionPreview.invoice=detailsModel.getSales_InvoiceNumber();
                     startActivity(new Intent(ConsumptionReceipt.this,ConsumptionPreview.class));
+                    finish();
 
                 } else {
                     Utils.showAlertNormal(ConsumptionReceipt.this, "Please capture signature");

@@ -191,10 +191,9 @@ public class Consumption  extends Activity implements View.OnClickListener {
            {   int index=s.toString().indexOf(".");
                int count=currentReading.getText().toString().substring( index,s.length()).length();
                if(count>=5)
-               {   Double pi = Double.parseDouble(s.toString());
-
-
-                   currentReading.setText( String.format("%.3f", pi));
+               {    String []value=currentReading.getText().toString().split("\\.");
+                   String  text=value[1].substring(0,3);
+                   currentReading.setText(value[0]+"."+text);
                    currentReading.setSelection(currentReading.getText().length());
 
                }
@@ -221,10 +220,11 @@ public class Consumption  extends Activity implements View.OnClickListener {
                 {   int index=s.toString().indexOf(".");
                     int count=retype_currentReading.getText().toString().substring( index,s.length()).length();
                     if(count>=5)
-                    {   Double pi = Double.parseDouble(s.toString());
+                    {
 
-
-                        retype_currentReading.setText( String.format("%.3f", pi));
+                       String []value=retype_currentReading.getText().toString().split("\\.");
+                        String  text=value[1].substring(0,3);
+                        retype_currentReading.setText(value[0]+"."+text);
                         retype_currentReading.setSelection(retype_currentReading.getText().length());
 
                     }
@@ -406,11 +406,7 @@ public class Consumption  extends Activity implements View.OnClickListener {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
-                        if ((model.getBlock_unblockflag() != 2)) {
-                            if ((model.getDepositInvoice().length() == 0) || (model.getConnection_discconectionInvoice().length() == 0)) {
-                                list.add(model);
-                            }
-                        }
+                        list.add(model);
                     }
                     if (list.size() > 0) {
                         CustomListAdapter adapter = new CustomListAdapter(Consumption.this, R.layout.contract_row, list);
@@ -505,7 +501,7 @@ public class Consumption  extends Activity implements View.OnClickListener {
                   date.setText(Utils.getDate(model.getContactcreationdate()));
                   realEstateOwner.setText(model.getOwner() +" - "+model.getOwnerDesc());
                   realEstateOwnerDescription.setText(model.getProject()+" - "+model.getProjectDesc());
-       new GetContractDetails().execute();
+             new GetContractDetails().execute();
     }
 
     private AdapterView.OnItemClickListener onItemClickListener =

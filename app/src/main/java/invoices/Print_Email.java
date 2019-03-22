@@ -184,17 +184,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
             case R.id.back_button:
                 finish();
                 break;
-            case R.id.print_email:
-//                if(isSignatureCaptured)
-//                {
-////                    progressBar.setVisibility(View.VISIBLE);
-////                    footer.setVisibility(View.GONE);
-////                    new EmailInvoice().execute();
-//
-//                }else{
-//                    Utils.showAlertNormal(Print_Email.this,"Please capture signature");
-//                }
-                break;
+
             case R.id.payment:
                 if(isSignatureCaptured) {
 
@@ -223,6 +213,8 @@ public class Print_Email extends Activity implements View.OnClickListener {
                             Consumption_DeliveryNote_Preview.invoice=model.getConsumptionInvoice();
                             Consumption_DeliveryNote_Preview.creditInvoiceNumber=creditNote;
                             startActivity(new Intent(Print_Email.this, Consumption_DeliveryNote_Preview.class));
+                            Intent data = new Intent();
+                            setResult(RESULT_OK,data);
                             finish();
                         }
 
@@ -253,69 +245,6 @@ public class Print_Email extends Activity implements View.OnClickListener {
                 signature.setText("");
                 new UploadSignature().execute();
             }
-        }
-    }
-
-    /*-------------------------------------------------------------------block-------------------------------------------------------*/
-    public class EmailInvoice extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String val="1";
-            String inVoiceNumber=model.getDeposit_Invoice();
-            if(calledMethod.equalsIgnoreCase(Common.Connection_Disconnection_Invoice))
-            {
-                val="2";
-                inVoiceNumber=model.getConnection_Disconnection_Invoice();
-            }else if(model.getConsumptionInvoice().length()>0){
-                inVoiceNumber=model.getConsumptionInvoice();
-                val="3";
-            }
-
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Print_Email, new String[]{inVoiceNumber,val});
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            Log.e("value", "onPostExecute: ", null);
-            if (s.length() > 0) {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONArray jsonArray = result.getJSONArray("GRP");
-                    JSONObject item = jsonArray.getJSONObject(1);
-                    JSONArray Fld = item.getJSONArray("FLD");
-                    JSONObject messageJsonObject=Fld.getJSONObject(1);
-                    JSONObject status=Fld.getJSONObject(0);
-                    String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
-                   int statusValue=status.isNull("content")?1: status.getInt("content");
-if(statusValue==2)
-{
-    sendAttempt=sendAttempt+1;
-    if(sendAttempt==1)
-    {
-        print_email.setText("Resend");
-    }else {
-        print_email.setVisibility(View.GONE);
-    }
-    Utils.showAlertNormal(Print_Email.this,message);
-
-}else{
-    Utils.showAlertNormal(Print_Email.this,message);
-}
-
-
-                } catch (Exception ex) {
-                    ex.fillInStackTrace();
-                }
-                progressBar.setVisibility(View.GONE);
-                footer.setVisibility(View.VISIBLE);
-            } else {
-                progressBar.setVisibility(View.GONE);
-                footer.setVisibility(View.VISIBLE);
-            }
-
         }
     }
 

@@ -186,7 +186,7 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
             quantity.setText(model.getDetails_list().get(i).getQuantityValue());
             unit_price.setText(model.getDetails_list().get(i).getUnitPriceValue());
             total_price.setText(model.getDetails_list().get(i).getTotalpriceValue());
-            vat_percentage.setText("VAT @ " + model.getDetails_list().get(i).getVat_percentageValue() + "%");
+            vat_percentage.setText("Total VAT @ " + model.getDetails_list().get(i).getVat_percentageValue() + "%");
             total_vat.setText(model.getDetails_list().get(i).getVatAmountValue());
             content.addView(view);
         }
