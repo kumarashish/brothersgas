@@ -164,9 +164,9 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
         re_activeDate.setVisibility(View.GONE);
         if((model.getPreviousReading().length()>0)&&(!model.getPreviousReading().equalsIgnoreCase("0")))
         {
-            Initial_meter_reading.setText(model.getPreviousReading());
+            currentmeterReading.setText(model.getPreviousReading());
         }else {
-            Initial_meter_reading.setText(model.getInitial_meter_reading() + " " + model.getUnits());
+            currentmeterReading.setText(model.getInitial_meter_reading() );
         }
 
         Button submit = (Button) dialog.findViewById(R.id.submit);

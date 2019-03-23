@@ -437,6 +437,7 @@ public class PayAll  extends Activity implements View.OnClickListener {
                 Bitmap myBitmap = BitmapFactory.decodeFile(Common.tempPath,options);
                 BitmapDrawable bdrawable = new BitmapDrawable(getResources(),myBitmap);
                 cheaqueImage.setBackground(bdrawable);
+                cheaqueImage.setText("");
             } else if (resultCode == RESULT_CANCELED) {
 
                 Toast.makeText(this, " Picture was not taken ", Toast.LENGTH_SHORT).show();
@@ -460,6 +461,7 @@ public class PayAll  extends Activity implements View.OnClickListener {
                 Bitmap myBitmap = BitmapFactory.decodeFile(Common.tempPath,options);
                 BitmapDrawable bdrawable = new BitmapDrawable(getResources(),myBitmap);
                 cheaqueImage.setBackground(bdrawable);
+                cheaqueImage.setText("");
                 // Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath, options));
 
             } else {

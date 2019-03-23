@@ -401,6 +401,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
 
                             Utils.showAlertNavigateToPrintEmail(Block_Cancel_Details.this, modell.getMessage(), Print_Email.class);
                         } else {
+                            contractModel.setBlock_unblockflag(2);
                             Utils.showAlertForReturnIntent(Block_Cancel_Details.this, modell.getMessage());
 
                         }
@@ -446,7 +447,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     JSONArray jsonArray = result.getJSONArray("GRP");
                     JSONObject item = jsonArray.getJSONObject(1);
                     BlockUnblockModel modell=new BlockUnblockModel(item.getJSONArray("FLD"));
-                            if (modell.getConsumption_invoice().length()>0) {
+                            if((modell.getConsumption_invoice().length()>0)||(modell.getCreditNote().length()>0)) {
                                 model.setCustomerName(contractModel.getCustomercode());
                                 model.setConsumptionInvoice(modell.getConsumption_invoice());
                                 model.setCurrentMeterReading(currenttReading);

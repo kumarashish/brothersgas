@@ -114,10 +114,10 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     android.widget.TextView supplier_trn;
     @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
-    //public static String invoice="CDC-U109-19000053";
+  // public static String invoice="CDC-U109-19000053";
     public static String invoice="";
-    //String creditInvoiceNumber="CCM-U109-19000013";
- public static String creditInvoiceNumber="";
+    //public static String creditInvoiceNumber="CCM-U109-19000013";
+    public static String creditInvoiceNumber="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -163,6 +163,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
             } else {
                 consumptionInvoice.setVisibility(View.GONE);
                 heading.setText("");
+                payment.setVisibility(View.GONE);
                 GetCreditNoteData();
             }
         }

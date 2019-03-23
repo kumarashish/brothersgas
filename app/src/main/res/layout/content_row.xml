@@ -11,7 +11,7 @@
     <LinearLayout
 
         android:weightSum="5"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         <TextView
 
             android:layout_weight="0.5"
-            android:gravity="center"
+            android:gravity="left"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:textColor="@color/black"
@@ -50,7 +50,7 @@
             android:layout_marginLeft="10dp"
             android:textColor="@color/black"
 
-            android:gravity="center"
+            android:gravity="left"
             android:fontFamily="@font/fontnew"
             android:text=""
             android:layout_marginRight="5dp"
@@ -64,7 +64,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/unit_price"
             android:fontFamily="@font/fontnew"
             android:text=""
@@ -72,6 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <View
+android:layout_marginLeft="-30dp"
             android:background="@color/black"
             android:layout_width="1dp"
             android:layout_height="match_parent"/>
@@ -80,7 +81,7 @@
             android:gravity="end"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:textColor="@color/black"
 
             android:fontFamily="@font/fontnew"
@@ -97,7 +98,7 @@
     <LinearLayout
 
         android:weightSum="5"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -157,7 +158,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <View
-          android:layout_marginLeft="2dp"
+          android:layout_marginLeft="-10dp"
             android:background="@color/black"
             android:layout_width="1dp"
             android:layout_height="match_parent"/>

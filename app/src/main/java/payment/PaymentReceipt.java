@@ -543,6 +543,7 @@ if(pd!=null)
                 Bitmap myBitmap = BitmapFactory.decodeFile(Common.tempPath,options);
                 BitmapDrawable bdrawable = new BitmapDrawable(getResources(),myBitmap);
                 cheaqueImage.setBackground(bdrawable);
+                cheaqueImage.setText("");
             } else if (resultCode == RESULT_CANCELED) {
 
                 Toast.makeText(this, " Picture was not taken ", Toast.LENGTH_SHORT).show();
@@ -566,6 +567,7 @@ if(pd!=null)
                 Bitmap myBitmap = BitmapFactory.decodeFile(Common.tempPath,options);
                 BitmapDrawable bdrawable = new BitmapDrawable(getResources(),myBitmap);
                 cheaqueImage.setBackground(bdrawable);
+                cheaqueImage.setText("");
                 // Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath, options));
 
             } else {

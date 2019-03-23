@@ -242,7 +242,11 @@ clearValue();
             case R.id.search:
                 if((startDateSlected==true)&&(endDateSlected==true))
                 {
-                    new GetEnquiryData().execute();
+                    if(Utils.getMinDate(startDate.getText().toString())<Utils.getMinDate(endDate.getText().toString())) {
+                        new GetEnquiryData().execute();
+                    }else{
+                        Utils.showAlertNormal(Enquiry.this,"End date must be greater than start date");
+                    }
                 }else {
                     if(startDateSlected==false)
                     {

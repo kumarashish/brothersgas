@@ -1,705 +1,754 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="114dp"
+        tools:ignore="MissingConstraints">
+
         <RelativeLayout
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            >
+            android:background="@color/white">
 
             <Button
-                android:layout_alignParentLeft="true"
                 android:id="@+id/back_button"
-
                 android:layout_width="40dp"
+
                 android:layout_height="40dp"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentLeft="true"
                 android:layout_marginTop="5dp"
-                android:backgroundTint="@color/black"
-                android:background="@drawable/back" />
+                android:layout_marginRight="10dp"
+                android:background="@drawable/back"
+                android:backgroundTint="@color/black" />
 
             <ImageView
-                android:src="@drawable/brogas_logo"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                android:src="@drawable/brogas_logo" />
 
         </RelativeLayout>
+
         <ProgressBar
-            android:visibility="gone"
-            android:layout_width="50dp"
             android:id="@+id/progressBar"
+            android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_below="@+id/pass_RL"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40.0dip"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:indeterminateTint="@color/colorPrimary"/>
+            android:layout_marginTop="40.0dip"
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone" />
+
         <ScrollView
 
             android:id="@+id/contentView"
-            android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
                 <LinearLayout
                     android:id="@+id/mainLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
-                            android:gravity="center"
-                            android:text="TAX INVOICE"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="TAX INVOICE" />
 
                         <LinearLayout
-                            android:layout_margin="10dp"
-
-                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="vertical">
+
                             <LinearLayout
-                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:background="@drawable/light_grey_box"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <LinearLayout
-                                    android:layout_marginRight="5dp"
+                                android:orientation="vertical">
 
-                                    android:layout_marginLeft="5dp"
-                                    android:orientation="horizontal"
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="35dp">
+
+                                    android:layout_height="35dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal">
 
                                     <TextView
 
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Invoice Number : "
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-                                    <TextView
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <TextView
                                         android:id="@+id/invoice_number"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
+
                                 <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:orientation="horizontal">
 
                                     <TextView
                                         android:id="@+id/projectname"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
+                                        android:layout_width="wrap_content"
 
-                                        android:text="Project Name : "
-                                        android:fontFamily="@font/aller_rg"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-                                    <TextView
-                                        android:layout_marginLeft="10dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
+
+                                        android:fontFamily="@font/aller_rg"
+                                        android:text="Project Name : "
                                         android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <TextView
                                         android:id="@+id/project_name"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
+
                                 <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
+                                        android:layout_width="wrap_content"
 
+
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:fontFamily="@font/aller_rg"
                                         android:text="Tenant Name : "
                                         android:textColor="@color/black"
-                                        android:textStyle="bold"
-                                        android:fontFamily="@font/aller_rg"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:textStyle="bold" />
+
                                     <TextView
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
-                                        android:textColor="@color/black"
                                         android:id="@+id/teenant_name"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
+
                                 <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:orientation="horizontal">
 
                                     <TextView
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Customer Name : "
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-                                    <TextView
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <TextView
                                         android:id="@+id/customer_name"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
+
                                 <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:orientation="horizontal">
 
                                     <TextView
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Customer TRN : "
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-                                    <TextView
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <TextView
                                         android:id="@+id/customer_trn"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
+
                                 <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="60dp">
+                                    android:orientation="horizontal">
 
                                     <TextView
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Customer Address: "
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-                                    <TextView
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <TextView
                                         android:id="@+id/customer_address"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
 
                                 <TextView
 
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="15dp"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"
+                                    android:layout_marginLeft="5dp"
                                     android:fontFamily="@font/aller_rg"
                                     android:text="Supplier Name "
 
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_gravity="center_vertical"
                                     android:textColor="@color/black"
+                                    android:textStyle="bold" />
+
+                                <TextView
                                     android:id="@+id/suplier_name"
-                                    android:fontFamily="@font/fontnew"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:fontFamily="@font/fontnew"
+                                    android:textColor="@color/black" />
 
 
                                 <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:orientation="horizontal">
 
                                     <TextView
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Supplier TRN : "
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-                                    <TextView
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <TextView
                                         android:id="@+id/supplier_trn"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
+
                                 <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:orientation="horizontal">
 
                                     <TextView
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Registered Address : "
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-                                    <TextView
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <TextView
                                         android:id="@+id/registered_supplier_address"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                                 <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:orientation="horizontal">
 
                                     <TextView
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="User Name and User Id : "
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-                                    <TextView
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <TextView
                                         android:id="@+id/name_id"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                                 <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:orientation="horizontal">
 
                                     <TextView
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Date and Time : "
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-                                    <TextView
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <TextView
                                         android:id="@+id/date_time"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                                 <View
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/black"
                                     android:layout_width="match_parent"
-                                    android:layout_height="1dp"/>
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/black" />
+
                                 <LinearLayout
 
-                                    android:weightSum="5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
                                     android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp">
+                                    android:weightSum="5">
 
                                     <TextView
-                                        android:layout_weight="1"
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:gravity="center"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
+                                        android:layout_weight="1"
                                         android:fontFamily="@font/aller_rg"
+                                        android:gravity="left"
                                         android:text="Item Name "
 
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content" />
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
                                     <View
-                                        android:background="@color/black"
                                         android:layout_width="1dp"
-                                        android:layout_height="match_parent"/>
+                                        android:layout_height="match_parent"
+                                        android:background="@color/black" />
+
                                     <TextView
 
-                                        android:layout_weight="1"
-                                        android:gravity="center"
-                                        android:layout_marginRight="5dp"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="5dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_weight="1"
                                         android:fontFamily="@font/aller_rg"
+                                        android:gravity="left"
                                         android:text="Units Measure"
 
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content" />
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
                                     <View
-                                        android:background="@color/black"
                                         android:layout_width="1dp"
-                                        android:layout_height="match_parent"/>
+                                        android:layout_height="match_parent"
+                                        android:background="@color/black" />
+
                                     <TextView
-                                        android:layout_weight="1"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
-                                        android:gravity="center"
-                                        android:fontFamily="@font/aller_rg"
-                                        android:text="Quantity"
                                         android:layout_marginRight="5dp"
-
-
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content" />
-                                    <View
-                                        android:background="@color/black"
-                                        android:layout_width="1dp"
-                                        android:layout_height="match_parent"/>
-                                    <TextView
                                         android:layout_weight="1"
+                                        android:fontFamily="@font/aller_rg"
+                                        android:gravity="left"
+                                        android:text="Quantity"
+
+
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <View
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/black" />
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:gravity="center"
-                                        android:textStyle="bold"
+                                        android:layout_weight="1"
                                         android:fontFamily="@font/aller_rg"
+                                        android:gravity="center"
                                         android:text="Units Price  "
 
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content" />
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
                                     <View
-                                        android:background="@color/black"
                                         android:layout_width="1dp"
-                                        android:layout_height="match_parent"/>
+                                        android:layout_height="match_parent"
+                                        android:background="@color/black" />
+
                                     <TextView
-                                        android:layout_weight="1"
+                                        android:layout_width="0dp"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
+                                        android:layout_weight="1"
                                         android:fontFamily="@font/aller_rg"
+                                        android:gravity="end"
                                         android:text="Amount (AED)  "
 
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content" />
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold" />
 
                                 </LinearLayout>
+
                                 <View
-                                    android:background="@color/black"
                                     android:layout_width="match_parent"
-                                    android:layout_height="1dp"/>
+                                    android:layout_height="1dp"
+                                    android:background="@color/black" />
+
                                 <LinearLayout
-                                    android:orientation="vertical"
                                     android:id="@+id/content"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
-
-
-
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical" />
 
 
                                 <LinearLayout
 
-                                    android:weightSum="5"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
                                     android:layout_width="match_parent"
-                                    android:layout_height="40dp">
-
-                                    <TextView
-                                        android:layout_weight="2.5"
-                                        android:layout_gravity="center_vertical"
-                                        android:gravity="left"
-                                        android:textColor="@color/black"
-
-                                        android:fontFamily="@font/fontnew"
-                                        android:text="Total "
-
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content" />
-
-                                    <TextView
-
-                                        android:layout_weight="1.05"
-                                        android:gravity="center"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="5dp"
-                                        android:textColor="@color/black"
-
-                                        android:fontFamily="@font/fontnew"
-                                        android:text=""
-
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content" />
-
-
-
-                                    <TextView
-                                        android:layout_weight="0.5"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:gravity="center"
-
-                                        android:fontFamily="@font/fontnew"
-                                        android:text=""
-
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content" />
-                                    <View
-                                        android:background="@color/black"
-                                        android:layout_width="1dp"
-                                        android:layout_height="match_parent"/>
-                                    <TextView
-                                        android:layout_weight="1"
-                                        android:gravity="end"
-                                        android:layout_gravity="end|center_vertical"
-                                        android:layout_marginRight="5dp"
-                                        android:layout_marginLeft="5dp"
-                                        android:textColor="@color/black"
-
-                                        android:fontFamily="@font/fontnew"
-                                        android:text=""
-                                        android:id="@+id/total"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content" />
-
-                                </LinearLayout>
-                                <View
-                                    android:background="@color/black"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"/>
-                                <LinearLayout
-
-                                    android:weightSum="5"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_marginRight="5dp"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="80dp">
-
-                                    <TextView
-                                        android:layout_weight="2.4"
-                                        android:layout_gravity="center_vertical"
-                                        android:gravity="left|center_vertical"
-                                        android:textColor="@color/black"
-
-                                        android:fontFamily="@font/fontnew"
-                                        android:text="Amount in Words : "
-
-                                        android:layout_width="0dp"
-                                        android:layout_height="match_parent" />
-
-
-
-                                    <TextView
-
-                                        android:layout_weight="2.6"
-                                        android:layout_gravity="end|center_vertical"
-                                        android:layout_marginRight="5dp"
-                                        android:layout_marginLeft="5dp"
-                                        android:textColor="@color/black"
-                                        android:id="@+id/total_inwords"
-                                        android:gravity="end|center_vertical"
-                                        android:fontFamily="@font/fontnew"
-                                        android:text=""
-
-                                        android:layout_width="0dp"
-                                        android:layout_height="match_parent" />
-
-                                </LinearLayout>
-                                <View
-                                    android:background="@color/black"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"/>
-                                <LinearLayout
-
+                                    android:layout_height="40dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
                                     android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="80dp">
+                                    android:weightSum="5">
 
                                     <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_weight="2.5"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:gravity="left"
+
+                                        android:text="Total "
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_weight="1.05"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:gravity="center"
+
+                                        android:text=""
+                                        android:textColor="@color/black" />
+
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="10dp"
-                                        android:textColor="@color/black"
-                                        android:textStyle="bold"
+                                        android:layout_weight="0.5"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:gravity="center"
+
+                                        android:text=""
+                                        android:textColor="@color/black" />
+
+                                    <View
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginLeft="13dp"
+                                        android:background="@color/black" />
+
+                                    <TextView
+                                        android:id="@+id/total"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="end|center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="10dp"
+
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/fontnew"
+                                        android:gravity="end"
+                                        android:text=""
+                                        android:textColor="@color/black" />
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/black" />
+
+                                <LinearLayout
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="80dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="5">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_weight="2.4"
+
+                                        android:fontFamily="@font/fontnew"
+                                        android:gravity="left|center_vertical"
+
+                                        android:text="Amount in Words : "
+                                        android:textColor="@color/black" />
+
+
+                                    <TextView
+
+                                        android:id="@+id/total_inwords"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="end|center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+
+                                        android:layout_weight="2.6"
+                                        android:fontFamily="@font/fontnew"
+                                        android:gravity="end|center_vertical"
+
+                                        android:text=""
+                                        android:textColor="@color/black" />
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/black" />
+
+                                <LinearLayout
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="80dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Customer Signature : "
 
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
                                     <ImageView
 
-                                        android:layout_marginLeft="10dp"
-                                        android:layout_gravity="center_vertical"
-                                        android:textColor="@color/black"
                                         android:id="@+id/signature"
-                                        android:fontFamily="@font/fontnew"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:fontFamily="@font/fontnew"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                             </LinearLayout>
+
                             <TextView
-                                android:layout_marginTop="10dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/red"
-
-                                android:fontFamily="@font/fontnew"
-                                android:text="Note :- This is computer generated document does not require signature "
-
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+
+                                android:layout_gravity="center_vertical"
+
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/fontnew"
+
+                                android:text="Note :- This is computer generated document does not require signature "
+                                android:textColor="@color/red" />
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="30dp"/>
+                                android:layout_height="30dp" />
 
 
                             <ProgressBar
-                                android:visibility="gone"
-                                android:layout_width="50dp"
                                 android:id="@+id/progressBar2"
+                                android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:layout_below="@+id/pass_RL"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="20dp"
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
-                                android:indeterminateTint="@color/colorPrimary"/>
+                                android:layout_marginTop="20dp"
+                                android:indeterminateTint="@color/colorPrimary"
+                                android:visibility="gone" />
+
                             <LinearLayout
 
                                 android:id="@+id/footer"
 
-                                android:orientation="horizontal"
-                                android:weightSum="2"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp">
+                                android:layout_height="50dp"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
                                 <Button
-                                    android:layout_marginLeft="10dp"
-                                    android:padding="5dp"
                                     android:id="@+id/print_email"
-                                    android:textSize="10dp"
-                                    android:fontFamily="@font/light"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_weight="1"
                                     android:background="@drawable/green_btn"
+                                    android:fontFamily="@font/light"
+                                    android:padding="5dp"
                                     android:text="@string/print_email"
                                     android:textColor="@color/white"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="match_parent" />
+                                    android:textSize="10dp" />
 
                                 <Button
-                                    android:layout_marginRight="10dp"
-
                                     android:id="@+id/payment"
-                                    android:padding="5dp"
+
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
                                     android:layout_marginLeft="10dp"
-                                    android:textSize="10dp"
-                                    android:fontFamily="@font/light"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_weight="1"
                                     android:background="@drawable/green_btn"
+                                    android:fontFamily="@font/light"
+                                    android:padding="5dp"
                                     android:text="Payment"
                                     android:textColor="@color/white"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="match_parent"  />
+                                    android:textSize="10dp" />
 
 
                             </LinearLayout>
@@ -707,14 +756,15 @@
                         </LinearLayout>
 
                     </RelativeLayout>
+
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"/>
+                        android:layout_height="20dp" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="5dp"/>
+                    android:layout_height="5dp" />
             </LinearLayout>
         </ScrollView>
 

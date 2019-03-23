@@ -73,7 +73,8 @@
                     android:layout_height="wrap_content" />
 
                     <LinearLayout
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
 
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -95,7 +96,7 @@
                             <TextView
 
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
+
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -123,7 +124,7 @@
                             <TextView
                                 android:id="@+id/projectname"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
+
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
 
@@ -150,7 +151,7 @@
 
                             <TextView
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
+
 
                                 android:text="Tenant Name : "
                                 android:textColor="@color/black"
@@ -159,7 +160,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
-                                android:layout_marginLeft="10dp"
+
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/black"
                                 android:id="@+id/teenant_name"
@@ -177,7 +178,7 @@
 
                             <TextView
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
+
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -204,7 +205,7 @@
 
                             <TextView
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
+
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -231,7 +232,7 @@
 
                             <TextView
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
+
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -253,7 +254,7 @@
                             <TextView
 
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="15dp"
+                                android:layout_marginLeft="5dp"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -283,7 +284,7 @@
 
                             <TextView
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
+
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -310,7 +311,7 @@
 
                             <TextView
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
+
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -338,7 +339,7 @@
 
                                 <TextView
                                     android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="10dp"
+
                                     android:textColor="@color/black"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/aller_rg"
@@ -366,7 +367,7 @@
 
                                 <TextView
                                     android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="10dp"
+
                                     android:textColor="@color/black"
                                     android:textStyle="bold"
                                     android:fontFamily="@font/aller_rg"
@@ -401,7 +402,7 @@
                             <TextView
                                 android:layout_weight="1"
                                 android:layout_gravity="center_vertical"
-android:gravity="center"
+android:gravity="left"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -416,7 +417,7 @@ android:gravity="center"
                             <TextView
 
                                 android:layout_weight="1"
-                                android:gravity="center"
+                                android:gravity="left"
                                 android:layout_marginRight="5dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="5dp"
@@ -437,7 +438,7 @@ android:gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:gravity="center"
+                                android:gravity="left"
                                 android:fontFamily="@font/aller_rg"
                                 android:text="Quantity"
                                 android:layout_marginRight="5dp"
@@ -454,7 +455,7 @@ android:gravity="center"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/black"
-                                android:gravity="center"
+                                android:gravity="left"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
                                 android:text="Units Price  "
@@ -467,6 +468,7 @@ android:gravity="center"
                                 android:layout_height="match_parent"/>
                             <TextView
                                 android:layout_weight="1"
+                                android:gravity="left"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/black"
@@ -491,22 +493,23 @@ android:gravity="center"
                         <LinearLayout
 
                             android:weightSum="5"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="40dp">
 
                             <TextView
-                                android:layout_weight="2.5"
-                                android:layout_gravity="center_vertical"
-                                android:gravity="left"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/fontnew"
-                                android:text="Total Excluding VAT"
-
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="2.5"
+
+                                android:fontFamily="@font/fontnew"
+                                android:gravity="left"
+
+                                android:text="Total Excluding VAT"
+                                android:textColor="@color/black" />
 
                             <TextView
 
@@ -539,6 +542,7 @@ android:gravity="center"
                             <View
                                 android:background="@color/black"
                                 android:layout_width="1dp"
+                                android:layout_marginLeft="8dp"
                                 android:layout_height="match_parent"/>
                             <TextView
                                 android:layout_weight="1"
@@ -559,61 +563,61 @@ android:gravity="center"
                             android:background="@color/black"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
-                        <LinearLayout
+                            <LinearLayout
 
-                            android:weightSum="5"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp">
+                                android:weightSum="5"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp">
 
                             <TextView
-                                android:layout_weight="2.5"
-                                android:layout_marginLeft="10dp"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:gravity="center_vertical"
-                                android:textColor="@color/black"
+                                android:layout_weight="2.5"
 
                                 android:fontFamily="@font/fontnew"
+                                android:textColor="@color/black"
+                                android:gravity="left"
                                 android:text="Total VAT"
 
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
+                            />
 
-                            <TextView
+                                <TextView
 
-                                android:layout_weight="1.09"
-                                android:gravity="center"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="5dp"
-                                android:textColor="@color/black"
+                                    android:layout_weight="1.05"
+                                    android:gravity="center"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="5dp"
+                                    android:textColor="@color/black"
 
-                                android:fontFamily="@font/fontnew"
-                                android:text=""
+                                    android:fontFamily="@font/fontnew"
+                                    android:text=""
 
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content" />
 
 
-                            <TextView
-                                android:layout_weight="0.4"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/black"
-                                android:gravity="center"
 
-                                android:fontFamily="@font/fontnew"
-                                android:text=""
+                                <TextView
+                                    android:layout_weight="0.5"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/black"
+                                    android:gravity="center"
 
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
-                            <View
-                                android:layout_marginLeft="10dp"
-                                android:background="@color/black"
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"/>
+                                    android:fontFamily="@font/fontnew"
+                                    android:text=""
+
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content" />
+                                <View
+                                    android:background="@color/black"
+                                    android:layout_width="1dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_height="match_parent"/>
                             <TextView
                                 android:gravity="end"
                                 android:layout_weight="1"
@@ -636,7 +640,7 @@ android:gravity="center"
                         <LinearLayout
 
                             android:weightSum="5"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
@@ -685,6 +689,7 @@ android:gravity="center"
                             <View
                                 android:background="@color/black"
                                 android:layout_width="1dp"
+                                android:layout_marginLeft="8dp"
                                 android:layout_height="match_parent"/>
                             <TextView
                                 android:layout_weight="1"
@@ -708,7 +713,7 @@ android:gravity="center"
                         <LinearLayout
 
                             android:weightSum="5"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
@@ -757,7 +762,7 @@ android:gravity="center"
 
                             <TextView
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
+
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -780,7 +785,7 @@ android:gravity="center"
                         <TextView
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="5dp"
                             android:textColor="@color/red"
 
                             android:fontFamily="@font/fontnew"
@@ -814,7 +819,7 @@ android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="50dp">
                             <Button
-                                android:layout_marginLeft="10dp"
+                                android:layout_marginLeft="5dp"
                                 android:padding="5dp"
                                 android:id="@+id/print_email"
                                 android:textSize="10dp"
@@ -827,7 +832,7 @@ android:gravity="center"
                                 android:layout_height="match_parent" />
 
                             <Button
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="5dp"
 
                                 android:id="@+id/payment"
                                 android:padding="5dp"

@@ -392,9 +392,7 @@ public String getEmId()
                         Utils.showAlertNavigateToInvoices(TenantChange.this, message,Connection_Disconnection_Invoice_details.class,contractNumber);
 
                         submit.setVisibility(View.GONE);
-                        Intent data = new Intent();
-                       setResult(RESULT_OK,data);
-                        finish();
+
                     } else {
                         Utils.showAlertNormal(TenantChange.this, message);
                         submit.setVisibility(View.VISIBLE);
@@ -429,10 +427,12 @@ public String getEmId()
                     case 1:
                         fronImagePath=Common.imageUri.getPath();
                         em_id_front.setBackground(bdrawable);
+                        em_id_front.setText("");
                         break;
                     case 2:
                         backImagePath=Common.imageUri.getPath();
                         em_id_back.setBackground(bdrawable);
+                        em_id_back.setText("");
                         break;
                 }
 
@@ -460,10 +460,12 @@ public String getEmId()
                     case 1:
                         fronImagePath=c.getString(columnIndex);
                         em_id_front.setBackground(bdrawable);
+                        em_id_front.setText("");
                         break;
                     case 2:
                         backImagePath=c.getString(columnIndex);
                         em_id_back.setBackground(bdrawable);
+                        em_id_back.setText("");
                         break;
                 }
                 c.close();

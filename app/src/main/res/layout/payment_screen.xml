@@ -299,6 +299,7 @@ android:inputType="numberDecimal"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent">
                                     <Button
+                                        android:text="@string/upload_hint"
                                         android:layout_margin="10dp"
                                       android:id="@+id/cheaqueImage"
                                         android:layout_centerVertical="true"
