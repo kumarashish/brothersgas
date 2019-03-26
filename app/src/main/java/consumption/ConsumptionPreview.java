@@ -39,6 +39,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,8 +103,8 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     android.widget.TextView supplier_trn;
     @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
-//public static String invoice="";
- public static String invoice="CDC-U109-19000053";
+public static String invoice="";
+ //public static String invoice="CDC-U109-19000053";/storage/sdcard0/Brothers_Gas/.1553619034324.jpg
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -252,7 +254,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
         total_includingvat.setText(model.getTotalIncludingTaxValue());
         progress.setVisibility(View.GONE);
         contentView.setVisibility(View.VISIBLE);
-        total_inwords.setText("AED "+ numToWords.convertNumberToWords((int)Math.round(Double.parseDouble(model.getTotalIncludingTaxValue())))+" Only /-");
+        total_inwords.setText(getNumberToWords(model.getTotalIncludingTaxValue()));
 
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         signature.setImageBitmap(bitmap);
@@ -260,6 +262,26 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
     }
 
+    public String getNumberToWords(String val) {
+        String words = "";
+        if (val.contains(".")) {
+            String[] value = val.split("\\.");
+            if (Integer.parseInt(value[1]) > 0) {
+                String string1 = numToWords.convertNumberToWords(Integer.parseInt(value[0]));
+                if (value[1].length() == 1) {
+                    value[1] = value[1] + "0";
+                }
+                String string2 = numToWords.convertNumberToWords(Integer.parseInt(value[1]));
+                words = "AED " + string1 + " and " + string2 + " Fils Only /-";
+
+            } else {
+                words = "AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(val))) + " Only /-";
+            }
+        }else {
+            words = "AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(val))) + " Only /-";
+        }
+        return words;
+    }
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class EmailInvoice extends AsyncTask<String, Void, String> {
 
@@ -378,14 +400,11 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
                         Toast.makeText(ConsumptionPreview.this, "Printer Ready", Toast.LENGTH_LONG).show();
                         try {
                             connection.open();
-
-
-                            Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                                    R.drawable.brogas_logo);
-                            //Bitmap signatureBitmap = Bitmap.createScaledBitmap(signatureArea.getBitmap(), 300, 200, false);
-                            Bitmap logo = Bitmap.createScaledBitmap(icon, 300, 200, false);
-
-                            // printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
+                            Bitmap signature = BitmapFactory.decodeFile(imagePath);
+                            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.brogas_logo);
+                            Bitmap signatureBitmap = Bitmap.createScaledBitmap(signature, 200, 200, false);
+                            Bitmap logo = Bitmap.createScaledBitmap(icon, 350, 200, false);
+                            printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                             sendTestLabel();
                             printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
 
@@ -480,6 +499,8 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
         }
     }
 
+
+
     private String createZplReceipt() {
         /*
          This routine is provided to you as an example of how to create a variable length label with user specified data.
@@ -520,73 +541,77 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
                     // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                    "^FO50,50" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDConsumption Invoice^FS" + "\r\n" +
+                    "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDConsumption Invoice^FS" + "\r\n" +
+                "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
 
-                    "^FO50,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
+                    "^FO20,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
 
-                   "^FO225,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getInvoice_NumberValue()+"^FS" + "\r\n" +
+                   "^FO225,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getInvoice_NumberValue()+"^FS" + "\r\n" +
 
-                    "^FO50,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDProject Name:^FS" + "\r\n" +
+                    "^FO20,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDProject Name:^FS" + "\r\n" +
 
-                    "^FO225,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getProjectnameValue()+"^FS" + "\r\n" +
+                    "^FO225,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getProjectnameValue()+"^FS" + "\r\n" +
 
-                    "^FO50,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTeenant Name^FS" + "\r\n" +
+                    "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTeenant Name^FS" + "\r\n" +
 
                     "^FO230,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getTenantNameValue()+"^FS" + "\r\n" +
 
-                    "^FO50,210" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
+                    "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
 
-                   "^FO230,210" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerNameValue()+"^FS" + "\r\n" +
-                    "^FO50,240" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN^FS" + "\r\n" +
+                   "^FO230,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerNameValue()+"^FS" + "\r\n" +
+                    "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN^FS" + "\r\n" +
 
-                    "^FO230,240" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerTRNNumberValue()+"^FS" + "\r\n" +
-                    "^FO50,280" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
+                    "^FO230,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerTRNNumberValue()+"^FS" + "\r\n" +
+                    "^FO20,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
 
-                    "^FO230,280" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerAddressValue()+"^FS" + "\r\n" +
-                    "^FO50,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier Name ^FS" + "\r\n" +
+                    "^FO230,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerAddressValue()+"^FS" + "\r\n" +
+                    "^FO20,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier Name ^FS" + "\r\n" +
 
-                    "^FO230,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getSuppliername()+"^FS" + "\r\n" +
-                "^FO50,360" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier TRN ^FS" + "\r\n" +
+                    "^FO230,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getSuppliername()+"^FS" + "\r\n" +
+                "^FO20,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier TRN ^FS" + "\r\n" +
 
-                "^FO230,360" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getSupplierTRN()+"^FS" + "\r\n" +
+                "^FO230,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getSupplierTRN()+"^FS" + "\r\n" +
 
-                "^FO50,390" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReg. Address ^FS" + "\r\n" +
+                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReg. Address ^FS" + "\r\n" +
 
-                "^FO230,390" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getRegisteredAddress()+"^FS" + "\r\n" +
-                "^FO50,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name & User Id ^FS" + "\r\n" +
+                "^FO230,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getRegisteredAddress()+"^FS" + "\r\n" +
+                "^FO20,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
 
-                "^FO230,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUserNameValue()+"&"+con_dconnModel.getUserIDValue()+"^FS" + "\r\n" +
+                "^FO230,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUserNameValue()+"^FS" + "\r\n" +
+                "^FO20,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
 
-                "^FO50,450" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
+                "^FO230,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUserIDValue()+"^FS" + "\r\n" +
 
-                "^FO230,450" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(con_dconnModel.getDateValue())+"&"+con_dconnModel.getTimeValue()+"^FS" + "\r\n" +
-                "^FO50,470" + "\r\n" + "^GB490,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
 
-                "^FO50,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPrevious Reading ^FS" + "\r\n" +
+                "^FO230,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(con_dconnModel.getDateValue())+" & "+con_dconnModel.getTimeValue()+"^FS" + "\r\n" +
+                "^FO20,570" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
 
-                "^FO230,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPreviousMeterreadingValue()+"^FS" + "\r\n" +
+                "^FO20,600" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPrevious Reading ^FS" + "\r\n" +
 
-                "^FO50,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCurrent Reading ^FS" + "\r\n" +
+                "^FO260,600" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPreviousMeterreadingValue()+"^FS" + "\r\n" +
 
-                "^FO230,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPresentMeterreadingValue()+"^FS" + "\r\n" +
+                "^FO20,640" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCurrent Reading ^FS" + "\r\n" +
 
-                "^FO50,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPresent Reading ^FS" + "\r\n" +
+                "^FO260,640" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPresentMeterreadingValue()+"^FS" + "\r\n" +
 
-                "^FO230,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPresentMeterreadingValue()+"^FS" + "\r\n" +
-                "^FO50,620" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUnits Consumed ^FS" + "\r\n" +
+                "^FO20,680" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPresent Reading ^FS" + "\r\n" +
 
-                "^FO230,620" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUnitsConsumed()+"^FS" + "\r\n" +
+                "^FO260,680" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPresentMeterreadingValue()+"^FS" + "\r\n" +
+                "^FO20,720" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUnits Consumed ^FS" + "\r\n" +
 
-                "^FO50,660" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPressure Factor ^FS" + "\r\n" +
+                "^FO260,720" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUnitsConsumed()+"^FS" + "\r\n" +
 
-                "^FO230,660" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPressureFactorValue()+"^FS" + "\r\n" +
-                "^FO50,700" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDActual Units ^FS" + "\r\n" +
+                "^FO20,760" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPressure Factor ^FS" + "\r\n" +
 
-                "^FO230,700" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getActualUnitConsumedValue()+"^FS" + "\r\n" +
+                "^FO260,760" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPressureFactorValue()+"^FS" + "\r\n" +
+                "^FO20,800" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDActual Units ^FS" + "\r\n" +
 
-                "^FO50,730" + "\r\n" + "^GB350,5,5,B,0^FS";
+                "^FO260,800" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getActualUnitConsumedValue()+"^FS" + "\r\n" +
 
-        int headerHeight =750;
+                "^FO20,840" + "\r\n" + "^GB500,5,5,B,0^FS";
+
+        int headerHeight =850;
 
 
 
@@ -596,41 +621,56 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
         float totalPrice = 0;
 
-        // Map<String, String> itemsToPrint = createListOfItems();
+         Map<String, String> itemsToPrint = createListOfItems();
 
         int i = 0;
-//        for (String productName : itemsToPrint.keySet()) {
-//            String price = itemsToPrint.get(productName);
-//
-//            String lineItem = "^FO50,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO280,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FD$%s^FS";
-//            totalPrice += Float.parseFloat(price);
-//            int totalHeight = i++ * heightOfOneLine;
-//            body += String.format(lineItem, totalHeight, productName, totalHeight, price);
-//
-//        }
+        for (String productName : itemsToPrint.keySet()) {
+            String price = itemsToPrint.get(productName);
+            productName=getFormattedName(productName );
 
-        // long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
-        long totalBodyHeight =0;
+            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO320,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAED %s^FS";
 
-        long footerStartPosition = headerHeight;
+            int totalHeight = i++ * heightOfOneLine;
+            body += String.format(lineItem, totalHeight, productName, totalHeight, price);
+
+        }
+
+         long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
+       // long totalBodyHeight =0;
+
+        long footerStartPosition = headerHeight+totalBodyHeight;
+
+
+
+
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO50,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Inc.VAT)^FS" + "\r\n" +
+                "^FO20,00" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO20,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Exc.VAT)^FS" + "\r\n" +
 
-                "^FO280,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalIncludingTaxValue()+"^FS" + "\r\n" +
-                "^FO50,40" + "\r\n" + "^GB350,5,5,B,0^FS"+
+                "^FO320,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalExcludingTaxValue()+"^FS" + "\r\n" +
+                "^FO20,55" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal VAT^FS" + "\r\n" +
 
-                "^FO50,70" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+                "^FO320,55" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalVatValue()+"^FS" + "\r\n" +
 
-                "^FO280,70" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED "+numToWords.convertNumberToWords((int)Math.round(Double.parseDouble(con_dconnModel.getTotalIncludingTaxValue())))+"/-^FS" + "\r\n" +
-                "^FO50,100" + "\r\n" + "^GB280,5,5,B,0^FS"+
 
-                "^FO50,120" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
+                "^FO20,95" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Inc.VAT)^FS" + "\r\n" +
 
-                "^FO50,150" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO320,95" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalIncludingTaxValue()+"^FS" + "\r\n" +
+                "^FO20,135" + "\r\n" + "^GB500,5,5,B,0^FS"+
 
-        long footerHeight = 200;
+                "^FO20,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+
+                "^FO320,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED "+getNumberToWords(con_dconnModel.getTotalIncludingTaxValue())+"^FS" + "\r\n" +
+                "^FO20,215" + "\r\n" + "^GB500,5,5,B,0^FS"+
+
+                "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
+                "^FO20,295" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDSignature!^FS" + "\r\n" +
+
+                "^FO20,335" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+
+        long footerHeight = 350;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
 
@@ -641,4 +681,33 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
         return wholeZplLabel;
     }
+
+    private Map<String, String> createListOfItems() {
+           Map<String, String> retVal = new HashMap<String, String>();
+           int j=1;
+
+        for (int i = 0; i < con_dconnModel.getDetails_list().size();i++) {
+            Connection_Disconnection_Invoice_Preview_Model.BillDetails model=con_dconnModel.getDetails_list().get(i);
+            retVal.put("Vat"+j+" @"+model.getVat_percentageValue()+"%", model.getVatAmountValue());
+            retVal.put(model.getItemNameValue(), model.getTotalpriceValue());
+            j++;
+        }
+        return retVal;
+    }
+
+    public String getFormattedName(String value)
+    {if(value.contains("@")) {
+        String [] val=value.split("@");
+        switch (val[0].trim()) {
+            case "Vat1":
+            case "Vat2":
+            case "Vat3":
+            case "Vat4":
+            case "Vat5":
+                return "Vat @ "+val[1];
+        }
+    }
+        return value;
+    }
+
 }

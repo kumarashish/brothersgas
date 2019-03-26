@@ -1,31 +1,52 @@
 package invoices;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brothersgas.R;
+import com.zebra.sdk.comm.BluetoothConnection;
+import com.zebra.sdk.comm.Connection;
+import com.zebra.sdk.comm.ConnectionException;
+import com.zebra.sdk.graphics.internal.ZebraImageAndroid;
+import com.zebra.sdk.printer.PrinterStatus;
+import com.zebra.sdk.printer.SGD;
+import com.zebra.sdk.printer.ZebraPrinter;
+import com.zebra.sdk.printer.ZebraPrinterFactory;
+import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
+import com.zebra.sdk.printer.ZebraPrinterLinkOs;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 import common.NumberToWords;
+import common.SettingsHelper;
 import common.WebServiceAcess;
+import consumption.ConsumptionPreview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
 import model.Deposit_Invoice_Model;
 import payment.PaymentReceipt;
@@ -65,7 +86,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-   //public static String invoice="DMR-U109-19000202";
+    //public static String invoice="DMR-U109-19000202";
     public static String invoice ;
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
@@ -86,12 +107,17 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     Button print_email;
     @BindView(R.id.payment)
     Button payment;
-
+    Deposit_Invoice_Model model;
+    AlertDialog printDialog;
+    ProgressDialog dialog;
+    private Connection connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.deposit_invoice_preview);
         ButterKnife.bind(this);
+        dialog=new ProgressDialog(DepositInvoicePreview.this);
+        dialog.setMessage("Priniting....");
         webServiceAcess = new WebServiceAcess();
         controller = (AppController) getApplicationContext();
         numToWords = new NumberToWords();
@@ -141,7 +167,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
             Log.e("value", "onPostExecute: ", null);
             if (s.length() > 0) {
                 try {
-                    Deposit_Invoice_Model model = new  Deposit_Invoice_Model(s);
+                    model = new  Deposit_Invoice_Model(s);
                     if (model.getStatus() == 2) {
                         setValues(model);
                     }
@@ -191,11 +217,11 @@ if(model.getTotalIncludingTaxValue()==null)
 {
     String totalval=getTotal(model);
     total.setText(totalval);
-    total_inwords.setText("AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(totalval))) + " Only /-");
+    total_inwords.setText(getNumberToWords(totalval));
 
 }else {
     total.setText(model.getTotalIncludingTaxValue());
-    total_inwords.setText("AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(model.getTotalIncludingTaxValue()))) + " Only /-");
+    total_inwords.setText(getNumberToWords(model.getTotalIncludingTaxValue()));
 }
 
        progress.setVisibility(View.GONE);
@@ -250,7 +276,8 @@ if(model.getTotalIncludingTaxValue()==null)
                         }else {
                             print_email.setVisibility(View.GONE);
                         }
-                        Utils.showAlertNormal(DepositInvoicePreview.this,message);
+                        showPrintAlertDialog();
+                        Toast.makeText(DepositInvoicePreview.this,message,Toast.LENGTH_SHORT).show();
 
                     }else{
                         Utils.showAlertNormal(DepositInvoicePreview.this,message);
@@ -268,6 +295,353 @@ if(model.getTotalIncludingTaxValue()==null)
             }
 
         }
+    }
+
+    public void showPrintAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.printer_popup, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText edt = (EditText) dialogView.findViewById(R.id.macInput);
+        edt.setText(SettingsHelper.getBluetoothAddress(DepositInvoicePreview.this));
+        Button submit=(Button)dialogView.findViewById(R.id.print);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(edt.getText().toString().length()>0) {
+                    dialog.show();;
+                    performTest(edt.getText().toString());
+                }else{
+                    Toast.makeText(DepositInvoicePreview.this,"Please enter mac address",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+        printDialog = dialogBuilder.create();
+        printDialog.show();
+    }
+    public void performTest(final String macaddress) {
+        new Thread(new Runnable() {
+            public void run() {
+                Looper.prepare();
+                doPerformTest(macaddress);
+                Looper.loop();
+                Looper.myLooper().quit();
+            }
+        }).start();
+
+    }
+
+    public void showAlert()
+    {
+
+    }
+
+    /**
+     * This method is used to create a new alert dialog to sign and print and implements best practices to check the status of the printer.
+     */
+    public void doPerformTest(String macAddress) {
+
+        connection = new BluetoothConnection(macAddress);
+
+        try {
+            connection.open();
+            final ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
+            ZebraPrinterLinkOs linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
+            PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
+            getPrinterStatus();
+            if (printerStatus.isReadyToPrint) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(DepositInvoicePreview.this, "Printer Ready", Toast.LENGTH_LONG).show();
+                        try {
+                            connection.open();
+                            Bitmap signature = BitmapFactory.decodeFile(imagePath);
+                            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.brogas_logo);
+                            Bitmap signatureBitmap = Bitmap.createScaledBitmap(signature, 200, 200, false);
+                            Bitmap logo = Bitmap.createScaledBitmap(icon, 350, 200, false);
+                            printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
+                            sendTestLabel();
+                            printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
+
+
+                            //  printer.sendFileContents("^FT78,76^A0N,28,28^FH_^FDHello_0AWorld^FS");
+
+                            connection.close();
+                            Toast.makeText(DepositInvoicePreview.this, "Receipt Printed Sucessfully.", Toast.LENGTH_LONG).show();
+                            dialog.cancel();
+
+                        } catch (ConnectionException e) {
+                            dialog.cancel();
+                            Utils.showAlertNormal(DepositInvoicePreview.this,e.getMessage());
+                        }
+
+                    }
+                });
+
+
+
+
+            } else if (printerStatus.isHeadOpen) {
+                Utils.showAlertNormal(DepositInvoicePreview.this,"Error: Head Open \nPlease Close Printer Head to Print");
+                dialog.cancel();
+            } else if (printerStatus.isPaused) {
+                Utils.showAlertNormal(DepositInvoicePreview.this,"Error: Printer Paused");
+                dialog.cancel();
+            } else if (printerStatus.isPaperOut) {
+                Utils.showAlertNormal(DepositInvoicePreview.this,"Error: Media Out \nPlease Load Media to Print");
+                dialog.cancel();
+            } else {
+                Utils.showAlertNormal(DepositInvoicePreview.this,"Error: Please check the Connection of the Printer");
+                dialog.cancel();
+            }
+
+            connection.close();
+            getAndSaveSettings(macAddress);
+            if(printDialog!=null)
+            {
+                printDialog.cancel();
+            }
+        } catch (ConnectionException e) {
+            Utils.showAlertNormal(DepositInvoicePreview.this,e.getMessage());
+        } catch (ZebraPrinterLanguageUnknownException e) {
+            Utils.showAlertNormal(DepositInvoicePreview.this,e.getMessage());
+        } finally {
+
+        }
+
+    }
+
+    /* * This method implements the best practices to check the language of the printer and set the language of the printer to ZPL.
+     *
+     * @throws ConnectionException
+     */
+    private void getPrinterStatus() throws ConnectionException{
+
+
+        final String printerLanguage = SGD.GET("device.languages", connection); //This command is used to get the language of the printer.
+
+        final String displayPrinterLanguage = "Printer Language is " + printerLanguage;
+
+        SGD.SET("device.languages", "zpl", connection); //This command set the language of the printer to ZPL
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(DepositInvoicePreview.this, displayPrinterLanguage + "\n" + "Language set to ZPL", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    /**
+     * This method saves the entered address of the printer.
+     */
+
+    private void getAndSaveSettings(String macAddress) {
+        SettingsHelper.saveBluetoothAddress(DepositInvoicePreview.this, macAddress);
+
+    }
+
+
+    private void sendTestLabel() {
+        try {
+            byte[] configLabel = createZplReceipt().getBytes();
+            connection.write(configLabel);
+
+        } catch (ConnectionException e) {
+        }
+    }
+
+
+
+    private String createZplReceipt() {
+        /*
+         This routine is provided to you as an example of how to create a variable length label with user specified data.
+         The basic flow of the example is as follows
+            Header of the label with some variable data
+            Body of the label
+                Loops thru user content and creates small line items of printed material
+            Footer of the label
+
+         As you can see, there are some variables that the user provides in the header, body and footer, and this routine uses that to build up a proper ZPL string for printing.
+         Using this same concept, you can create one label for your receipt header, one for the body and one for the footer. The body receipt will be duplicated as many items as there are in your variable data
+
+         */
+
+
+
+
+        /*
+         Some basics of ZPL. Find more information here : http://www.zebra.com/content/dam/zebra/manuals/en-us/printer/zplii-pm-vol2-en.pdf
+
+         ^XA indicates the beginning of a label
+         ^PW sets the width of the label (in dots)
+         ^MNN sets the printer in continuous mode (variable length receipts only make sense with variably sized labels)
+         ^LL sets the length of the label (we calculate this value at the end of the routine)
+         ^LH sets the reference axis for printing.
+            You will notice we change this positioning of the 'Y' axis (length) as we build up the label. Once the positioning is changed, all new fields drawn on the label are rendered as if '0' is the new home position
+         ^FO sets the origin of the field relative to Label Home ^LH
+         ^A sets font information
+         ^FD is a field description
+         ^GB is graphic boxes (or lines)
+         ^B sets barcode information
+         ^XZ indicates the end of a label
+         */
+
+        String  tmpHeader=   "^XA" +
+
+                "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
+
+                // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
+
+                "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDDeposit Invoice^FS" + "\r\n" +
+                "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+
+                "^FO20,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
+
+                "^FO225,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoice_NumberValue()+"^FS" + "\r\n" +
+
+                "^FO20,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDProject Name:^FS" + "\r\n" +
+
+                "^FO225,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getProjectnameValue()+"^FS" + "\r\n" +
+
+                "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTeenant Name^FS" + "\r\n" +
+
+                "^FO230,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getTenantNameValue()+"^FS" + "\r\n" +
+
+                "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
+
+                "^FO230,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerNameValue()+"^FS" + "\r\n" +
+                "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN^FS" + "\r\n" +
+
+                "^FO230,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerTRNNumberValue()+"^FS" + "\r\n" +
+                "^FO20,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
+
+                "^FO230,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
+                "^FO20,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier Name ^FS" + "\r\n" +
+
+                "^FO230,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getSuppliername()+"^FS" + "\r\n" +
+                "^FO20,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier TRN ^FS" + "\r\n" +
+
+                "^FO230,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getSupplierTRN()+"^FS" + "\r\n" +
+
+                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReg. Address ^FS" + "\r\n" +
+
+                "^FO230,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getRegisteredAddress()+"^FS" + "\r\n" +
+                "^FO20,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
+
+                "^FO230,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserNameValue()+"^FS" + "\r\n" +
+                "^FO20,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
+
+                "^FO230,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserIDValue()+"^FS" + "\r\n" +
+
+                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
+
+                "^FO230,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(model.getDateValue())+" & "+model.getTimeValue()+"^FS" + "\r\n" +
+                "^FO20,570" + "\r\n" + "^GB500,5,5,B,0^FS";
+
+        int headerHeight =610;
+
+
+
+        String body = String.format("^LH0,%d", headerHeight);
+
+        int heightOfOneLine = 40;
+
+        float totalPrice = 0;
+
+        Map<String, String> itemsToPrint = createListOfItems();
+
+        int i = 0;
+        for (String productName : itemsToPrint.keySet()) {
+            String price = itemsToPrint.get(productName);
+            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO320,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAED %s^FS";
+            int totalHeight = i++ * heightOfOneLine;
+            body += String.format(lineItem, totalHeight, productName, totalHeight, price);
+
+        }
+
+        long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
+        // long totalBodyHeight =0;
+
+        long footerStartPosition = headerHeight+totalBodyHeight;
+
+
+
+        String totalval=getTotal(model);
+
+
+        String footer = String.format("^LH0,%d" + "\r\n" +
+
+                "^FO20,00" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO20,40" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
+
+                "^FO320,40" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+totalval+"^FS" + "\r\n" +
+                "^FO20,80" + "\r\n" + "^GB500,5,5,B,0^FS"+
+
+                "^FO20,120" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+
+                "^FO320,120" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+getNumberToWords(totalval)+"^FS" + "\r\n" +
+                "^FO20,160" + "\r\n" + "^GB500,5,5,B,0^FS"+
+
+                "^FO20,200" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
+                "^FO20,240" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDSignature!^FS" + "\r\n" +
+
+                "^FO20,280" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+
+        long footerHeight = 290;
+        long labelLength = headerHeight + totalBodyHeight + footerHeight;
+
+
+
+        String header = String.format(tmpHeader, labelLength,Utils.getNewDate(model.getDate()));
+
+        String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+
+        return wholeZplLabel;
+    }
+
+    private Map<String, String> createListOfItems() {
+        Map<String, String> retVal = new HashMap<String, String>();
+        int j=1;
+
+        for (int i = 0; i < model.getDetails_list().size();i++) {
+         Deposit_Invoice_Model.BillDetails modell=model.getDetails_list().get(i);
+
+            retVal.put(modell.getItemNameValue(), modell.getTotalpriceValue());
+            j++;
+        }
+        return retVal;
+    }
+
+
+    public String getNumberToWords(String val) {
+        String words = "";
+        if (val.contains(".")) {
+            String[] value = val.split("\\.");
+            if (Integer.parseInt(value[1]) > 0) {
+                String string1 = numToWords.convertNumberToWords(Integer.parseInt(value[0]));
+                if (value[1].length() == 1) {
+                    value[1] = value[1] + "0";
+                }
+                String string2 = numToWords.convertNumberToWords(Integer.parseInt(value[1]));
+                words = "AED " + string1 + " and " + string2 + " Fils Only /-";
+
+            } else {
+                words = "AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(val))) + " Only /-";
+            }
+        }else {
+            words = "AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(val))) + " Only /-";
+        }
+        return words;
     }
 
 }
