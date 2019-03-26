@@ -87,8 +87,8 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     Button back_button;
     AppController controller;
     WebServiceAcess webServiceAcess;
-// public static String invoice="RMRC-U1L1900113";
-public static String invoice="";
+//public static String invoice="RMRC-U1L1900113";
+    public static String invoice="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -499,31 +499,32 @@ ProgressDialog dialog;
 
                     // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                    "^FO50,50" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
+                    "^FO20,20" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
+                    "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
 
-                    "^FO50,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
+                    "^FO20,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
 
-                    "^FO225,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
+                    "^FO260,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
 
-                    "^FO50,130" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
+                    "^FO20,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
 
-                    "^FO225,130" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
+                    "^FO260,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
 
-                    "^FO50,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
+                    "^FO20,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
 
-                    "^FO230,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
+                    "^FO260,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
 
-                    "^FO50,200" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
+                    "^FO20,210" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
 
-                    "^FO230,200" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
+                    "^FO260,210" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
 
-                    "^FO50,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
+                    "^FO20,250" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
 
-                    "^FO230,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
+                    "^FO260,250" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
 
 
-                    "^FO50,250" + "\r\n" + "^GB350,5,5,B,0^FS";
-             headerHeight =260;
+                    "^FO20,300" + "\r\n" + "^GB500,5,5,B,0^FS";
+             headerHeight =310;
         }else{
 
         /*
@@ -549,37 +550,39 @@ ProgressDialog dialog;
 
                             // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                            "^FO50,50" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
+                    "^FO20,20" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
+                    "^FO20,20" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
 
-                            "^FO50,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
+                    "^FO20,60" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
 
-                            "^FO225,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
+                    "^FO260,60" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
 
-                            "^FO50,130" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
+                    "^FO20,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
 
-                            "^FO225,130" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
+                    "^FO260,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
 
-                            "^FO50,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
+                    "^FO20,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
 
-                            "^FO230,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
+                    "^FO260,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
 
-                            "^FO50,200" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
+                    "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
 
-                            "^FO230,200" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
-                            "^FO50,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Number^FS" + "\r\n" +
+                    "^FO260,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
 
-                            "^FO230,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getChequeNumberValue()+"^FS" + "\r\n" +
-                            "^FO50,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDBank^FS" + "\r\n" +
+                            "^FO20,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Number^FS" + "\r\n" +
 
-                            "^FO230,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getBankValue()+"^FS" + "\r\n" +
-                            "^FO50,290" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
+                            "^FO260,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getChequeNumberValue()+"^FS" + "\r\n" +
+                            "^FO20,280" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDBank^FS" + "\r\n" +
 
-                            "^FO230,290" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
+                            "^FO260,280" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getBankValue()+"^FS" + "\r\n" +
+                            "^FO20,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
+
+                            "^FO260,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
 
 
-                            "^FO50,310" + "\r\n" + "^GB350,5,5,B,0^FS";
+                            "^FO20,360" + "\r\n" + "^GB500,5,5,B,0^FS";
 
-            headerHeight =320;
+            headerHeight =370;
         }
 
 
@@ -609,21 +612,21 @@ ProgressDialog dialog;
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO50,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
+                "^FO20,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
 
-                "^FO230,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getAmountValue()+"^FS" + "\r\n" +
-                "^FO50,40" + "\r\n" + "^GB350,5,5,B,0^FS"+
+                "^FO260,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getAmountValue()+"^FS" + "\r\n" +
+                "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+
 
-                "^FO50,70" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+                "^FO20,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
 
-                "^FO230,70" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED "+numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(model.getAmountValue())))+"/-^FS" + "\r\n" +
-                "^FO50,100" + "\r\n" + "^GB280,5,5,B,0^FS"+
+                "^FO260,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+getNumberToWords(model.getAmountValue())+"^FS" + "\r\n" +
+                "^FO20,160" + "\r\n" + "^GB500,5,5,B,0^FS"+
 
-                "^FO50,120" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
+                "^FO20,200" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
 
-                "^FO50,150" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO20,240" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight = 200;
+        long footerHeight = 250;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
         Date date = new Date();
@@ -637,7 +640,26 @@ ProgressDialog dialog;
         return wholeZplLabel;
     }
 
+    public String getNumberToWords(String val) {
+        String words = "";
+        if (val.contains(".")) {
+            String[] value = val.split("\\.");
+            if (Integer.parseInt(value[1]) > 0) {
+                String string1 = numToWords.convertNumberToWords(Integer.parseInt(value[0]));
+                if (value[1].length() == 1) {
+                    value[1] = value[1] + "0";
+                }
+                String string2 = numToWords.convertNumberToWords(Integer.parseInt(value[1]));
+                words = "AED " + string1 + " and " + string2 + " Fils Only /-";
 
+            } else {
+                words = "AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(val))) + " Only /-";
+            }
+        }else {
+            words = "AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(val))) + " Only /-";
+        }
+        return words;
+    }
 
 }
 
