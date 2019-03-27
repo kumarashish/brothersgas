@@ -23,7 +23,7 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="payment.PaymentReceiptPreview">
+        <activity android:name=".Enquiry">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,7 +70,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="activatecontract.ContractListForActivation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Enquiry"
+        <activity android:name=".Splash"
             android:screenOrientation="portrait"/>
         <activity android:name="activatecontract.TenantChange"
             android:screenOrientation="portrait"/>
@@ -81,7 +81,7 @@
         <activity android:name="invoices.DepositInvoicePreview"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Splash"
+            android:name="payment.PaymentReceiptPreview"
             android:screenOrientation="portrait"/>
         <activity android:name="invoices.Consumption_DeliveryNote_Preview"
             android:screenOrientation="portrait"/>

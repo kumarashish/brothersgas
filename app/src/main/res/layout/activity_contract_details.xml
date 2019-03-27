@@ -355,8 +355,8 @@
                         android:maxLength="10"
                         android:enabled="false"
                         android:text=""
-                        android:textSize="16dp"
-android:focusable="false"
+                        android:textSize="14dp"
+                        android:focusable="false"
 
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
@@ -393,7 +393,8 @@ android:focusable="false"
                         android:maxLength="10"
                         android:enabled="false"
                         android:text=""
-                        android:textSize="16dp"
+                        android:textSize="14dp"
+
 
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"

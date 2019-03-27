@@ -339,6 +339,5 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
         }
         Deposit_Invoice.setText(model.getDeposit_Invoice() );
         Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
-
     }
 }

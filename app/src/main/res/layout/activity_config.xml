@@ -55,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:digits="0123456789."
+                android:digits="
+"
                 android:hint="IP ADDRESS"
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
