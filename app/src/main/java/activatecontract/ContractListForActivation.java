@@ -172,15 +172,24 @@ public class ContractListForActivation extends Activity implements View.OnClickL
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONObject tab=result.getJSONObject("TAB");
-                    JSONArray jsonArray = tab.getJSONArray("LIN");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject item = jsonArray.getJSONObject(i);
-                        ContractModel model = new ContractModel(item.getJSONArray("FLD"));
-                        Log.d("contractId", model.getContract_Meternumber());
+                    Object obj=tab.get("LIN");
+                    if(obj instanceof JSONArray) {
+                        JSONArray jsonArray = tab.getJSONArray("LIN");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject item = jsonArray.getJSONObject(i);
+                            ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+                            Log.d("contractId", model.getContract_Meternumber());
 
                             blockedlist.add(model);
 
 
+                        }
+                    }else{
+                        JSONObject item =tab.getJSONObject("LIN");
+                        ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+                        Log.d("contractId", model.getContract_Meternumber());
+
+                        blockedlist.add(model);
 
                     }
 
@@ -196,6 +205,10 @@ public class ContractListForActivation extends Activity implements View.OnClickL
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
+                    progressBar.setVisibility(View.GONE);
+
+                    Toast.makeText(ContractListForActivation.this, "Data not found", Toast.LENGTH_SHORT).show();
+
                 }
             } else {
                 progressBar.setVisibility(View.GONE);

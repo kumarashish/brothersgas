@@ -86,6 +86,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     EditText in_meter_reading;
     @BindView(R.id.in_meterReading_View)
     LinearLayout in_meterReading_View;
+    public static boolean isCalledFromTenanatChange=false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,10 +100,15 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         con_dconInvoice.setOnClickListener(this);
         dep_Invoice.setOnClickListener(this);
         initial_meter_readingTv.setText("Initial Meter Reading");
-        edit.setVisibility(View.VISIBLE);
+       if(isCalledFromTenanatChange==false) {
+           edit.setVisibility(View.VISIBLE);
+       }else{
+           edit.setVisibility(View.GONE);
+       }
         edit.setOnClickListener(this);
         submit.setOnClickListener(this);
         back.setOnClickListener(this);
+
         if (Utils.isNetworkAvailable(Connection_Disconnection_Invoice_details.this)) {
             progressBar.setVisibility(View.VISIBLE);
             mainLayout.setVisibility(View.GONE);
@@ -215,8 +221,14 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
             footer.setVisibility(View.VISIBLE);
             dep_Invoice.setVisibility(View.VISIBLE);
             con_dconInvoice.setVisibility(View.VISIBLE);
-            edit.setVisibility(View.VISIBLE);
+            if(isCalledFromTenanatChange==false) {
+                edit.setVisibility(View.VISIBLE);
+            }else{
+                edit.setVisibility(View.GONE);
+            }
+
         }
+
         else {
             if (model.getDeposit_Invoice().length() > 0) {
                 dep_Invoice.setVisibility(View.INVISIBLE);
@@ -376,5 +388,11 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
             }
             footer.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        isCalledFromTenanatChange=false;
+        super.onDestroy();
     }
 }

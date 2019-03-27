@@ -555,49 +555,49 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
                 // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                "^FO20,20" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDEnquiry^FS" + "\r\n" +
+                "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDEnquiry("+startDate.getText().toString()+" - "+endDate.getText().toString()+")^FS" + "\r\n" +
                 "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
 
-                "^FO20,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDGenerated Invoices(Count):^FS" + "\r\n" +
+                "^FO20,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDGenerated Invoices :^FS" + "\r\n" +
 
                 "^FO380,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_invoices() + "^FS" + "\r\n" +
 
-                "^FO20,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCash Payment(Count):^FS" + "\r\n" +
+                "^FO20,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCash Payment :^FS" + "\r\n" +
 
                 "^FO380,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cash_Payments() + "^FS" + "\r\n" +
 
-                "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCash Amount Collected^FS" + "\r\n" +
+                "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCash Amount Collected : ^FS" + "\r\n" +
 
                 "^FO380,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Cash_payments_amount() + "^FS" + "\r\n" +
 
-                "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Payments(Count)^FS" + "\r\n" +
+                "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Payments : ^FS" + "\r\n" +
 
                 "^FO380,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cheque_Payments() + "^FS" + "\r\n" +
 
-                "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDToal(Cash+Cheque) Amount^FS" + "\r\n" +
+                "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal(Cash+Cheque) Amount : ^FS" + "\r\n" +
 
                 "^FO380,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Cheque_and_cheque_payments_amount() + "^FS" + "\r\n" +
                 "^FO20,300" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
 
-                "^FO20,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDNumber of New Connections^FS" + "\r\n" +
+                "^FO200,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDNumber of New Connections ^FS" + "\r\n" +
 
                 "^FO380,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD^FS" + "\r\n" +
 
-                "^FO20,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Change^FS" + "\r\n" +
+                "^FO20,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Change : ^FS" + "\r\n" +
 
                 "^FO380,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Connections() + "^FS" + "\r\n" +
 
 
-                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDeposit_Conn_DisConn.^FS" + "\r\n" +
+                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDeposit_Conn_DisConn. : ^FS" + "\r\n" +
 
                 "^FO380,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
 
                 "^FO20,460" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
 
-                "^FO20,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal Dep.Invoice ^FS" + "\r\n" +
+                "^FO20,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal Dep.Invoice Amount : ^FS" + "\r\n" +
 
                 "^FO380,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Deposite_Invoices_amount() + "^FS" + "\r\n" +
-                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDConn_DisConn.Invoice Amount ^FS" + "\r\n" +
+                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDConn_DisConn.Invoice Amount : ^FS" + "\r\n" +
 
                 "^FO380,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Disconnection_Invoices_amount() + "^FS" + "\r\n" +
 

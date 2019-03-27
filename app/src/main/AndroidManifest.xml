@@ -23,7 +23,7 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Enquiry">
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,7 +70,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="activatecontract.ContractListForActivation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Splash"
+        <activity android:name=".Enquiry"
             android:screenOrientation="portrait"/>
         <activity android:name="activatecontract.TenantChange"
             android:screenOrientation="portrait"/>

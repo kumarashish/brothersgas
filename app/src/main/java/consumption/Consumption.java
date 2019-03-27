@@ -287,7 +287,7 @@ public class Consumption  extends Activity implements View.OnClickListener {
                 break;
             case R.id.submit:
              if(contractNumber.getText().length()>0)
-             {if((meterProblem.isChecked())&&(!model.getPreviousReading().equalsIgnoreCase("0")))
+             {if((meterProblem.isChecked())&&(!model.getPreviousReading().equalsIgnoreCase("0"))||(model.getUnitsValue().trim().equalsIgnoreCase("C3")))
              {
                  new GenerateInvoice().execute();
              }else {
@@ -458,18 +458,22 @@ public class Consumption  extends Activity implements View.OnClickListener {
                     JSONArray jsonArray=result.getJSONArray("GRP");
                     JSONObject item=jsonArray.getJSONObject(1);
                     model=new model.ContractDetails(item.getJSONArray("FLD"));
-                    if(model!=null)
-                    {
+                    if(model!=null) {
                         progressDialog.cancel();
 
                         previousDate.setText(Utils.getDate(model.getPreviousDate()));
-                        if((model.getPreviousReading().length()==0)||(model.getPreviousReading().equalsIgnoreCase("0")))
-                        {
-                            previousReading.setText(model.getInitial_meter_reading()+ " " + model.getUnits());
-                        }else {
-                            previousReading.setText(model.getPreviousReading()+ " " + model.getUnits());
+                        if ((model.getPreviousReading().length() == 0) || (model.getPreviousReading().equalsIgnoreCase("0"))) {
+                            previousReading.setText(model.getInitial_meter_reading() + " " + model.getUnits());
+                        } else {
+                            previousReading.setText(model.getPreviousReading() + " " + model.getUnits());
                         }
 
+
+                        if (model.getUnitsValue().trim().equalsIgnoreCase("C3"))
+                        {
+                            currentReading.setEnabled(false);
+                            retype_currentReading.setEnabled(false);
+                        }
                     }
                 }catch (Exception ex)
                 {

@@ -389,6 +389,7 @@ public String getEmId()
                     String message = messageObject.isNull("content") ? "Message not available" : messageObject.getString("content");
                     if (message.contains("New")) {
                         contract_number.setText(contractNumber);
+                        Connection_Disconnection_Invoice_details.isCalledFromTenanatChange=true;
                         Utils.showAlertNavigateToInvoices(TenantChange.this, message,Connection_Disconnection_Invoice_details.class,contractNumber);
 
                         submit.setVisibility(View.GONE);

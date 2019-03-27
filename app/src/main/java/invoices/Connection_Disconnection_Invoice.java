@@ -171,7 +171,7 @@ public class GetData extends AsyncTask<String,Void,String> {
 //                    }
                 }
                 if (unblockedlist.size() > 0) {
-                   adapter= new ContractListAdapter(unblockedlist, Connection_Disconnection_Invoice.this);
+                    adapter= new ContractListAdapter(unblockedlist, Connection_Disconnection_Invoice.this);
                     listView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                     contentView.setVisibility(View.VISIBLE);

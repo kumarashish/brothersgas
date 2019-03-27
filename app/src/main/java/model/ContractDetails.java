@@ -135,6 +135,9 @@ public String currentMeterReading="";
     public String getUnits() {
         return "";
     }
+    public String getUnitsValue() {
+        return units;
+    }
 
     public void setConnection_Disconnection_Invoice(String connection_Disconnection_Invoice) {
         Connection_Disconnection_Invoice = connection_Disconnection_Invoice;
