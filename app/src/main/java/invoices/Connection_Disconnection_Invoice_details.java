@@ -263,7 +263,6 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     JSONArray Fld = item.getJSONArray("FLD");
                     JSONObject messageJsonObject=Fld.getJSONObject(1);
                     JSONObject depJsonObject=Fld.getJSONObject(0);
-
                     String message =messageJsonObject.isNull("content")?"No Message From API": messageJsonObject.getString("content");
                     String depInvoice=depJsonObject.isNull("content")?"": depJsonObject.getString("content");
                     if((message.contains("Invoice Already Exists")||message.contains("No Message From API")))
@@ -276,7 +275,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                         //
                         {   model.setDeposit_Invoice(depInvoice);
                             model.setContractNumber(contractId);
-                            model.setCustomerName(contractModel.getCustomercode());
+                            model.setCustomerName(model.getCustomer_value());
                             Deposit_Invoice.setText(model.getDeposit_Invoice());
                             if(model.getDeposit_Invoice().length()>0) {
                                 Print_Email.model = model;
@@ -293,7 +292,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
 
                                 model.setConnection_Disconnection_Invoice(depInvoice);
                                 model.setContractNumber(contractId);
-                               model.setCustomerName(contractModel.getCustomercode());
+                               model.setCustomerName(model.getCustomer_value());
                                 Connection_Disconnection_Invoice.setText(model.getConnection_Disconnection_Invoice());
                             if(model.getConnection_Disconnection_Invoice().length()>0) {
                                 Print_Email.model = model;
@@ -375,7 +374,11 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
             footer.setVisibility(View.VISIBLE);
             dep_Invoice.setVisibility(View.VISIBLE);
             con_dconInvoice.setVisibility(View.VISIBLE);
-            edit.setVisibility(View.VISIBLE);
+            if(isCalledFromTenanatChange==false) {
+                edit.setVisibility(View.VISIBLE);
+            }else{
+                edit.setVisibility(View.GONE);
+            }
         }
         else {
           if (model.getDeposit_Invoice().length() > 0) {
