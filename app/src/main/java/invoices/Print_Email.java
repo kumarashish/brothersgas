@@ -243,7 +243,7 @@ public class Print_Email extends Activity implements View.OnClickListener {
                 isSignatureCaptured=true;
                 signature.setBackground( new BitmapDrawable(getResources(),bitmap));
                 signature.setText("");
-                new UploadSignature().execute();
+               new UploadSignature().execute();
             }
         }
     }

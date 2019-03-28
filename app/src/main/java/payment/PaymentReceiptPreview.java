@@ -73,6 +73,7 @@ import common.ScreenshotUtils;
 import common.SettingsHelper;
 import common.WebServiceAcess;
 import consumption.ConsumptionPreview;
+import invoices.Consumption_DeliveryNote_Preview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
 import model.PaymentPreviewModel;
 import utils.Utils;
@@ -170,11 +171,16 @@ ProgressDialog dialog;
                 break;
 
             case R.id.print_email:
-                progressbar2.setVisibility(View.VISIBLE);
-                footer.setVisibility(View.GONE);
-                new EmailInvoice().execute();
 
+                if(sendAttempt>1)
+                {
+                    showPrintAlertDialog();
+                }else {
+                    progressbar2.setVisibility(View.VISIBLE);
+                    footer.setVisibility(View.GONE);
+                    new EmailInvoice().execute();
 
+                }
                 break;
         }
     }
@@ -286,7 +292,7 @@ ProgressDialog dialog;
                             print_email.setText("Resend");
 
                         }else {
-                            print_email.setVisibility(View.GONE);
+                            print_email.setText("Reprint");
                         }
                         Toast.makeText(PaymentReceiptPreview.this,message,Toast.LENGTH_SHORT).show();
                         showPrintAlertDialog();
@@ -316,8 +322,31 @@ ProgressDialog dialog;
         dialogBuilder.setView(dialogView);
 
         final EditText edt = (EditText) dialogView.findViewById(R.id.macInput);
-        edt.setText(SettingsHelper.getBluetoothAddress(PaymentReceiptPreview.this));
         Button submit=(Button)dialogView.findViewById(R.id.print);
+        final LinearLayout macView=(LinearLayout)dialogView.findViewById(R.id.macView);
+        final LinearLayout textView=(LinearLayout)dialogView.findViewById(R.id.textView);
+        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printDialog.cancel();
+            }
+        });
+
+        edt.setText(SettingsHelper.getBluetoothAddress(PaymentReceiptPreview.this));
+        if(edt.getText().length()>0)
+        {
+            macView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            cancel.setVisibility(View.VISIBLE);
+            submit.setText("Yes");
+
+        }else{
+            macView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            submit.setText("Submit");
+            cancel.setVisibility(View.INVISIBLE);
+        }
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

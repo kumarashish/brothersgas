@@ -1,18 +1,40 @@
 package com.brothersgas;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
+import com.zebra.sdk.comm.BluetoothConnection;
+import com.zebra.sdk.comm.Connection;
+import com.zebra.sdk.comm.ConnectionException;
+import com.zebra.sdk.graphics.internal.ZebraImageAndroid;
+import com.zebra.sdk.printer.PrinterStatus;
+import com.zebra.sdk.printer.SGD;
+import com.zebra.sdk.printer.ZebraPrinter;
+import com.zebra.sdk.printer.ZebraPrinterFactory;
+import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
+import com.zebra.sdk.printer.ZebraPrinterLinkOs;
 
 import activatecontract.ContractListForActivation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
+import common.SettingsHelper;
 import consumption.Consumption;
 import consumption.ConsumptionList;
 import contracts.Contracts;
@@ -42,6 +64,10 @@ View contract;
     @BindView(R.id.enquiry)
             View enquiry;
     AppController controller;
+    Dialog    printDialog;
+    private Connection connection;
+    ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +81,8 @@ View contract;
         enquiry.setOnClickListener(this);
         connect_disconnection_invoice.setOnClickListener(this);
         payment.setOnClickListener(this);
+        dialog = new ProgressDialog(DashBoard.this);
+        dialog.setMessage("Checking printer status....");
     }
 
     @Override
@@ -129,7 +157,7 @@ View contract;
                         break;
 
                     case R.id.settings:
-                        //startActivity(new Intent(Dashboard.this,Settings.class));
+                        showPrintAlertDialog();
 
                         break;
                 }
@@ -139,4 +167,170 @@ View contract;
         });
         popup.show();
     }
+
+
+
+
+
+    public void showPrintAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.printer_popup, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText edt = (EditText) dialogView.findViewById(R.id.macInput);
+        Button submit=(Button)dialogView.findViewById(R.id.print);
+        final LinearLayout macView=(LinearLayout)dialogView.findViewById(R.id.macView);
+        final LinearLayout textView=(LinearLayout)dialogView.findViewById(R.id.textView);
+        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printDialog.cancel();
+            }
+        });
+
+        edt.setText(SettingsHelper.getBluetoothAddress(DashBoard.this));
+        macView.setVisibility(View.VISIBLE);
+        textView.setVisibility(View.GONE);
+        cancel.setVisibility(View.INVISIBLE);
+        submit.setText("Submit");
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edt.getText().toString().length() > 0) {
+                    dialog.show();
+                    performTest(edt.getText().toString());
+                } else {
+                    Toast.makeText(DashBoard.this, "Please enter mac address", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+        printDialog = dialogBuilder.create();
+        printDialog.show();
+    }
+
+    public void performTest(final String macaddress) {
+        new Thread(new Runnable() {
+            public void run() {
+                Looper.prepare();
+                doPerformTest(macaddress);
+                Looper.loop();
+                Looper.myLooper().quit();
+            }
+        }).start();
+
+    }
+
+    public void showAlert() {
+
+    }
+
+    /**
+     * This method is used to create a new alert dialog to sign and print and implements best practices to check the status of the printer.
+     */
+    public void doPerformTest(String macAddress) {
+
+        connection = new BluetoothConnection(macAddress);
+
+        try {
+            connection.open();
+            final ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
+            ZebraPrinterLinkOs linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
+            PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
+            getPrinterStatus();
+            if (printerStatus.isReadyToPrint) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(DashBoard.this, "Printer Ready", Toast.LENGTH_LONG).show();
+                        try {
+                            connection.open();
+                            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.brogas_logo);
+                            Bitmap logo = Bitmap.createScaledBitmap(icon, 300, 200, false);
+                            printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
+                            connection.close();
+                            Toast.makeText(DashBoard.this, "Printer Setup Done.", Toast.LENGTH_LONG).show();
+                            dialog.cancel();
+
+                        } catch (ConnectionException e) {
+                            dialog.cancel();
+                            Utils.showAlertNormal(DashBoard.this, e.getMessage());
+                        }
+
+                    }
+                });
+
+
+            } else if (printerStatus.isHeadOpen) {
+                Utils.showAlertNormal(DashBoard.this, "Error: Head Open \nPlease Close Printer Head to Print");
+                dialog.cancel();
+            } else if (printerStatus.isPaused) {
+                Utils.showAlertNormal(DashBoard.this, "Error: Printer Paused");
+                dialog.cancel();
+            } else if (printerStatus.isPaperOut) {
+                Utils.showAlertNormal(DashBoard.this, "Error: Media Out \nPlease Load Media to Print");
+                dialog.cancel();
+            } else {
+                Utils.showAlertNormal(DashBoard.this, "Error: Please check the Connection of the Printer");
+                dialog.cancel();
+            }
+
+            connection.close();
+            getAndSaveSettings(macAddress);
+            Toast.makeText(DashBoard.this,"Settings updated Sucessfully",Toast.LENGTH_SHORT).show();
+            if (printDialog != null) {
+                printDialog.cancel();
+            }
+        } catch (ConnectionException e) {
+            Utils.showAlertNormal(DashBoard.this, e.getMessage());
+            dialog.cancel();
+        } catch (ZebraPrinterLanguageUnknownException e) {
+            Utils.showAlertNormal(DashBoard.this, e.getMessage());
+            dialog.cancel();
+        } finally {
+
+        }
+
+    }
+
+    /* * This method implements the best practices to check the language of the printer and set the language of the printer to ZPL.
+     *
+     * @throws ConnectionException
+     */
+    private void getPrinterStatus() throws ConnectionException {
+
+
+        final String printerLanguage = SGD.GET("device.languages", connection); //This command is used to get the language of the printer.
+
+        final String displayPrinterLanguage = "Printer Language is " + printerLanguage;
+
+        SGD.SET("device.languages", "zpl", connection); //This command set the language of the printer to ZPL
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                Toast.makeText(DashBoard.this, displayPrinterLanguage + "\n" + "Language set to ZPL", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    /**
+     * This method saves the entered address of the printer.
+     */
+
+    private void getAndSaveSettings(String macAddress) {
+        SettingsHelper.saveBluetoothAddress(DashBoard.this, macAddress);
+
+    }
+
+
+
 }

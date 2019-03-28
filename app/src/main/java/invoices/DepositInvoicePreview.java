@@ -50,6 +50,7 @@ import consumption.ConsumptionPreview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
 import model.Deposit_Invoice_Model;
 import payment.PaymentReceipt;
+import payment.PaymentReceiptPreview;
 import utils.Utils;
 
 public class DepositInvoicePreview extends Activity implements View.OnClickListener {
@@ -139,9 +140,18 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
                 finish();
                 break;
             case R.id.print_email:
-                progress2.setVisibility(View.VISIBLE);
-                  footer.setVisibility(View.GONE);
-                  new EmailInvoice().execute();
+
+
+                if(sendAttempt>1)
+                {
+                    showPrintAlertDialog();
+                }else {
+                    progress2.setVisibility(View.VISIBLE);
+                    footer.setVisibility(View.GONE);
+                    new EmailInvoice().execute();
+
+                }
+
                 break;
             case R.id.payment:
                 PaymentReceipt.invoiceNumber =invoice;
@@ -274,7 +284,7 @@ if(model.getTotalIncludingTaxValue()==null)
                         {
                             print_email.setText("Resend");
                         }else {
-                            print_email.setVisibility(View.GONE);
+                            print_email.setText("Reprint");
                         }
                         showPrintAlertDialog();
                         Toast.makeText(DepositInvoicePreview.this,message,Toast.LENGTH_SHORT).show();
@@ -304,8 +314,31 @@ if(model.getTotalIncludingTaxValue()==null)
         dialogBuilder.setView(dialogView);
 
         final EditText edt = (EditText) dialogView.findViewById(R.id.macInput);
-        edt.setText(SettingsHelper.getBluetoothAddress(DepositInvoicePreview.this));
         Button submit=(Button)dialogView.findViewById(R.id.print);
+        final LinearLayout macView=(LinearLayout)dialogView.findViewById(R.id.macView);
+        final LinearLayout textView=(LinearLayout)dialogView.findViewById(R.id.textView);
+        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printDialog.cancel();
+            }
+        });
+
+        edt.setText(SettingsHelper.getBluetoothAddress(DepositInvoicePreview.this));
+        if(edt.getText().length()>0)
+        {
+            macView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            cancel.setVisibility(View.VISIBLE);
+            submit.setText("Yes");
+
+        }else{
+            macView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            submit.setText("Submit");
+            cancel.setVisibility(View.INVISIBLE);
+        }
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

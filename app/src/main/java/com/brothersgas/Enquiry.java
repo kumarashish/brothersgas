@@ -50,6 +50,7 @@ import common.NumberToWords;
 import common.SettingsHelper;
 import common.WebServiceAcess;
 import consumption.Consumption;
+import invoices.Consumption_DeliveryNote_Preview;
 import model.EnquiryModel;
 import model.PaymentPreviewModel;
 
@@ -115,6 +116,8 @@ public class Enquiry extends Activity implements View.OnClickListener {
     private Connection connection;
     AlertDialog printDialog;
     ProgressDialog dialog;
+
+    int attemptCount=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -334,14 +337,14 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
             generatedInvoicecount.setText(model.getNumber_of_invoices());
             number_cash_payment.setText(model.getNumber_of_Cash_Payments());
-            total_cash_amount_collected.setText(model.getTotal_Cash_payments_amount());
+            total_cash_amount_collected.setText("AED "+model.getTotal_Cash_payments_amount());
             chequepayment_count.setText(model.getNumber_of_Cheque_Payments());
-            total_cheaqueamout.setText(model.getTotal_Cheque_payments_amount());
-            total_cheaque_cash_amount.setText(model.getTotal_Cheque_and_cheque_payments_amount());
+            total_cheaqueamout.setText("AED "+model.getTotal_Cheque_payments_amount());
+            total_cheaque_cash_amount.setText("AED "+model.getTotal_Cheque_and_cheque_payments_amount());
             dep_conn_dconn.setText(model.getNumber_of_disconnection_invoices());
             teenant_Change.setText(model.getNumber_of_Connections());
-            total_dep_inv_amount.setText(model.getTotal_Deposite_Invoices_amount());
-            total_con_dconn_amount.setText(model.getTotal_Disconnection_Invoices_amount());
+            total_dep_inv_amount.setText("AED "+model.getTotal_Deposite_Invoices_amount());
+            total_con_dconn_amount.setText("AED "+model.getTotal_Disconnection_Invoices_amount());
         }
         mainLayout.setVisibility(View.VISIBLE);
     }
@@ -376,14 +379,38 @@ public class Enquiry extends Activity implements View.OnClickListener {
         dialogBuilder.setView(dialogView);
 
         final EditText edt = (EditText) dialogView.findViewById(R.id.macInput);
+        Button submit=(Button)dialogView.findViewById(R.id.print);
+        final LinearLayout macView=(LinearLayout)dialogView.findViewById(R.id.macView);
+        final LinearLayout textView=(LinearLayout)dialogView.findViewById(R.id.textView);
+        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printDialog.cancel();
+            }
+        });
+
         edt.setText(SettingsHelper.getBluetoothAddress(Enquiry.this));
-        Button submit = (Button) dialogView.findViewById(R.id.print);
+        if(edt.getText().length()>0)
+        {
+            macView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            cancel.setVisibility(View.VISIBLE);
+            submit.setText("Yes");
+
+        }else{
+            macView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            submit.setText("Submit");
+            cancel.setVisibility(View.INVISIBLE);
+        }
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (edt.getText().toString().length() > 0) {
+                    attemptCount=attemptCount+1;
+                    print.setText("Reprint");
                     dialog.show();
-                    ;
                     performTest(edt.getText().toString());
                 } else {
                     Toast.makeText(Enquiry.this, "Please enter mac address", Toast.LENGTH_SHORT).show();
@@ -431,7 +458,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
                     @Override
                     public void run() {
 
-                        Toast.makeText(Enquiry.this, "Printer Ready", Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(Enquiry.this, "Printer Ready", Toast.LENGTH_LONG).show();
                         try {
                             connection.open();
 
@@ -573,38 +600,42 @@ public class Enquiry extends Activity implements View.OnClickListener {
                 "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Payments : ^FS" + "\r\n" +
 
                 "^FO380,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cheque_Payments() + "^FS" + "\r\n" +
+                "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal Cheque Amount : ^FS" + "\r\n" +
 
-                "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal(Cash+Cheque) Amount : ^FS" + "\r\n" +
-
-                "^FO380,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Cheque_and_cheque_payments_amount() + "^FS" + "\r\n" +
-                "^FO20,300" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
-
-                "^FO200,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDNumber of New Connections ^FS" + "\r\n" +
-
-                "^FO380,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD^FS" + "\r\n" +
-
-                "^FO20,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Change : ^FS" + "\r\n" +
-
-                "^FO380,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Connections() + "^FS" + "\r\n" +
+                "^FO380,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " +model.getTotal_Cheque_payments_amount() + "^FS" + "\r\n" +
 
 
-                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDeposit_Conn_DisConn. : ^FS" + "\r\n" +
+                "^FO20,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal (Cash+Cheque) Amount : ^FS" + "\r\n" +
 
-                "^FO380,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
+                "^FO380,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Cheque_and_cheque_payments_amount() + "^FS" + "\r\n" +
+                "^FO20,340" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
 
-                "^FO20,460" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
+                "^FO200,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDNumber of New Connections ^FS" + "\r\n" +
 
-                "^FO20,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal Dep.Invoice Amount : ^FS" + "\r\n" +
+                "^FO380,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD^FS" + "\r\n" +
 
-                "^FO380,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Deposite_Invoices_amount() + "^FS" + "\r\n" +
-                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDConn_DisConn.Invoice Amount : ^FS" + "\r\n" +
+                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Change : ^FS" + "\r\n" +
 
-                "^FO380,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Disconnection_Invoices_amount() + "^FS" + "\r\n" +
+                "^FO380,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Connections() + "^FS" + "\r\n" +
 
 
-                "^FO20,580" + "\r\n" + "^GB500,5,5,B,0^FS";
+                "^FO20,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDeposit_Conn_DisConn. : ^FS" + "\r\n" +
 
-        headerHeight = 600;
+                "^FO380,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
+
+                "^FO20,500" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
+
+                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal Dep.Invoice Amount : ^FS" + "\r\n" +
+
+                "^FO380,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Deposite_Invoices_amount() + "^FS" + "\r\n" +
+                "^FO20,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDConn_DisConn.Invoice Amount : ^FS" + "\r\n" +
+
+                "^FO380,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Disconnection_Invoices_amount() + "^FS" + "\r\n" +
+
+
+                "^FO20,620" + "\r\n" + "^GB500,5,5,B,0^FS";
+
+        headerHeight = 630;
 
         String body = String.format("^LH0,%d", headerHeight);
 

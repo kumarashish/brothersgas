@@ -87,7 +87,7 @@ android:layout_weight="0.5"
                         android:layout_height="match_parent"/>
                 </RelativeLayout>
                 <View
-                    android:background="@color/colorPrimary"
+                    android:background="@color/dashboard_textcolor"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"/>
                 <RelativeLayout
@@ -125,7 +125,7 @@ android:layout_weight="0.5"
 
             </LinearLayout>
             <View
-                android:background="@color/colorPrimary"
+                android:background="@color/dashboard_textcolor"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
             <LinearLayout
@@ -169,7 +169,7 @@ android:layout_weight="0.5"
                         android:layout_height="match_parent"/>
                 </RelativeLayout>
                 <View
-                    android:background="@color/colorPrimary"
+                    android:background="@color/dashboard_textcolor"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"/>
                 <RelativeLayout
@@ -212,7 +212,7 @@ android:layout_weight="0.5"
 
             </LinearLayout>
             <View
-                android:background="@color/colorPrimary"
+                android:background="@color/dashboard_textcolor"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
 
@@ -258,7 +258,7 @@ android:layout_weight="0.5"
                         android:layout_height="match_parent"/>
                 </RelativeLayout>
                 <View
-                    android:background="@color/colorPrimary"
+                    android:background="@color/dashboard_textcolor"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"/>
                 <RelativeLayout
@@ -301,7 +301,7 @@ android:layout_weight="0.5"
 
             </LinearLayout>
             <View
-                android:background="@color/colorPrimary"
+                android:background="@color/dashboard_textcolor"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
 

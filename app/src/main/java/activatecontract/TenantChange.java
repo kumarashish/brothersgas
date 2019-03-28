@@ -96,6 +96,7 @@ public class TenantChange extends Activity implements View.OnClickListener {
 
     private int year, month, day;
 public static ContractModel model=null;
+public static String currentMeterReading="";
 
 int requestedType;
 int frontImage=1,backImage=2;
@@ -114,6 +115,7 @@ String backImagePath="";
         expiry_date.setOnClickListener(this);
         contract_number.setText(model.getContract_Meternumber());
         customer_name.setText(model.getCustomername());
+        current_reading.setText(currentMeterReading );
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         em_id_front.setOnClickListener(this);
@@ -479,4 +481,9 @@ public String getEmId()
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        currentMeterReading="";
+        super.onDestroy();
+    }
 }

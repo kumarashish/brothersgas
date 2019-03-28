@@ -127,7 +127,7 @@ public class PayAll  extends Activity implements View.OnClickListener {
         customerNumber.setText("Customer : ");
         invoice_numberValue.setText(customerNumberValue);
         amountValue.setText(amount);
-        amountUnit.setText(unit);
+        amountUnit.setText("AED");
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         chequeDate.setOnClickListener(this);

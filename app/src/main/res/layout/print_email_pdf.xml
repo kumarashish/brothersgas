@@ -503,6 +503,7 @@ android:id="@+id/current_meter_reading_header"
                                 android:text="@string/signature_hint"
                                 android:fontFamily="@font/aller_rg"
                                 android:gravity="center"
+                                android:padding="10dp"
 
                                 android:layout_margin="10dp"
                                 android:id="@+id/signature"

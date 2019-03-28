@@ -79,11 +79,12 @@
 
 
                 <AutoCompleteTextView
-android:fontFamily="@font/light"
-                    android:textColor="@color/white"
+android:fontFamily="@font/aller_rg"
+                    android:textColor="@color/black"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/dashboard_textcolor"
+
 android:padding="10dp"
                      android:hint="Search "
                     android:paddingTop="10dp"

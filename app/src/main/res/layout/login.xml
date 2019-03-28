@@ -12,23 +12,25 @@
 
 
         <RelativeLayout
-            android:layout_marginTop="30dp"
+
             android:id="@+id/loginActivity_relativeLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@android:color/white">
 
             <ImageView
+
                 android:id="@+id/imageView"
-                android:layout_width="155.0dip"
-                android:layout_height="99.0dip"
+                android:layout_width="250.0dip"
+                android:layout_height="150.0dip"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="60dp"
                 android:src="@drawable/brogas_logo" />
 
 
                 <ImageView
+                    android:tint="@color/colorPrimary"
                     android:layout_width="50.0dip"
                     android:layout_height="30.0dip"
                     android:layout_marginTop="20.0dip"
@@ -47,7 +49,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20.0dip"
                 android:fontFamily="@font/aller_rg"
-                android:text="Meter App"
+                android:text=""
                 android:textColor="@android:color/primary_text_light_nodisable"
                 android:textSize="24.0sp" />
 
@@ -57,7 +59,7 @@
                 android:layout_below="@+id/textView"
                 android:layout_marginTop="20.0dip"
 
-                android:background="@drawable/gradient"
+
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <TextView
@@ -74,7 +76,13 @@
 
 
 
-
+                <LinearLayout
+                    android:id="@+id/login_box"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/edittext_rect"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/user_RL"
@@ -86,10 +94,9 @@
                     android:textColorHint="@color/text_hint_color"
                     android:weightSum="2"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="@dimen/margin_40"
-                    android:layout_marginRight="@dimen/margin_40"
 
-                    app:hintTextAppearance="@style/MyAppearance">
+
+                    >
 
                     <EditText
                         android:id="@+id/etUserName"
@@ -100,10 +107,12 @@
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
                         android:layout_centerHorizontal="true"
-                        android:textColor="#fff"
-                        android:textColorHint="@color/text_hint_color"
-                        android:paddingTop="@dimen/margin_8"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/dashboard_textcolor"
+                        android:padding="@dimen/margin_8"
                         android:textSize="@dimen/margin_16"
+                        android:fontFamily="@font/aller_rg"
+                        android:textStyle="bold"
                         app:hintTextAppearance="@style/MyAppearance"
                         tools:ignore="MissingPrefix">
 
@@ -115,24 +124,24 @@
                         android:layout_height="1dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="1dp"
-                        android:background="#ffffff" />
+                        android:background="@color/dashboard_textcolor" />
 
 
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/pass_RL"
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     android:layout_below="@+id/user_RL"
-                    android:textColorHint="@color/text_hint_color"
+                    android:textColorHint="@color/dashboard_textcolor"
                     android:weightSum="2"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="@dimen/margin_40"
-                    android:layout_marginRight="@dimen/margin_40"
 
-                    app:hintTextAppearance="@style/MyAppearance">
+
+                    >
 
                     <EditText
                         android:id="@+id/etPassword"
@@ -142,10 +151,12 @@
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:singleLine="true"
+                        android:fontFamily="@font/aller_rg"
+                        android:textStyle="bold"
                         android:layout_centerHorizontal="true"
-                        android:textColor="#fff"
-                        android:textColorHint="@color/text_hint_color"
-                        android:paddingTop="@dimen/margin_8"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/dashboard_textcolor"
+                        android:padding="@dimen/margin_8"
                         android:textSize="@dimen/margin_16"
                         app:hintTextAppearance="@style/MyAppearance"
                         tools:ignore="MissingPrefix">
@@ -158,20 +169,21 @@
                         android:layout_height="1dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="1dp"
-                        android:background="#ffffff" />
+                        android:background="@color/dashboard_textcolor"  />
 
 
                 </android.support.design.widget.TextInputLayout>
-
+                </LinearLayout>
 
                 <Button
+
                     android:id="@+id/btnLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/pass_RL"
+                    android:layout_below="@+id/login_box"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40.0dip"
-                    android:background="@drawable/edittext_rect"
+                    android:layout_marginTop="10.0dip"
+                    android:background="@drawable/green_btn"
                     android:fontFamily="@font/aller_rg"
                     android:paddingLeft="70.0dip"
                     android:paddingTop="10.0dip"

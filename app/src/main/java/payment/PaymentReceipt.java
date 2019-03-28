@@ -133,7 +133,7 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
         paymentMode.check(cheque.getId());
         invoice_numberValue.setText(invoiceNumber);
         amountValue.setText(amount);
-        amountUnit.setText(unit);
+        amountUnit.setText("AED");
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
 

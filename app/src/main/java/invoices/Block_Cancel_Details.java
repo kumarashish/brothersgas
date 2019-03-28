@@ -248,6 +248,13 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
 
         reason.setAdapter(new ArrayAdapter<String>(Block_Cancel_Details.this, android.R.layout.simple_spinner_item,reasons));
         Button submit = (Button) dialog.findViewById(R.id.submit);
+        if((model.getPreviousReading().length()>0)&&(!model.getPreviousReading().equalsIgnoreCase("0")))
+        {
+            currentmeterReading.setText(model.getPreviousReading());
+        }else {
+            currentmeterReading.setText(model.getInitial_meter_reading() );
+        }
+
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -280,6 +287,12 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         final EditText currentmeterReading=(EditText)dialog.findViewById(R.id.current_reading) ;
         final Spinner   reason=(Spinner)dialog.findViewById(R.id.reason);
           re_activeDate = (Button) dialog.findViewById(R.id.react_date);
+        if((model.getPreviousReading().length()>0)&&(!model.getPreviousReading().equalsIgnoreCase("0")))
+        {
+            currentmeterReading.setText(model.getPreviousReading());
+        }else {
+            currentmeterReading.setText(model.getInitial_meter_reading() );
+        }
 
         reason.setAdapter(new ArrayAdapter<String>(Block_Cancel_Details.this, android.R.layout.simple_spinner_item,reasons));
         reason.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

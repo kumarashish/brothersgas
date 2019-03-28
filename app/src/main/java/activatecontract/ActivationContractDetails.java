@@ -141,6 +141,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                 break;
             case R.id.con_dcon_invoice:
                 TenantChange.model=contractModel;
+                TenantChange.currentMeterReading=Initial_meter_reading.getText().toString();
                 startActivityForResult(new Intent(ActivationContractDetails.this,TenantChange.class),2);
                 break;
 

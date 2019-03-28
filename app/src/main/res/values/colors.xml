@@ -4,8 +4,9 @@
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
     <color name="colorAccent">#ff767676</color>
-    <color name="colorPrimary">#ff005c47</color>
-    <color name="colorPrimaryDark">#ff01896b</color>
+    <color name="colorPrimary">#5285C4</color>
+    <color name="colorPrimaryDark">#5285C4</color>
+    <color name="dashboard_textcolor">#5D6376</color>
     <color name="colorgray">#88757575</color>
     <color name="white">#ffffff</color>
     <color name="body_bg_color">#F0F0F0</color>
@@ -28,7 +29,7 @@
     <color name="red">#df5a5e</color>
     <color name="grey">#677178</color>
 
-    <color name="text_hint_color">#BDC1D0</color>
+    <color name="text_hint_color">#677178</color>
     <color name="profile_text_color">#5D6376</color>
     <color name="lightpink">#FFC3CE</color>
 
@@ -129,5 +130,5 @@
     <color name="BorderLineColor">#B8B9B1</color>
     <color name="CanvasBackground">#ffffff</color>
     <color name="green_button_color">#4daa95</color>
-    <color name="dashboard_textcolor">#0b634f</color>
+
 </resources>

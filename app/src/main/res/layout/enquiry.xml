@@ -45,7 +45,7 @@
             android:layout_height="40dp">
 
             <Button
-                android:background="@drawable/edittext_rect"
+                android:background="@drawable/geeen_rectangle"
                 android:id="@+id/s_date"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
@@ -56,7 +56,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
             <Button
-                android:background="@drawable/edittext_rect"
+                android:background="@drawable/geeen_rectangle"
                 android:hint="End Date: "
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"
@@ -67,11 +67,11 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
             <Button
-                android:background="@drawable/rounded_corner_edittext"
+                android:background="@drawable/green_btn"
                 android:text="Search "
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/md_gray_light"
+                android:textColor="@color/white"
                 android:id="@+id/search"
                 android:fontFamily="@font/aller_rg"
                 android:layout_width="0dp"
@@ -126,7 +126,7 @@ android:visibility="gone"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"
                                 android:text="Number Of Invoices Generated : "
-                                android:fontFamily="@font/light"
+                                android:fontFamily="@font/aller_rg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView

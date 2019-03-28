@@ -40,6 +40,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -50,6 +51,7 @@ import common.NumberToWords;
 import common.ScreenshotUtils;
 import common.SettingsHelper;
 import common.WebServiceAcess;
+import invoices.Connection_Disconnection_Preview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
 import model.ContractDetails;
 import model.ContractModel;
@@ -103,8 +105,8 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     android.widget.TextView supplier_trn;
     @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
-public static String invoice="";
- //public static String invoice="CDC-U109-19000053";/storage/sdcard0/Brothers_Gas/.1553619034324.jpg
+    public static String invoice="";
+   //public static String invoice="CNV-U109-19000485";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -116,7 +118,7 @@ public static String invoice="";
     LinearLayout content;
     @BindView(R.id.back_button)
     Button back_button;
-    public static String imagePath="";
+    public static String imagePath="storage/sdcard0/Brothers_Gas/.1553619034324.jpg";///storage/sdcard0/Brothers_Gas/.1553619034324.jpg
     WebServiceAcess webServiceAcess;
     @BindView(R.id. signature)
     ImageView signature;
@@ -168,9 +170,16 @@ public static String invoice="";
 
                 break;
             case R.id.print_email:
-                progressbar2.setVisibility(View.VISIBLE);
-                footer.setVisibility(View.GONE);
-                new EmailInvoice().execute();
+
+                if(sendAttempt>1)
+                {
+                    showPrintAlertDialog();
+                }else {
+                    progressbar2.setVisibility(View.VISIBLE);
+                    footer.setVisibility(View.GONE);
+                    new EmailInvoice().execute();
+
+                }
                 break;
             case R.id. payment:
                 PaymentReceipt.invoiceNumber=invoice;
@@ -312,7 +321,7 @@ public static String invoice="";
                         {
                             print_email.setText("Resend");
                         }else {
-                            print_email.setVisibility(View.GONE);
+                            print_email.setText("Reprint");
                         }
                         Toast.makeText(ConsumptionPreview.this,message,Toast.LENGTH_SHORT).show();
                         showPrintAlertDialog();
@@ -341,10 +350,33 @@ public static String invoice="";
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.printer_popup, null);
         dialogBuilder.setView(dialogView);
-
-        final EditText edt = (EditText) dialogView.findViewById(R.id.macInput);
-        edt.setText(SettingsHelper.getBluetoothAddress(ConsumptionPreview.this));
+        final LinearLayout macView=(LinearLayout)dialogView.findViewById(R.id.macView);
+        final LinearLayout textView=(LinearLayout)dialogView.findViewById(R.id.textView);
+        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
         Button submit=(Button)dialogView.findViewById(R.id.print);
+        final EditText edt = (EditText) dialogView.findViewById(R.id.macInput);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printDialog.cancel();
+            }
+        });
+
+        edt.setText(SettingsHelper.getBluetoothAddress(ConsumptionPreview.this));
+        if(edt.getText().length()>0)
+        {
+            macView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            cancel.setVisibility(View.VISIBLE);
+            submit.setText("Yes");
+
+        }else{
+            macView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            submit.setText("Submit");
+            cancel.setVisibility(View.INVISIBLE);
+        }
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -662,7 +694,7 @@ public static String invoice="";
 
                 "^FO20,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
 
-                "^FO320,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED "+getNumberToWords(con_dconnModel.getTotalIncludingTaxValue())+"^FS" + "\r\n" +
+                "^FO320,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD "+getNumberToWords(con_dconnModel.getTotalIncludingTaxValue())+"^FS" + "\r\n" +
                 "^FO20,215" + "\r\n" + "^GB500,5,5,B,0^FS"+
 
                 "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
@@ -682,14 +714,14 @@ public static String invoice="";
         return wholeZplLabel;
     }
 
-    private Map<String, String> createListOfItems() {
-           Map<String, String> retVal = new HashMap<String, String>();
+    private LinkedHashMap<String, String> createListOfItems() {
+        LinkedHashMap<String, String> retVal = new LinkedHashMap<String, String>();
            int j=1;
 
         for (int i = 0; i < con_dconnModel.getDetails_list().size();i++) {
             Connection_Disconnection_Invoice_Preview_Model.BillDetails model=con_dconnModel.getDetails_list().get(i);
-            retVal.put("Vat"+j+" @"+model.getVat_percentageValue()+"%", model.getVatAmountValue());
             retVal.put(model.getItemNameValue(), model.getTotalpriceValue());
+            retVal.put("Vat"+j+" @"+model.getVat_percentageValue()+"%", model.getVatAmountValue());
             j++;
         }
         return retVal;
