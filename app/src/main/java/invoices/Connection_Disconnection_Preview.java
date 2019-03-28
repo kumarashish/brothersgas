@@ -84,8 +84,8 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-    public static String invoice="";
-    // public static String invoice="CDC-U109-19000053";
+    //public static String invoice="";
+    public static String invoice="CDC-U109-19000053";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -203,11 +203,11 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
         suplier_name.setText(model.getSuppliername());
         supplier_trn.setText(model.getSupplierTRN());
         registered_supplier_address.setText(model.getRegisteredAddress());
-        date_time.setText(Utils.getNewDate(model.getDateValue()) +" : "+model.getTime());
+        date_time.setText(Utils.getNewDate(model.getDateValue()) +"  "+model.getTime());
         name_id.setText(model.getUserNameValue()+" & "+model.getUserIDValue());
 
         for (int i = 0; i < model.getDetails_list().size(); i++) {
-            View view = getLayoutInflater().inflate(R.layout.content_row, null);
+            View view = getLayoutInflater().inflate(R.layout.connection_disconnection_row , null);
             TextView item_name = (TextView) view.findViewById(R.id.item_name);
             TextView unit = (TextView) view.findViewById(R.id.unit);
             TextView quantity = (TextView) view.findViewById(R.id.quantity);

@@ -23,7 +23,7 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="invoices.Print_Email">
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,7 +58,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="payment.PaymentReceipt"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Splash"
+        <activity android:name="invoices.Print_Email"
             android:screenOrientation="portrait"/>
         <activity android:name="common.Signature"
             android:screenOrientation="landscape"/>

@@ -31,7 +31,7 @@
             <TextView
 
                 android:layout_weight="0.5"
-                android:gravity="center"
+                android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/black"
@@ -66,7 +66,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
-                android:gravity="center"
+                android:gravity="end"
                 android:id="@+id/unit_price"
                 android:fontFamily="@font/fontnew"
                 android:text=""

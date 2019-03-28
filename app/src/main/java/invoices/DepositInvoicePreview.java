@@ -202,8 +202,8 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
         suplier_name.setText(model.getSuppliername());
         supplier_trn.setText(model.getSupplierTRN());
         registered_supplier_address.setText(model.getRegisteredAddress());
-        date_time.setText(Utils.getNewDate(model.getDateValue()) + " : " + model.getTime());
-        name_id.setText(model.getUserNameValue() + " & " + model.getUserIDValue());
+        date_time.setText(Utils.getNewDate(model.getDateValue()) + "  " + model.getTime());
+        name_id.setText(model.getUserNameValue() + "  &  " + model.getUserIDValue());
 
         for (int i = 0; i < model.getDetails_list().size(); i++) {
             View view = getLayoutInflater().inflate(R.layout.deposit_content_row, null);
@@ -535,7 +535,7 @@ if(model.getTotalIncludingTaxValue()==null)
 
                 // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDDeposit Invoice^FS" + "\r\n" +
+                "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDDeposit Advice^FS" + "\r\n" +
                 "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
 
                 "^FO20,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +

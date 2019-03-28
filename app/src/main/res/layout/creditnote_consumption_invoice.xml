@@ -56,6 +56,7 @@
 
 
                 <LinearLayout
+
                     android:id="@+id/mainLayout"
                     android:layout_margin="5dp"
                     android:background="@color/white"
@@ -80,6 +81,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <LinearLayout
+
                                 android:id="@+id/consumptionInvoice"
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
@@ -427,8 +429,10 @@
 
                                     <TextView
                                         android:layout_weight="1"
+
                                         android:layout_gravity="center_vertical"
-                                        android:gravity="left"
+                                        android:gravity="center"
+                                        android:textSize="12dp"
                                         android:textColor="@color/black"
                                         android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
@@ -444,6 +448,7 @@
 
                                         android:layout_weight="1"
                                         android:gravity="center"
+                                        android:textSize="12dp"
                                         android:layout_marginRight="5dp"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="5dp"
@@ -465,6 +470,7 @@
                                         android:textColor="@color/black"
                                         android:textStyle="bold"
                                         android:gravity="center"
+                                        android:textSize="12dp"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Units Consumed"
                                         android:layout_marginRight="5dp"
@@ -481,7 +487,8 @@
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="10dp"
                                         android:textColor="@color/black"
-                                        android:gravity="left"
+                                        android:gravity="center"
+                                        android:textSize="12dp"
                                         android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Press. Factor"
@@ -499,7 +506,8 @@
                                         android:layout_marginLeft="10dp"
                                         android:textColor="@color/black"
                                         android:textStyle="bold"
-                                        android:gravity="end"
+                                        android:gravity="center"
+                                        android:textSize="12dp"
                                         android:fontFamily="@font/aller_rg"
                                         android:text="Actual Units"
 
@@ -528,7 +536,7 @@
                                         android:id="@+id/previousUnits"
                                         android:layout_weight="1"
                                         android:layout_gravity="center_vertical"
-                                        android:gravity="left|center_vertical"
+                                        android:gravity="center"
                                         android:textColor="@color/black"
 
                                         android:fontFamily="@font/fontnew"
@@ -605,7 +613,7 @@
                                         android:textColor="@color/black"
                                         android:fontFamily="@font/fontnew"
                                         android:text=""
-                                        android:gravity="end|center_vertical"
+                                        android:gravity="center"
                                         android:id="@+id/actual_consumed_units"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content" />
@@ -639,7 +647,8 @@
                                                 android:layout_gravity="center_vertical"
                                                 android:layout_weight="1"
                                                 android:fontFamily="@font/aller_rg"
-                                                android:gravity="left"
+                                                android:gravity="center"
+                                                android:textSize="12dp"
                                                 android:text="Item Name "
 
                                                 android:textColor="@color/black"
@@ -659,7 +668,8 @@
                                                 android:layout_marginRight="5dp"
                                                 android:layout_weight="1"
                                                 android:fontFamily="@font/aller_rg"
-                                                android:gravity="left"
+                                                android:gravity="center"
+                                                android:textSize="12dp"
                                                 android:text="Units Measure"
 
                                                 android:textColor="@color/black"
@@ -678,7 +688,8 @@
                                                 android:layout_marginRight="5dp"
                                                 android:layout_weight="1"
                                                 android:fontFamily="@font/aller_rg"
-                                                android:gravity="left"
+                                                android:gravity="center"
+                                                android:textSize="12dp"
                                                 android:text="Quantity"
 
 
@@ -698,6 +709,7 @@
                                                 android:layout_weight="1"
                                                 android:fontFamily="@font/aller_rg"
                                                 android:gravity="center"
+                                                android:textSize="12dp"
                                                 android:text="Units Price  "
 
                                                 android:textColor="@color/black"
@@ -716,7 +728,8 @@
                                                 android:layout_marginLeft="10dp"
                                                 android:layout_weight="1"
                                                 android:fontFamily="@font/aller_rg"
-                                                android:gravity="end"
+                                                android:gravity="center"
+                                                android:textSize="12dp"
                                                 android:text="Amount (AED)  "
 
                                                 android:textColor="@color/black"
@@ -967,7 +980,7 @@
                                     android:layout_height="80dp">
 
                                     <TextView
-                                        android:layout_weight="2.4"
+                                        android:layout_weight="1.8"
                                         android:layout_gravity="center_vertical"
                                         android:gravity="left|center_vertical"
                                         android:textColor="@color/black"
@@ -981,8 +994,8 @@
 
 
                                     <TextView
-                                        android:layout_weight="2.6"
-                                        android:layout_gravity="end|center_vertical"
+                                        android:layout_weight="3.2"
+                                        android:layout_gravity="left|center_vertical"
                                         android:layout_marginRight="5dp"
                                         android:layout_marginLeft="5dp"
                                         android:textColor="@color/black"
@@ -1050,6 +1063,7 @@
                                 android:layout_height="5dp"/>
                             </LinearLayout>
                             <View
+                                android:id="@+id/margin"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"/>
 
@@ -1081,27 +1095,28 @@
                                     android:layout_marginLeft="5dp"
                                     android:orientation="horizontal"
                                     android:layout_width="match_parent"
-                                    android:layout_height="35dp">
+                                    android:layout_height="40dp">
 
                                     <TextView
 
                                         android:layout_gravity="center_vertical"
-
+                                        android:gravity="center_vertical"
                                         android:textColor="@color/black"
                                         android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
-                                        android:text="Invoice Number : "
+                                        android:text="Credit Note Number : "
 
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="match_parent" />
                                     <TextView
+                                        android:gravity="center_vertical"
                                         android:layout_marginLeft="10dp"
                                         android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
                                         android:id="@+id/invoice_number2"
                                         android:fontFamily="@font/fontnew"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -1147,7 +1162,7 @@
                                         android:textColor="@color/black"
                                         android:textStyle="bold"
 
-                                        android:text="Company  Trn : "
+                                        android:text="Company  TRN : "
                                         android:fontFamily="@font/aller_rg"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content" />
@@ -1398,7 +1413,7 @@
                                         android:textColor="@color/black"
                                         android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
-                                        android:text="Credit Note Amount"
+                                        android:text="Refundable Deposit"
 
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content" />

@@ -136,7 +136,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     android.widget.TextView registered_supplier_address;
   public static String invoice="";
     //public static String invoice="CDC-U109-19000053";
-   // public static String creditInvoiceNumber="CCM-U109-19000013";
+   //public static String creditInvoiceNumber="CCM-U109-19000013";
    public static String creditInvoiceNumber="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
@@ -169,6 +169,8 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     private Connection connection;
     Connection_Disconnection_Invoice_Preview_Model model;
     CreditNoteModel crModel;
+    @BindView(R.id.margin)
+    View margin;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,6 +191,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
             } else {
                 consumptionInvoice.setVisibility(View.GONE);
                 heading.setText("");
+                margin.setVisibility(View.GONE);
                 payment.setVisibility(View.GONE);
                 GetCreditNoteData();
             }
@@ -303,7 +306,7 @@ public void setCreditNoteValues(CreditNoteModel model)
     customer_trn2.setText(model.getCustomerTRNValue());
     customer_address2.setText(model.getCustomerAddressValue());
 
-    date_time2.setText(Utils.getNewDate(model.getDateValue()) +" : "+model.getTimeValue());
+    date_time2.setText(Utils.getNewDate(model.getDateValue()) +"  "+model.getTimeValue());
     name_id2.setText(model.getUserNameValue()+" & "+model.getUserIDValue());
     credit_amount.setText(model.getInvoiceAmountValue());
     vatpercentage.setText("VAT @ "+model.getVatRateValue()+"%");
@@ -323,7 +326,7 @@ public void setCreditNoteValues(CreditNoteModel model)
         suplier_name.setText(model.getSuppliername());
         supplier_trn.setText(model.getSupplierTRN());
         registered_supplier_address.setText(model.getRegisteredAddress());
-        date_time.setText(Utils.getNewDate(model.getDateValue()) +" : "+model.getTime());
+        date_time.setText(Utils.getNewDate(model.getDateValue()) +"  "+model.getTime());
         name_id.setText(model.getUserNameValue()+" & "+model.getUserIDValue());
 
         for (int i = 0; i < model.getDetails_list().size(); i++) {

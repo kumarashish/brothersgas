@@ -258,14 +258,14 @@
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
-                                android:text="Supplier Name "
+                                android:text="Supplier Name :"
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
                                 android:layout_marginRight="5dp"
                                 android:layout_marginTop="5dp"
-                                android:layout_marginLeft="15dp"
+                                android:layout_marginLeft="5dp"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/black"
                                 android:id="@+id/suplier_name"
@@ -402,7 +402,9 @@
                             <TextView
                                 android:layout_weight="1"
                                 android:layout_gravity="center_vertical"
-android:gravity="left"
+android:gravity="center"
+                                android:textSize="12dp"
+
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
@@ -415,9 +417,10 @@ android:gravity="left"
                                 android:layout_width="1dp"
                                 android:layout_height="match_parent"/>
                             <TextView
+                                android:gravity="center"
+                                android:textSize="12dp"
+                                android:layout_weight="1.2"
 
-                                android:layout_weight="1"
-                                android:gravity="left"
                                 android:layout_marginRight="5dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="5dp"
@@ -433,12 +436,13 @@ android:gravity="left"
                                 android:layout_width="1dp"
                                 android:layout_height="match_parent"/>
                             <TextView
-                                android:layout_weight="1"
+                                android:layout_weight="0.8"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:gravity="left"
+                                android:gravity="center"
+                                android:textSize="12dp"
                                 android:fontFamily="@font/aller_rg"
                                 android:text="Quantity"
                                 android:layout_marginRight="5dp"
@@ -455,7 +459,8 @@ android:gravity="left"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/black"
-                                android:gravity="left"
+                                android:gravity="center"
+                                android:textSize="12dp"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/aller_rg"
                                 android:text="Units Price  "
@@ -468,7 +473,8 @@ android:gravity="left"
                                 android:layout_height="match_parent"/>
                             <TextView
                                 android:layout_weight="1"
-                                android:gravity="left"
+                                android:gravity="center"
+                                android:textSize="12dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/black"
@@ -720,7 +726,7 @@ android:gravity="left"
                             android:layout_height="80dp">
 
                             <TextView
-                                android:layout_weight="2.4"
+                                android:layout_weight="1.8"
                                 android:layout_gravity="center_vertical"
                                 android:gravity="left|center_vertical"
                                 android:textColor="@color/black"
@@ -734,13 +740,13 @@ android:gravity="left"
 
 
                             <TextView
-                                android:layout_weight="2.6"
-                                android:layout_gravity="end|center_vertical"
+                                android:layout_weight="3.2"
+                                android:layout_gravity="left|center_vertical"
                                 android:layout_marginRight="5dp"
                                 android:layout_marginLeft="5dp"
                                 android:textColor="@color/black"
                                 android:id="@+id/total_inwords"
-                                android:gravity="end"
+                                android:gravity="left|center_vertical"
                                 android:fontFamily="@font/fontnew"
                                 android:text=""
 

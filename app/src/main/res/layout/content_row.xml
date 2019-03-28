@@ -18,7 +18,7 @@
         android:layout_height="80dp">
 
         <TextView
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:layout_gravity="center_vertical"
             android:gravity="left"
             android:textColor="@color/black"
@@ -31,8 +31,8 @@
 
         <TextView
 
-            android:layout_weight="0.5"
-            android:gravity="left"
+            android:layout_weight="0.4"
+            android:gravity="center"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:textColor="@color/black"
@@ -45,12 +45,12 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_weight="1"
+            android:layout_weight="1.3"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:textColor="@color/black"
 
-            android:gravity="left"
+            android:gravity="center"
             android:fontFamily="@font/fontnew"
             android:text=""
             android:layout_marginRight="5dp"
@@ -60,11 +60,11 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_weight="1"
+            android:layout_weight="1.1"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:gravity="left"
+            android:gravity="center"
             android:id="@+id/unit_price"
             android:fontFamily="@font/fontnew"
             android:text=""

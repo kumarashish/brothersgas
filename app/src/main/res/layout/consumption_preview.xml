@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
     <LinearLayout
@@ -425,9 +427,11 @@
                                         android:layout_height="60dp">
 
                                         <TextView
+
                                             android:layout_weight="1"
                                             android:layout_gravity="center_vertical"
-                                            android:gravity="left"
+                                            android:gravity="center"
+                                            android:textSize="12dp"
                                             android:textColor="@color/black"
                                             android:textStyle="bold"
                                             android:fontFamily="@font/aller_rg"
@@ -443,6 +447,7 @@
 
                                             android:layout_weight="1"
                                             android:gravity="center"
+                                            android:textSize="12dp"
                                             android:layout_marginRight="5dp"
                                             android:layout_gravity="center_vertical"
                                             android:layout_marginLeft="5dp"
@@ -464,6 +469,7 @@
                                             android:textColor="@color/black"
                                             android:textStyle="bold"
                                             android:gravity="center"
+                                            android:textSize="12dp"
                                             android:fontFamily="@font/aller_rg"
                                             android:text="Units Consumed"
                                             android:layout_marginRight="5dp"
@@ -480,7 +486,8 @@
                                             android:layout_gravity="center_vertical"
                                             android:layout_marginLeft="10dp"
                                             android:textColor="@color/black"
-                                            android:gravity="left"
+                                            android:gravity="center"
+                                            android:textSize="12dp"
                                             android:textStyle="bold"
                                             android:fontFamily="@font/aller_rg"
                                             android:text="Press. Factor"
@@ -498,7 +505,8 @@
                                             android:layout_marginLeft="10dp"
                                             android:textColor="@color/black"
                                             android:textStyle="bold"
-                                            android:gravity="end"
+                                            android:gravity="center"
+                                            android:textSize="12dp"
                                             android:fontFamily="@font/aller_rg"
                                             android:text="Actual Units"
 
@@ -638,7 +646,8 @@
                                             android:layout_gravity="center_vertical"
                                             android:layout_weight="1"
                                             android:fontFamily="@font/aller_rg"
-                                            android:gravity="left"
+                                            android:gravity="center"
+                                            android:textSize="12dp"
                                             android:text="Item Name "
 
                                             android:textColor="@color/black"
@@ -658,7 +667,8 @@
                                             android:layout_marginRight="5dp"
                                             android:layout_weight="1"
                                             android:fontFamily="@font/aller_rg"
-                                            android:gravity="left"
+                                            android:gravity="center"
+                                            android:textSize="12dp"
                                             android:text="Units Measure"
 
                                             android:textColor="@color/black"
@@ -677,7 +687,8 @@
                                             android:layout_marginRight="5dp"
                                             android:layout_weight="1"
                                             android:fontFamily="@font/aller_rg"
-                                            android:gravity="left"
+                                            android:gravity="center"
+                                            android:textSize="12dp"
                                             android:text="Quantity"
 
 
@@ -697,6 +708,7 @@
                                             android:layout_weight="1"
                                             android:fontFamily="@font/aller_rg"
                                             android:gravity="center"
+                                            android:textSize="12dp"
                                             android:text="Units Price  "
 
                                             android:textColor="@color/black"
@@ -715,7 +727,8 @@
                                             android:layout_marginLeft="10dp"
                                             android:layout_weight="1"
                                             android:fontFamily="@font/aller_rg"
-                                            android:gravity="end"
+                                            android:gravity="center"
+                                            android:textSize="12dp"
                                             android:text="Amount (AED)  "
 
                                             android:textColor="@color/black"
@@ -966,7 +979,7 @@
                                         android:layout_height="80dp">
 
                                         <TextView
-                                            android:layout_weight="2.4"
+                                            android:layout_weight="1.8"
                                             android:layout_gravity="center_vertical"
                                             android:gravity="left|center_vertical"
                                             android:textColor="@color/black"
@@ -980,13 +993,13 @@
 
 
                                         <TextView
-                                            android:layout_weight="2.6"
+                                            android:layout_weight="23.2"
                                             android:layout_gravity="end|center_vertical"
                                             android:layout_marginRight="5dp"
                                             android:layout_marginLeft="5dp"
                                             android:textColor="@color/black"
                                             android:id="@+id/total_inwords"
-                                            android:gravity="end|center_vertical"
+                                            android:gravity="left|center_vertical"
                                             android:fontFamily="@font/fontnew"
                                             android:text=""
 

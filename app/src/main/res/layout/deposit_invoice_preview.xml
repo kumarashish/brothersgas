@@ -79,7 +79,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="TAX INVOICE" />
+                            android:text="DEPOSIT ADVICE" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -256,7 +256,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:fontFamily="@font/aller_rg"
-                                        android:text="Customer Address: "
+                                        android:text="Customer Address : "
 
                                         android:textColor="@color/black"
                                         android:textStyle="bold" />
@@ -279,7 +279,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="5dp"
                                     android:fontFamily="@font/aller_rg"
-                                    android:text="Supplier Name "
+                                    android:text="Supplier Name : "
 
                                     android:textColor="@color/black"
                                     android:textStyle="bold" />
@@ -421,7 +421,7 @@
                                 <LinearLayout
 
                                     android:layout_width="match_parent"
-                                    android:layout_height="40dp"
+                                    android:layout_height="50dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
                                     android:orientation="horizontal"
@@ -434,8 +434,9 @@
                                         android:layout_gravity="center_vertical"
                                         android:layout_weight="1"
                                         android:fontFamily="@font/aller_rg"
-                                        android:gravity="left"
-                                        android:text="Item Name "
+                                        android:gravity="center"
+                                        android:text="Item Name"
+                                        android:textSize="12dp"
 
                                         android:textColor="@color/black"
                                         android:textStyle="bold" />
@@ -454,8 +455,9 @@
                                         android:layout_marginRight="5dp"
                                         android:layout_weight="1"
                                         android:fontFamily="@font/aller_rg"
-                                        android:gravity="left"
-                                        android:text="Units Measure"
+                                        android:text="Units\nMeasurement"
+                                        android:textSize="12dp"
+                                       android:gravity="center"
 
                                         android:textColor="@color/black"
                                         android:textStyle="bold" />
@@ -473,7 +475,8 @@
                                         android:layout_marginRight="5dp"
                                         android:layout_weight="1"
                                         android:fontFamily="@font/aller_rg"
-                                        android:gravity="left"
+                                        android:textSize="12dp"
+                                        android:gravity="center"
                                         android:text="Quantity"
 
 
@@ -492,6 +495,7 @@
                                         android:layout_marginLeft="10dp"
                                         android:layout_weight="1"
                                         android:fontFamily="@font/aller_rg"
+                                        android:textSize="12dp"
                                         android:gravity="center"
                                         android:text="Units Price  "
 
@@ -511,7 +515,8 @@
                                         android:layout_marginLeft="10dp"
                                         android:layout_weight="1"
                                         android:fontFamily="@font/aller_rg"
-                                        android:gravity="end"
+                                        android:textSize="12dp"
+                                        android:gravity="center"
                                         android:text="Amount (AED)  "
 
                                         android:textColor="@color/black"
@@ -620,7 +625,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_weight="2.4"
+                                        android:layout_weight="1.8"
 
                                         android:fontFamily="@font/fontnew"
                                         android:gravity="left|center_vertical"
@@ -634,11 +639,11 @@
                                         android:id="@+id/total_inwords"
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
-                                        android:layout_gravity="end|center_vertical"
+                                        android:layout_gravity="left|center_vertical"
                                         android:layout_marginLeft="5dp"
                                         android:layout_marginRight="5dp"
 
-                                        android:layout_weight="2.6"
+                                        android:layout_weight="3.2"
                                         android:fontFamily="@font/fontnew"
                                         android:gravity="end|center_vertical"
 

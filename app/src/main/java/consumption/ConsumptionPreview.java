@@ -231,7 +231,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
         suplier_name.setText(model.getSuppliername());
         supplier_trn.setText(model.getSupplierTRN());
         registered_supplier_address.setText(model.getRegisteredAddress());
-        date_time.setText(Utils.getNewDate(model.getDateValue()) +" : "+model.getTime());
+        date_time.setText(Utils.getNewDate(model.getDateValue()) +"  "+model.getTime());
         name_id.setText(model.getUserNameValue()+" & "+model.getUserIDValue());
 
         for (int i = 0; i < model.getDetails_list().size(); i++) {
