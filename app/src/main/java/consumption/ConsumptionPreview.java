@@ -186,7 +186,7 @@ public static String invoice="";
         @Override
         protected String doInBackground(String... strings) {
 
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Connection_DisconnectionInvoiceDetails, new String[]{invoice});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.ConsumptionPreview, new String[]{invoice});
             return result;
         }
 
