@@ -639,7 +639,7 @@ public void setCreditNoteValues(CreditNoteModel model)
 
                 // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCredit Note^FS" + "\r\n" +
+                "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDRefund Deposit Advice^FS" + "\r\n" +
                 "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
 
                 "^FO20,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
