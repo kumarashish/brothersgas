@@ -3,9 +3,11 @@ package consumption;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brothersgas.R;
+import com.itextpdf.text.DocumentException;
 import com.zebra.sdk.comm.BluetoothConnection;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
@@ -37,6 +40,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
+import common.GeneratePdfFormat;
 import common.NumberToWords;
 import common.ScreenshotUtils;
 import common.SettingsHelper;
@@ -105,8 +110,8 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     android.widget.TextView supplier_trn;
     @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
-    public static String invoice="";
-   //public static String invoice="CNV-U109-19000485";
+   public static String invoice="";
+    //public static String invoice="CNV-U109-19000485";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -118,7 +123,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     LinearLayout content;
     @BindView(R.id.back_button)
     Button back_button;
-    public static String imagePath="storage/sdcard0/Brothers_Gas/.1553619034324.jpg";///storage/sdcard0/Brothers_Gas/.1553619034324.jpg
+    public static String imagePath="";///storage/sdcard0/Brothers_Gas/.1553619034324.jpg
     WebServiceAcess webServiceAcess;
     @BindView(R.id. signature)
     ImageView signature;
@@ -137,6 +142,8 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     AlertDialog printDialog;
     ProgressDialog dialog;
     private Connection connection;
+
+    String path="";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -381,8 +388,9 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 if(edt.getText().toString().length()>0) {
-                    dialog.show();;
+                   dialog.show();;
                     performTest(edt.getText().toString());
+
                 }else{
                     Toast.makeText(ConsumptionPreview.this,"Please enter mac address",Toast.LENGTH_SHORT).show();
                 }
@@ -740,6 +748,21 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
         }
     }
         return value;
+    }
+
+    public void print(String path)
+    {
+        File file = new File(path);
+        Uri uri = Uri.fromFile(file);
+        Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+        pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        pdfOpenintent.setDataAndType(uri, "application/pdf");
+        try {
+            startActivity(pdfOpenintent);
+        }
+        catch (ActivityNotFoundException e) {
+
+        }
     }
 
 }

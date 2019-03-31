@@ -2,17 +2,21 @@ package common;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
+import android.graphics.pdf.PdfRenderer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.brothersgas.R;
@@ -32,7 +36,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.util.ArrayList;
 
 
 /**
@@ -40,29 +45,49 @@ import java.io.IOException;
  */
 
    public class GeneratePdfFormat  extends Activity {
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+       ImageView image;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.consumption);
+        setContentView(R.layout.test);
         //createPdf("testing");
         try {
-            generatePdf();
+            image=(ImageView) findViewById(R.id.image);
+        //  String path=  generatePdf();
+            String directory_path = Environment.getExternalStorageDirectory().getPath() + "/BrothersGas/";
+            File f=new File(directory_path);
+            if(!f.exists())
+            {
+                f.mkdir();
+            }
+            String targetPdf = directory_path+"temp.pdf";
+            File temp=new File(targetPdf);
+            if(new File(targetPdf).exists())
+            {
+                temp.delete();
+            }
+            CopyRAWtoSDCard(R.raw.invoice,targetPdf);
+          ArrayList<Bitmap> getImages=pdfToBitmap(new File(targetPdf));
+            image.setImageBitmap(getImages.get(0));
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
             e.printStackTrace();
         }
     }
 
-     public void generatePdf() throws IOException, DocumentException {
+     public String generatePdf() throws IOException, DocumentException {
         String directory_path = Environment.getExternalStorageDirectory().getPath() + "/BrothersGas/";
     File f=new File(directory_path);
         if(!f.exists())
         {
             f.mkdir();
         }
-         String targetPdf = directory_path+"consumption.pdf";
+         String targetPdf = directory_path+"temp.pdf";
+        File temp=new File(targetPdf);
+        if(new File(targetPdf).exists())
+        {
+            temp.delete();
+        }
     Document document = new Document();
 // Location to save
     PdfWriter.getInstance(document, new FileOutputStream(targetPdf ));
@@ -130,8 +155,24 @@ import java.io.IOException;
          document.add(new Chunk(lineSeparator));
 
          document.close();
+         return targetPdf;
 }
 
+
+    public void CopyRAWtoSDCard(int id, String path) throws IOException {
+        InputStream in = getResources().openRawResource(id);
+        FileOutputStream out = new FileOutputStream(path);
+        byte[] buff = new byte[1024];
+        int read = 0;
+        try {
+            while ((read = in.read(buff)) > 0) {
+                out.write(buff, 0, read);
+            }
+        } finally {
+            in.close();
+            out.close();
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void createPdf(String sometext){
@@ -176,5 +217,41 @@ import java.io.IOException;
         }
         // close the document
         document.close();
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public ArrayList<Bitmap> pdfToBitmap(File pdfFile) {
+        ArrayList<Bitmap> bitmaps = new ArrayList<>();
+
+        try {
+            PdfRenderer renderer = new PdfRenderer(ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY));
+
+            Bitmap bitmap;
+            final int pageCount = renderer.getPageCount();
+            for (int i = 0; i < pageCount; i++) {
+                PdfRenderer.Page page = renderer.openPage(i);
+
+                int width = getResources().getDisplayMetrics().densityDpi / 72 * page.getWidth();
+                int height = getResources().getDisplayMetrics().densityDpi / 72 * page.getHeight();
+                bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+                page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+
+                bitmaps.add(bitmap);
+
+                // close the page
+                page.close();
+
+            }
+
+            // close the renderer
+            renderer.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return bitmaps;
+
     }
 }

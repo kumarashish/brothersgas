@@ -25,7 +25,7 @@
                 android:layout_height="150.0dip"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/brogas_logo" />
 
 
@@ -41,58 +41,38 @@
                     android:layout_marginRight="20.0dip"
                     android:src="@drawable/menu_settings" />
 
-            <TextView
-                android:id="@id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/imageView"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20.0dip"
-                android:fontFamily="@font/aller_rg"
-                android:text=""
-                android:textColor="@android:color/primary_text_light_nodisable"
-                android:textSize="24.0sp" />
 
             <RelativeLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_below="@+id/textView"
-                android:layout_marginTop="20.0dip"
+                android:layout_below="@+id/imageView"
 
 
-                app:layout_constraintTop_toBottomOf="@+id/textView">
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20.0dip"
-                    android:fontFamily="@font/aller_rg"
-                    android:text="Sign in"
-                    android:visibility="gone"
-                    android:textColor="@android:color/white"
-                    android:textSize="24.0sp" />
+              >
+
+
 
 
 
                 <LinearLayout
                     android:id="@+id/login_box"
                     android:layout_margin="10dp"
-                    android:background="@drawable/edittext_rect"
+
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp">
+                    android:layout_height="160dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/user_RL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+
 
                     android:orientation="horizontal"
                     android:textColorHint="@color/text_hint_color"
-                    android:weightSum="2"
+                    android:weightSum="3"
                     android:layout_centerHorizontal="true"
 
 
@@ -101,7 +81,7 @@
                     <EditText
                         android:id="@+id/etUserName"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:background="@null"
                         android:hint="Username"
                         android:inputType="textEmailAddress"
@@ -112,7 +92,7 @@
                         android:padding="@dimen/margin_8"
                         android:textSize="@dimen/margin_16"
                         android:fontFamily="@font/aller_rg"
-                        android:textStyle="bold"
+
                         app:hintTextAppearance="@style/MyAppearance"
                         tools:ignore="MissingPrefix">
 
@@ -134,10 +114,10 @@
 
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
+
                     android:layout_below="@+id/user_RL"
                     android:textColorHint="@color/dashboard_textcolor"
-                    android:weightSum="2"
+
                     android:layout_centerHorizontal="true"
 
 
@@ -146,13 +126,13 @@
                     <EditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:background="@null"
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:singleLine="true"
                         android:fontFamily="@font/aller_rg"
-                        android:textStyle="bold"
+
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/dashboard_textcolor"
@@ -169,7 +149,7 @@
                         android:layout_height="1dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="1dp"
-                        android:background="@color/dashboard_textcolor"  />
+                        android:background="@color/dashboard_textcolor" />
 
 
                 </android.support.design.widget.TextInputLayout>
@@ -199,7 +179,7 @@
                     android:layout_width="50dp"
                     android:id="@+id/progressBar"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/pass_RL"
+                    android:layout_below="@+id/login_box"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="40.0dip"
                     android:layout_centerVertical="true"

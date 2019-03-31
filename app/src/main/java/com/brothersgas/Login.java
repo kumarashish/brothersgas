@@ -59,8 +59,6 @@ public class Login extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        //getSupportActionBar().setTitle("");
-        // Add titleTextView into ActionBar
         ButterKnife.bind(this);
         config.setOnClickListener(this);
         webServiceAcess=new WebServiceAcess();

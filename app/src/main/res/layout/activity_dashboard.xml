@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
         <RelativeLayout
 android:layout_weight="0.5"
-            android:background="@drawable/header"
+
             android:layout_width="match_parent"
             android:layout_height="0dp">
         <ImageView
@@ -24,12 +24,12 @@ android:layout_weight="0.5"
             android:layout_centerVertical="true"
             android:id="@+id/logo"
             android:layout_marginTop="40dp"
-            android:src="@drawable/logo_new"
+            android:src="@drawable/brogas_logo"
             android:layout_width="match_parent"
             android:layout_height="180dp" />
             <ImageView
                 android:id="@+id/menu"
-              android:tint="@color/white"
+              android:tint="@color/colorPrimary"
                 android:src="@drawable/menu_icon"
                 android:layout_margin="10dp"
                 android:layout_alignParentRight="true"
@@ -37,6 +37,10 @@ android:layout_weight="0.5"
                 android:layout_height="50dp" />
 
         </RelativeLayout>
+        <View
+            android:background="@color/dashboard_textcolor"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
         <LinearLayout
 
             android:weightSum="3"
@@ -44,6 +48,7 @@ android:layout_weight="0.5"
             android:layout_weight="1.5"
             android:layout_width="match_parent"
             android:layout_height="0dp">
+
             <LinearLayout
 
                 android:orientation="horizontal"

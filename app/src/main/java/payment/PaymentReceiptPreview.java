@@ -89,7 +89,7 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     AppController controller;
     WebServiceAcess webServiceAcess;
   //public static String invoice="RMRC-U1L1900113";
-   public static String invoice="";
+  public static String invoice="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -141,6 +141,7 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     PaymentPreviewModel model=null;
     AlertDialog printDialog;
 ProgressDialog dialog;
+    int xposition=0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,15 +173,16 @@ ProgressDialog dialog;
 
             case R.id.print_email:
 
-                if(sendAttempt>1)
-                {
-                    showPrintAlertDialog();
-                }else {
-                    progressbar2.setVisibility(View.VISIBLE);
-                    footer.setVisibility(View.GONE);
-                    new EmailInvoice().execute();
-
-                }
+//                if(sendAttempt>1)
+//                {
+//                    showPrintAlertDialog();
+//                }else {
+//                    progressbar2.setVisibility(View.VISIBLE);
+//                    footer.setVisibility(View.GONE);
+//                    new EmailInvoice().execute();
+//
+//                }
+                showPrintAlertDialog();
                 break;
         }
     }
@@ -406,11 +408,9 @@ ProgressDialog dialog;
 
                             Bitmap icon = BitmapFactory.decodeResource(getResources(),
                                     R.drawable.brogas_logo);
-                            //Bitmap signatureBitmap = Bitmap.createScaledBitmap(signatureArea.getBitmap(), 300, 200, false);
                             Bitmap logo = Bitmap.createScaledBitmap(icon, 300, 200, false);
-
-                            // printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                             sendTestLabel();
+                            createdemoReceipt();
                            printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
 
 
@@ -504,7 +504,7 @@ ProgressDialog dialog;
         }
     }
 
-    private String createZplReceipt() {
+   private String createZplReceipt() {
         /*
          This routine is provided to you as an example of how to create a variable length label with user specified data.
          The basic flow of the example is as follows
@@ -517,43 +517,43 @@ ProgressDialog dialog;
          Using this same concept, you can create one label for your receipt header, one for the body and one for the footer. The body receipt will be duplicated as many items as there are in your variable data
 
          */
-        String tmpHeader="";
+       String tmpHeader="";
         int headerHeight =0;
         if(model.getPaymentTypeValue().equalsIgnoreCase("Cash"))
         {
 
             tmpHeader=   "^XA" +
 
-                    "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
+                    "^PON^PW600^MNN^LL%d^LH0,0" + "\r\n" +
 
                     // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                    "^FO20,20" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
-                    "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                    "^FO10,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
 
-                    "^FO20,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
 
-                    "^FO260,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
+                    "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
 
-                    "^FO20,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
 
-                    "^FO260,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
+                    "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
 
-                    "^FO20,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
 
-                    "^FO260,170" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
+                    "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
 
-                    "^FO20,210" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
 
-                    "^FO260,210" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
+                    "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
 
-                    "^FO20,250" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
 
-                    "^FO260,250" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
+                    "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
 
 
-                    "^FO20,300" + "\r\n" + "^GB500,5,5,B,0^FS";
-             headerHeight =310;
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^GB500,5,5,B,0^FS";
+             headerHeight =getXposition();
         }else{
 
         /*
@@ -573,43 +573,45 @@ ProgressDialog dialog;
          ^XZ indicates the end of a label
          */
 
-            tmpHeader=   "^XA" +
 
-                            "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
+
+         tmpHeader=   "^XA" +
+
+                            "^PON^PW600^MNN^LL%d^LH0,0" + "\r\n" +
 
                             // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                    "^FO20,20" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
-                    "^FO20,20" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                    "^FO10,20" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
+                    "^FO10,20" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
 
-                    "^FO20,60" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
+                    "^FO10,60" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
 
                     "^FO260,60" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
 
-                    "^FO20,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
+                    "^FO10,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
 
                     "^FO260,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
 
-                    "^FO20,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
+                    "^FO10,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
 
                     "^FO260,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
 
-                    "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
+                    "^FO10,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
 
                     "^FO260,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
 
-                            "^FO20,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Number^FS" + "\r\n" +
+                            "^FO10,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Number^FS" + "\r\n" +
 
                             "^FO260,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getChequeNumberValue()+"^FS" + "\r\n" +
-                            "^FO20,280" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDBank^FS" + "\r\n" +
+                            "^FO10,280" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDBank^FS" + "\r\n" +
 
                             "^FO260,280" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getBankValue()+"^FS" + "\r\n" +
-                            "^FO20,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
+                            "^FO10,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
 
                             "^FO260,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
 
 
-                            "^FO20,360" + "\r\n" + "^GB500,5,5,B,0^FS";
+                            "^FO10,360" + "\r\n" + "^GB500,5,5,B,0^FS";
 
             headerHeight =370;
         }
@@ -621,41 +623,89 @@ ProgressDialog dialog;
 
         float totalPrice = 0;
 
-        // Map<String, String> itemsToPrint = createListOfItems();
 
-        int i = 0;
-//        for (String productName : itemsToPrint.keySet()) {
-//            String price = itemsToPrint.get(productName);
-//
-//            String lineItem = "^FO50,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO280,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FD$%s^FS";
-//            totalPrice += Float.parseFloat(price);
-//            int totalHeight = i++ * heightOfOneLine;
-//            body += String.format(lineItem, totalHeight, productName, totalHeight, price);
-//
-//        }
 
-        // long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
+        //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
         long totalBodyHeight =0;
 
         long footerStartPosition = headerHeight;
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO20,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
+                "^FO10,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
 
                 "^FO260,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getAmountValue()+"^FS" + "\r\n" +
-                "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO10,60" + "\r\n" + "^GB500,5,5,B,0^FS"+
 
-                "^FO20,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+                "^FO10,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
 
                 "^FO260,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+getNumberToWords(model.getAmountValue())+"^FS" + "\r\n" +
-                "^FO20,160" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO10,160" + "\r\n" + "^GB500,5,5,B,0^FS"+
 
-                "^FO20,200" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
 
-                "^FO20,240" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight = 250;
+        long footerHeight = 210;
+        xposition=0;
+        long labelLength = headerHeight + totalBodyHeight + footerHeight;
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = sdf.format(date);
+
+        String header = String.format(tmpHeader, labelLength,Utils.getNewDate(model.getDateValue()));
+
+       String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+
+        return wholeZplLabel;
+    }
+
+    public int getXposition()
+    {
+        xposition=xposition+40;
+        return xposition;
+
+    }
+    private String createdemoReceipt() {
+        /*
+         This routine is provided to you as an example of how to create a variable length label with user specified data.
+         The basic flow of the example is as follows
+            Header of the label with some variable data
+            Body of the label
+                Loops thru user content and creates small line items of printed material
+            Footer of the label
+
+         As you can see, there are some variables that the user provides in the header, body and footer, and this routine uses that to build up a proper ZPL string for printing.
+         Using this same concept, you can create one label for your receipt header, one for the body and one for the footer. The body receipt will be duplicated as many items as there are in your variable data
+
+         */
+        String tmpHeader="";
+        int headerHeight =0;
+
+            tmpHeader=   "^XA" +
+
+                    "^PON^PW50^MNN^LL%d^LH0,0" + "\r\n" +
+
+
+
+                    "^FO10,10" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
+
+
+                    "^FO10,010" + "\r\n" + "^GB500,5,5,B,0^FS";
+            headerHeight =10;
+        String body = String.format("^LH0,%d", headerHeight);
+        float totalPrice = 0;
+        //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
+        long totalBodyHeight =0;
+        long footerStartPosition = headerHeight;
+        String footer = String.format("^LH0,%d" + "\r\n" +
+
+                "^FO10,01" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD^FS" + "\r\n" +
+
+
+                "^FO10,15" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+
+        long footerHeight = 10;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
         Date date = new Date();
@@ -668,6 +718,8 @@ ProgressDialog dialog;
 
         return wholeZplLabel;
     }
+
+
 
     public String getNumberToWords(String val) {
         String words = "";

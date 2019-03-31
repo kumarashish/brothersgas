@@ -1,5 +1,6 @@
 package com.brothersgas;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -8,8 +9,11 @@ import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Looper;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +40,11 @@ import com.zebra.sdk.printer.ZebraPrinterLinkOs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -46,6 +53,7 @@ import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 
+import common.GeneratePdfFormat;
 import common.NumberToWords;
 import common.SettingsHelper;
 import common.WebServiceAcess;
@@ -119,6 +127,8 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
     int attemptCount=0;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +138,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
         ButterKnife.bind(this);
         dialog = new ProgressDialog(Enquiry.this);
         dialog.setMessage("Priniting....");
+        //pdfFormat = new GeneratePdfFormat(this);
         webServiceAcess = new WebServiceAcess();
         controller = (AppController) getApplicationContext();
         back_button.setOnClickListener(this);
@@ -142,9 +153,9 @@ public class Enquiry extends Activity implements View.OnClickListener {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         numToWords = new NumberToWords();
 
-    }
 
-    public long getMinDate(String datee) {
+    }
+        public long getMinDate(String datee) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
@@ -405,13 +416,20 @@ public class Enquiry extends Activity implements View.OnClickListener {
             cancel.setVisibility(View.INVISIBLE);
         }
         submit.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 if (edt.getText().toString().length() > 0) {
                     attemptCount=attemptCount+1;
                     print.setText("Reprint");
                     dialog.show();
-                    performTest(edt.getText().toString());
+
+
+
+                        performTest(edt.getText().toString());
+
+
                 } else {
                     Toast.makeText(Enquiry.this, "Please enter mac address", Toast.LENGTH_SHORT).show();
                 }
@@ -466,11 +484,12 @@ public class Enquiry extends Activity implements View.OnClickListener {
                             Bitmap icon = BitmapFactory.decodeResource(getResources(),
                                     R.drawable.brogas_logo);
                             //Bitmap signatureBitmap = Bitmap.createScaledBitmap(signatureArea.getBitmap(), 300, 200, false);
-                            Bitmap logo = Bitmap.createScaledBitmap(icon, 300, 200, false);
+                            Bitmap logo = Bitmap.createScaledBitmap(icon, 300,200, false);
+
 
                             // printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                             sendTestLabel();
-                            printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
+                            printer.printImage(new ZebraImageAndroid(icon), 0, 0,logo.getWidth(),logo.getHeight(), false);
 
 
                             //  printer.sendFileContents("^FT78,76^A0N,28,28^FH_^FDHello_0AWorld^FS");
