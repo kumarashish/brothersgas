@@ -447,7 +447,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
                             printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                             sendTestLabel();
                             printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
-
+                            createfooterReceipt();
 
                             //  printer.sendFileContents("^FT78,76^A0N,28,28^FH_^FDHello_0AWorld^FS");
 
@@ -705,12 +705,14 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
                 "^FO320,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD "+getNumberToWords(con_dconnModel.getTotalIncludingTaxValue())+"^FS" + "\r\n" +
                 "^FO20,215" + "\r\n" + "^GB500,5,5,B,0^FS"+
 
-                "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
-                "^FO20,295" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDSignature!^FS" + "\r\n" +
+                "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
+                "^FO20,295" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
 
-                "^FO20,335" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO20,335" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature^FS" + "\r\n" +
 
-        long footerHeight = 350;
+                "^FO20,345" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+
+        long footerHeight = 360;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
 
@@ -764,5 +766,69 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
         }
     }
+    private String createfooterReceipt() {
+        /*
+         This routine is provided to you as an example of how to create a variable length label with user specified data.
+         The basic flow of the example is as follows
+            Header of the label with some variable data
+            Body of the label
+                Loops thru user content and creates small line items of printed material
+            Footer of the label
 
+         As you can see, there are some variables that the user provides in the header, body and footer, and this routine uses that to build up a proper ZPL string for printing.
+         Using this same concept, you can create one label for your receipt header, one for the body and one for the footer. The body receipt will be duplicated as many items as there are in your variable data
+
+         */
+        String tmpHeader="";
+        int headerHeight =0;
+
+        tmpHeader=   "^XA" +
+
+                "^PON^PW400^MNN^LL%d^LH0,0" + "\r\n" +
+
+
+
+                "^FO10,10" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
+
+
+                "^FO10,010" + "\r\n" + "^GB500,5,5,B,0^FS";
+        headerHeight =10;
+        String body = String.format("^LH0,%d", headerHeight);
+
+        int heightOfOneLine = 40;
+
+        float totalPrice = 0;
+
+
+
+        //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
+        long totalBodyHeight =0;
+
+        long footerStartPosition = headerHeight;
+
+        String footer = String.format("^LH0,%d" + "\r\n" +
+
+                "^FO10,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+
+                "^FO200,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,^FS" + "\r\n" +
+                "^FO150,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDP.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
+                "^FO150,100" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
+                "^FO150,140" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
+                "^FO10,0180" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+
+        long footerHeight = 210;
+
+        long labelLength = headerHeight + totalBodyHeight + footerHeight;
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = sdf.format(date);
+
+        String header = String.format(tmpHeader, labelLength,Utils.getNewDate(dateString ));
+
+        String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+
+        return wholeZplLabel;
+    }
 }

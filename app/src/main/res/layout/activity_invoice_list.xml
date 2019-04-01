@@ -60,7 +60,7 @@ android:id="@+id/header"
 
                 <AutoCompleteTextView
                     android:fontFamily="@font/aller_rg"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dashboard_textcolor"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center"
                     android:textColorHint="@color/dashboard_textcolor"

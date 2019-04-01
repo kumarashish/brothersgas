@@ -194,7 +194,7 @@ View contract;
         macView.setVisibility(View.VISIBLE);
         textView.setVisibility(View.GONE);
         cancel.setVisibility(View.INVISIBLE);
-        submit.setText("Submit");
+        submit.setText("Save");
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

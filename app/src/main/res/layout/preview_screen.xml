@@ -789,13 +789,58 @@ android:gravity="center"
 
                         </LinearLayout>
                         <TextView
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="20dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp"
-                            android:textColor="@color/red"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black"
 
                             android:fontFamily="@font/fontnew"
-                            android:text="Note :- This is computer generated document does not require signature "
+                            android:text="This is computer generated document does not require signature "
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black"
+
+                            android:fontFamily="@font/fontnew"
+                            android:text="THIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECEIPT FOR PAYMENTS "
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            android:fontFamily="@font/fontnew"
+                            android:text="Registered Office : Amman Street, New Industrial Area, P.O.Box 2018,Ajman,UAE."
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            android:fontFamily="@font/fontnew"
+                            android:text="T : +971 (0) 6 743 8307 F:+971(0)6 743 7139"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            android:fontFamily="@font/fontnew"
+                            android:text="Email : Sales@brothersgas.ae \nWebsite : www.brothersgas.com"
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />

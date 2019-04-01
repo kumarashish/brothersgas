@@ -38,6 +38,8 @@ import com.zebra.sdk.printer.ZebraPrinterLinkOs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -134,9 +136,9 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     android.widget.TextView supplier_trn;
     @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
-  public static String invoice="";
-    //public static String invoice="CDC-U109-19000053";
-   //public static String creditInvoiceNumber="CCM-U109-19000013";
+ public static String invoice="";
+   // public static String invoice="CDC-U109-19000053";
+ //  public static String creditInvoiceNumber="CCM-U109-19000013";
    public static String creditInvoiceNumber="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
@@ -149,7 +151,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     LinearLayout content;
     @BindView(R.id.back_button)
     Button back_button;
-    public static String imagePath="/storage/sdcard0/Brothers_Gas/.1553619034324.jpg";
+    public static String imagePath="";///storage/sdcard0/Brothers_Gas/.1553619034324.jpg
     WebServiceAcess webServiceAcess;
     @BindView(R.id. signature)
     ImageView signature;
@@ -522,12 +524,15 @@ public void setCreditNoteValues(CreditNoteModel model)
                                 sendTestLabel2();
                                 printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
                                 printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
+                                createfooterReceipt();
                                 sendTestLabel();
                                 printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
+                                createfooterReceipt();
                             }else{
                                 printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                                 sendTestLabel2();
                                 printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
+                                createfooterReceipt();
 
 
                             }
@@ -896,10 +901,11 @@ public void setCreditNoteValues(CreditNoteModel model)
                 "^FO320,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD "+getNumberToWords(model.getTotalIncludingTaxValue())+"^FS" + "\r\n" +
                 "^FO20,215" + "\r\n" + "^GB500,5,5,B,0^FS"+
 
-                "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
-                "^FO20,295" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDSignature!^FS" + "\r\n" +
+                "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
+                "^FO20,295" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
+                "^FO20,325" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature!^FS" + "\r\n" +
 
-                "^FO20,335" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO20,340" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
         long footerHeight = 350;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
@@ -914,7 +920,71 @@ public void setCreditNoteValues(CreditNoteModel model)
     }
 
 
+    private String createfooterReceipt() {
+        /*
+         This routine is provided to you as an example of how to create a variable length label with user specified data.
+         The basic flow of the example is as follows
+            Header of the label with some variable data
+            Body of the label
+                Loops thru user content and creates small line items of printed material
+            Footer of the label
 
+         As you can see, there are some variables that the user provides in the header, body and footer, and this routine uses that to build up a proper ZPL string for printing.
+         Using this same concept, you can create one label for your receipt header, one for the body and one for the footer. The body receipt will be duplicated as many items as there are in your variable data
+
+         */
+        String tmpHeader="";
+        int headerHeight =0;
+
+        tmpHeader=   "^XA" +
+
+                "^PON^PW400^MNN^LL%d^LH0,0" + "\r\n" +
+
+
+
+                "^FO10,10" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
+
+
+                "^FO10,010" + "\r\n" + "^GB500,5,5,B,0^FS";
+        headerHeight =10;
+        String body = String.format("^LH0,%d", headerHeight);
+
+        int heightOfOneLine = 40;
+
+        float totalPrice = 0;
+
+
+
+        //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
+        long totalBodyHeight =0;
+
+        long footerStartPosition = headerHeight;
+
+        String footer = String.format("^LH0,%d" + "\r\n" +
+
+                "^FO10,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+
+                "^FO200,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,^FS" + "\r\n" +
+                "^FO150,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDP.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
+                "^FO150,100" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
+                "^FO150,140" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
+                "^FO10,0180" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+
+        long footerHeight = 210;
+
+        long labelLength = headerHeight + totalBodyHeight + footerHeight;
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = sdf.format(date);
+
+        String header = String.format(tmpHeader, labelLength,Utils.getNewDate(dateString ));
+
+        String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+
+        return wholeZplLabel;
+    }
 
     private Map<String, String> createListOfItems() {
         Map<String, String> retVal = new HashMap<String, String>();

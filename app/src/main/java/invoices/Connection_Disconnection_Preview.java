@@ -84,7 +84,7 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-   public static String invoice="";
+    public static String invoice="";
     //public static String invoice="CDC-U109-19000053";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
@@ -619,9 +619,11 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
 
                 "^FO320,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED "+getNumberToWords(con_dcon_model.getTotalIncludingTaxValue())+"^FS" + "\r\n" +
                 "^FO20,215" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO20,245" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
+                "^FO20,285" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
 
-                "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
-                "^FO20,295" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDSignature!^FS" + "\r\n" +
+
+                "^FO20,325" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature^FS" + "\r\n" +
 
                 "^FO20,335" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 

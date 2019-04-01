@@ -88,7 +88,7 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     Button back_button;
     AppController controller;
     WebServiceAcess webServiceAcess;
-  //public static String invoice="RMRC-U1L1900113";
+ // public static String invoice="RMRC-U1L1900113";
   public static String invoice="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
@@ -410,9 +410,8 @@ ProgressDialog dialog;
                                     R.drawable.brogas_logo);
                             Bitmap logo = Bitmap.createScaledBitmap(icon, 300, 200, false);
                             sendTestLabel();
-                            createdemoReceipt();
                            printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
-
+                            createfooterReceipt();
 
                             //  printer.sendFileContents("^FT78,76^A0N,28,28^FH_^FDHello_0AWorld^FS");
 
@@ -640,8 +639,9 @@ ProgressDialog dialog;
                 "^FO10,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
 
                 "^FO260,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+getNumberToWords(model.getAmountValue())+"^FS" + "\r\n" +
-                "^FO10,160" + "\r\n" + "^GB500,5,5,B,0^FS"+
 
+                "^FO10,140" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO10,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
 
                 "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
@@ -666,7 +666,7 @@ ProgressDialog dialog;
         return xposition;
 
     }
-    private String createdemoReceipt() {
+    private String createfooterReceipt() {
         /*
          This routine is provided to you as an example of how to create a variable length label with user specified data.
          The basic flow of the example is as follows
@@ -684,7 +684,7 @@ ProgressDialog dialog;
 
             tmpHeader=   "^XA" +
 
-                    "^PON^PW50^MNN^LL%d^LH0,0" + "\r\n" +
+                    "^PON^PW400^MNN^LL%d^LH0,0" + "\r\n" +
 
 
 
@@ -694,18 +694,31 @@ ProgressDialog dialog;
                     "^FO10,010" + "\r\n" + "^GB500,5,5,B,0^FS";
             headerHeight =10;
         String body = String.format("^LH0,%d", headerHeight);
+
+        int heightOfOneLine = 40;
+
         float totalPrice = 0;
+
+
+
         //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
         long totalBodyHeight =0;
+
         long footerStartPosition = headerHeight;
+
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO10,01" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FD^FS" + "\r\n" +
+                "^FO10,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
 
+                "^FO200,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,^FS" + "\r\n" +
+                "^FO150,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDP.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
+                "^FO150,100" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
+                "^FO150,140" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
+                "^FO10,0180" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-                "^FO10,15" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
-
-        long footerHeight = 10;
+        long footerHeight = 210;
+        xposition=0;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
         Date date = new Date();

@@ -64,7 +64,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/unit_price"
             android:fontFamily="@font/fontnew"
             android:text=""
