@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itextpdf.text.pdf.PdfPRow;
@@ -39,6 +40,7 @@ import com.zebra.sdk.printer.ZebraPrinterLinkOs;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +49,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +63,7 @@ import common.SettingsHelper;
 import common.WebServiceAcess;
 import consumption.Consumption;
 import invoices.Consumption_DeliveryNote_Preview;
+import model.Connection_Disconnection_Invoice_Preview_Model;
 import model.EnquiryModel;
 import model.PaymentPreviewModel;
 
@@ -110,6 +115,16 @@ public class Enquiry extends Activity implements View.OnClickListener {
     android.widget.TextView total_con_dconn_amount;
     @BindView(R.id.teenant_change)
     android.widget.TextView teenant_Change;
+    @BindView(R.id.user_name)
+    TextView userName;
+    @BindView(R.id.cash_content)
+    LinearLayout cashContent;
+    @BindView(R.id.cheaque_content)
+    LinearLayout cheaqueContent;
+    @BindView(R.id.cheque_total)
+    TextView cheaqueTotalAmount;
+    @BindView(R.id.cash_total)
+    TextView cashTotalAmount;
     private DatePicker datePicker;
     private Calendar calendar;
     NumberToWords numToWords;
@@ -126,6 +141,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
     ProgressDialog dialog;
 
     int attemptCount=0;
+    int xposition=0;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -152,7 +168,6 @@ public class Enquiry extends Activity implements View.OnClickListener {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         numToWords = new NumberToWords();
-
 
     }
         public long getMinDate(String datee) {
@@ -326,8 +341,11 @@ public class Enquiry extends Activity implements View.OnClickListener {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONObject groupJSON = result.getJSONObject("GRP");
-                    model = new EnquiryModel(groupJSON.getJSONArray("FLD"));
+                    JSONArray groupJSON = result.getJSONArray("GRP");
+                    JSONObject tab=result.getJSONObject("TAB");
+                    JSONArray lin=tab.getJSONArray("LIN");
+                    model = new EnquiryModel(groupJSON.getJSONObject(0).getJSONArray("FLD"));
+                    model.setCashCheaquePayments(lin);
                     setValue();
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
@@ -345,24 +363,45 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
     public void setValue() {
         if (model != null) {
-
+            userName.setText(model.getUsername());
             generatedInvoicecount.setText(model.getNumber_of_invoices());
             number_cash_payment.setText(model.getNumber_of_Cash_Payments());
-            total_cash_amount_collected.setText("AED "+model.getTotal_Cash_payments_amount());
             chequepayment_count.setText(model.getNumber_of_Cheque_Payments());
-            total_cheaqueamout.setText("AED "+model.getTotal_Cheque_payments_amount());
-            total_cheaque_cash_amount.setText("AED "+model.getTotal_Cheque_and_cheque_payments_amount());
             dep_conn_dconn.setText(model.getNumber_of_disconnection_invoices());
             teenant_Change.setText(model.getNumber_of_Connections());
-            total_dep_inv_amount.setText("AED "+model.getTotal_Deposite_Invoices_amount());
-            total_con_dconn_amount.setText("AED "+model.getTotal_Disconnection_Invoices_amount());
+            total_dep_inv_amount.setText(model.getNumber_of_deposite_invoices());
+            total_con_dconn_amount.setText(model.getNumber_of_disconnection_invoices());
+            cashTotalAmount.setText("AED "+ model.getTotal_Cash_payments_amount());
+            cheaqueTotalAmount.setText("AED "+model.getTotal_Cheque_payments_amount());
+            for (int i = 0; i < model.getCashList().size(); i++) {
+                EnquiryModel.PaymentModel modell = model.getCashList().get(i);
+                View view = getLayoutInflater().inflate(R.layout.cash_flow_row, null);
+                TextView number = (TextView) view.findViewById(R.id.rec_num);
+                TextView name = (TextView) view.findViewById(R.id.cust_name);
+                TextView amount = (TextView) view.findViewById(R.id.amount);
+                number.setText(modell.getPaymentNumber());
+                name.setText(modell.getCustomer());
+                amount.setText(modell.getAmout());
+                cashContent.addView(view);
+            }
+            for (int i = 0; i < model.getCheaqueList().size(); i++) {
+                EnquiryModel.PaymentModel modell = model.getCheaqueList().get(i);
+                View view = getLayoutInflater().inflate(R.layout.cash_flow_row, null);
+                TextView number = (TextView) view.findViewById(R.id.rec_num);
+                TextView name = (TextView) view.findViewById(R.id.cust_name);
+                TextView amount = (TextView) view.findViewById(R.id.amount);
+                number.setText(modell.getPaymentNumber());
+                name.setText(modell.getCustomer());
+                amount.setText(modell.getAmout());
+                cheaqueContent.addView(view);
+            }
+            mainLayout.setVisibility(View.VISIBLE);
         }
-        mainLayout.setVisibility(View.VISIBLE);
     }
 
     public void clearValue() {
 
-
+        userName.setText("");
         generatedInvoicecount.setText("");
         number_cash_payment.setText("");
         total_cash_amount_collected.setText("");
@@ -373,6 +412,10 @@ public class Enquiry extends Activity implements View.OnClickListener {
         teenant_Change.setText("");
         total_dep_inv_amount.setText("");
         total_con_dconn_amount.setText("");
+        cashContent.removeAllViews();
+        cheaqueContent.removeAllViews();
+        cashTotalAmount.setText("");
+        cheaqueTotalAmount.setText("");
 
         mainLayout.setVisibility(View.GONE);
     }
@@ -486,14 +529,10 @@ public class Enquiry extends Activity implements View.OnClickListener {
                             //Bitmap signatureBitmap = Bitmap.createScaledBitmap(signatureArea.getBitmap(), 300, 200, false);
                             Bitmap logo = Bitmap.createScaledBitmap(icon, 300,200, false);
 
-
+                            createfooterReceipt();
                             // printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                             sendTestLabel();
                             printer.printImage(new ZebraImageAndroid(icon), 0, 0,logo.getWidth(),logo.getHeight(), false);
-
-
-                            //  printer.sendFileContents("^FT78,76^A0N,28,28^FH_^FDHello_0AWorld^FS");
-                            createfooterReceipt();
                             connection.close();
                             Toast.makeText(Enquiry.this, "Receipt Printed Sucessfully.", Toast.LENGTH_LONG).show();
                             dialog.cancel();
@@ -594,6 +633,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
          */
         String tmpHeader = "";
         int headerHeight = 0;
+        xposition=0;
 
         tmpHeader = "^XA" +
 
@@ -601,92 +641,154 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
                 // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDEnquiry("+startDate.getText().toString()+" - "+endDate.getText().toString()+")^FS" + "\r\n" +
-                "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
+                "^FO10,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDActivity Report("+startDate.getText().toString()+" - "+endDate.getText().toString()+")^FS" + "\r\n" +
+                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD Username:^FS" + "\r\n" +
 
-                "^FO20,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDGenerated Invoices :^FS" + "\r\n" +
-
-                "^FO380,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_invoices() + "^FS" + "\r\n" +
-
-                "^FO20,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCash Payment :^FS" + "\r\n" +
-
-                "^FO380,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cash_Payments() + "^FS" + "\r\n" +
-
-                "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCash Amount Collected : ^FS" + "\r\n" +
-
-                "^FO380,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Cash_payments_amount() + "^FS" + "\r\n" +
-
-                "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Payments : ^FS" + "\r\n" +
-
-                "^FO380,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cheque_Payments() + "^FS" + "\r\n" +
-                "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal Cheque Amount : ^FS" + "\r\n" +
-
-                "^FO380,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " +model.getTotal_Cheque_payments_amount() + "^FS" + "\r\n" +
+                "^FO180,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getUsername() + "^FS" + "\r\n" +
 
 
-                "^FO20,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal (Cash+Cheque) Amount : ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoices Generated :^FS" + "\r\n" +
 
-                "^FO380,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Cheque_and_cheque_payments_amount() + "^FS" + "\r\n" +
-                "^FO20,340" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
+                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_invoices() + "^FS" + "\r\n" +
 
-                "^FO200,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDNumber of New Connections ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCash Payment :^FS" + "\r\n" +
 
-                "^FO380,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD^FS" + "\r\n" +
+                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cash_Payments() + "^FS" + "\r\n" +
 
-                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Change : ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Payments : ^FS" + "\r\n" +
 
-                "^FO380,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Connections() + "^FS" + "\r\n" +
+                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cheque_Payments() + "^FS" + "\r\n" +
 
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Change : ^FS" + "\r\n" +
 
-                "^FO20,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDeposit_Conn_DisConn. : ^FS" + "\r\n" +
-
-                "^FO380,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
-
-                "^FO20,500" + "\r\n" + "^GB500,5,5,B,0^FS" + "\r\n" +
-
-                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTotal Dep.Invoice Amount : ^FS" + "\r\n" +
-
-                "^FO380,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Deposite_Invoices_amount() + "^FS" + "\r\n" +
-                "^FO20,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDConn_DisConn.Invoice Amount : ^FS" + "\r\n" +
-
-                "^FO380,580" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAED " + model.getTotal_Disconnection_Invoices_amount() + "^FS" + "\r\n" +
+                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Connections() + "^FS" + "\r\n" +
 
 
-                "^FO20,620" + "\r\n" + "^GB500,5,5,B,0^FS";
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDeposit Payment : ^FS" + "\r\n" +
 
-        headerHeight = 630;
+                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
 
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDConn_DisConn. : ^FS" + "\r\n" +
+
+                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
+
+
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+              "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDRec.No. ^FS" + "\r\n" +
+                "^FO350,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCustomerName ^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCash ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" ;
+
+
+        headerHeight =getXposition();
         String body = String.format("^LH0,%d", headerHeight);
-
-
+        int heightOfOneLine = 40;
         float totalPrice = 0;
 
 
-        long totalBodyHeight = 0;
 
-        long footerStartPosition = headerHeight;
+        for (int i=0;i<model.getCashList().size();i++) {
+            EnquiryModel.PaymentModel paymentModel = model.getCashList().get(i);
+            String paymentNumber=paymentModel.getPaymentNumber();
+            String customer=paymentModel.getCustomer();
+            String amount=paymentModel.getAmout();
+            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" +"^FO350,%d" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" +"^FO650,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FDAED %s^FS";
+            int totalHeight = i++ * heightOfOneLine;
+            body += String.format(lineItem, totalHeight, paymentNumber, totalHeight,customer, totalHeight, amount,totalHeight);
 
+        }
+
+
+        long totalCashBodyHeight = (model.getCashList().size() + 1) * heightOfOneLine;
+//        xposition=(int)totalCashBodyHeight;
+//        String footer1 = String.format("^LH0,%d" + "\r\n" +
+//                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
+//
+//
+//                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
+//                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getTotal_Cash_payments_amount()+"^FS" + "\r\n" +
+//                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
+//
+//                "^FO20,"+getXposition()+"" + "\r\n" + "^XZ");
+//
+//        long footerHeight1 =xposition+10;
+
+
+//     String    chequeTable = "^XA" +
+//
+//                "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
+//                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+//                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDRec.No. ^FS" + "\r\n" +
+//                "^FO350,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCustomerName ^FS" + "\r\n" +
+//                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCheque ^FS" + "\r\n" +
+//                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" ;
+//        body+=String.format("^LH0,%d", chequeTable);
+
+        for (int i=0;i<model.getCheaqueList().size();i++) {
+            EnquiryModel.PaymentModel paymentModel = model.getCheaqueList().get(i);
+            String paymentNumber=paymentModel.getPaymentNumber();
+            String customer=paymentModel.getCustomer();
+            String amount=paymentModel.getAmout();
+            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" +"^FO350,%d" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" +"^FO650,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FDAED %s^FS";
+            int totalHeight = (i++ * heightOfOneLine)+(int)totalCashBodyHeight;
+            body += String.format(lineItem, totalHeight, paymentNumber, totalHeight,customer, totalHeight, amount,totalHeight);
+
+        }
+
+        long totalCheaqueBodyHeight = (model.getCheaqueList().size() + 1) * heightOfOneLine;
+
+       long footerStartPosition = headerHeight+totalCashBodyHeight+totalCheaqueBodyHeight;
+        xposition=0;
         String footer = String.format("^LH0,%d" + "\r\n" +
+                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
 
-                "^FO20,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
 
-                "^FO20,60" + "\r\n" + "^XZ", footerStartPosition, totalPrice);
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getTotal_Cheque_payments_amount()+"^FS" + "\r\n" +
+                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
 
-        long footerHeight = 250;
-        long labelLength = headerHeight + totalBodyHeight + footerHeight;
+                "^FO20,"+getXposition()+"" + "\r\n" + "^XZ", footerStartPosition, totalPrice);
 
+        long footerHeight =xposition+10;
+       long labelLength = headerHeight + totalCashBodyHeight+totalCheaqueBodyHeight + footerHeight;
+        //long labelLength = headerHeight;
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = sdf.format(date);
 
         String header = String.format(tmpHeader, labelLength, dateString);
 
-        String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+        String wholeZplLabel = String.format("%s%s%s", header, body,footer);
 
         return wholeZplLabel;
     }
 
-    private String createfooterReceipt() {
+
+
+
+    public String getFormattedText(String text) {
+        String s = "";
+        if (text.length() > 94) {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(0, 47) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(47, 94) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(94, text.length()) + "^FS" + "\r\n";
+        }
+        else if (text.length() > 50) {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(0, 47) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(47, text.length()) + "^FS" + "\r\n";
+        } else {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text + "^FS" + "\r\n";
+        }
+        return s;
+    }
+    public int getXposition()
+    {
+        xposition=xposition+40;
+        return xposition;
+
+    }
+    private void createfooterReceipt() {
         /*
          This routine is provided to you as an example of how to create a variable length label with user specified data.
          The basic flow of the example is as follows
@@ -701,44 +803,30 @@ public class Enquiry extends Activity implements View.OnClickListener {
          */
         String tmpHeader="";
         int headerHeight =0;
-
         tmpHeader=   "^XA" +
-
-                "^PON^PW400^MNN^LL%d^LH0,0" + "\r\n" +
-
-
-
+                "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
                 "^FO10,10" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
-
-
-                "^FO10,010" + "\r\n" + "^GB500,5,5,B,0^FS";
+                "^FO10,10" + "\r\n" + "^GB900,5,5,B,0^FS";
         headerHeight =10;
         String body = String.format("^LH0,%d", headerHeight);
-
         int heightOfOneLine = 40;
-
         float totalPrice = 0;
-
-
-
         //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
         long totalBodyHeight =0;
 
         long footerStartPosition = headerHeight;
-
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO10,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,P.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
 
-                "^FO200,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,^FS" + "\r\n" +
-                "^FO150,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDP.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
-                "^FO150,100" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
-                "^FO150,140" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
-                "^FO10,0180" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
-                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO10,90" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
+                "^FO10,120" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
+                "^FO10,150" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO10,160" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight = 210;
-
+        long footerHeight = 170;
+        xposition=0;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
         Date date = new Date();
@@ -748,8 +836,13 @@ public class Enquiry extends Activity implements View.OnClickListener {
         String header = String.format(tmpHeader, labelLength,Utils.getNewDate(dateString ));
 
         String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+        try {
+            connection.write(wholeZplLabel.getBytes());
+        }catch (Exception ex)
+        {
+            ex.fillInStackTrace();
+        }
 
-        return wholeZplLabel;
     }
 
 }

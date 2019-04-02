@@ -154,6 +154,7 @@ public class Common {
 
 
     final public static String Number_of_invoices="O_YTOTINV";
+    final public static String UserName="I_YUSER";
     final public static String Number_of_Cash_Payments="O_YTOTCASHPAY";
     final public static String Number_of_Cheque_Payments="O_YTOTCHQPAY";
     final public static String Number_of_Connections="O_YTOTCONN";

@@ -790,7 +790,6 @@ xposition=0;
         long totalBodyHeight =0;
 
         long footerStartPosition = headerHeight;
-
         String footer = String.format("^LH0,%d" + "\r\n" +
 
                 "^FO10,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
