@@ -23,7 +23,7 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="invoices.Connection_Disconnection_Preview">
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -87,7 +87,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="consumption.ConsumptionPreview"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Splash"
+        <activity android:name="invoices.Connection_Disconnection_Preview"
             android:screenOrientation="portrait"/>
     </application>
 
