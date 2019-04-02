@@ -88,8 +88,8 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     Button back_button;
     AppController controller;
     WebServiceAcess webServiceAcess;
- // public static String invoice="RMRC-U1L1900113";
-  public static String invoice="";
+  //public static String invoice="RMRC-U1L1900113";
+ public static String invoice="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -409,12 +409,9 @@ ProgressDialog dialog;
                             Bitmap icon = BitmapFactory.decodeResource(getResources(),
                                     R.drawable.brogas_logo);
                             Bitmap logo = Bitmap.createScaledBitmap(icon, 300, 200, false);
-                            sendTestLabel();
-                           printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
                             createfooterReceipt();
-
-                            //  printer.sendFileContents("^FT78,76^A0N,28,28^FH_^FDHello_0AWorld^FS");
-
+                            sendTestLabel();
+                            printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
                             connection.close();
                             Toast.makeText(PaymentReceiptPreview.this, "Receipt Printed Sucessfully.", Toast.LENGTH_LONG).show();
                             dialog.cancel();
@@ -496,6 +493,7 @@ ProgressDialog dialog;
 
     private void sendTestLabel() {
         try {
+
             byte[] configLabel = createZplReceipt().getBytes();
             connection.write(configLabel);
 
@@ -523,35 +521,23 @@ ProgressDialog dialog;
 
             tmpHeader=   "^XA" +
 
-                    "^PON^PW600^MNN^LL%d^LH0,0" + "\r\n" +
+                    "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
 
                     // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
                     "^FO10,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
-                    "^FO10,"+getXposition()+"" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
-
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
                     "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
-
                     "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
-
                     "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
-
                     "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
-
                     "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
-
-                    "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
-
+                    getFormattedText(model.getCustomerAddressValue())+ "\r\n" +
                     "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
-
                     "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
-
                     "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
-
                     "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
-
-
-                    "^FO10,"+getXposition()+"" + "\r\n" + "^GB500,5,5,B,0^FS";
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS";
              headerHeight =getXposition();
         }else{
 
@@ -573,46 +559,36 @@ ProgressDialog dialog;
          */
 
 
-
+            xposition=0;
          tmpHeader=   "^XA" +
 
-                            "^PON^PW600^MNN^LL%d^LH0,0" + "\r\n" +
+                            "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
 
                             // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                    "^FO10,20" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
-                    "^FO10,20" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                 "^FO10,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDPayment Receipt^FS" + "\r\n" +
+                 "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                 "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
+                 "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
+                 "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
+                 "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
+                 "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
+                  getFormattedText(model.getCustomerAddressValue())+ "\r\n" +
+                 "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
+                 "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
 
-                    "^FO10,60" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
+                            "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Number^FS" + "\r\n" +
 
-                    "^FO260,60" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
+                            "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getChequeNumberValue()+"^FS" + "\r\n" +
+                            "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDBank^FS" + "\r\n" +
+                             "^FO260," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getBankValue() + "^FS" + "\r\n" +
+                            "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
 
-                    "^FO10,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
+                            "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
 
-                    "^FO260,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
+                            "^FO10,"+getXposition()+"" + "\r\n" + "^GB500,5,5,B,0^FS";
 
-                    "^FO10,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
-
-                    "^FO260,140" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
-
-                    "^FO10,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
-
-                    "^FO260,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
-
-                            "^FO10,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Number^FS" + "\r\n" +
-
-                            "^FO260,230" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getChequeNumberValue()+"^FS" + "\r\n" +
-                            "^FO10,280" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDBank^FS" + "\r\n" +
-
-                            "^FO260,280" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getBankValue()+"^FS" + "\r\n" +
-                            "^FO10,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
-
-                            "^FO260,320" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
-
-
-                            "^FO10,360" + "\r\n" + "^GB500,5,5,B,0^FS";
-
-            headerHeight =370;
+            headerHeight =getXposition();
         }
 
 
@@ -626,26 +602,24 @@ ProgressDialog dialog;
 
         //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
         long totalBodyHeight =0;
-
+       xposition=20;
         long footerStartPosition = headerHeight;
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO10,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
+                "^FO10,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
 
-                "^FO260,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getAmountValue()+"^FS" + "\r\n" +
-                "^FO10,60" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO260,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getAmountValue()+"^FS" + "\r\n" +
+                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
-                "^FO10,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+                "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+                getFormattedText(getNumberToWords(model.getAmountValue()))+ "\r\n" +
+                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
+                "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
+                "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD^FS" + "\r\n" +
+                "^FO10,"+getXposition()+"" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-                "^FO260,100" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+getNumberToWords(model.getAmountValue())+"^FS" + "\r\n" +
-
-                "^FO10,140" + "\r\n" + "^GB500,5,5,B,0^FS"+
-                "^FO10,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
-
-                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
-
-        long footerHeight = 210;
+        long footerHeight = 240;
         xposition=0;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
@@ -660,13 +634,23 @@ ProgressDialog dialog;
         return wholeZplLabel;
     }
 
+    public String getFormattedText(String text) {
+        String s = "";
+        if (text.length() > 50) {
+            s = "^FO260," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(0, 47) + "^FS" + "\r\n" +
+                    "^FO260," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(47, text.length()) + "^FS" + "\r\n";
+        } else {
+            s = "^FO260," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text + "^FS" + "\r\n";
+        }
+        return s;
+    }
     public int getXposition()
     {
         xposition=xposition+40;
         return xposition;
 
     }
-    private String createfooterReceipt() {
+    private void createfooterReceipt() {
         /*
          This routine is provided to you as an example of how to create a variable length label with user specified data.
          The basic flow of the example is as follows
@@ -681,26 +665,14 @@ ProgressDialog dialog;
          */
         String tmpHeader="";
         int headerHeight =0;
-
             tmpHeader=   "^XA" +
-
-                    "^PON^PW400^MNN^LL%d^LH0,0" + "\r\n" +
-
-
-
+                    "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
                     "^FO10,10" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
-
-
-                    "^FO10,010" + "\r\n" + "^GB500,5,5,B,0^FS";
+                    "^FO10,10" + "\r\n" + "^GB900,5,5,B,0^FS";
             headerHeight =10;
         String body = String.format("^LH0,%d", headerHeight);
-
         int heightOfOneLine = 40;
-
         float totalPrice = 0;
-
-
-
         //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
         long totalBodyHeight =0;
 
@@ -708,16 +680,15 @@ ProgressDialog dialog;
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO10,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,P.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
 
-                "^FO200,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,^FS" + "\r\n" +
-                "^FO150,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDP.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
-                "^FO150,100" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
-                "^FO150,140" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
-                "^FO10,0180" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
-                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO10,90" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
+                "^FO10,120" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
+                "^FO10,150" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO10,160" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight = 210;
+        long footerHeight = 170;
         xposition=0;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
@@ -728,8 +699,13 @@ ProgressDialog dialog;
         String header = String.format(tmpHeader, labelLength,Utils.getNewDate(model.getDateValue()));
 
         String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+        try {
+            connection.write(wholeZplLabel.getBytes());
+        }catch (Exception ex)
+        {
+            ex.fillInStackTrace();
+        }
 
-        return wholeZplLabel;
     }
 
 

@@ -136,9 +136,9 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     android.widget.TextView supplier_trn;
     @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
- public static String invoice="";
-   // public static String invoice="CDC-U109-19000053";
- //  public static String creditInvoiceNumber="CCM-U109-19000013";
+   public static String invoice="";
+  //public static String invoice="CDC-U109-19000053";
+   //public static String creditInvoiceNumber="CCM-U109-19000013";
    public static String creditInvoiceNumber="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
@@ -173,6 +173,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     CreditNoteModel crModel;
     @BindView(R.id.margin)
     View margin;
+    int xposition=0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,7 +181,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
         ButterKnife.bind(this);
         webServiceAcess = new WebServiceAcess();
         dialog=new ProgressDialog(Consumption_DeliveryNote_Preview.this);
-        dialog.setMessage("Priniting....");
+        dialog.setMessage("Printing....");
         numToWords = new NumberToWords();
         back_button.setOnClickListener(this);
         if (Utils.isNetworkAvailable(Consumption_DeliveryNote_Preview.this)) {
@@ -520,20 +521,19 @@ public void setCreditNoteValues(CreditNoteModel model)
                             Bitmap signatureBitmap = Bitmap.createScaledBitmap(signature, 200, 200, false);
                             Bitmap logo = Bitmap.createScaledBitmap(icon, 350, 200, false);
                             if(invoice.length()>0) {
-                                printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
-                                sendTestLabel2();
-                                printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
-                                printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                                 createfooterReceipt();
+                                printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                                 sendTestLabel();
                                 printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
                                 createfooterReceipt();
-                            }else{
                                 printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                                 sendTestLabel2();
                                 printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
+                            }else{
                                 createfooterReceipt();
-
+                                printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
+                                sendTestLabel2();
+                                printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
 
                             }
 
@@ -637,7 +637,7 @@ public void setCreditNoteValues(CreditNoteModel model)
 
     private String createZplCreditNote() {
 
-
+        xposition=0;
         String  tmpHeader=   "^XA" +
 
                 "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
@@ -645,45 +645,45 @@ public void setCreditNoteValues(CreditNoteModel model)
                 // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
                 "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDRefund Deposit Advice^FS" + "\r\n" +
-                "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
 
-                "^FO20,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
 
-                "^FO225,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+creditInvoiceNumber+"^FS" + "\r\n" +
+                "^FO225,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+creditInvoiceNumber+"^FS" + "\r\n" +
 
-                "^FO20,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCompany Name:^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCompany Name:^FS" + "\r\n" +
 
-                "^FO225,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getCompanyNameValue()+"^FS" + "\r\n" +
+                getFormattedText(crModel.getCompanyNameValue())+ "\r\n" +
 
-                "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCompany TRN^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCompany TRN^FS" + "\r\n" +
 
-                "^FO230,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getCompanyTRTValue()+"^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getCompanyTRTValue()+"^FS" + "\r\n" +
 
-                "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCompany Address^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCompany Address^FS" + "\r\n" +
 
-                "^FO230,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getCompanyAddressValue()+"^FS" + "\r\n" +
-                "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
+                getFormattedText(crModel.getCompanyAddressValue())+"\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
 
-                "^FO230,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getCustomerNameValue()+"^FS" + "\r\n" +
-                "^FO20,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getCustomerNameValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
 
-                "^FO230,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getCustomerAddressValue()+"^FS" + "\r\n" +
-                "^FO20,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN ^FS" + "\r\n" +
+                 getFormattedText(crModel.getCustomerAddressValue()) + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getCompanyTRTValue()+ "^FS" + "\r\n" +
+                "^FO20," + getXposition() +"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
 
-                "^FO20,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getUserNameValue()+"^FS" + "\r\n" +
+                "^FO20," + getXposition() +"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
 
-                "^FO230,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getUserNameValue()+"^FS" + "\r\n" +
-                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getUserIDValue()+"^FS" + "\r\n" +
 
-                "^FO230,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+crModel.getUserIDValue()+"^FS" + "\r\n" +
+                "^FO20," + getXposition() +"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
 
-                "^FO20,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(crModel.getDateValue())+"  "+crModel.getTimeValue()+"^FS" + "\r\n" +
 
-                "^FO230,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(crModel.getDateValue())+" & "+crModel.getTimeValue()+"^FS" + "\r\n" +
+                "^FO20," + getXposition() +"" + "\r\n" + "^GB900,5,5,B,0^FS";
 
-                "^FO20,490" + "\r\n" + "^GB500,5,5,B,0^FS";
-
-        int headerHeight =500;
+        int headerHeight =xposition+10;
 
 
 
@@ -697,35 +697,37 @@ public void setCreditNoteValues(CreditNoteModel model)
 
 
 
-
+ xposition=0;
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
 
-                "^FO20,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDCredit Note Amount^FS" + "\r\n" +
+                "^FO20,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDCredit Note Amount^FS" + "\r\n" +
 
-                "^FO320,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+crModel.getInvoiceAmountValue()+"^FS" + "\r\n" +
-                "^FO20,55" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal VAT^FS" + "\r\n" +
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+crModel.getInvoiceAmountValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal VAT^FS" + "\r\n" +
 
-                "^FO320,55" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+crModel.getVatAmountValue()+"^FS" + "\r\n" +
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+crModel.getVatAmountValue()+"^FS" + "\r\n" +
 
 
-                "^FO20,95" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
 
-                "^FO320,95" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+ crModel.getToatal_Credit_Note_AmountValue()+"^FS" + "\r\n" +
-                "^FO20,135" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+ crModel.getToatal_Credit_Note_AmountValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
-                "^FO20,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
 
-                "^FO320,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD "+getNumberToWords(crModel.getToatal_Credit_Note_AmountValue())+"^FS" + "\r\n" +
-                "^FO20,215" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD "+getNumberToWords(crModel.getToatal_Credit_Note_AmountValue())+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
-                "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThanks for choosing Brothers Gas!^FS" + "\r\n" +
-                "^FO20,295" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDSignature!^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
 
-                "^FO20,335" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDSignature!^FS" + "\r\n" +
 
-        long footerHeight = 350;
+                "^FO20,"+getXposition()+"" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+
+        long footerHeight = xposition+10;
         long labelLength = headerHeight +footerHeight;
 
 
@@ -770,84 +772,75 @@ public void setCreditNoteValues(CreditNoteModel model)
          ^B sets barcode information
          ^XZ indicates the end of a label
          */
-
+        xposition=0;
         String  tmpHeader=   "^XA" +
 
                 "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
 
                 // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDConsumption Invoice^FS" + "\r\n" +
-                "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,"+xposition+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDConsumption Invoice^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
 
-                "^FO20,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
 
-                "^FO225,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoice_NumberValue()+"^FS" + "\r\n" +
+                "^FO225,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoice_NumberValue()+"^FS" + "\r\n" +
 
-                "^FO20,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDProject Name:^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDProject Name:^FS" + "\r\n" +
 
-                "^FO225,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getProjectnameValue()+"^FS" + "\r\n" +
+                "^FO225,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getProjectnameValue()+"^FS" + "\r\n" +
 
-                "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTeenant Name^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Name^FS" + "\r\n" +
 
-                "^FO230,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getTenantNameValue()+"^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getTenantNameValue()+"^FS" + "\r\n" +
 
-                "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
 
-                "^FO230,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerNameValue()+"^FS" + "\r\n" +
-                "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerNameValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN^FS" + "\r\n" +
 
-                "^FO230,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerTRNNumberValue()+"^FS" + "\r\n" +
-                "^FO20,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerTRNNumberValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
 
-                "^FO230,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
-                "^FO20,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier Name ^FS" + "\r\n" +
+                getFormattedText(model.getCustomerAddressValue()) + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier Name ^FS" + "\r\n" +
+                 getFormattedText(model.getSuppliername())+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier TRN ^FS" + "\r\n" +
 
-                "^FO230,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getSuppliername()+"^FS" + "\r\n" +
-                "^FO20,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier TRN ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getSupplierTRN()+"^FS" + "\r\n" +
 
-                "^FO230,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getSupplierTRN()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReg. Address ^FS" + "\r\n" +
 
-                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReg. Address ^FS" + "\r\n" +
+                getFormattedText(model.getRegisteredAddress())+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
 
-                "^FO230,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getRegisteredAddress()+"^FS" + "\r\n" +
-                "^FO20,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserNameValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
 
-                "^FO230,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserNameValue()+"^FS" + "\r\n" +
-                "^FO20,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserIDValue()+"^FS" + "\r\n" +
 
-                "^FO230,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserIDValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
 
-                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(model.getDateValue())+"  "+model.getTimeValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
 
-                "^FO230,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(model.getDateValue())+" & "+model.getTimeValue()+"^FS" + "\r\n" +
-                "^FO20,570" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
 
-                "^FO20,600" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPrevious Reading ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDPrevious Reading ^FS" + "\r\n" +
+                "^FO200,"+xposition+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDCurrent Reading ^FS" + "\r\n" +
+                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDUnits Consumed ^FS" + "\r\n" +
+                "^FO560,"+xposition+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDPressure Factor ^FS" + "\r\n" +
+                "^FO740,"+xposition+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDAct. Units ^FS" + "\r\n" +
+                "^FO50,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPreviousMeterreadingValue()+"^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPresentMeterreadingValue()+"^FS" + "\r\n" +
+                "^FO410,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUnitsConsumed()+"^FS" + "\r\n" +
+                "^FO590,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPressureFactorValue()+"^FS" + "\r\n" +
+                "^FO770,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getActualUnitConsumedValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDItem Name ^FS" + "\r\n" +
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAmount ^FS" + "\r\n" ;
 
-                "^FO260,600" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPreviousMeterreadingValue()+"^FS" + "\r\n" +
-
-                "^FO20,640" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCurrent Reading ^FS" + "\r\n" +
-
-                "^FO260,640" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPresentMeterreadingValue()+"^FS" + "\r\n" +
-
-                "^FO20,680" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPresent Reading ^FS" + "\r\n" +
-
-                "^FO260,680" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPresentMeterreadingValue()+"^FS" + "\r\n" +
-                "^FO20,720" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUnits Consumed ^FS" + "\r\n" +
-
-                "^FO260,720" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUnitsConsumed()+"^FS" + "\r\n" +
-
-                "^FO20,760" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPressure Factor ^FS" + "\r\n" +
-
-                "^FO260,760" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPressureFactorValue()+"^FS" + "\r\n" +
-                "^FO20,800" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDActual Units ^FS" + "\r\n" +
-
-                "^FO260,800" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getActualUnitConsumedValue()+"^FS" + "\r\n" +
-
-                "^FO20,840" + "\r\n" + "^GB500,5,5,B,0^FS";
-
-        int headerHeight =850;
+        int headerHeight =getXposition();
 
 
 
@@ -864,7 +857,7 @@ public void setCreditNoteValues(CreditNoteModel model)
             String price = itemsToPrint.get(productName);
             productName=getFormattedName(productName );
 
-            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO320,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAED %s^FS";
+            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO320,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FDAED %s^FS";
 
             int totalHeight = i++ * heightOfOneLine;
             body += String.format(lineItem, totalHeight, productName, totalHeight, price);
@@ -878,36 +871,37 @@ public void setCreditNoteValues(CreditNoteModel model)
 
 
 
-
+       xposition=0;
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO20,00" + "\r\n" + "^GB500,5,5,B,0^FS"+
-                "^FO20,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Exc.VAT)^FS" + "\r\n" +
+                "^FO20,"+xposition+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Exc.VAT)^FS" + "\r\n" +
 
-                "^FO320,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getTotalExcludingTaxValue()+"^FS" + "\r\n" +
-                "^FO20,55" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal VAT^FS" + "\r\n" +
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getTotalExcludingTaxValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal VAT^FS" + "\r\n" +
 
-                "^FO320,55" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getTotalVatValue()+"^FS" + "\r\n" +
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getTotalVatValue()+"^FS" + "\r\n" +
 
 
-                "^FO20,95" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Inc.VAT)^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Inc.VAT)^FS" + "\r\n" +
 
-                "^FO320,95" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getTotalIncludingTaxValue()+"^FS" + "\r\n" +
-                "^FO20,135" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getTotalIncludingTaxValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
-                "^FO20,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
 
-                "^FO320,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD "+getNumberToWords(model.getTotalIncludingTaxValue())+"^FS" + "\r\n" +
-                "^FO20,215" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                 getFormattedText(getNumberToWords(model.getTotalIncludingTaxValue())) + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
-                "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
-                "^FO20,295" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
-                "^FO20,325" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature!^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature^FS" + "\r\n" +
 
-                "^FO20,340" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO20,"+getXposition()+"" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight = 350;
+        long footerHeight = xposition+10;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
 
@@ -920,7 +914,28 @@ public void setCreditNoteValues(CreditNoteModel model)
     }
 
 
-    private String createfooterReceipt() {
+    public String getFormattedText(String text) {
+        String s = "";
+        if (text.length() > 94) {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(0, 47) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(47, 94) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(94, text.length()) + "^FS" + "\r\n";
+        }
+        else if (text.length() > 50) {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(0, 47) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(47, text.length()) + "^FS" + "\r\n";
+        } else {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text + "^FS" + "\r\n";
+        }
+        return s;
+    }
+    public int getXposition()
+    {
+        xposition=xposition+40;
+        return xposition;
+
+    }
+    private void createfooterReceipt() {
         /*
          This routine is provided to you as an example of how to create a variable length label with user specified data.
          The basic flow of the example is as follows
@@ -935,26 +950,14 @@ public void setCreditNoteValues(CreditNoteModel model)
          */
         String tmpHeader="";
         int headerHeight =0;
-
         tmpHeader=   "^XA" +
-
-                "^PON^PW400^MNN^LL%d^LH0,0" + "\r\n" +
-
-
-
+                "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
                 "^FO10,10" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
-
-
-                "^FO10,010" + "\r\n" + "^GB500,5,5,B,0^FS";
+                "^FO10,10" + "\r\n" + "^GB900,5,5,B,0^FS";
         headerHeight =10;
         String body = String.format("^LH0,%d", headerHeight);
-
         int heightOfOneLine = 40;
-
         float totalPrice = 0;
-
-
-
         //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
         long totalBodyHeight =0;
 
@@ -962,17 +965,16 @@ public void setCreditNoteValues(CreditNoteModel model)
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO10,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,P.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
 
-                "^FO200,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,^FS" + "\r\n" +
-                "^FO150,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDP.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
-                "^FO150,100" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
-                "^FO150,140" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
-                "^FO10,0180" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
-                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO10,90" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
+                "^FO10,120" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
+                "^FO10,150" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO10,160" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight = 210;
-
+        long footerHeight = 170;
+        xposition=0;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
         Date date = new Date();
@@ -982,10 +984,14 @@ public void setCreditNoteValues(CreditNoteModel model)
         String header = String.format(tmpHeader, labelLength,Utils.getNewDate(dateString ));
 
         String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+        try {
+            connection.write(wholeZplLabel.getBytes());
+        }catch (Exception ex)
+        {
+            ex.fillInStackTrace();
+        }
 
-        return wholeZplLabel;
     }
-
     private Map<String, String> createListOfItems() {
         Map<String, String> retVal = new HashMap<String, String>();
         int j=1;

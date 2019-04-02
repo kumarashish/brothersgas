@@ -89,7 +89,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-    //public static String invoice="DMR-U109-19000202";
+   // public static String invoice="DMR-U109-19000202";
     public static String invoice ;
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
@@ -102,7 +102,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     LinearLayout content;
     @BindView(R.id.back_button)
     Button back_button;
-    public static String imagePath = "";
+    public static String imagePath = "";//storage/sdcard0/Brothers_Gas/.1553619034324.jpg
      int sendAttempt=0;
     @BindView(R.id.footer)
     LinearLayout footer;
@@ -114,6 +114,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     AlertDialog printDialog;
     ProgressDialog dialog;
     private Connection connection;
+    int xposition=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -400,10 +401,11 @@ if(model.getTotalIncludingTaxValue()==null)
                             Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.brogas_logo);
                             Bitmap signatureBitmap = Bitmap.createScaledBitmap(signature, 200, 200, false);
                             Bitmap logo = Bitmap.createScaledBitmap(icon, 350, 200, false);
+                            createfooterReceipt();
                             printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                             sendTestLabel();
                             printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
-                            createfooterReceipt();
+                            createLine();
 
                             //  printer.sendFileContents("^FT78,76^A0N,28,28^FH_^FDHello_0AWorld^FS");
 
@@ -530,60 +532,59 @@ if(model.getTotalIncludingTaxValue()==null)
          ^B sets barcode information
          ^XZ indicates the end of a label
          */
-
+       xposition=0;
         String  tmpHeader=   "^XA" +
 
                 "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
 
                 // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDDeposit Advice^FS" + "\r\n" +
-                "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,"+xposition+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDDeposit Advice^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
 
-                "^FO20,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
 
-                "^FO225,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoice_NumberValue()+"^FS" + "\r\n" +
+                "^FO225,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoice_NumberValue()+"^FS" + "\r\n" +
 
-                "^FO20,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDProject Name:^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDProject Name:^FS" + "\r\n" +
 
-                "^FO225,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getProjectnameValue()+"^FS" + "\r\n" +
+                "^FO225,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getProjectnameValue()+"^FS" + "\r\n" +
 
-                "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTeenant Name^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Name^FS" + "\r\n" +
 
-                "^FO230,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getTenantNameValue()+"^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getTenantNameValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerNameValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN^FS" + "\r\n" +
 
-                "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerTRNNumberValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
 
-                "^FO230,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerNameValue()+"^FS" + "\r\n" +
-                "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier Name ^FS" + "\r\n" +
+                getFormattedText(model.getSuppliername())+ "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier TRN ^FS" + "\r\n" +
 
-                "^FO230,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerTRNNumberValue()+"^FS" + "\r\n" +
-                "^FO20,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getSupplierTRN()+"^FS" + "\r\n" +
 
-                "^FO230,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerAddressValue()+"^FS" + "\r\n" +
-                "^FO20,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier Name ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReg. Address ^FS" + "\r\n" +
 
-                "^FO230,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getSuppliername()+"^FS" + "\r\n" +
-                "^FO20,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier TRN ^FS" + "\r\n" +
+                 getFormattedText(model.getRegisteredAddress())+ "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
 
-                "^FO230,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getSupplierTRN()+"^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserNameValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
 
-                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReg. Address ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserIDValue()+"^FS" + "\r\n" +
 
-                "^FO230,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getRegisteredAddress()+"^FS" + "\r\n" +
-                "^FO20,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
 
-                "^FO230,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserNameValue()+"^FS" + "\r\n" +
-                "^FO20,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(model.getDateValue())+"  "+model.getTimeValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDItem Name ^FS" + "\r\n" +
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAmount ^FS" + "\r\n" ;
 
-                "^FO230,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUserIDValue()+"^FS" + "\r\n" +
-
-                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
-
-                "^FO230,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(model.getDateValue())+" & "+model.getTimeValue()+"^FS" + "\r\n" +
-                "^FO20,570" + "\r\n" + "^GB500,5,5,B,0^FS";
-
-        int headerHeight =610;
+        int headerHeight =getXposition();
 
 
 
@@ -598,7 +599,7 @@ if(model.getTotalIncludingTaxValue()==null)
         int i = 0;
         for (String productName : itemsToPrint.keySet()) {
             String price = itemsToPrint.get(productName);
-            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO320,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAED %s^FS";
+            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO320,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FDAED %s^FS";
             int totalHeight = i++ * heightOfOneLine;
             body += String.format(lineItem, totalHeight, productName, totalHeight, price);
 
@@ -613,28 +614,27 @@ if(model.getTotalIncludingTaxValue()==null)
 
         String totalval=getTotal(model);
 
-
+        xposition=0;
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO20,00" + "\r\n" + "^GB500,5,5,B,0^FS"+
-                "^FO20,40" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
+                "^FO20,"+xposition+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
 
                 "^FO320,40" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+totalval+"^FS" + "\r\n" +
-                "^FO20,80" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
-                "^FO20,120" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
 
-                "^FO320,120" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+getNumberToWords(totalval)+"^FS" + "\r\n" +
-                "^FO20,160" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                  getFormattedText(getNumberToWords(totalval))+"\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
-                "^FO20,200" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
-                "^FO20,240" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-                "^FO20,280" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature^FS" + "\r\n" +
-
-                "^FO20,290" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
-
-        long footerHeight = 300;
+        long footerHeight = xposition+10;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
 
@@ -680,7 +680,28 @@ if(model.getTotalIncludingTaxValue()==null)
         }
         return words;
     }
-    private String createfooterReceipt() {
+    public String getFormattedText(String text) {
+        String s = "";
+        if (text.length() > 94) {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(0, 47) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(47, 94) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(94, text.length()) + "^FS" + "\r\n";
+        }
+        else if (text.length() > 50) {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(0, 47) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(47, text.length()) + "^FS" + "\r\n";
+        } else {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text + "^FS" + "\r\n";
+        }
+        return s;
+    }
+    public int getXposition()
+    {
+        xposition=xposition+40;
+        return xposition;
+
+    }
+    private void createfooterReceipt() {
         /*
          This routine is provided to you as an example of how to create a variable length label with user specified data.
          The basic flow of the example is as follows
@@ -695,26 +716,14 @@ if(model.getTotalIncludingTaxValue()==null)
          */
         String tmpHeader="";
         int headerHeight =0;
-
         tmpHeader=   "^XA" +
-
-                "^PON^PW400^MNN^LL%d^LH0,0" + "\r\n" +
-
-
-
+                "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
                 "^FO10,10" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
-
-
-                "^FO10,010" + "\r\n" + "^GB500,5,5,B,0^FS";
+                "^FO10,10" + "\r\n" + "^GB900,5,5,B,0^FS";
         headerHeight =10;
         String body = String.format("^LH0,%d", headerHeight);
-
         int heightOfOneLine = 40;
-
         float totalPrice = 0;
-
-
-
         //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
         long totalBodyHeight =0;
 
@@ -722,17 +731,16 @@ if(model.getTotalIncludingTaxValue()==null)
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO10,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,P.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
 
-                "^FO200,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,^FS" + "\r\n" +
-                "^FO150,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDP.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
-                "^FO150,100" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
-                "^FO150,140" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
-                "^FO10,0180" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
-                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO10,90" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
+                "^FO10,120" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
+                "^FO10,150" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO10,160" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight = 210;
-
+        long footerHeight = 170;
+        xposition=0;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
         Date date = new Date();
@@ -742,8 +750,68 @@ if(model.getTotalIncludingTaxValue()==null)
         String header = String.format(tmpHeader, labelLength,Utils.getNewDate(dateString ));
 
         String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+        try {
+            connection.write(wholeZplLabel.getBytes());
+        }catch (Exception ex)
+        {
+            ex.fillInStackTrace();
+        }
 
-        return wholeZplLabel;
     }
+
+    private void createLine() {
+        /*
+         This routine is provided to you as an example of how to create a variable length label with user specified data.
+         The basic flow of the example is as follows
+            Header of the label with some variable data
+            Body of the label
+                Loops thru user content and creates small line items of printed material
+            Footer of the label
+
+         As you can see, there are some variables that the user provides in the header, body and footer, and this routine uses that to build up a proper ZPL string for printing.
+         Using this same concept, you can create one label for your receipt header, one for the body and one for the footer. The body receipt will be duplicated as many items as there are in your variable data
+
+         */
+        String tmpHeader="";
+        int headerHeight =0;
+        tmpHeader=   "^XA" +
+                "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
+                "^FO10,5" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
+                "^FO10,5" + "\r\n" + "^GB900,5,5,B,0^FS";
+        headerHeight =5;
+        String body = String.format("^LH0,%d", headerHeight);
+
+        float totalPrice = 0;
+
+        long totalBodyHeight =0;
+
+        long footerStartPosition = headerHeight;
+
+        String footer = String.format("^LH0,%d" + "\r\n" +
+
+
+                "^FO10,00" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO10,00" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+
+        long footerHeight = 00;
+        xposition=0;
+        long labelLength = headerHeight + totalBodyHeight + footerHeight;
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = sdf.format(date);
+
+        String header = String.format(tmpHeader, labelLength,Utils.getNewDate(dateString ));
+
+        String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+        try {
+            connection.write(wholeZplLabel.getBytes());
+        }catch (Exception ex)
+        {
+            ex.fillInStackTrace();
+        }
+
+    }
+
 }
 

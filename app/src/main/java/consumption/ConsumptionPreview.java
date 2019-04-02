@@ -123,7 +123,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     LinearLayout content;
     @BindView(R.id.back_button)
     Button back_button;
-    public static String imagePath="";///storage/sdcard0/Brothers_Gas/.1553619034324.jpg
+    public static String imagePath="";////storage/sdcard0/Brothers_Gas/.1553619034324.jpg
     WebServiceAcess webServiceAcess;
     @BindView(R.id. signature)
     ImageView signature;
@@ -142,7 +142,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     AlertDialog printDialog;
     ProgressDialog dialog;
     private Connection connection;
-
+    int xposition;
     String path="";
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -444,10 +444,11 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
                             Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.brogas_logo);
                             Bitmap signatureBitmap = Bitmap.createScaledBitmap(signature, 200, 200, false);
                             Bitmap logo = Bitmap.createScaledBitmap(icon, 350, 200, false);
+                            createfooterReceipt();
                             printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
                             sendTestLabel();
                             printer.printImage(new ZebraImageAndroid(logo), 0, 0, logo.getWidth(), logo.getHeight(), false);
-                            createfooterReceipt();
+
 
                             //  printer.sendFileContents("^FT78,76^A0N,28,28^FH_^FDHello_0AWorld^FS");
 
@@ -574,7 +575,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
          ^B sets barcode information
          ^XZ indicates the end of a label
          */
-
+xposition=0;
         String  tmpHeader=   "^XA" +
 
                     "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
@@ -582,94 +583,74 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
                     // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
                     "^FO20,00" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDConsumption Invoice^FS" + "\r\n" +
-                "^FO20,60" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
 
-                    "^FO20,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice No:^FS" + "\r\n" +
 
-                   "^FO225,95" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getInvoice_NumberValue()+"^FS" + "\r\n" +
+                   "^FO225,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getInvoice_NumberValue()+"^FS" + "\r\n" +
 
-                    "^FO20,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDProject Name:^FS" + "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDProject Name:^FS" + "\r\n" +
 
-                    "^FO225,135" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getProjectnameValue()+"^FS" + "\r\n" +
+                    "^FO225,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getProjectnameValue()+"^FS" + "\r\n" +
 
-                    "^FO20,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTeenant Name^FS" + "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Name^FS" + "\r\n" +
 
-                    "^FO230,180" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getTenantNameValue()+"^FS" + "\r\n" +
+                    "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getTenantNameValue()+"^FS" + "\r\n" +
 
-                    "^FO20,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer Name^FS" + "\r\n" +
 
-                   "^FO230,220" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerNameValue()+"^FS" + "\r\n" +
-                    "^FO20,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN^FS" + "\r\n" +
+                   "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerNameValue()+"^FS" + "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCustomer TRN^FS" + "\r\n" +
 
-                    "^FO230,260" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerTRNNumberValue()+"^FS" + "\r\n" +
-                    "^FO20,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
+                    "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerTRNNumberValue()+"^FS" + "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCust. Address^FS" + "\r\n" +
 
-                    "^FO230,300" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getCustomerAddressValue()+"^FS" + "\r\n" +
-                    "^FO20,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier Name ^FS" + "\r\n" +
+                    getFormattedText(con_dconnModel.getCustomerAddressValue())+ "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier Name ^FS" + "\r\n" +
 
-                    "^FO230,340" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getSuppliername()+"^FS" + "\r\n" +
-                "^FO20,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier TRN ^FS" + "\r\n" +
+                   getFormattedText(con_dconnModel.getSuppliername()) + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDSupplier TRN ^FS" + "\r\n" +
 
-                "^FO230,380" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getSupplierTRN()+"^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getSupplierTRN()+"^FS" + "\r\n" +
 
-                "^FO20,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReg. Address ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReg. Address ^FS" + "\r\n" +
 
-                "^FO230,420" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getRegisteredAddress()+"^FS" + "\r\n" +
-                "^FO20,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getRegisteredAddress()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name ^FS" + "\r\n" +
 
-                "^FO230,460" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUserNameValue()+"^FS" + "\r\n" +
-                "^FO20,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUserNameValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id ^FS" + "\r\n" +
 
-                "^FO230,500" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUserIDValue()+"^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUserIDValue()+"^FS" + "\r\n" +
 
-                "^FO20,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate & Time ^FS" + "\r\n" +
 
-                "^FO230,540" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(con_dconnModel.getDateValue())+" & "+con_dconnModel.getTimeValue()+"^FS" + "\r\n" +
-                "^FO20,570" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+Utils.getNewDate(con_dconnModel.getDateValue())+" & "+con_dconnModel.getTimeValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
 
-                "^FO20,600" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPrevious Reading ^FS" + "\r\n" +
-
-                "^FO260,600" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPreviousMeterreadingValue()+"^FS" + "\r\n" +
-
-                "^FO20,640" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCurrent Reading ^FS" + "\r\n" +
-
-                "^FO260,640" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPresentMeterreadingValue()+"^FS" + "\r\n" +
-
-                "^FO20,680" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPresent Reading ^FS" + "\r\n" +
-
-                "^FO260,680" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPresentMeterreadingValue()+"^FS" + "\r\n" +
-                "^FO20,720" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUnits Consumed ^FS" + "\r\n" +
-
-                "^FO260,720" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUnitsConsumed()+"^FS" + "\r\n" +
-
-                "^FO20,760" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDPressure Factor ^FS" + "\r\n" +
-
-                "^FO260,760" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPressureFactorValue()+"^FS" + "\r\n" +
-                "^FO20,800" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDActual Units ^FS" + "\r\n" +
-
-                "^FO260,800" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getActualUnitConsumedValue()+"^FS" + "\r\n" +
-
-                "^FO20,840" + "\r\n" + "^GB500,5,5,B,0^FS";
-
-        int headerHeight =850;
-
-
-
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDPrevious Reading ^FS" + "\r\n" +
+                "^FO200,"+xposition+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDCurrent Reading ^FS" + "\r\n" +
+                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDUnits Consumed ^FS" + "\r\n" +
+                "^FO560,"+xposition+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDPressure Factor ^FS" + "\r\n" +
+                "^FO740,"+xposition+"" + "\r\n" + "^A0,N,22,22" + "\r\n" + "^FDAct. Units ^FS" + "\r\n" +
+                "^FO50,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPreviousMeterreadingValue()+"^FS" + "\r\n" +
+                "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPresentMeterreadingValue()+"^FS" + "\r\n" +
+                "^FO410,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUnitsConsumed()+"^FS" + "\r\n" +
+                "^FO590,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPressureFactorValue()+"^FS" + "\r\n" +
+                "^FO770,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getActualUnitConsumedValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDItem Name ^FS" + "\r\n" +
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAmount ^FS" + "\r\n" ;
+        int headerHeight =getXposition();
         String body = String.format("^LH0,%d", headerHeight);
-
         int heightOfOneLine = 40;
-
         float totalPrice = 0;
-
          Map<String, String> itemsToPrint = createListOfItems();
-
         int i = 0;
         for (String productName : itemsToPrint.keySet()) {
             String price = itemsToPrint.get(productName);
             productName=getFormattedName(productName );
-
-            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO320,%d" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAED %s^FS";
-
+            String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" + "^FO320,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FDAED %s^FS";
             int totalHeight = i++ * heightOfOneLine;
             body += String.format(lineItem, totalHeight, productName, totalHeight, price);
 
@@ -677,42 +658,37 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
          long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
        // long totalBodyHeight =0;
-
         long footerStartPosition = headerHeight+totalBodyHeight;
-
-
-
-
-
+        xposition=0;
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO20,00" + "\r\n" + "^GB500,5,5,B,0^FS"+
-                "^FO20,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Exc.VAT)^FS" + "\r\n" +
+                "^FO20,"+xposition+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Exc.VAT)^FS" + "\r\n" +
 
-                "^FO320,15" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalExcludingTaxValue()+"^FS" + "\r\n" +
-                "^FO20,55" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal VAT^FS" + "\r\n" +
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalExcludingTaxValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal VAT^FS" + "\r\n" +
 
-                "^FO320,55" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalVatValue()+"^FS" + "\r\n" +
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalVatValue()+"^FS" + "\r\n" +
 
 
-                "^FO20,95" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Inc.VAT)^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal(Inc.VAT)^FS" + "\r\n" +
 
-                "^FO320,95" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalIncludingTaxValue()+"^FS" + "\r\n" +
-                "^FO20,135" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                "^FO320,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+con_dconnModel.getTotalIncludingTaxValue()+"^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
-                "^FO20,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAmount(Words)^FS" + "\r\n" +
 
-                "^FO320,175" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD "+getNumberToWords(con_dconnModel.getTotalIncludingTaxValue())+"^FS" + "\r\n" +
-                "^FO20,215" + "\r\n" + "^GB500,5,5,B,0^FS"+
+                 getFormattedText(getNumberToWords(con_dconnModel.getTotalIncludingTaxValue()))+"\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
-                "^FO20,255" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
-                "^FO20,295" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
 
-                "^FO20,335" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature^FS" + "\r\n" +
 
-                "^FO20,345" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO20,"+getXposition()+"" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight = 360;
+        long footerHeight = getXposition();
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
 
@@ -752,21 +728,42 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
         return value;
     }
 
-    public void print(String path)
-    {
-        File file = new File(path);
-        Uri uri = Uri.fromFile(file);
-        Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
-        pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        pdfOpenintent.setDataAndType(uri, "application/pdf");
-        try {
-            startActivity(pdfOpenintent);
+//    public void print(String path)
+//    {
+//        File file = new File(path);
+//        Uri uri = Uri.fromFile(file);
+//        Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+//        pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        pdfOpenintent.setDataAndType(uri, "application/pdf");
+//        try {
+//            startActivity(pdfOpenintent);
+//        }
+//        catch (ActivityNotFoundException e) {
+//
+//        }
+//    }
+    public String getFormattedText(String text) {
+        String s = "";
+        if (text.length() > 94) {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(0, 47) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(47, 94) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(94, text.length()) + "^FS" + "\r\n";
         }
-        catch (ActivityNotFoundException e) {
-
+        else if (text.length() > 50) {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(0, 47) + "^FS" + "\r\n" +
+                    "^FO230," + getXposition() + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text.substring(47, text.length()) + "^FS" + "\r\n";
+        } else {
+            s = "^FO230," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + text + "^FS" + "\r\n";
         }
+        return s;
     }
-    private String createfooterReceipt() {
+    public int getXposition()
+    {
+        xposition=xposition+40;
+        return xposition;
+
+    }
+    private void createfooterReceipt() {
         /*
          This routine is provided to you as an example of how to create a variable length label with user specified data.
          The basic flow of the example is as follows
@@ -781,26 +778,14 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
          */
         String tmpHeader="";
         int headerHeight =0;
-
         tmpHeader=   "^XA" +
-
-                "^PON^PW400^MNN^LL%d^LH0,0" + "\r\n" +
-
-
-
+                "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
                 "^FO10,10" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
-
-
-                "^FO10,010" + "\r\n" + "^GB500,5,5,B,0^FS";
+                "^FO10,10" + "\r\n" + "^GB900,5,5,B,0^FS";
         headerHeight =10;
         String body = String.format("^LH0,%d", headerHeight);
-
         int heightOfOneLine = 40;
-
         float totalPrice = 0;
-
-
-
         //long totalBodyHeight = (itemsToPrint.size() + 1) * heightOfOneLine;
         long totalBodyHeight =0;
 
@@ -808,17 +793,16 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
         String footer = String.format("^LH0,%d" + "\r\n" +
 
-                "^FO10,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,20" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDRegistered Office^FS" + "\r\n" +
+                "^FO10,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,P.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
 
-                "^FO200,20" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDAmman Street,New Industrial Area,^FS" + "\r\n" +
-                "^FO150,60" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDP.O.Box 2018,Ajman,UAE^FS" + "\r\n" +
-                "^FO150,100" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
-                "^FO150,140" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
-                "^FO10,0180" + "\r\n" + "^GB500,5,5,B,0^FS"+ "\r\n" +
-                "^FO10,200" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
+                "^FO10,90" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDT: +971(0)6 743 8307 F:+971 (0)6 743 7139^FS" + "\r\n" +
+                "^FO10,120" + "\r\n" + "^A0,N,20,20" + "\r\n" + "^FDE: sales@brothersgas.ae Website:www.brothersgas.com^FS" + "\r\n" +
+                "^FO10,150" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO10,160" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight = 210;
-
+        long footerHeight = 170;
+        xposition=0;
         long labelLength = headerHeight + totalBodyHeight + footerHeight;
 
         Date date = new Date();
@@ -828,7 +812,12 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
         String header = String.format(tmpHeader, labelLength,Utils.getNewDate(dateString ));
 
         String wholeZplLabel = String.format("%s%s%s", header, body, footer);
+        try {
+            connection.write(wholeZplLabel.getBytes());
+        }catch (Exception ex)
+        {
+            ex.fillInStackTrace();
+        }
 
-        return wholeZplLabel;
     }
 }
