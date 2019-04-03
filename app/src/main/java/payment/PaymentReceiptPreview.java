@@ -173,16 +173,16 @@ ProgressDialog dialog;
 
             case R.id.print_email:
 
-//                if(sendAttempt>1)
-//                {
-//                    showPrintAlertDialog();
-//                }else {
-//                    progressbar2.setVisibility(View.VISIBLE);
-//                    footer.setVisibility(View.GONE);
-//                    new EmailInvoice().execute();
-//
-//                }
-                showPrintAlertDialog();
+                if(sendAttempt>1)
+                {
+                    showPrintAlertDialog();
+                }else {
+                    progressbar2.setVisibility(View.VISIBLE);
+                    footer.setVisibility(View.GONE);
+                    new EmailInvoice().execute();
+
+                }
+
                 break;
         }
     }

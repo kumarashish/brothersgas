@@ -138,7 +138,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
     android.widget.TextView registered_supplier_address;
    public static String invoice="";
   //public static String invoice="CDC-U109-19000053";
-   //public static String creditInvoiceNumber="CCM-U109-19000013";
+  // public static String creditInvoiceNumber="CCM-U109-19000013";
    public static String creditInvoiceNumber="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)

@@ -89,8 +89,8 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-    public static String invoice="DMR-U109-19000202";
-    //public static String invoice ;
+    //public static String invoice="DMR-U109-19000202";
+    public static String invoice ;
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -102,7 +102,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     LinearLayout content;
     @BindView(R.id.back_button)
     Button back_button;
-    public static String imagePath = "//storage/sdcard0/Brothers_Gas/.1553619034324.jpg";//storage/sdcard0/Brothers_Gas/.1553619034324.jpg
+    public static String imagePath = "";//storage/sdcard0/Brothers_Gas/.1553619034324.jpg
      int sendAttempt=0;
     @BindView(R.id.footer)
     LinearLayout footer;

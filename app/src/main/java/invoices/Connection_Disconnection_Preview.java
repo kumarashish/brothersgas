@@ -86,8 +86,8 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-    public static String invoice="";
-    //public static String invoice="CDC-U109-19000053";
+   public static String invoice="";
+   //public static String invoice="CDC-U109-19000053";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -722,7 +722,6 @@ xposition=0;
     }
         return value;
     }
-
     public String getNumberToWords(String val) {
         String words = "";
         if (val.contains(".")) {
