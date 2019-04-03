@@ -685,7 +685,7 @@ xposition=0;
                  getFormattedText(getNumberToWords(con_dcon_model.getTotalIncludingTaxValue()))+ "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
-                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECEIPT FOR PAYMENTS^FS" + "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD^FS" + "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature^FS" + "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);
@@ -699,7 +699,6 @@ xposition=0;
     private Map<String, String> createListOfItems() {
         Map<String, String> retVal = new HashMap<String, String>();
         int j=1;
-
         for (int i = 0; i <con_dcon_model.getDetails_list().size();i++) {
             Connection_Disconnection_Invoice_Preview_Model.BillDetails model=con_dcon_model.getDetails_list().get(i);
             retVal.put("Vat"+j+" @"+model.getVat_percentageValue()+"%", model.getVatAmountValue());

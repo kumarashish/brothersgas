@@ -350,7 +350,6 @@ android:visibility="gone"
                                 android:id="@+id/teenant_change"
                                 android:fontFamily="@font/aller_rg"
                                 android:gravity="end|center_vertical"
-                                android:paddingRight="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>

@@ -89,8 +89,8 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     ImageView signature;
     AppController controller;
     WebServiceAcess webServiceAcess;
-   // public static String invoice="DMR-U109-19000202";
-    public static String invoice ;
+    public static String invoice="DMR-U109-19000202";
+    //public static String invoice ;
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -102,7 +102,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     LinearLayout content;
     @BindView(R.id.back_button)
     Button back_button;
-    public static String imagePath = "";//storage/sdcard0/Brothers_Gas/.1553619034324.jpg
+    public static String imagePath = "//storage/sdcard0/Brothers_Gas/.1553619034324.jpg";//storage/sdcard0/Brothers_Gas/.1553619034324.jpg
      int sendAttempt=0;
     @BindView(R.id.footer)
     LinearLayout footer;
@@ -629,7 +629,7 @@ if(model.getTotalIncludingTaxValue()==null)
                 "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDThis is computer generated document does not require signature^FS" + "\r\n" +
-                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECIPT FOR PAYMENTS^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTHIS IS BILL ONLY NOT A RECEIPT,PLEASE COLLECT RECEIPT FOR PAYMENTS^FS" + "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FD^FS" + "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,35,35" + "\r\n" + "^FDCustomer Signature^FS" + "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n"  + "^XZ", footerStartPosition, totalPrice);

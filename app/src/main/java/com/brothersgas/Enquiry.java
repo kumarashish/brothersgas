@@ -633,7 +633,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
          */
         String tmpHeader = "";
         int headerHeight = 0;
-        xposition=0;
+        xposition=40;
 
         tmpHeader = "^XA" +
 
@@ -641,37 +641,37 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
                 // "^FO50,50" + "\r\n" + "^A0,N,50,50" + "\r\n" + "^FD Brothers Gas^FS" + "\r\n" +
 
-                "^FO10,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDActivity Report("+startDate.getText().toString()+" - "+endDate.getText().toString()+")^FS" + "\r\n" +
+                "^FO10,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDActivity Report ( "+startDate.getText().toString()+" - "+endDate.getText().toString()+" )^FS" + "\r\n" +
                 "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD Username:^FS" + "\r\n" +
 
-                "^FO180,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getUsername() + "^FS" + "\r\n" +
+                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getUsername() + "^FS" + "\r\n" +
 
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoices Generated :^FS" + "\r\n" +
 
-                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_invoices() + "^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_invoices() + "^FS" + "\r\n" +
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCash Payment :^FS" + "\r\n" +
 
-                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cash_Payments() + "^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cash_Payments() + "^FS" + "\r\n" +
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Payments : ^FS" + "\r\n" +
 
-                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cheque_Payments() + "^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Cheque_Payments() + "^FS" + "\r\n" +
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Change : ^FS" + "\r\n" +
 
-                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Connections() + "^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Connections() + "^FS" + "\r\n" +
 
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDeposit Payment : ^FS" + "\r\n" +
 
-                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDConn_DisConn. : ^FS" + "\r\n" +
 
-                "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_disconnection_invoices() + "^FS" + "\r\n" +
 
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
@@ -701,29 +701,21 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
 
         long totalCashBodyHeight = (model.getCashList().size() + 1) * heightOfOneLine;
-//        xposition=(int)totalCashBodyHeight;
-//        String footer1 = String.format("^LH0,%d" + "\r\n" +
-//                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
-//
-//
-//                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
-//                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDAED "+model.getTotal_Cash_payments_amount()+"^FS" + "\r\n" +
-//                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
-//
-//                "^FO20,"+getXposition()+"" + "\r\n" + "^XZ");
-//
-//        long footerHeight1 =xposition+10;
+        xposition=(int)totalCashBodyHeight;
 
+            String Item =
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FDTotal ^FS" + "\r\n" +"^FO650,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAED "+model.getTotal_Cash_payments_amount()+"^FS" + "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
+                            "^FO20,"+getXposition()+"" + "\r\n" + "^FD^FS" + "\r\n" +
+                   "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDRec.No. ^FS" + "\r\n" +
+                "^FO350,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCustomerName ^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCheque ^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" ;
 
-//     String    chequeTable = "^XA" +
-//
-//                "^PON^PW900^MNN^LL%d^LH0,0" + "\r\n" +
-//                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
-//                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDRec.No. ^FS" + "\r\n" +
-//                "^FO350,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCustomerName ^FS" + "\r\n" +
-//                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCheque ^FS" + "\r\n" +
-//                "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" ;
-//        body+=String.format("^LH0,%d", chequeTable);
+            body += String.format(Item);
+           totalCashBodyHeight=getXposition();
 
         for (int i=0;i<model.getCheaqueList().size();i++) {
             EnquiryModel.PaymentModel paymentModel = model.getCheaqueList().get(i);
