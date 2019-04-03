@@ -133,6 +133,10 @@ public class Common {
     final public static String ConsumptionPreview="YMTRCOSINV";
     final public static String PaymentInoviceDetails="YMTRPAYDET";
     final public static String CreditNoteDetails="YMTRCNOTE";
+    final public static String OwnerList="YMTROWNER";
+    final public static String ProjectList="YMTRPROJ";
+
+
 
 
 

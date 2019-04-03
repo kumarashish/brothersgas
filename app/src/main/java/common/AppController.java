@@ -4,6 +4,11 @@ import android.app.Application;
 import android.os.Environment;
 import android.os.StrictMode;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+
+import model.OwnerModel;
 import model.UserRole;
 import utils.Configuration;
 import utils.Utils;
@@ -12,6 +17,7 @@ public class AppController extends Application {
     AppController controller;
     PrefManager manager;
     UserRole userRole=null;
+    ArrayList<OwnerModel>ownerList=new ArrayList<>();
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,9 +32,48 @@ public class AppController extends Application {
         Common.sdCardPath = Environment.getExternalStorageDirectory() + "/BrothersGas";
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+        if ((controller.getManager().isUserLoggedIn()) && (manager.getSyncData().length() > 0)) {
+            try {
+                JSONArray jsonArray = new JSONArray(manager.getSyncData());
+                for(int i=0;i<jsonArray.length();i++)
+                {
+                    OwnerModel model=new OwnerModel(jsonArray.getJSONObject(i).getJSONArray("FLD"));
+                    ownerList.add(model);
+                }
+            } catch (Exception ex) {
+                ex.fillInStackTrace();
+            }
+        }
 
     }
 
+    public ArrayList<OwnerModel> getOwnerList() {
+        return ownerList;
+    }
+
+    public void setOwnerList(String data, String syncDate) {
+        ownerList.clear();
+        manager.saveSyncData(data, syncDate);
+        try {
+            JSONArray jsonArray = new JSONArray(manager.getSyncData());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                OwnerModel model = new OwnerModel(jsonArray.getJSONObject(i).getJSONArray("FLD"));
+                ownerList.add(model);
+            }
+        } catch (Exception ex) {
+            ex.fillInStackTrace();
+        }
+    }
+
+   public ArrayList<String > getOwnerNameList()
+   {
+       ArrayList<String > names=new ArrayList<>();
+       for (int i = 0; i <ownerList.size(); i++) {
+
+           names.add(ownerList.get(i).getProjectName());
+       }
+       return names;
+   }
     public AppController getController() {
         return controller;
     }

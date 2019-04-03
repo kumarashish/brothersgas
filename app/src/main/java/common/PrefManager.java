@@ -22,8 +22,8 @@ public class PrefManager {
     private static final String LoggedIn = "BrothersGasLoggedIn";
     private static final String loggedInUserName="BrothersGasLoggedInUserName";
     private static final String loggedInUserPassword="BrothersGasLoggedInUserPassword";
-    private static final String rememberId = "BrothersGasRemId";
-    private static final String rememberpassword = "BrothersGasRemPass";
+    private static final String ownerList = "BrothersownerList";
+    private static final String lastSyncDate = "BrothersSyncDate";
 
 
 
@@ -42,6 +42,19 @@ public class PrefManager {
         return pref.getString(USER_ROLE,"");
     }
 
+    public void saveSyncData(String data,String date)
+    {
+        editor.putString(ownerList,data);
+        editor.putString(lastSyncDate,date);
+        editor.commit();
+    }
+
+    public  String getLastSyncDate() {
+        return pref.getString(lastSyncDate,"");
+    }
+    public  String getSyncData() {
+        return pref.getString(ownerList,"");
+    }
     public SharedPreferences getPref() {
         return pref;
     }

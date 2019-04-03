@@ -7,16 +7,21 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,14 +36,20 @@ import com.zebra.sdk.printer.ZebraPrinterFactory;
 import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 import com.zebra.sdk.printer.ZebraPrinterLinkOs;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import activatecontract.ContractListForActivation;
 import activatecontract.Dashboard2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
+import common.Common;
 import common.SettingsHelper;
+import common.WebServiceAcess;
 import consumption.Consumption;
 import consumption.ConsumptionList;
+import contracts.ContractDetails;
 import contracts.Contracts;
 import invoices.Block_Cancel;
 import invoices.Connection_Disconnection_Invoice;
@@ -69,12 +80,15 @@ View contract;
     Dialog    printDialog,syncDialog;
     private Connection connection;
     ProgressDialog dialog;
+    WebServiceAcess webServiceAcess;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         controller=(AppController)getApplicationContext();
+        webServiceAcess=new WebServiceAcess();
         ButterKnife.bind(this);
         menu.setOnClickListener(this);
         contract.setOnClickListener(this);
@@ -84,7 +98,11 @@ View contract;
         connect_disconnection_invoice.setOnClickListener(this);
         payment.setOnClickListener(this);
         dialog = new ProgressDialog(DashBoard.this);
-        dialog.setMessage("Checking printer status....");
+        if(controller.getManager().getLastSyncDate().length()==0)
+        {
+            showSyncAlertDialog();
+        }
+
     }
 
     @Override
@@ -158,8 +176,8 @@ View contract;
                         finish();
                         break;
                     case R.id.sync:
-                        showSyncAlertDialog();
-
+                        //showSyncAlertDialog();
+                        startActivity(new Intent(DashBoard.this,ProjectSearch.class));
                         break;
                     case R.id.settings:
                         showPrintAlertDialog();
@@ -205,6 +223,7 @@ View contract;
             @Override
             public void onClick(View v) {
                 if (edt.getText().toString().length() > 0) {
+                    dialog.setMessage("Checking printer status....");
                     dialog.show();
                     performTest(edt.getText().toString());
                 } else {
@@ -233,16 +252,60 @@ View contract;
                 syncDialog.cancel();
             }
         });
+        if(controller.getManager().getLastSyncDate().length()==0)
+        {
+            textView.setText("You havent synchronized data,Please synchronize know for using app");
+        }else {
+            textView.setText("Last Sync on : " + controller.getManager().getLastSyncDate());
+        }
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+            if(Utils.isNetworkAvailable(DashBoard.this))
+            {
+                new GetData().execute(new String[]{Common.OwnerList});
+                syncDialog.cancel();
+            }
             }
         });
 
 
        syncDialog = dialogBuilder.create();
+        syncDialog.setCancelable(false);
+        syncDialog.show();
+    }
+
+    public void showAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.activity_project_list, null);
+        dialogBuilder.setView(dialogView);
+        ProgressBar progress=(ProgressBar)dialogView.findViewById(R.id.progressBar);
+        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
+        final AutoCompleteTextView autocomplete=(AutoCompleteTextView)dialogView.findViewById(R.id.ownerList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.select_dialog_item,controller.getOwnerNameList());
+
+        autocomplete.setThreshold(2);
+        autocomplete.setAdapter(adapter);
+        final Button submit=(Button) dialogView.findViewById(R.id. submit);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+       Dialog syncDialog = dialogBuilder.create();
+        syncDialog.setCancelable(false);
         syncDialog.show();
     }
 
@@ -362,6 +425,53 @@ View contract;
     private void getAndSaveSettings(String macAddress) {
         SettingsHelper.saveBluetoothAddress(DashBoard.this, macAddress);
 
+    }
+    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+    public class GetData extends AsyncTask<String,Void,String> {
+        String calledMethod="";
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Please wait synchronizing data....");
+            dialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result=webServiceAcess.runRequest(Common.runAction,strings[0],  new String[]{controller.getManager().getLoggedInUserName()});
+            return  result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if(s.length()>0)
+            {
+                try{
+                    JSONObject jsonObject=new JSONObject(s);
+                    JSONObject result=jsonObject.getJSONObject("RESULT");
+                    JSONObject tab=result.getJSONObject("TAB");
+                    JSONArray jsonArray=result.getJSONArray("GRP");
+                    JSONObject statusFlag=jsonArray.getJSONObject(1);
+                    if(statusFlag.getJSONArray("FLD").getJSONObject(0).getInt("content")==2)
+                    {
+                        JSONArray lin=tab.getJSONArray("LIN");
+                        controller.setOwnerList(lin.toString(),Utils.getCurrentDate());
+                        Utils.showAlertNormal(DashBoard.this,"Synchronized Sucessfully.");
+
+                    }else{
+                        Utils.showAlertNormal(DashBoard.this,"Some Errror occured while synchronizing,Please Retry.");
+                    }
+
+
+
+                }catch (Exception ex)
+                {
+                    ex.fillInStackTrace();
+                }
+            }
+            dialog.cancel();
+        }
     }
 
 

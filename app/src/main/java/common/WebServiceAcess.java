@@ -167,6 +167,17 @@ public class WebServiceAcess {
                 jsonObject.put("I_SIGN", value[3]);
 
                 break;
+            case Common.OwnerList:
+                jsonObject.put("I_USER", value[0]);
+
+
+                break;
+            case Common.ProjectList:
+                jsonObject.put("I_USER", value[0]);
+                jsonObject.put("I_REOWNER", value[1]);
+
+                break;
+
 
 
 

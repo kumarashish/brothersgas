@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary">
+
+
+
+            <Button
+                android:layout_alignParentLeft="true"
+                android:id="@+id/back_button"
+
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/back" />
+
+            <TextView
+                android:fontFamily="@font/fontnew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Search"
+                android:textColor="@android:color/white"
+                android:textSize="18dp" />
+        </RelativeLayout>
+    <TextView
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fontnew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Owner"
+        android:textColor="@color/dashboard_textcolor"
+        android:textSize="18dp" />
+    <AutoCompleteTextView
+        android:layout_margin="10dp"
+        android:id="@+id/ownerList"
+        android:textColor="@color/black"
+        android:paddingLeft="15dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:hint="Please enter first two characters of owner"
+        android:background="@drawable/rounded_corner_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_width="50dp"
+        android:id="@+id/progressBar"
+        android:layout_height="50dp"
+        android:layout_below="@+id/pass_RL"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20.0dip"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/colorPrimary"/>
+    <LinearLayout
+android:id="@+id/projectView"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/fontnew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Project"
+            android:textColor="@color/dashboard_textcolor"
+            android:textSize="18dp" />
+
+        <AutoCompleteTextView
+            android:layout_margin="10dp"
+            android:id="@+id/projectList"
+            android:textColor="@color/black"
+            android:paddingLeft="15dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:hint="Please enter first two characters of project"
+            android:background="@drawable/rounded_corner_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp"/>
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <Button
+            android:visibility="invisible"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:background="@drawable/green_btn"
+            android:text="Cancel"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="14dp"
+
+
+            android:fontFamily="@font/fontnew"
+            android:textColor="@color/white"
+
+            android:id="@+id/cancel" />
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:background="@drawable/green_btn"
+            android:text="Submit"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:fontFamily="@font/fontnew"
+            android:textColor="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40dp"
+            android:id="@+id/submit" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+</LinearLayout>
+
+

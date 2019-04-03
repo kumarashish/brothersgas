@@ -91,6 +91,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name="invoices.Connection_Disconnection_Preview"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ProjectSearch"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

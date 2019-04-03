@@ -306,4 +306,12 @@ public static String getDate(String date)
         return mediaFile;
     }
 
+    public static String getCurrentDate() {
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = df.format(c);
+        return formattedDate;
+    }
 }
