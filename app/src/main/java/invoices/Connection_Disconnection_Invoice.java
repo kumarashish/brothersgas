@@ -60,6 +60,8 @@ TextView heading;
     @BindView(R.id.header)
     RelativeLayout header;
     ContractListAdapter adapter;
+    String owner;
+    String project;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,8 @@ protected void onCreate(Bundle savedInstanceState) {
         header.setVisibility(View.GONE);
         heading.setText("Deposit/Conn_Discon Invoices");
         back.setOnClickListener(this);
+       owner=getIntent().getStringExtra("owner");
+       project=getIntent().getStringExtra("project");
         if(Utils.isNetworkAvailable(Connection_Disconnection_Invoice.this)) {
         progressBar.setVisibility(View.VISIBLE);
         contentView.setVisibility(View.GONE);
@@ -144,7 +148,7 @@ public void onBlockClick(ContractModel model) {
 public class GetData extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... strings) {
-        String result = webServiceAcess.runRequest(Common.runAction,Common.BlockList,new String[]{"2"});
+        String result = webServiceAcess.runRequest(Common.runAction,Common.BlockList,new String[]{"2",owner,project});
         return result;
     }
 

@@ -41,7 +41,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="18.0sp"
-                        android:text="Alert"
+                        android:text="Sync Info"
                         android:layout_weight="0.7" />
 
 

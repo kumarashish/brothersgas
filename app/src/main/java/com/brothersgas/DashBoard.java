@@ -76,6 +76,7 @@ View contract;
     View block_cancel;
     @BindView(R.id.enquiry)
             View enquiry;
+
     AppController controller;
     Dialog    printDialog,syncDialog;
     private Connection connection;
@@ -95,6 +96,7 @@ View contract;
         consumption.setOnClickListener(this);
         block_cancel.setOnClickListener(this);
         enquiry.setOnClickListener(this);
+
         connect_disconnection_invoice.setOnClickListener(this);
         payment.setOnClickListener(this);
         dialog = new ProgressDialog(DashBoard.this);
@@ -114,14 +116,30 @@ View contract;
                 break;
             case R.id.contract:
                 if((controller.getUserRole().getContractsAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
-                    startActivity(new Intent(DashBoard.this, Dashboard2.class));
+                    if(controller.getManager().getLastSyncDate().length()==0)
+                    {
+                        showSyncAlertDialog();
+                    }else {
+                        Intent in = new Intent(DashBoard.this, ProjectSearch.class);
+                        in.putExtra("RequestedScreen", 1);
+                        startActivity(in);
+                    }
+                    //startActivity(new Intent(DashBoard.this, Dashboard2.class));
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
                 }
                 break;
             case R.id.con_discon_invoice:
                 if((controller.getUserRole().getConnection_DisconnectionAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
-                    startActivity(new Intent(DashBoard.this, Connection_Disconnection_Invoice.class));
+                    //startActivity(new Intent(DashBoard.this, Connection_Disconnection_Invoice.class));
+                    if(controller.getManager().getLastSyncDate().length()==0)
+                    {
+                        showSyncAlertDialog();
+                    }else {
+                        Intent in = new Intent(DashBoard.this, ProjectSearch.class);
+                        in.putExtra("RequestedScreen", 2);
+                        startActivity(in);
+                    }
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
                 }
@@ -129,7 +147,15 @@ View contract;
                 break;
             case R.id.block_cancel:
                 if((controller.getUserRole().getBlockAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
-                    startActivity(new Intent(DashBoard.this, Block_Cancel.class));
+                    if(controller.getManager().getLastSyncDate().length()==0)
+                    {
+                        showSyncAlertDialog();
+                    }else {
+                        // startActivity(new Intent(DashBoard.this, Block_Cancel.class));
+                        Intent in = new Intent(DashBoard.this, ProjectSearch.class);
+                        in.putExtra("RequestedScreen", 3);
+                        startActivity(in);
+                    }
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
                 }
@@ -137,15 +163,30 @@ View contract;
                 break;
             case R.id.consumption:
                 if((controller.getUserRole().getConsumptionsAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
-                    startActivity(new Intent(DashBoard.this, Consumption.class));
+                   // startActivity(new Intent(DashBoard.this, Consumption.class));
+                    if(controller.getManager().getLastSyncDate().length()==0)
+                    {
+                        showSyncAlertDialog();
+                    }else {
+                        Intent in = new Intent(DashBoard.this, ProjectSearch.class);
+                        in.putExtra("RequestedScreen", 4);
+                        startActivity(in);
+                    }
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
                 }
 
                 break;
             case R.id.payment:
-
-                    startActivity(new Intent(DashBoard.this, InvoiceList.class));
+                if(controller.getManager().getLastSyncDate().length()==0)
+                {
+                    showSyncAlertDialog();
+                }else {
+                    Intent in = new Intent(DashBoard.this, ProjectSearch.class);
+                    in.putExtra("RequestedScreen", 5);
+                    startActivity(in);
+                }
+                  //  startActivity(new Intent(DashBoard.this, InvoiceList.class));
 
                 break;
             case R.id.enquiry:
@@ -176,8 +217,8 @@ View contract;
                         finish();
                         break;
                     case R.id.sync:
-                        //showSyncAlertDialog();
-                        startActivity(new Intent(DashBoard.this,ProjectSearch.class));
+                        showSyncAlertDialog();
+
                         break;
                     case R.id.settings:
                         showPrintAlertDialog();
@@ -275,39 +316,7 @@ View contract;
         syncDialog.show();
     }
 
-    public void showAlertDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.activity_project_list, null);
-        dialogBuilder.setView(dialogView);
-        ProgressBar progress=(ProgressBar)dialogView.findViewById(R.id.progressBar);
-        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
-        final AutoCompleteTextView autocomplete=(AutoCompleteTextView)dialogView.findViewById(R.id.ownerList);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this,android.R.layout.select_dialog_item,controller.getOwnerNameList());
 
-        autocomplete.setThreshold(2);
-        autocomplete.setAdapter(adapter);
-        final Button submit=(Button) dialogView.findViewById(R.id. submit);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
-       Dialog syncDialog = dialogBuilder.create();
-        syncDialog.setCancelable(false);
-        syncDialog.show();
-    }
 
     public void performTest(final String macaddress) {
         new Thread(new Runnable() {

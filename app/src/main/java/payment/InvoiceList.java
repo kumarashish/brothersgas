@@ -73,12 +73,15 @@ AutoCompleteTextView search;
     TextView totalAmount;
 @BindView(R.id.pay_now)
 Button payNow;
-
+    String owner;
+    String project;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice_list);
         controller = (AppController) getApplicationContext();
+        owner=getIntent().getStringExtra("owner");
+        project=getIntent().getStringExtra("project");
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
         back.setOnClickListener(this);
@@ -134,7 +137,8 @@ Button payNow;
     public class GetData extends AsyncTask<String,Void,String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.queryRequest(Common.queryAction, Common.ContractList);
+           String result = webServiceAcess.runRequest(Common.runAction, Common.PaymentList,new String[]{"1",owner,project});
+           // String result = webServiceAcess.runRequest(Common.runAction, Common.PaymentList,new String[]{"1","UO00082","000014"});
             return result;
         }
 
@@ -145,17 +149,11 @@ Button payNow;
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONArray jsonArray = result.getJSONArray("LIN");
+                    JSONObject jsonObject1=result.getJSONObject("TAB");
+                    JSONArray jsonArray = jsonObject1.getJSONArray("LIN");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
-
-//                        if ((model.getBlock_unblockflag() != 2)) {
-//
-//                            if ((model.getDepositInvoice().length() == 0) || (model.getConnection_discconectionInvoice().length() == 0)) {
-//
-//                            }
-//                        }
                         unblockedlist.add(model);
                     }
                     if (unblockedlist.size() > 0) {
@@ -171,6 +169,8 @@ Button payNow;
 
                     }
                 } catch (Exception ex) {
+                    progressBar.setVisibility(View.GONE);
+                    Utils.showAlert(InvoiceList.this, "Error occured during data parsing");
                     ex.fillInStackTrace();
                 }
             } else {
@@ -239,11 +239,12 @@ Button payNow;
                         footer.setVisibility(View.VISIBLE);
 
                     }else{
-                        Utils.showAlertNormal(InvoiceList.this,"No Invoic Found for payment");
+                        Utils.showAlertNormal(InvoiceList.this,"No Invoice Found for payment");
                     }
 
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
+                    Utils.showAlertNormal(InvoiceList.this, "No Invoice Found for payment");
                 }
 
             } else {

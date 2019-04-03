@@ -93,6 +93,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ProjectSearch"
             android:screenOrientation="portrait"/>
+        <activity android:name="activatecontract.NewContract"
+            android:screenOrientation="portrait"/>
+        <activity android:name="activatecontract.NewContractList"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

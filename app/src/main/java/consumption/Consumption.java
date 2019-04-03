@@ -112,7 +112,8 @@ public class Consumption  extends Activity implements View.OnClickListener {
     String previousSearcchedContact = "";
     @BindView(R.id.reason)
     Spinner reason;
-
+    String owner;
+    String project;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +128,8 @@ public class Consumption  extends Activity implements View.OnClickListener {
         progressDialog.setIndeterminate(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         calendar = Calendar.getInstance();
+        owner=getIntent().getStringExtra("owner");
+        project=getIntent().getStringExtra("project");
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -390,7 +393,7 @@ public class Consumption  extends Activity implements View.OnClickListener {
     public class GetData extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractDetailsForConsumption,new String[]{"1"});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractDetailsForConsumption,new String[]{"1",owner,project});
             return result;
         }
 

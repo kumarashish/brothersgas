@@ -57,6 +57,8 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
     @BindView(R.id.header)
     RelativeLayout header;
     ContractListAdapter adapter=null;
+    String owner;
+    String project;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +69,8 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
         search.setOnClickListener(this);
         header.setVisibility(View.GONE);
         heading.setText("Block & Close");
+        owner=getIntent().getStringExtra("owner");
+        project=getIntent().getStringExtra("project");
         back.setOnClickListener(this);
         if(Utils.isNetworkAvailable(Block_Cancel.this)) {
             progressBar.setVisibility(View.VISIBLE);
@@ -148,7 +152,7 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
     public class GetData extends AsyncTask<String,Void,String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList,new String[]{"3"});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList,new String[]{"3",owner,project});
             return result;
         }
 

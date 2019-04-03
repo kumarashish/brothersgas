@@ -70,7 +70,7 @@ public class AppController extends Application {
        ArrayList<String > names=new ArrayList<>();
        for (int i = 0; i <ownerList.size(); i++) {
 
-           names.add(ownerList.get(i).getProjectName());
+           names.add(ownerList.get(i).getProjectCode()+" - "+ownerList.get(i).getProjectName());
        }
        return names;
    }

@@ -154,6 +154,7 @@ android:focusable="false"
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"/>
                             <TextView
+                                android:id="@+id/intialreading"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
                                 android:textColor="@color/grey"

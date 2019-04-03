@@ -77,6 +77,7 @@ public class WebServiceAcess {
 
                 break;
             case Common.Tennant_Change:
+            case Common.NewContract:
                 jsonObject.put("I_CONTNO", value[0]);
                 jsonObject.put("I_CURRED", value[1]);
                 jsonObject.put("I_EMIID", value[2]);
@@ -128,11 +129,18 @@ public class WebServiceAcess {
                 jsonObject.put("I_TYP", value[1]);
 
                 break;
-            case Common.ContractDetailsForConsumption:
+
             case Common.Reasons:
-            case Common.BlockList:
             case Common.BankList:
                 jsonObject.put("I_FLAG", value[0]);
+                break;
+
+            case Common.ContractDetailsForConsumption:
+            case Common.BlockList:
+            case Common. PaymentList:
+                jsonObject.put("I_FLAG", value[0]);
+                jsonObject.put("I_YOWNER", value[1]);
+                jsonObject.put("I_YPROJECT", value[2]);
                 break;
             case Common.Enqiry:
                 jsonObject.put("I_YUSER", value[0]);
