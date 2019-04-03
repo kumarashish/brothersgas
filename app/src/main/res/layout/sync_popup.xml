@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingBottom="20dp"
+            android:orientation="vertical">
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/white"
+
+                android:layout_marginBottom="20dp"
+                >
+
+                <LinearLayout
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimary"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18.0sp"
+                        android:text="Alert"
+                        android:layout_weight="0.7" />
+
+
+                </LinearLayout>
+
+
+
+
+
+                <LinearLayout
+
+                    android:id="@+id/textView"
+
+
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                          android:id="@+id/lastsync"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16.0sp"
+                        android:text="Last Sync :"
+                        android:layout_weight="0.7" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/green_btn"
+                    android:text="Cancel"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="14dp"
+
+
+                    android:fontFamily="@font/fontnew"
+                    android:textColor="@color/white"
+
+                    android:id="@+id/cancel" />
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/green_btn"
+                    android:text="Update"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/fontnew"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="40dp"
+                    android:id="@+id/update" />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

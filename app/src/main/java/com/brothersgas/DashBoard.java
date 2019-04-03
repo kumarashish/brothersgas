@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zebra.sdk.comm.BluetoothConnection;
@@ -31,6 +32,7 @@ import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 import com.zebra.sdk.printer.ZebraPrinterLinkOs;
 
 import activatecontract.ContractListForActivation;
+import activatecontract.Dashboard2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
@@ -64,7 +66,7 @@ View contract;
     @BindView(R.id.enquiry)
             View enquiry;
     AppController controller;
-    Dialog    printDialog;
+    Dialog    printDialog,syncDialog;
     private Connection connection;
     ProgressDialog dialog;
 
@@ -94,7 +96,7 @@ View contract;
                 break;
             case R.id.contract:
                 if((controller.getUserRole().getContractsAcess()==2)||(controller.getUserRole().getAdminAcess()==2)) {
-                    startActivity(new Intent(DashBoard.this, ContractListForActivation.class));
+                    startActivity(new Intent(DashBoard.this, Dashboard2.class));
                 }else{
                     Utils.showAlertNormal(DashBoard.this,"You are not authorized to use this feature");
                 }
@@ -155,11 +157,15 @@ View contract;
                         Toast.makeText(DashBoard.this, "Logged out Sucessfully", Toast.LENGTH_SHORT).show();
                         finish();
                         break;
+                    case R.id.sync:
+                        showSyncAlertDialog();
 
+                        break;
                     case R.id.settings:
                         showPrintAlertDialog();
 
                         break;
+
                 }
 
                 return true;
@@ -211,6 +217,33 @@ View contract;
 
         printDialog = dialogBuilder.create();
         printDialog.show();
+    }
+
+    public void showSyncAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.sync_popup, null);
+        dialogBuilder.setView(dialogView);
+        Button submit=(Button)dialogView.findViewById(R.id.update);
+        final TextView textView=(TextView)dialogView.findViewById(R.id.lastsync);
+        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syncDialog.cancel();
+            }
+        });
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
+
+       syncDialog = dialogBuilder.create();
+        syncDialog.show();
     }
 
     public void performTest(final String macaddress) {

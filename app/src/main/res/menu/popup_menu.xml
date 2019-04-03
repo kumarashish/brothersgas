@@ -9,6 +9,11 @@
             android:title="Settings"/>
         <item
             android:iconTint="@color/colorPrimary"
+            android:icon="@android:drawable/ic_partial_secure"
+            android:id="@+id/sync"
+            android:title="Sync"/>
+        <item
+            android:iconTint="@color/colorPrimary"
             android:icon="@android:drawable/ic_lock_power_off"
             android:id="@+id/logout"
             android:title="Logout"/>

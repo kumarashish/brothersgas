@@ -34,6 +34,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".DashBoard"
             android:screenOrientation="portrait"/>
+        <activity android:name="activatecontract.Dashboard2"
+            android:screenOrientation="portrait"/>
         <activity android:name="contracts.Contracts"
             android:screenOrientation="portrait"/>
         <activity android:name="contracts.ContractDetails"
