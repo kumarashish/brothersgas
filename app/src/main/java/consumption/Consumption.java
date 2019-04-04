@@ -32,6 +32,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brothersgas.Enquiry;
 import com.brothersgas.R;
 import com.whygraphics.multilineradiogroup.MultiLineRadioGroup;
 
@@ -382,7 +383,7 @@ public class Consumption  extends Activity implements View.OnClickListener {
                 }
             } else {
                 progressBar.setVisibility(View.GONE);
-                Utils.showAlert(Consumption.this, "Data not found");
+                Utils.showAlertNormal(Consumption.this,Common.message);
             }
 
 
@@ -429,7 +430,8 @@ public class Consumption  extends Activity implements View.OnClickListener {
                 }
             } else {
                 progressBar.setVisibility(View.GONE);
-                Utils.showAlert(Consumption.this, "Data not found");
+                Utils.showAlertNormal(Consumption.this,Common.message);
+
             }
 
 
@@ -484,8 +486,8 @@ public class Consumption  extends Activity implements View.OnClickListener {
                 }
             }else{
                 progressDialog.cancel();
+                Utils.showAlertNormal(Consumption.this,Common.message);
 
-                Toast.makeText(Consumption.this,"Data not found",Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -598,6 +600,8 @@ public class Consumption  extends Activity implements View.OnClickListener {
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
+            }else{
+                Utils.showAlertNormal(Consumption.this,Common.message);
             }
             progressDialog.cancel();
         }

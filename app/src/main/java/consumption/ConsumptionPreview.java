@@ -7,10 +7,13 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,8 +58,11 @@ import common.GeneratePdfFormat;
 import common.NumberToWords;
 import common.ScreenshotUtils;
 import common.SettingsHelper;
+import common.Signature;
 import common.WebServiceAcess;
 import invoices.Connection_Disconnection_Preview;
+import invoices.Consumption_DeliveryNote_Preview;
+import invoices.DepositInvoicePreview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
 import model.ContractDetails;
 import model.ContractModel;
@@ -144,6 +150,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     private Connection connection;
     int xposition;
     String path="";
+    AlertDialog signatureAlert=null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +169,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
         }
         payment.setOnClickListener(this);
         print_email.setOnClickListener(this);
+
     }
 
 
@@ -220,7 +228,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
                     ex.fillInStackTrace();
                 }
             } else {
-
+                Utils.showAlertNormal(ConsumptionPreview.this,Common.message);
             }
 
         }
@@ -274,7 +282,10 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
 
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         signature.setImageBitmap(bitmap);
-
+        if(imagePath.length()==0)
+        {
+            showSignatureAlert();
+        }
 
     }
 
@@ -344,6 +355,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
                 progressbar2.setVisibility(View.GONE);
                 footer.setVisibility(View.VISIBLE);
             } else {
+                Utils.showAlertNormal(ConsumptionPreview.this,Common.message);
                 progressbar2.setVisibility(View.GONE);
                 footer.setVisibility(View.VISIBLE);
             }
@@ -818,5 +830,49 @@ xposition=0;
             ex.fillInStackTrace();
         }
 
+    }
+
+    public void showSignatureAlert()
+    {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.sync_popup, null);
+        dialogBuilder.setView(dialogView);
+        Button submit=(Button)dialogView.findViewById(R.id.update);
+        final TextView textView=(TextView)dialogView.findViewById(R.id.lastsync);
+        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
+        cancel.setVisibility(View.INVISIBLE);
+        submit.setText("Signature");
+
+        textView.setText("Signature not found , Please provide signature");
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(ConsumptionPreview.this, Signature.class), 2);
+                signatureAlert.cancel();
+            }
+        });
+
+
+        signatureAlert = dialogBuilder.create();
+        signatureAlert.setCancelable(false);
+        signatureAlert.show();
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                imagePath= data.getStringExtra("filepath");
+                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                signature.setBackground( new BitmapDrawable(getResources(),bitmap));
+
+            }
+        }
     }
 }

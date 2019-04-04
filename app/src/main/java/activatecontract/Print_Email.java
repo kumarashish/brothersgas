@@ -240,6 +240,8 @@ int sendAttempt=0;
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
+            }else{
+                Utils.showAlertNormal(Print_Email.this,Common.message);
             }
             pd1.cancel();
 

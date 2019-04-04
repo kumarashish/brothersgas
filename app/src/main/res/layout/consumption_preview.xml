@@ -1032,13 +1032,14 @@
                                             android:layout_height="wrap_content" />
                                         <ImageView
 
-                                            android:layout_marginLeft="10dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:textColor="@color/black"
                                             android:id="@+id/signature"
-                                            android:fontFamily="@font/fontnew"
                                             android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content" />
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_margin="10dp"
+
+                                            android:fontFamily="@font/fontnew"
+                                            android:textColor="@color/black" />
                                     </LinearLayout>
 
                                 </LinearLayout>

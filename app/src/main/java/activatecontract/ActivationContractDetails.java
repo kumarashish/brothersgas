@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.brothersgas.Print;
 import com.brothersgas.R;
 
 import org.json.JSONArray;
@@ -263,7 +264,8 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
             } else {
                 progressBar.setVisibility(View.GONE);
                 mainLayout.setVisibility(View.VISIBLE);
-                Toast.makeText(ActivationContractDetails.this, "Data not found", Toast.LENGTH_SHORT).show();
+                Utils.showAlertNormal(ActivationContractDetails.this,Common.message);
+
             }
         }
     }

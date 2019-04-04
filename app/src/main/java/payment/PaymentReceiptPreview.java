@@ -148,7 +148,7 @@ ProgressDialog dialog;
         setContentView(R.layout.payment_receipt_preview);
         ButterKnife.bind(this);
         dialog=new ProgressDialog(PaymentReceiptPreview.this);
-        dialog.setMessage("Priniting....");
+        dialog.setMessage("Printing....");
 
         webServiceAcess = new WebServiceAcess();
         controller=(AppController)getApplicationContext();
@@ -223,7 +223,8 @@ ProgressDialog dialog;
 
 
             } else {
-                Utils.showAlertNormal(PaymentReceiptPreview.this,"Data not available.");
+
+                Utils.showAlertNormal(PaymentReceiptPreview.this,Common.message);
                 progress.setVisibility(View.GONE);
                 footer.setVisibility(View.GONE);
             }
@@ -242,7 +243,7 @@ ProgressDialog dialog;
         userId.setText(model.getUseridValue());
         username.setText(model.getUSERNameValue());
         amount.setText("AED "+model.getAmountValue());
-        amount_in_words.setText("AED " + numToWords.convertNumberToWords((int) Math.round(Double.parseDouble(model.getAmountValue()))) + " Only /-");
+        amount_in_words.setText("AED " + getNumberToWords(model.getAmountValue()) + " Only /-");
         payment_method.setText("By " + model.getPaymentTypeValue());
         if (model.getPaymentTypeValue().equalsIgnoreCase("cheque")) {
             chequeView.setVisibility(View.VISIBLE);
@@ -310,6 +311,7 @@ ProgressDialog dialog;
                 progressbar2.setVisibility(View.GONE);
                 footer.setVisibility(View.VISIBLE);
             } else {
+                Utils.showAlertNormal(PaymentReceiptPreview.this,Common.message);
                 progressbar2.setVisibility(View.GONE);
                 footer.setVisibility(View.VISIBLE);
             }

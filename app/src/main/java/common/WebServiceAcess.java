@@ -185,6 +185,15 @@ public class WebServiceAcess {
                 jsonObject.put("I_REOWNER", value[1]);
 
                 break;
+            case Common.PaymentListForPrint:
+            case Common.InvoiceListForPrint:
+                jsonObject.put("I_YUSER", value[0]);
+                jsonObject.put("I_YTYP", value[1]);
+                jsonObject.put("I_YDAT", value[2]);
+
+                break;
+
+
 
 
 
@@ -238,6 +247,13 @@ public class WebServiceAcess {
                 }
                 return jsonObj.toString();
             } else {
+                String error= response.getProperty(0).toString();
+                String [] message=error.split( "message=");
+                error=message[1].replace("]","");
+                error=error.replace("}","");
+                error=error.replace(";","");
+                error=error.replace(".","");
+                Common.message=error;
                 return "";
             }
         } catch (SocketTimeoutException e) {
@@ -286,6 +302,13 @@ public class WebServiceAcess {
                 }
                 return jsonObj.toString();
             } else {
+                String error= response.getProperty(0).toString();
+                String [] message=error.split( "message=");
+                error=message[1].replace("]","");
+                error=error.replace("}","");
+                error=error.replace(";","");
+                error=error.replace(".","");
+                Common.message=error;
                 return "";
             }
         } catch (SocketTimeoutException e) {

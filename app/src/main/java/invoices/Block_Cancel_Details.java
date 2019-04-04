@@ -40,6 +40,7 @@ import common.AppController;
 import common.Common;
 import common.WebServiceAcess;
 import consumption.Consumption;
+import consumption.ConsumptionReceipt;
 import model.BlockUnblockModel;
 import model.ContractModel;
 import model.ReasonsModel;
@@ -223,8 +224,8 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     ex.fillInStackTrace();
                 }
             } else {
+                Utils.showAlertNormal(Block_Cancel_Details.this,Common.message);
 
-                Utils.showAlert(Block_Cancel_Details.this, "Data not found");
             }
             pd1.cancel();
 
@@ -430,7 +431,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     ex.fillInStackTrace();
                 }
             } else {
-
+                Utils.showAlertNormal(Block_Cancel_Details.this,Common.message);
             }
             progressBar2.setVisibility(View.GONE);
             footer.setVisibility(View.VISIBLE);
@@ -478,7 +479,7 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
                     ex.fillInStackTrace();
                 }
             } else {
-
+                Utils.showAlertNormal(Block_Cancel_Details.this,Common.message);
             }
             progressBar2.setVisibility(View.GONE);
             footer.setVisibility(View.VISIBLE);
@@ -531,7 +532,7 @@ public void showAlert(String message)
             } else {
                 progressBar.setVisibility(View.GONE);
                 mainLayout.setVisibility(View.VISIBLE);
-                Toast.makeText(Block_Cancel_Details.this, "Data not found", Toast.LENGTH_SHORT).show();
+                Utils.showAlertNormal(Block_Cancel_Details.this,Common.message);
             }
         }
     }

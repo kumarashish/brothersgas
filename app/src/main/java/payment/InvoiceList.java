@@ -39,6 +39,7 @@ import interfaces.InvoiceListItemClickListner;
 import interfaces.ListItemClickListner;
 import invoices.Block_Cancel;
 import invoices.Connection_Disconnection_Invoice;
+import invoices.DepositInvoicePreview;
 import model.ContractModel;
 import model.InvoiceModel;
 import utils.Utils;
@@ -174,8 +175,9 @@ Button payNow;
                     ex.fillInStackTrace();
                 }
             } else {
+                Utils.showAlertNormal(InvoiceList.this,Common.message);
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(InvoiceList.this, "Data not found", Toast.LENGTH_SHORT).show();
+
             }
 
 
@@ -248,7 +250,7 @@ Button payNow;
                 }
 
             } else {
-
+                Utils.showAlertNormal(InvoiceList.this,Common.message);
 
             }
 

@@ -166,8 +166,8 @@ public class ConsumptionList   extends Activity implements View.OnClickListener 
                 }
             } else {
                 progressBar.setVisibility(View.GONE);
+                Utils.showAlertNormal(ConsumptionList.this,Common.message);
 
-                Toast.makeText(ConsumptionList.this, "Data not found", Toast.LENGTH_SHORT).show();
             }
 
 

@@ -778,7 +778,8 @@ android:gravity="center"
                                 android:layout_height="wrap_content" />
                             <ImageView
 
-                                android:layout_marginLeft="10dp"
+                                android:layout_margin="10dp"
+
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/black"
                                 android:id="@+id/signature"

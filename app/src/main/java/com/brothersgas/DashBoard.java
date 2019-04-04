@@ -41,6 +41,7 @@ import org.json.JSONObject;
 
 import activatecontract.ContractListForActivation;
 import activatecontract.Dashboard2;
+import activatecontract.NewContractList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
@@ -219,6 +220,9 @@ View contract;
                     case R.id.sync:
                         showSyncAlertDialog();
 
+                        break;
+                    case R.id.print:
+                        startActivity(new Intent(DashBoard.this,Print.class));
                         break;
                     case R.id.settings:
                         showPrintAlertDialog();
@@ -478,6 +482,8 @@ View contract;
                 {
                     ex.fillInStackTrace();
                 }
+            }else{
+                Utils.showAlertNormal(DashBoard.this,Common.message);
             }
             dialog.cancel();
         }

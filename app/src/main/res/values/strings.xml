@@ -12,6 +12,13 @@
         <item>Closed</item>
         <item>All</item>
     </string-array>
+    <string-array name="invoice_type">
+        <item>Deposit Invoices List</item>
+        <item>Connection and  Disconnection Invoices</item>
+        <item>Consumption Invoices</item>
+        <item>Credit memo</item>
+        <item>Payment Vouchers</item>
+    </string-array>
     <string-array name="reason">
         <item>Choose Reason</item>
 

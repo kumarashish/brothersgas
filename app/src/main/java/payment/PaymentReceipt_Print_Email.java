@@ -180,6 +180,7 @@ public void setValue()
                     ex.fillInStackTrace();
                 }
             } else {
+                Utils.showAlertNormal(PaymentReceipt_Print_Email.this,Common.message);
             }
 
         }

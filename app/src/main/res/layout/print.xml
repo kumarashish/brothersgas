@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorPrimary">
+
+        <Button
+            android:layout_alignParentLeft="true"
+            android:id="@+id/back_button"
+
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/back" />
+
+        <TextView
+            android:id="@+id/heading"
+
+            android:fontFamily="@font/fontnew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Invoice/Payments Details"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/aller_rg"
+            android:textColor="@color/grey"
+            android:text="Type : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    <LinearLayout
+
+        android:layout_margin="10dp"
+        android:weightSum="2"
+        android:background="@drawable/geeen_rectangle"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+      <Spinner
+          android:id="@+id/invoice_type"
+          android:entries="@array/invoice_type"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <Button
+            android:background="@drawable/geeen_rectangle"
+            android:id="@+id/date"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/grey"
+            android:hint="Please select date"
+            android:fontFamily="@font/aller_rg"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:background="@drawable/green_btn"
+            android:text="Search "
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:id="@+id/search"
+            android:fontFamily="@font/aller_rg"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/dashboard_textcolor"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+        <ProgressBar
+            android:visibility="gone"
+            android:layout_width="50dp"
+            android:id="@+id/progressBar"
+            android:layout_height="50dp"
+            android:layout_below="@+id/pass_RL"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40.0dip"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/colorPrimary"/>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

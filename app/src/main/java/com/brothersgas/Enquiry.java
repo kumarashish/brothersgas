@@ -52,6 +52,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import activatecontract.NewContractList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
@@ -352,9 +353,10 @@ public class Enquiry extends Activity implements View.OnClickListener {
                 }
                 progressBar.setVisibility(View.GONE);
             } else {
+                Utils.showAlertNormal(Enquiry.this,Common.message);
                 progressBar.setVisibility(View.GONE);
 
-                Toast.makeText(Enquiry.this, "Data not found", Toast.LENGTH_SHORT).show();
+
             }
         }
 

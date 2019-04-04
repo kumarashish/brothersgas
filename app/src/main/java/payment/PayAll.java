@@ -364,6 +364,7 @@ public class PayAll  extends Activity implements View.OnClickListener {
                     ex.fillInStackTrace();
                 }
             } else {
+                Utils.showAlertNormal(PayAll.this,Common.message);
                 submit.setVisibility(View.VISIBLE);
 
             }
@@ -413,7 +414,7 @@ public class PayAll  extends Activity implements View.OnClickListener {
                 }
 
             } else {
-
+                Utils.showAlertNormal(PayAll.this,Common.message);
 
             }
             if (pd != null) {

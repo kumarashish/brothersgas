@@ -301,7 +301,7 @@ TextView heading;
                 if (isFieldsValidated()) {
                     progressBar.setVisibility(View.VISIBLE);
                     footer.setVisibility(View.GONE);
-                    new NewContract.Update().execute();
+                    new Update().execute();
                 }
 
                 break;
@@ -399,7 +399,7 @@ TextView heading;
                     ex.fillInStackTrace();
                 }
             } else {
-                Utils.showAlertNormal(NewContract.this, "No message received from api");
+                Utils.showAlertNormal(NewContract.this, Common.message);
             }
             progressBar.setVisibility(View.GONE);
             footer.setVisibility(View.VISIBLE);

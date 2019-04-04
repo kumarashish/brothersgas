@@ -192,7 +192,7 @@ public class GetData extends AsyncTask<String,Void,String> {
         } else {
             progressBar.setVisibility(View.GONE);
 
-            Toast.makeText(Connection_Disconnection_Invoice.this, "Data not found", Toast.LENGTH_SHORT).show();
+            Utils.showAlertNormal(Connection_Disconnection_Invoice.this,Common.message);
         }
 
 

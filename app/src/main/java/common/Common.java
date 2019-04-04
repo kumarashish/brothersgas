@@ -137,6 +137,12 @@ public class Common {
     final public static String CreditNoteDetails="YMTRCNOTE";
     final public static String OwnerList="YMTROWNER";
     final public static String ProjectList="YMTRPROJ";
+    final public static String InvoiceListForPrint="YMTRINVLST";
+    final public static String PaymentListForPrint="YMTRALLDET";
+
+
+
+
 
 
 
@@ -189,7 +195,7 @@ public class Common {
     public static String sdCardPath;
     public static String folderName;
     public static String tempPath;
-
+    public static String message="";
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int SELECT_FILE = 2;
     public static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 3;

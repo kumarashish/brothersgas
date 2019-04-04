@@ -243,6 +243,7 @@ WebServiceAcess webServiceAcess;
                 progressbar2.setVisibility(View.GONE);
                 footer.setVisibility(View.VISIBLE);
             } else {
+                Utils.showAlertNormal(ConsumptionReceipt.this,Common.message);
                 progressbar2.setVisibility(View.GONE);
                 footer.setVisibility(View.VISIBLE);
             }
@@ -282,6 +283,8 @@ WebServiceAcess webServiceAcess;
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
+            }else{
+                Utils.showAlertNormal(ConsumptionReceipt.this,Common.message);
             }
             pd1.cancel();
 

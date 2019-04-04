@@ -372,7 +372,7 @@ public class PaymentReceipt  extends Activity implements View.OnClickListener  {
 
             } else {
 
-
+                Utils.showAlertNormal(PaymentReceipt.this,Common.message);
             }
 if(pd!=null)
 {
@@ -424,7 +424,7 @@ if(pd!=null)
                 }
 
             } else {
-
+                Utils.showAlertNormal(PaymentReceipt.this,Common.message);
 
             }
             if(pd!=null)
@@ -464,7 +464,7 @@ if(pd!=null)
 
             } else {
 
-
+                Utils.showAlertNormal(PaymentReceipt.this,Common.message);
             }
 
             progressBar1.setVisibility(View.GONE);
@@ -521,6 +521,7 @@ if(pd!=null)
                     ex.fillInStackTrace();
                 }
             } else {
+                Utils.showAlertNormal(PaymentReceipt.this,Common.message);
                 submit.setVisibility(View.VISIBLE);
 
             }

@@ -6,9 +6,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +50,7 @@ import common.AppController;
 import common.Common;
 import common.NumberToWords;
 import common.SettingsHelper;
+import common.Signature;
 import common.WebServiceAcess;
 import consumption.ConsumptionPreview;
 import model.Connection_Disconnection_Invoice_Preview_Model;
@@ -115,6 +119,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
     ProgressDialog dialog;
     private Connection connection;
     int xposition=0;
+    AlertDialog signatureAlert=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,7 +194,7 @@ public class DepositInvoicePreview extends Activity implements View.OnClickListe
                     ex.fillInStackTrace();
                 }
             } else {
-
+                Utils.showAlertNormal(DepositInvoicePreview.this,Common.message);
             }
 
         }
@@ -242,7 +247,10 @@ if(model.getTotalIncludingTaxValue()==null)
 
          Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
          signature.setImageBitmap(bitmap);
-
+        if(imagePath.length()==0)
+        {
+            showSignatureAlert();
+        }
     }
 
     public String getTotal(Deposit_Invoice_Model model)
@@ -303,6 +311,7 @@ if(model.getTotalIncludingTaxValue()==null)
                 progress2.setVisibility(View.GONE);
                 footer.setVisibility(View.VISIBLE);
             } else {
+                Utils.showAlertNormal(DepositInvoicePreview.this,Common.message);
                 progress2.setVisibility(View.GONE);
                 footer.setVisibility(View.VISIBLE);
             }
@@ -812,6 +821,48 @@ if(model.getTotalIncludingTaxValue()==null)
         }
 
     }
+    public void showSignatureAlert()
+    {
 
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.sync_popup, null);
+        dialogBuilder.setView(dialogView);
+        Button submit=(Button)dialogView.findViewById(R.id.update);
+        final TextView textView=(TextView)dialogView.findViewById(R.id.lastsync);
+        final Button cancel=(Button) dialogView.findViewById(R.id.cancel);
+        cancel.setVisibility(View.INVISIBLE);
+        submit.setText("Signature");
+
+        textView.setText("Signature not found , Please provide signature");
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(DepositInvoicePreview.this, Signature.class), 2);
+                signatureAlert.cancel();
+            }
+        });
+
+
+        signatureAlert = dialogBuilder.create();
+        signatureAlert.setCancelable(false);
+        signatureAlert.show();
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                imagePath= data.getStringExtra("filepath");
+                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                signature.setBackground( new BitmapDrawable(getResources(),bitmap));
+
+            }
+        }
+    }
 }
 

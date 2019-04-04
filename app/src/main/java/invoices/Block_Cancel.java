@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 import common.AppController;
 import common.Common;
 import common.WebServiceAcess;
+import consumption.ConsumptionReceipt;
 import contracts.Search;
 import interfaces.ListItemClickListner;
 import model.ContractModel;
@@ -190,7 +191,7 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
                 }
             } else {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(Block_Cancel.this, "Data not found", Toast.LENGTH_SHORT).show();
+                Utils.showAlertNormal(Block_Cancel.this,Common.message);
             }
 
 

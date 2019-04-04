@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brothersgas.DashBoard;
+import com.brothersgas.Print;
 import com.brothersgas.R;
 
 import org.json.JSONArray;
@@ -195,20 +196,22 @@ public class ContractListForActivation extends Activity implements View.OnClickL
                         contentView.setVisibility(View.VISIBLE);
                     } else {
                         progressBar.setVisibility(View.GONE);
-                        Utils.showAlert(ContractListForActivation.this, "No data Found");
+                        Utils.showAlert(ContractListForActivation.this, "No Blocked Contracts.");
 
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                     progressBar.setVisibility(View.GONE);
 
-                    Toast.makeText(ContractListForActivation.this, "Data not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ContractListForActivation.this, "Contract not available.", Toast.LENGTH_SHORT).show();
 
                 }
             } else {
                 progressBar.setVisibility(View.GONE);
 
-                Toast.makeText(ContractListForActivation.this, "Data not found", Toast.LENGTH_SHORT).show();
+                    Utils.showAlertNormal(ContractListForActivation.this,Common.message);
+
+
             }
 
 

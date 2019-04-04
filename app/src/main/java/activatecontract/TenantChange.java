@@ -404,7 +404,7 @@ public String getEmId()
                     ex.fillInStackTrace();
                 }
             } else {
-                Utils.showAlertNormal(TenantChange.this, "No message received from api");
+                Utils.showAlertNormal(TenantChange.this, Common.message);
             }
             progressBar.setVisibility(View.GONE);
             footer.setVisibility(View.VISIBLE);

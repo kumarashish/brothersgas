@@ -201,7 +201,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     footer.setVisibility(View.GONE);
                 }
             }else{
-                Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this,"No message received from api");
+                Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this,Common.message);
                 progressBar2.setVisibility(View.GONE);
                 editView.setVisibility(View.VISIBLE);
                 footer.setVisibility(View.GONE);

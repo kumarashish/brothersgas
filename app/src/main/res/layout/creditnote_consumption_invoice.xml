@@ -1032,7 +1032,7 @@
                                         android:layout_height="wrap_content" />
                                     <ImageView
 
-                                        android:layout_marginLeft="10dp"
+                                        android:layout_margin="10dp"
                                         android:layout_gravity="center_vertical"
                                         android:textColor="@color/black"
                                         android:id="@+id/signature"
@@ -1614,7 +1614,7 @@
                                         android:textColor="@color/black"
                                         android:textStyle="bold"
                                         android:fontFamily="@font/aller_rg"
-                                        android:text="AED Two Thosand Only /- "
+                                        android:text=" "
 
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content" />

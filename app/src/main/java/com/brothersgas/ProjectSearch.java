@@ -212,6 +212,8 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
                 }
+            }else{
+                Utils.showAlertNormal(ProjectSearch.this,Common.message);
             }
             progressBar.setVisibility(View.GONE);
         }
