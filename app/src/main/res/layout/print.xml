@@ -52,13 +52,17 @@
         android:background="@drawable/geeen_rectangle"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp">
       <Spinner
+          android:layout_gravity="center"
           android:id="@+id/invoice_type"
           android:entries="@array/invoice_type"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"/>
     </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
     <LinearLayout
 
         android:layout_margin="5dp"

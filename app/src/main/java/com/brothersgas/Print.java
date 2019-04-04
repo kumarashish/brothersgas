@@ -55,6 +55,8 @@ public class Print extends Activity implements View.OnClickListener, InvoiceItem
     Button search;
     @BindView(R.id.date)
     Button date;
+    @BindView(R.id.back_button)
+    Button back;
     int selectedType=1;
 @BindView(R.id.progressBar)
     ProgressBar progress;
@@ -72,6 +74,7 @@ ArrayList<InvoiceForPrintModel>listItems=new ArrayList<>();
         controller=(AppController)getApplicationContext();
         date.setOnClickListener(this);
         search.setOnClickListener(this);
+        back.setOnClickListener(this);
         calendar = Calendar.getInstance();
         webServiceAcess=new WebServiceAcess();
         year = calendar.get(Calendar.YEAR);
@@ -122,6 +125,9 @@ ArrayList<InvoiceForPrintModel>listItems=new ArrayList<>();
                 break;
             case R.id.date:
                 showDialog(999);
+                break;
+            case R.id.back_button:
+                finish();
                 break;
         }
 
