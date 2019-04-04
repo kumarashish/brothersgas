@@ -114,7 +114,7 @@ public class ContractListForActivation extends Activity implements View.OnClickL
             @Override
             public void run() {
 
-                Intent in=new Intent(ContractListForActivation.this, Dashboard2.class);
+                Intent in=new Intent(ContractListForActivation.this, ActivationContractDetails.class);
                 ActivationContractDetails.contractModel=model;
                 in.putExtra("Data",model.getContract_Meternumber());
                 startActivityForResult(in,2);

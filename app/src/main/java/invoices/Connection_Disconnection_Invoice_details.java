@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -114,6 +116,35 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
             mainLayout.setVisibility(View.GONE);
             new GetData().execute();
         }
+        Initial_meter_reading.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.toString().contains("."))
+                {   int index=s.toString().indexOf(".");
+                    int count=Initial_meter_reading.getText().toString().substring( index,s.length()).length();
+                    if(count>=5)
+                    {    String []value=Initial_meter_reading.getText().toString().split("\\.");
+                        String  text=value[1].substring(0,3);
+                        Initial_meter_reading.setText(value[0]+"."+text);
+                        Initial_meter_reading.setSelection(Initial_meter_reading.getText().length());
+
+                    }
+
+
+                }
+            }
+        });
     }
 
     @Override
@@ -178,12 +209,9 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                     JSONObject messageObject=Fld.getJSONObject(1);
                     int status = statusObject.getInt("content");
                     String message =messageObject.isNull("content")?"Message not available": messageObject.getString("content");
-
                     if(status==2) {
-
                         Initial_meter_reading.setEnabled(false);
                         model.setInitial_meter_reading(Initial_meter_reading.getText().toString());
-
                         Utils.showAlertNormal(Connection_Disconnection_Invoice_details.this, message);
                         progressBar2.setVisibility(View.GONE);
                         editView.setVisibility(View.GONE);
@@ -279,7 +307,6 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
                             Deposit_Invoice.setText(model.getDeposit_Invoice());
                             if(model.getDeposit_Invoice().length()>0) {
                                 Print_Email.model = model;
-
                                 Print_Email.calledMethod = calledMethod;
                                 Utils.showAlertNavigateToPrintEmail(Connection_Disconnection_Invoice_details.this, message, Print_Email.class);
                             }else{
