@@ -344,12 +344,17 @@ public class Enquiry extends Activity implements View.OnClickListener {
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONArray groupJSON = result.getJSONArray("GRP");
                     JSONObject tab=result.getJSONObject("TAB");
-                    JSONArray lin=tab.getJSONArray("LIN");
-                    model = new EnquiryModel(groupJSON.getJSONObject(0).getJSONArray("FLD"));
-                    model.setCashCheaquePayments(lin);
-                    setValue();
+                    if(!tab.isNull("LIN")) {
+                        JSONArray lin = tab.getJSONArray("LIN");
+                        model = new EnquiryModel(groupJSON.getJSONObject(0).getJSONArray("FLD"));
+                        model.setCashCheaquePayments(lin);
+                        setValue();
+                    }else{
+                        Utils.showAlertNormal(Enquiry.this,"No data found.");
+                    }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
+
                 }
                 progressBar.setVisibility(View.GONE);
             } else {
@@ -531,9 +536,9 @@ public class Enquiry extends Activity implements View.OnClickListener {
                             //Bitmap signatureBitmap = Bitmap.createScaledBitmap(signatureArea.getBitmap(), 300, 200, false);
                             Bitmap logo = Bitmap.createScaledBitmap(icon, 300,200, false);
 
-                            createfooterReceipt();
+                             createfooterReceipt();
                             // printer.printImage(new ZebraImageAndroid(signatureBitmap), 0, 0, signatureBitmap.getWidth(), signatureBitmap.getHeight(), false);
-                            sendTestLabel();
+                           sendTestLabel();
                             printer.printImage(new ZebraImageAndroid(icon), 0, 0,logo.getWidth(),logo.getHeight(), false);
                             connection.close();
                             Toast.makeText(Enquiry.this, "Receipt Printed Sucessfully.", Toast.LENGTH_LONG).show();
@@ -635,7 +640,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
          */
         String tmpHeader = "";
         int headerHeight = 0;
-        xposition=40;
+        xposition=10;
 
         tmpHeader = "^XA" +
 
@@ -645,7 +650,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
                 "^FO10,"+xposition+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDActivity Report ( "+startDate.getText().toString()+" - "+endDate.getText().toString()+" )^FS" + "\r\n" +
                 "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
-                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD Username:^FS" + "\r\n" +
+                "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUsername:^FS" + "\r\n" +
 
                 "^FO380,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getUsername() + "^FS" + "\r\n" +
 
@@ -664,7 +669,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDTenant Change : ^FS" + "\r\n" +
 
-                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Connections() + "^FS" + "\r\n" +
+                "^FO650,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getNumber_of_Connections()+ "^FS" + "\r\n" +
 
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDeposit Payment : ^FS" + "\r\n" +
@@ -677,7 +682,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
-              "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDRec.No. ^FS" + "\r\n" +
+               "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDRec.No. ^FS" + "\r\n" +
                 "^FO350,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCustomerName ^FS" + "\r\n" +
                 "^FO650,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDCash ^FS" + "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" ;
@@ -685,7 +690,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
         headerHeight =getXposition();
         String body = String.format("^LH0,%d", headerHeight);
-        int heightOfOneLine = 40;
+        int heightOfOneLine = 30;
         float totalPrice = 0;
 
 
@@ -696,9 +701,8 @@ public class Enquiry extends Activity implements View.OnClickListener {
             String customer=paymentModel.getCustomer();
             String amount=paymentModel.getAmout();
             String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" +"^FO350,%d" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" +"^FO650,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FDAED %s^FS";
-            int totalHeight = i++ * heightOfOneLine;
+            int totalHeight = i * heightOfOneLine;
             body += String.format(lineItem, totalHeight, paymentNumber, totalHeight,customer, totalHeight, amount,totalHeight);
-
         }
 
 
@@ -706,8 +710,8 @@ public class Enquiry extends Activity implements View.OnClickListener {
         xposition=(int)totalCashBodyHeight;
 
             String Item =
-                    "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
-                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FDTotal ^FS" + "\r\n" +"^FO650,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAED "+model.getTotal_Cash_payments_amount()+"^FS" + "\r\n" +
+                    "^FO20,"+xposition+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
+                    "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDTotal ^FS" + "\r\n" +"^FO650,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAED "+model.getTotal_Cash_payments_amount()+"^FS" + "\r\n" +
                     "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
                             "^FO20,"+getXposition()+"" + "\r\n" + "^FD^FS" + "\r\n" +
                    "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
@@ -725,7 +729,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
             String customer=paymentModel.getCustomer();
             String amount=paymentModel.getAmout();
             String lineItem = "^FO20,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" +"^FO350,%d" + "^A0,N,24,24" + "\r\n" + "^FD%s^FS" + "\r\n" +"^FO650,%d" + "\r\n" + "^A0,N,24,24" + "\r\n" + "^FDAED %s^FS";
-            int totalHeight = (i++ * heightOfOneLine)+(int)totalCashBodyHeight;
+            int totalHeight = (i * heightOfOneLine)+(int)totalCashBodyHeight;
             body += String.format(lineItem, totalHeight, paymentNumber, totalHeight,customer, totalHeight, amount,totalHeight);
 
         }
@@ -735,7 +739,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
        long footerStartPosition = headerHeight+totalCashBodyHeight+totalCheaqueBodyHeight;
         xposition=0;
         String footer = String.format("^LH0,%d" + "\r\n" +
-                "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
+                "^FO10,"+xposition+"" + "\r\n" + "^GB900,5,5,B,0^FS" + "\r\n" +
 
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,30,30" + "\r\n" + "^FDTotal^FS" + "\r\n" +
@@ -744,7 +748,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
 
                 "^FO20,"+getXposition()+"" + "\r\n" + "^XZ", footerStartPosition, totalPrice);
 
-        long footerHeight =xposition+10;
+        long footerHeight =xposition+100;
        long labelLength = headerHeight + totalCashBodyHeight+totalCheaqueBodyHeight + footerHeight;
         //long labelLength = headerHeight;
         Date date = new Date();
@@ -778,7 +782,7 @@ public class Enquiry extends Activity implements View.OnClickListener {
     }
     public int getXposition()
     {
-        xposition=xposition+40;
+        xposition=xposition+30;
         return xposition;
 
     }

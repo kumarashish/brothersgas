@@ -183,7 +183,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="40.0dip"
                     android:layout_centerVertical="true"
-                    android:indeterminateTint="@color/white"
+                    android:indeterminateTint="@color/colorPrimaryDark"
                 />
 
 
