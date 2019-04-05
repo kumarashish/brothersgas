@@ -116,7 +116,7 @@ public class Common {
     final public static String UpdateInitialReading="YMTRCSAVE";
     final public static String InvoiceSearch="YMTROPNITM";
     final public static String Tennant_Change="YMTRTENCHG";
-    final public static String NewContract="YMTRTENCHGR";
+    final public static String NewContract="YMTRTENCHR";
     final public static String CreatePayment="YMTRPAY";
     final public static String PaymentList="YMTRPAYLST";
     final public static String Enqiry="YMTRNQUIRY";
