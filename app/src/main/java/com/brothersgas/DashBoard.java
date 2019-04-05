@@ -468,8 +468,17 @@ View contract;
                     JSONObject statusFlag=jsonArray.getJSONObject(1);
                     if(statusFlag.getJSONArray("FLD").getJSONObject(0).getInt("content")==2)
                     {
-                        JSONArray lin=tab.getJSONArray("LIN");
-                        controller.setOwnerList(lin.toString(),Utils.getCurrentDate());
+
+                        Object linobject=tab.get("LIN");
+                        if(linobject instanceof JSONObject)
+                        {
+                            JSONObject jsonObject1=(JSONObject)linobject;
+                            controller.setOwnerList(jsonObject1.toString(),Utils.getCurrentDate());
+                        }else {
+                            JSONArray lin = tab.getJSONArray("LIN");
+                            controller.setOwnerList(lin.toString(),Utils.getCurrentDate());
+                        }
+
                         Utils.showAlertNormal(DashBoard.this,"Synchronized Sucessfully.");
 
                     }else{
@@ -481,6 +490,7 @@ View contract;
                 }catch (Exception ex)
                 {
                     ex.fillInStackTrace();
+                    Utils.showAlertNormal(DashBoard.this,"Some Errror occured while synchronizing,Please Retry.");
                 }
             }else{
                 Utils.showAlertNormal(DashBoard.this,Common.message);

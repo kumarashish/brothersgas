@@ -5,6 +5,8 @@ import android.os.Environment;
 import android.os.StrictMode;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.util.ArrayList;
 
@@ -34,10 +36,15 @@ public class AppController extends Application {
         StrictMode.setVmPolicy(builder.build());
         if ((controller.getManager().isUserLoggedIn()) && (manager.getSyncData().length() > 0)) {
             try {
-                JSONArray jsonArray = new JSONArray(manager.getSyncData());
-                for(int i=0;i<jsonArray.length();i++)
-                {
-                    OwnerModel model=new OwnerModel(jsonArray.getJSONObject(i).getJSONArray("FLD"));
+                Object json = new JSONTokener(manager.getSyncData()).nextValue();
+                if (json instanceof JSONArray) {
+                    JSONArray jsonArray = new JSONArray(manager.getSyncData());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        OwnerModel model = new OwnerModel(jsonArray.getJSONObject(i).getJSONArray("FLD"));
+                        ownerList.add(model);
+                    }
+                } else {
+                    OwnerModel model = new OwnerModel(((JSONObject) json).getJSONArray("FLD"));
                     ownerList.add(model);
                 }
             } catch (Exception ex) {
@@ -55,9 +62,15 @@ public class AppController extends Application {
         ownerList.clear();
         manager.saveSyncData(data, syncDate);
         try {
-            JSONArray jsonArray = new JSONArray(manager.getSyncData());
-            for (int i = 0; i < jsonArray.length(); i++) {
-                OwnerModel model = new OwnerModel(jsonArray.getJSONObject(i).getJSONArray("FLD"));
+            Object json = new JSONTokener(manager.getSyncData()).nextValue();
+            if (json instanceof JSONArray) {
+                JSONArray jsonArray = new JSONArray(manager.getSyncData());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    OwnerModel model = new OwnerModel(jsonArray.getJSONObject(i).getJSONArray("FLD"));
+                    ownerList.add(model);
+                }
+            } else {
+                OwnerModel model = new OwnerModel(((JSONObject) json).getJSONArray("FLD"));
                 ownerList.add(model);
             }
         } catch (Exception ex) {
