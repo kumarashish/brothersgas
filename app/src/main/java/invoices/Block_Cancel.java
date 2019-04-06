@@ -160,23 +160,28 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
         @Override
         protected void onPostExecute(String s) {
             Log.e("value", "onPostExecute: ", null);
+            unblockedlist.clear();
             if (s.length() > 0) {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONObject tab=result.getJSONObject("TAB");
-                    JSONArray jsonArray = tab.getJSONArray("LIN");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject item = jsonArray.getJSONObject(i);
-                        ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+                   Object object = tab.get("LIN");
+                   if(object instanceof JSONArray) {
+                       JSONArray jsonArray = tab.getJSONArray("LIN");
+                       for (int i = 0; i < jsonArray.length(); i++) {
+                           JSONObject item = jsonArray.getJSONObject(i);
+                           ContractModel model = new ContractModel(item.getJSONArray("FLD"));
 
-//                        if ((model.getBlock_unblockflag() != 2)&&(model.getClosemeterreadingvalue()!=2)) {
-//                            if((model.getDepositInvoice().length()!=0)&&(model.getConnection_discconectionInvoice().length()!=0))
-//                            {
-//                                unblockedlist.add(model);
-//                            }
-                        unblockedlist.add(model);
-                    }
+                           unblockedlist.add(model);
+                       }
+                   }else{
+                       JSONObject item = (JSONObject)object;
+                       ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+
+                       unblockedlist.add(model);
+
+                   }
                     if (unblockedlist.size() > 0) {
                         adapter=(new ContractListAdapter(unblockedlist, Block_Cancel.this));
                         listView.setAdapter(adapter);
@@ -184,16 +189,17 @@ public class Block_Cancel  extends Activity implements View.OnClickListener , Li
                         contentView.setVisibility(View.VISIBLE);
                     }else{
                         progressBar.setVisibility(View.GONE);
-                        Utils.showAlert(Block_Cancel.this,"No data Found");
+                        Utils.showAlert(Block_Cancel.this,"No record available");
                     }
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
+                    Utils.showAlert(Block_Cancel.this,"No record available");
                 }
             } else {
-                progressBar.setVisibility(View.GONE);
+
                 Utils.showAlertNormal(Block_Cancel.this,Common.message);
             }
-
+            progressBar.setVisibility(View.GONE);
 
         }
     }}

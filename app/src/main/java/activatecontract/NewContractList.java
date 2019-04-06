@@ -151,8 +151,8 @@ public class NewContractList extends Activity implements View.OnClickListener , 
     public class GetData extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            //String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList, new String[]{"4", owner, project});
-            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList,new String[]{"4","UO00082","000014"});
+          String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList, new String[]{"4", owner, project});
+           // String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList,new String[]{"4","UO00082","000014"});
             return result;
         }
 

@@ -406,12 +406,21 @@ public class Consumption  extends Activity implements View.OnClickListener {
                     JSONObject jsonObject = new JSONObject(s);
                     JSONObject result = jsonObject.getJSONObject("RESULT");
                     JSONObject tab=result.getJSONObject("TAB");
-                    JSONArray jsonArray = tab.getJSONArray("LIN");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject item = jsonArray.getJSONObject(i);
+                    Object object=tab.get("LIN");
+                    if(object instanceof JSONArray) {
+                        JSONArray jsonArray = tab.getJSONArray("LIN");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject item = jsonArray.getJSONObject(i);
+                            ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+                            list.add(model);
+                        }
+                    }else{
+                        JSONObject item = (JSONObject)object;
                         ContractModel model = new ContractModel(item.getJSONArray("FLD"));
                         list.add(model);
+
                     }
+
                     if (list.size() > 0) {
                         CustomListAdapter adapter = new CustomListAdapter(Consumption.this, R.layout.contract_row, list);
                         consumer.setAdapter(adapter);
@@ -426,6 +435,7 @@ public class Consumption  extends Activity implements View.OnClickListener {
 
                     }
                 } catch (Exception ex) {
+                    progressBar.setVisibility(View.GONE);
                     ex.fillInStackTrace();
                 }
             } else {

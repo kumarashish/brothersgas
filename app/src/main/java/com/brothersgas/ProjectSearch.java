@@ -80,6 +80,10 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
         ownerList.setAdapter(adapter);
         ownerList.setOnItemClickListener(onItemClickListener);
         submit.setOnClickListener(this);
+        if(controller.getOwnerNameList().size()==0)
+        {
+            Utils.showAlert(ProjectSearch.this,"Owner List missing,Please go back and Sync Data..");
+        }
         ownerList.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -131,15 +135,17 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
                 finish();
                 break;
             case R.id.submit:
-                if((ownerName.length()>0)&&(projectName.length()>0))
+                if((ownerName.length()>0)&&(projectName.length()>0)&&(projectNameList.size()>0))
                 {
                     navigatetoClass();
                 }else{
                     if(ownerName.length()==0)
                     {
                         Utils.showAlertNormal(ProjectSearch.this,"Please select owner");
-                    }else{
+                    }else if (projectName.length()==0){
                         Utils.showAlertNormal(ProjectSearch.this,"Please select project");
+                    }else{
+                        Utils.showAlertNormal(ProjectSearch.this,"No Project Found,Please select other owner");
                     }
                 }
                 break;
@@ -205,12 +211,13 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
 
 
                     } else {
-                        Utils.showAlertNormal(ProjectSearch.this, "Some Errror occured while synchronizing,Please Retry.");
+                        Utils.showAlertNormal(ProjectSearch.this, "Project not available.");
                     }
 
 
                 } catch (Exception ex) {
                     ex.fillInStackTrace();
+                    Utils.showAlertNormal(ProjectSearch.this, "Project not available.");
                 }
             }else{
                 Utils.showAlertNormal(ProjectSearch.this,Common.message);

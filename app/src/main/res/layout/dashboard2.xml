@@ -44,7 +44,7 @@
 
             android:weightSum="2.5"
             android:orientation="vertical"
-            android:layout_weight="1.5"
+            android:layout_weight="1.8"
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
@@ -74,7 +74,7 @@
                             android:layout_height="50dp" />
                         <TextView
                             android:fontFamily="@font/aller_rg"
-                            android:textSize="18dp"
+                            android:textSize="14dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:textAllCaps="true"
@@ -113,7 +113,7 @@
                             android:layout_height="50dp" />
                         <TextView
                             android:fontFamily="@font/aller_rg"
-                            android:textSize="18dp"
+                            android:textSize="14dp"
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:textAllCaps="true"
