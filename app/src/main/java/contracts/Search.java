@@ -17,6 +17,7 @@ import com.brothersgas.R;
 import java.util.ArrayList;
 
 import activatecontract.ActivationContractDetails;
+import activatecontract.NewContract;
 import adapter.CustomListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,6 +82,10 @@ public class Search extends Activity implements View.OnClickListener , ListItemC
                         case 5:
                             ActivationContractDetails.contractModel=model;
                             in=new Intent(Search.this, ActivationContractDetails.class);
+                            break;
+                        case 6:
+                            NewContract.model=model;
+                            in=new Intent(Search.this,NewContract.class);
                             break;
                     }
 

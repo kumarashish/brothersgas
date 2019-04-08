@@ -70,7 +70,7 @@ public class NewContractList extends Activity implements View.OnClickListener , 
         owner=getIntent().getStringExtra("owner");
         project=getIntent().getStringExtra("project");
         ButterKnife.bind(this);
-        search.setVisibility(View.GONE);
+        search.setVisibility(View.VISIBLE);
         search.setOnClickListener(this);
         header.setVisibility(View.GONE);
         heading.setText("New Contracts");
