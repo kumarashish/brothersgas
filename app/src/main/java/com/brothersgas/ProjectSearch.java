@@ -142,17 +142,24 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
                 finish();
                 break;
             case R.id.submit:
-                if((model!=null)&&(contractModelArrayList.size()>0)&&(contractmodel!=null))
+                if((requestedScreen==1)||(requestedScreen==4))
                 {
-                    navigatetoClass();
-                }else{
-                    if(model==null)
-                    {
-                        Utils.showAlertNormal(ProjectSearch.this,"Please select Project");
-                    }else if (contractModelArrayList.size()==0){
-                        Utils.showAlertNormal(ProjectSearch.this,"No Contract available for selected Project");
+                    if ((model != null)){
+                        navigatetoClass();
                     }else{
-                        Utils.showAlertNormal(ProjectSearch.this,"Please select Contract");
+                        Utils.showAlertNormal(ProjectSearch.this, "Please select Project");
+                    }
+                }else {
+                    if ((model != null) && (contractModelArrayList.size() > 0) && (contractmodel != null)) {
+                        navigatetoClass();
+                    } else {
+                        if (model == null) {
+                            Utils.showAlertNormal(ProjectSearch.this, "Please select Project");
+                        } else if (contractModelArrayList.size() == 0) {
+                            Utils.showAlertNormal(ProjectSearch.this, "No Contract available for selected Project");
+                        } else {
+                            Utils.showAlertNormal(ProjectSearch.this, "Please select Contract");
+                        }
                     }
                 }
                 break;
