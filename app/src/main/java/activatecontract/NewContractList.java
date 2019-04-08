@@ -68,7 +68,7 @@ public class NewContractList extends Activity implements View.OnClickListener , 
         controller = (AppController) getApplicationContext();
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
-
+        search.setVisibility(View.GONE);
         search.setOnClickListener(this);
         header.setVisibility(View.GONE);
         heading.setText("New Contracts");
@@ -152,7 +152,7 @@ public class NewContractList extends Activity implements View.OnClickListener , 
         @Override
         protected String doInBackground(String... strings) {
           String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList, new String[]{"4", owner, project});
-           // String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList,new String[]{"4","UO00082","000014"});
+           //String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList,new String[]{"4","UO00001","U000000001"});
             return result;
         }
 
