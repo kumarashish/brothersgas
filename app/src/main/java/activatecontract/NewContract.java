@@ -42,6 +42,7 @@ import common.AppController;
 import common.Common;
 import common.WebServiceAcess;
 import invoices.Connection_Disconnection_Invoice_details;
+import model.ContractDetails;
 import model.ContractModel;
 import utils.Utils;
 
@@ -74,6 +75,10 @@ public class NewContract extends Activity implements View.OnClickListener {
     EditText contact_number;
     @BindView(R.id.progressBar2)
     ProgressBar progressBar;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar1;
+    @BindView(R.id.mainLayout)
+    LinearLayout mainLayout;
     @BindView(R.id.footer)
     LinearLayout footer;
     @BindView(R.id.submit)
@@ -94,8 +99,10 @@ TextView heading;
     private DatePicker datePicker;
     private Calendar calendar;
 
+
     private int year, month, day;
     public static ContractModel model = null;
+    public static ContractDetails detailsmodel = null;
     public static String currentMeterReading = "";
 
     int requestedType;
@@ -111,10 +118,12 @@ TextView heading;
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
         submit.setOnClickListener(this);
+        mainLayout.setVisibility(View.GONE);
         back.setOnClickListener(this);
         expiry_date.setOnClickListener(this);
         contract_number.setText(model.getContract_Meternumber());
         customer_name.setText(model.getCustomername());
+        current_reading.setText(currentMeterReading );
         current_reading.setEnabled(true);
         current_reading.setFocusable(true);
         heading.setText("New Contract");
@@ -197,6 +206,10 @@ TextView heading;
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        if(Utils.isNetworkAvailable(NewContract.this))
+        {   progressBar1.setVisibility(View.VISIBLE);
+            new GetData().execute();
         }
 
 
@@ -290,12 +303,31 @@ TextView heading;
                 finish();
                 break;
             case R.id.emirates_id_front:
-                requestedType = frontImage;
-                Utils.selectImageDialog(NewContract.this, "EmirateId Front");
+                if (checkPermissionForCamera() == true) {
+                    requestedType = frontImage;
+                    Utils.selectImageDialog(NewContract.this, "EmirateId Front");
+                }else{
+                    try {
+                        requestPermissionForCamera();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 break;
             case R.id.emirates_id_back:
-                requestedType = backImage;
-                Utils.selectImageDialog(NewContract.this, "EmirateId Back");
+
+
+                if (checkPermissionForCamera() == true) {
+                    requestedType = backImage;
+                    Utils.selectImageDialog(NewContract.this, "EmirateId Back");
+                }else{
+                    try {
+                        requestPermissionForCamera();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
             case R.id.submit:
                 if (isFieldsValidated()) {
@@ -348,7 +380,44 @@ TextView heading;
         }
         return false;
     }
+    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+    public class GetData extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractView, new String[]{model.getContract_Meternumber()});
+            return result;
+        }
 
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e("value", "onPostExecute: ", null);
+            if (s.length() > 0) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONObject result = jsonObject.getJSONObject("RESULT");
+                    JSONArray jsonArray = result.getJSONArray("GRP");
+                    JSONObject item = jsonArray.getJSONObject(1);
+                    detailsmodel = new ContractDetails(item.getJSONArray("FLD"));
+                    if((detailsmodel.getPreviousReading().length()>0)&&(!detailsmodel.getPreviousReading().equalsIgnoreCase("0")))
+                    {
+                        current_reading.setText(detailsmodel.getPreviousReading());
+                    }else {
+                        current_reading.setText(detailsmodel.getInitial_meter_reading() + " " + detailsmodel.getUnits());
+                    }
+                } catch (Exception ex) {
+                    ex.fillInStackTrace();
+                }
+                progressBar1.setVisibility(View.GONE);
+                mainLayout.setVisibility(View.VISIBLE);
+            } else {
+                progressBar1.setVisibility(View.GONE);
+                mainLayout.setVisibility(View.VISIBLE);
+                Utils.showAlertNormal(NewContract.this,Common.message);
+
+            }
+
+        }
+    }
 
     /*-------------------------------------------------------------------block-------------------------------------------------------*/
     public class Update extends AsyncTask<String, Void, String> {

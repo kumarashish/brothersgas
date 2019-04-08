@@ -33,7 +33,7 @@ import utils.Utils;
 public class Connection_Disconnection_Invoice_details  extends Activity implements View.OnClickListener {
     WebServiceAcess webServiceAcess;
     AppController controller;
-    String contractId;
+    String contractId=null;
     public static model.ContractDetails model = null;
     public static ContractModel contractModel=null;
     @BindView(R.id.progressBar)
@@ -95,7 +95,11 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         setContentView(R.layout.activity_contract_details);
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
-        contractId = contractModel.getContract_Meternumber() ;
+
+        contractId=getIntent().getStringExtra("Data");
+        if((contractId==null)||(contractId.length()==0)) {
+            contractId = contractModel.getContract_Meternumber();
+        }
         heading.setText(contractModel.getContract_Meternumber() +"(Details)");
         controller = (AppController) getApplicationContext();
         footer.setVisibility(View.VISIBLE);
@@ -347,7 +351,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     public class GetData extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractView, new String[]{contractModel.getContract_Meternumber()});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractView, new String[]{ contractId});
             return result;
         }
 

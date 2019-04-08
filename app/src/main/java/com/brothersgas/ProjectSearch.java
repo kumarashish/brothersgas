@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -82,10 +83,26 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
         back.setOnClickListener(this);
         webServiceAcess=new WebServiceAcess();
         projectList.setAdapter(new ProjectSearchAdapter(ProjectSearch.this,R.layout.project_search_row,controller.getOwnerList()));
-        projectList.setThreshold(2);
+        projectList.setThreshold(0);
         projectList.setOnItemClickListener(onItemClickListener);
-
         submit.setOnClickListener(this);
+        projectList.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+               projectList.showDropDown();
+                return false;
+            }
+        });
+        contractList.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if(contractModelArrayList.size()>0) {
+                    contractList.showDropDown();
+                }
+                return false;
+            }
+        });
+
         if(controller.getOwnerNameList().size()==0)
         {
             Utils.showAlert(ProjectSearch.this,"Owner List missing,Please go back and Sync Data..");
@@ -102,6 +119,7 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
             }
             @Override
             public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -173,6 +191,7 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
         }
 
         @Override
@@ -207,7 +226,8 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
                         }
                         if (contractModelArrayList.size() > 0) {
                             CustomListAdapter adapter = new CustomListAdapter(ProjectSearch.this, R.layout.contract_row, contractModelArrayList);
-                           contractList.setAdapter(adapter);
+                            contractList.setAdapter(adapter);
+                            contractList.setThreshold(0);
                             contractListView.setVisibility(View.VISIBLE);
                             contractList.setOnItemClickListener( onContractClickListner);
                         }else{
@@ -222,6 +242,19 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
                 Utils.showAlertNormal(ProjectSearch.this,Common.message);
             }
             progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 2) && (resultCode == RESULT_OK)) {
+            if ((requestedScreen != 1) || (requestedScreen != 4)) {
+                contractListView.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+                handleRequest();
+            }
+
         }
     }
 
@@ -260,37 +293,40 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
                 in=new Intent(ProjectSearch.this,Dashboard2.class);
                 in.putExtra("owner",model.getOwnerCode());
                 in.putExtra("project",model.getProjectCode());
-                startActivity(in);
+                startActivityForResult(in,2);
                 break;
             case 2:
                 in=new Intent(ProjectSearch.this, Connection_Disconnection_Invoice_details.class);
                 Connection_Disconnection_Invoice_details.contractModel=contractmodel;
-                startActivity(in);
+                startActivityForResult(in,2);
                 break;
             case 3:
 
                 in=new Intent(ProjectSearch.this, Block_Cancel_Details.class);
                 Block_Cancel_Details.contractModel=contractmodel;
-                startActivity(in);
+                startActivityForResult(in,2);
 
                 break;
             case 4:
                 in=new Intent(ProjectSearch.this,Consumption.class);
                 in.putExtra("owner",model.getOwnerCode());
                 in.putExtra("project",model.getProjectCode());
-                startActivity(in);
+                startActivityForResult(in,2);
 
                 break;
             case 5:
                 in=new Intent(ProjectSearch.this,InvoiceList.class);
                 InvoiceList.model=contractmodel;
-                startActivity(in);
+                startActivityForResult(in,2);
                 // new GetData().execute(new String[]{});
                 break;
 
 
         }
     }
+
+
+
 }
 
 

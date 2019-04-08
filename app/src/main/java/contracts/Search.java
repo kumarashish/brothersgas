@@ -3,6 +3,7 @@ package contracts;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -55,7 +56,17 @@ public class Search extends Activity implements View.OnClickListener , ListItemC
         CustomListAdapter adapter = new CustomListAdapter(this, R.layout.contract_row, contractList);
         back.setOnClickListener(this);
         autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setThreshold(0);
         autoCompleteTextView.setOnItemClickListener(onItemClickListener);
+        autoCompleteTextView.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if(contractList.size()>0) {
+                    autoCompleteTextView.showDropDown();
+                }
+                return false;
+            }
+        });
     }
     private AdapterView.OnItemClickListener onItemClickListener =
             new AdapterView.OnItemClickListener(){

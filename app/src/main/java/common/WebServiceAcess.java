@@ -77,7 +77,7 @@ public class WebServiceAcess {
 
                 break;
             case Common.Tennant_Change:
-            case Common.NewContract:
+
                 jsonObject.put("I_CONTNO", value[0]);
                 jsonObject.put("I_CURRED", value[1]);
                 jsonObject.put("I_EMIID", value[2]);
@@ -94,6 +94,19 @@ public class WebServiceAcess {
 
 
                 break;
+
+                case  Common.NewContract:
+                    jsonObject.put("I_CONTNO", value[0]);
+                    jsonObject.put("I_INIRED", value[1]);
+                    jsonObject.put("I_EMIID", value[2]);
+                    jsonObject.put("I_EMIDATE", value[3]);
+                    jsonObject.put("I_ADDLIG", value[4]);
+                    jsonObject.put("I_CUSCONT", value[5]);
+                    jsonObject.put("I_IDNUM", "");
+                    jsonObject.put("I_EMIMG", value[7]);
+                    jsonObject.put("I_EMIMG1", value[8]);
+                    jsonObject.put("I_EMAIL", value[6]);
+                    break;
             case Common.InvoiceSearch:
                 jsonObject.put("I_YBPC", value[0]);
                 break;

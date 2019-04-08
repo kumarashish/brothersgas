@@ -117,6 +117,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
             mainLayout.setVisibility(View.GONE);
             new GetData().execute();
         }
+
     }
 
     @Override
