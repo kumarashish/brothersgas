@@ -64,7 +64,7 @@ public class Invoice_ListAdapter  extends BaseAdapter {
 
         }
         holder.invoice_num.setText(model.getSales_Invoice_Number());
-        holder.date.setText(Utils.getDate(model.getDate() ) );
+        holder.date.setText(Utils.getNewDate(model.getDate() ) );
         holder.tot_amount.setText(model.getAmount()+" "+model.getTotal_amount_currency());
         holder.out_amount.setText(model.getOutstanding_amount()+" "+model.getOutstanding_amount_currency());
         holder.customerName.setText(model.getCustomer_Description()+"("+model.getCustomer()+")");

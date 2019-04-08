@@ -76,7 +76,6 @@ public class Search extends Activity implements View.OnClickListener , ListItemC
                             in=new Intent(Search.this, Block_Cancel_Details.class);
                             break;
                         case 4:
-
                             in=new Intent(Search.this, ConsumptionDetails.class);
                             break;
                         case 5:

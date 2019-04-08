@@ -41,7 +41,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
         <LinearLayout
-
             android:weightSum="2.5"
             android:orientation="vertical"
             android:layout_weight="1.8"
@@ -49,27 +48,23 @@
             android:layout_height="0dp">
 
             <LinearLayout
-
                 android:orientation="horizontal"
                 android:weightSum="2.1"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
-                <RelativeLayout
+                   <RelativeLayout
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent">
                     <LinearLayout
-
                         android:orientation="vertical"
-
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <ImageView
                             android:src="@drawable/contract"
                             android:layout_marginTop="20dp"
                             android:layout_gravity="center"
-
                             android:layout_width="50dp"
                             android:layout_height="50dp" />
                         <TextView
@@ -82,8 +77,6 @@
                             android:text="Activate Contract"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
-
-
                     </LinearLayout>
                     <View
                         android:id="@+id/activatecontract"
@@ -108,7 +101,6 @@
                             android:src="@drawable/contract"
                             android:layout_marginTop="20dp"
                             android:layout_gravity="center"
-
                             android:layout_width="50dp"
                             android:layout_height="50dp" />
                         <TextView
@@ -127,18 +119,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </RelativeLayout>
-
             </LinearLayout>
             <View
                 android:background="@color/dashboard_textcolor"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
-
-
-
-
-
-
 
         </LinearLayout>
 

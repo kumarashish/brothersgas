@@ -71,9 +71,7 @@ public class InvoiceListItemAdapter extends BaseAdapter {
         holder.doc_num.setText(model.getInvoiceNumber());
         holder.customer_name.setText(model.getCustomer());
         holder.amount .setText(model.getCurrency() +" "+model.getAmount());
-
         holder.date.setText(Utils.getNewDate(model.getInvoiceDate()));
-
         holder.detailsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,16 +79,15 @@ public class InvoiceListItemAdapter extends BaseAdapter {
 
             }
         });
-
         convertView.setTag(holder);
         return convertView;
     }
 
-    public class ViewHolder { TextView amount;
+    public class ViewHolder {
+        TextView amount;
         TextView doc_num;
         TextView customer_name;
         TextView date;
-
         View detailsView;
     }
 }

@@ -95,8 +95,8 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         setContentView(R.layout.activity_contract_details);
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
-        contractId = getIntent().getStringExtra("Data");
-        heading.setText(contractId +"(Details)");
+        contractId = contractModel.getContract_Meternumber() ;
+        heading.setText(contractModel.getContract_Meternumber() +"(Details)");
         controller = (AppController) getApplicationContext();
         footer.setVisibility(View.VISIBLE);
         con_dconInvoice.setOnClickListener(this);
@@ -347,7 +347,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
     public class GetData extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractView, new String[]{contractId});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractView, new String[]{contractModel.getContract_Meternumber()});
             return result;
         }
 

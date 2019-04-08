@@ -19,6 +19,11 @@ public class ProjectModel {
                     projectCode = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
                 } else if (jsonObject.getString("NAME").equalsIgnoreCase("O_PRJNAME")) {
                     projectName = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
+                }else if (jsonObject.getString("NAME").equalsIgnoreCase("O_PRJCOD")) {
+                    projectCode = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
+                }
+                else if (jsonObject.getString("NAME").equalsIgnoreCase("O_PRJNAME")) {
+                    projectName= jsonObject.isNull("content") ? "" : jsonObject.getString("content");
                 }
             }
         } catch (Exception ex) {

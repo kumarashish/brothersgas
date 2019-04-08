@@ -51,9 +51,8 @@ import utils.Utils;
 public class InvoiceList   extends Activity implements View.OnClickListener , InvoiceListItemClickListner {
     AppController controller;
     WebServiceAcess webServiceAcess;
-    ArrayList<ContractModel> unblockedlist=new ArrayList<>();
-ArrayList<InvoiceModel> pendingInvoice=new ArrayList<>();
-
+    //ArrayList<ContractModel> unblockedlist=new ArrayList<>();
+    ArrayList<InvoiceModel> pendingInvoice=new ArrayList<>();
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
@@ -69,7 +68,7 @@ AutoCompleteTextView search;
 
     @BindView(R.id.header)
     RelativeLayout header;
-    ContractModel model;
+    public static ContractModel model;
     @BindView(R.id.tot_amount)
     TextView totalAmount;
 @BindView(R.id.pay_now)
@@ -90,7 +89,7 @@ Button payNow;
         if(Utils.isNetworkAvailable(InvoiceList.this))
         {   header.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-            new GetData().execute();
+            new FetchInvoices().execute(new String[]{model.getCustomercode()});
         }
 
     }
@@ -135,54 +134,54 @@ Button payNow;
     }
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
-    public class GetData extends AsyncTask<String,Void,String> {
-        @Override
-        protected String doInBackground(String... strings) {
-           String result = webServiceAcess.runRequest(Common.runAction, Common.PaymentList,new String[]{"1",owner,project});
-           // String result = webServiceAcess.runRequest(Common.runAction, Common.PaymentList,new String[]{"1","UO00082","000014"});
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            Log.e("value", "onPostExecute: ", null);
-            if (s.length() > 0) {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONObject jsonObject1=result.getJSONObject("TAB");
-                    JSONArray jsonArray = jsonObject1.getJSONArray("LIN");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject item = jsonArray.getJSONObject(i);
-                        ContractModel model = new ContractModel(item.getJSONArray("FLD"));
-                        unblockedlist.add(model);
-                    }
-                    if (unblockedlist.size() > 0) {
-                        CustomListAdapter adapter = new CustomListAdapter(InvoiceList.this, R.layout.contract_row, unblockedlist);
-                        search.setAdapter(adapter);
-                        search.setOnItemClickListener(onItemClickListener);
-                        progressBar.setVisibility(View.GONE);
-                        header.setVisibility(View.VISIBLE);
-
-                    } else {
-                        progressBar.setVisibility(View.GONE);
-                        Utils.showAlert(InvoiceList.this, "No data Found");
-
-                    }
-                } catch (Exception ex) {
-                    progressBar.setVisibility(View.GONE);
-                    Utils.showAlert(InvoiceList.this, "Error occured during data parsing");
-                    ex.fillInStackTrace();
-                }
-            } else {
-                Utils.showAlertNormal(InvoiceList.this,Common.message);
-                progressBar.setVisibility(View.GONE);
-
-            }
-
-
-        }
-    }
+//    public class GetData extends AsyncTask<String,Void,String> {
+//        @Override
+//        protected String doInBackground(String... strings) {
+//           String result = webServiceAcess.runRequest(Common.runAction, Common.PaymentList,new String[]{"1",owner,project});
+//           // String result = webServiceAcess.runRequest(Common.runAction, Common.PaymentList,new String[]{"1","UO00082","000014"});
+//            return result;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            Log.e("value", "onPostExecute: ", null);
+//            if (s.length() > 0) {
+//                try {
+//                    JSONObject jsonObject = new JSONObject(s);
+//                    JSONObject result = jsonObject.getJSONObject("RESULT");
+//                    JSONObject jsonObject1=result.getJSONObject("TAB");
+//                    JSONArray jsonArray = jsonObject1.getJSONArray("LIN");
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//                        JSONObject item = jsonArray.getJSONObject(i);
+//                        ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+//                        unblockedlist.add(model);
+//                    }
+//                    if (unblockedlist.size() > 0) {
+//                        CustomListAdapter adapter = new CustomListAdapter(InvoiceList.this, R.layout.contract_row, unblockedlist);
+//                        search.setAdapter(adapter);
+//                        search.setOnItemClickListener(onItemClickListener);
+//                        progressBar.setVisibility(View.GONE);
+//                        header.setVisibility(View.VISIBLE);
+//
+//                    } else {
+//                        progressBar.setVisibility(View.GONE);
+//                        Utils.showAlert(InvoiceList.this, "No data Found");
+//
+//                    }
+//                } catch (Exception ex) {
+//                    progressBar.setVisibility(View.GONE);
+//                    Utils.showAlert(InvoiceList.this, "Error occured during data parsing");
+//                    ex.fillInStackTrace();
+//                }
+//            } else {
+//                Utils.showAlertNormal(InvoiceList.this,Common.message);
+//                progressBar.setVisibility(View.GONE);
+//
+//            }
+//
+//
+//        }
+//    }
 
         /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class FetchInvoices extends AsyncTask<String,Void,String> {

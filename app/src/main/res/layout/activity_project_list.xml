@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Owner"
+        android:text="Project"
         android:textColor="@color/dashboard_textcolor"
         android:textSize="16dp" />
     <AutoCompleteTextView
@@ -54,7 +54,7 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:textSize="14dp"
-        android:hint="Please enter first two characters of owner"
+        android:hint="Please enter first two for search"
         android:background="@drawable/rounded_corner_edittext"
         android:layout_width="match_parent"
         android:layout_height="40dp"  />
@@ -84,7 +84,7 @@ android:id="@+id/projectView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Project"
+            android:text="Contract"
             android:textColor="@color/dashboard_textcolor"
             android:textSize="16dp" />
 
@@ -97,7 +97,7 @@ android:id="@+id/projectView"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:textSize="14dp"
-            android:hint="Please enter first two characters of project"
+            android:hint="Please enter first two for search"
             android:background="@drawable/rounded_corner_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp" />

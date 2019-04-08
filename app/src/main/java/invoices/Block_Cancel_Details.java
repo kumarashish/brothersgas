@@ -107,8 +107,8 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
         setContentView(R.layout.activity_contract_details);
         webServiceAcess = new WebServiceAcess();
         ButterKnife.bind(this);
-        contractId = getIntent().getStringExtra("Data");
-        heading.setText(contractId +"(Details)");
+        contractId =contractModel.getContract_Meternumber() ;
+        heading.setText(contractModel.getContract_Meternumber() +"(Details)");
         intialMeterReadingHeading.setText("Previous Meter Reading");
         block.setText("Block");
         cancel.setText("Close");
@@ -132,7 +132,6 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
-
     }
 
     @Override
@@ -181,13 +180,11 @@ public class Block_Cancel_Details  extends Activity implements View.OnClickListe
 
         }
     }
-    /*-------------------------------------------------------------------getData-------------------------------------------------------*/
+    /*-------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetReasons extends AsyncTask<String, Void, String> {
         ProgressDialog pd1;
-
         @Override
         protected void onPreExecute() {
-
             pd1=new ProgressDialog(Block_Cancel_Details.this);
             pd1.setMessage("Loading....");
             pd1.setCancelable(false);
@@ -506,7 +503,7 @@ public void showAlert(String message)
     public class GetData extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractView, new String[]{contractId});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.ContractView, new String[]{contractModel.getContract_Meternumber()});
             return result;
         }
 

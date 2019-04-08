@@ -523,7 +523,6 @@ if(pd!=null)
             } else {
                 Utils.showAlertNormal(PaymentReceipt.this,Common.message);
                 submit.setVisibility(View.VISIBLE);
-
             }
             progressBar.setVisibility(View.GONE);
 

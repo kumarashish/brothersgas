@@ -24,6 +24,9 @@ import java.util.ArrayList;
 
 import activatecontract.ContractListForActivation;
 import activatecontract.Dashboard2;
+import adapter.ContractListAdapter;
+import adapter.CustomListAdapter;
+import adapter.ProjectSearchAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.AppController;
@@ -31,8 +34,11 @@ import common.Common;
 import common.WebServiceAcess;
 import consumption.Consumption;
 import invoices.Block_Cancel;
+import invoices.Block_Cancel_Details;
 import invoices.Connection_Disconnection_Invoice;
+import invoices.Connection_Disconnection_Invoice_details;
 import model.ContractModel;
+import model.OwnerModel;
 import model.ProjectModel;
 import payment.InvoiceList;
 import utils.Utils;
@@ -46,25 +52,26 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.ownerList)
-    AutoCompleteTextView ownerList;
+    AutoCompleteTextView projectList;
 
     @BindView(R.id.projectView)
-    LinearLayout projectView;
+    LinearLayout contractListView;
     @BindView(R.id.projectList)
- AutoCompleteTextView projectList;
+ AutoCompleteTextView contractList;
     @BindView(R.id.submit)
     Button submit;
     WebServiceAcess webServiceAcess;
     AppController controller;
-    ArrayList<ProjectModel>projectModelList=new ArrayList<>();
-    ArrayList<String>projectNameList=new ArrayList<>();
 
+
+ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
     int requestedScreen=0;
     String ownerName="";
     String projectName="";
     @BindView(R.id.back_button)
     Button back;
-
+    OwnerModel model=null;
+    ContractModel contractmodel=null;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,17 +81,16 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
         ButterKnife.bind(this);
         back.setOnClickListener(this);
         webServiceAcess=new WebServiceAcess();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this,android.R.layout.select_dialog_item,controller.getOwnerNameList());
-        ownerList.setThreshold(2);
-        ownerList.setAdapter(adapter);
-        ownerList.setOnItemClickListener(onItemClickListener);
+        projectList.setAdapter(new ProjectSearchAdapter(ProjectSearch.this,R.layout.project_search_row,controller.getOwnerList()));
+        projectList.setThreshold(2);
+        projectList.setOnItemClickListener(onItemClickListener);
+
         submit.setOnClickListener(this);
         if(controller.getOwnerNameList().size()==0)
         {
             Utils.showAlert(ProjectSearch.this,"Owner List missing,Please go back and Sync Data..");
         }
-        ownerList.addTextChangedListener(new TextWatcher() {
+        projectList.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -94,35 +100,36 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
-
     }
-    private AdapterView.OnItemClickListener onItemClickListener =
+      private AdapterView.OnItemClickListener onItemClickListener =
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                  ownerName=  (String)adapterView.getItemAtPosition(i);
-                  String[]value=ownerName.split(" - ");
+
+
+                    model=  (OwnerModel)adapterView.getItemAtPosition(i);
+                    projectList.setText(model.getProjectName());
                     if(Utils.isNetworkAvailable(ProjectSearch.this))
                     {   progressBar.setVisibility(View.VISIBLE);
-                        new GetData().execute(value[0]);
+                        handleRequest();
                     }else{
                         Utils.showAlertNormal(ProjectSearch.this,"Internet Unavailable..");
                     }
+
                 }
             };
 
-    private AdapterView.OnItemClickListener onProjectClickListener =
+       private AdapterView.OnItemClickListener onContractClickListner=
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    projectName=  (String)adapterView.getItemAtPosition(i);
+                    contractmodel=  (ContractModel) adapterView.getItemAtPosition(i);
 
+                     contractList.setText(contractmodel.getCustomername());
 
                 }
             };
@@ -135,17 +142,17 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
                 finish();
                 break;
             case R.id.submit:
-                if((ownerName.length()>0)&&(projectName.length()>0)&&(projectNameList.size()>0))
+                if((model!=null)&&(contractModelArrayList.size()>0)&&(contractmodel!=null))
                 {
                     navigatetoClass();
                 }else{
-                    if(ownerName.length()==0)
+                    if(model==null)
                     {
-                        Utils.showAlertNormal(ProjectSearch.this,"Please select owner");
-                    }else if (projectName.length()==0){
-                        Utils.showAlertNormal(ProjectSearch.this,"Please select project");
+                        Utils.showAlertNormal(ProjectSearch.this,"Please select Project");
+                    }else if (contractModelArrayList.size()==0){
+                        Utils.showAlertNormal(ProjectSearch.this,"No Contract available for selected Project");
                     }else{
-                        Utils.showAlertNormal(ProjectSearch.this,"No Project Found,Please select other owner");
+                        Utils.showAlertNormal(ProjectSearch.this,"Please select Contract");
                     }
                 }
                 break;
@@ -156,69 +163,54 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
 
     /*-------------------------------------------------------------------getData-------------------------------------------------------*/
     public class GetData extends AsyncTask<String, Void, String> {
-        String calledMethod = "";
-
         @Override
         protected void onPreExecute() {
-
             super.onPreExecute();
         }
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.ProjectList, new String[]{controller.getManager().getLoggedInUserName(), strings[0]});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList,new String[]{strings[0],model.getOwnerCode(),model.getProjectCode()});
             return result;
         }
 
         @Override
         protected void onPostExecute(String s) {
+            contractModelArrayList.clear();
             Log.e("value", "onPostExecute: ", null);
             if (s.length() > 0) {
-                try {
-                    projectNameList.clear();
-                    projectModelList.clear();
-                    JSONObject jsonObject = new JSONObject(s);
-                    JSONObject result = jsonObject.getJSONObject("RESULT");
-                    JSONObject tab = result.getJSONObject("TAB");
-                    JSONArray jsonArray = result.getJSONArray("GRP");
-                    JSONObject statusFlag = jsonArray.getJSONObject(1);
-                    if (statusFlag.getJSONArray("FLD").getJSONObject(0).getInt("content") == 2) {
-
-                        Object lin = tab.get("LIN");
-                        if (lin instanceof JSONArray) {
-                            JSONArray data = (JSONArray) lin;
-                            for (int i = 0; i < data.length(); i++) {
-                                JSONObject jsonObject1 = data.getJSONObject(i);
-                                ProjectModel model = new ProjectModel(jsonObject1.getJSONArray("FLD"));
-                                projectModelList.add(model);
-                                projectNameList.add(model.getProjectCode() + " - " + model.getProjectName());
+                    try {
+                        JSONObject jsonObject = new JSONObject(s);
+                        JSONObject result = jsonObject.getJSONObject("RESULT");
+                        JSONObject tab=result.getJSONObject("TAB");
+                        Object object = tab.get("LIN");
+                        if(object instanceof JSONArray) {
+                            JSONArray jsonArray = tab.getJSONArray("LIN");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject item = jsonArray.getJSONObject(i);
+                                ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+                                contractModelArrayList.add(model);
                             }
-                        } else {
-                            JSONObject object = (JSONObject) lin;
-                            ProjectModel model = new ProjectModel(object.getJSONArray("FLD"));
-                            projectModelList.add(model);
-                            projectNameList.add(model.getProjectCode() + " - " + model.getProjectName());
+                        }else{
+                            JSONObject item = (JSONObject)object;
+                            ContractModel model = new ContractModel(item.getJSONArray("FLD"));
+
+                            contractModelArrayList.add(model);
 
                         }
-                        if (projectModelList.size() > 0) {
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                                    (ProjectSearch.this, android.R.layout.select_dialog_item, projectNameList);
-                            projectList.setThreshold(2);
-                            projectList.setAdapter(adapter);
-                            projectList.setOnItemClickListener(onProjectClickListener);
-                            projectView.setVisibility(View.VISIBLE);
+                        if (contractModelArrayList.size() > 0) {
+                            CustomListAdapter adapter = new CustomListAdapter(ProjectSearch.this, R.layout.contract_row, contractModelArrayList);
+                           contractList.setAdapter(adapter);
+                            contractListView.setVisibility(View.VISIBLE);
+                            contractList.setOnItemClickListener( onContractClickListner);
+                        }else{
+                            progressBar.setVisibility(View.GONE);
+                            Utils.showAlert(ProjectSearch.this,"No record available");
                         }
-
-
-                    } else {
-                        Utils.showAlertNormal(ProjectSearch.this, "Project not available.");
+                    } catch (Exception ex) {
+                        ex.fillInStackTrace();
+                        Utils.showAlertNormal(ProjectSearch.this,"No record available");
                     }
-
-
-                } catch (Exception ex) {
-                    ex.fillInStackTrace();
-                    Utils.showAlertNormal(ProjectSearch.this, "Project not available.");
-                }
             }else{
                 Utils.showAlertNormal(ProjectSearch.this,Common.message);
             }
@@ -226,46 +218,67 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
         }
     }
 
-    public void navigatetoClass() {
+    public void handleRequest() {
+        Intent in=null;
         switch (requestedScreen) {
             case 1:
-                Intent in=new Intent(ProjectSearch.this, Dashboard2.class);
-                in.putExtra("owner",ownerName.split(" - ")[0]);
-                in.putExtra("project",projectName.split(" - ")[0]);
-                startActivity(in);
-                finish();
+                progressBar.setVisibility(View.GONE);
+                navigatetoClass();
                 break;
             case 2:
-                 in=new Intent(ProjectSearch.this,Connection_Disconnection_Invoice.class);
-                in.putExtra("owner",ownerName.split(" - ")[0]);
-                in.putExtra("project",projectName.split(" - ")[0]);
-                startActivity(in);
-
-                finish();
+                new GetData().execute(new String[]{"2"});
                 break;
             case 3:
-               in=new Intent(ProjectSearch.this, Block_Cancel.class);
-                in.putExtra("owner",ownerName.split(" - ")[0]);
-                in.putExtra("project",projectName.split(" - ")[0]);
+
+                new GetData().execute(new String[]{"3"});
+                break;
+            case 4:
+                progressBar.setVisibility(View.GONE);
+                navigatetoClass();
+
+                break;
+            case 5:
+                new GetData().execute(new String[]{"1"});
+                break;
+
+
+        }
+    }
+
+
+    public void navigatetoClass() {
+        Intent in=null;
+        switch (requestedScreen) {
+            case 1:
+                in=new Intent(ProjectSearch.this,Dashboard2.class);
+                in.putExtra("owner",model.getOwnerCode());
+                in.putExtra("project",model.getProjectCode());
+                startActivity(in);
+                break;
+            case 2:
+                in=new Intent(ProjectSearch.this, Connection_Disconnection_Invoice_details.class);
+                Connection_Disconnection_Invoice_details.contractModel=contractmodel;
+                startActivity(in);
+                break;
+            case 3:
+
+                in=new Intent(ProjectSearch.this, Block_Cancel_Details.class);
+                Block_Cancel_Details.contractModel=contractmodel;
                 startActivity(in);
 
-                finish();
                 break;
             case 4:
                 in=new Intent(ProjectSearch.this,Consumption.class);
-                in.putExtra("owner",ownerName.split(" - ")[0]);
-                in.putExtra("project",projectName.split(" - ")[0]);
+                in.putExtra("owner",model.getOwnerCode());
+                in.putExtra("project",model.getProjectCode());
                 startActivity(in);
 
-                finish();
                 break;
             case 5:
-                 in=new Intent(ProjectSearch.this,InvoiceList.class);
-                in.putExtra("owner",ownerName.split(" - ")[0]);
-                in.putExtra("project",projectName.split(" - ")[0]);
+                in=new Intent(ProjectSearch.this,InvoiceList.class);
+                InvoiceList.model=contractmodel;
                 startActivity(in);
-
-                finish();
+                // new GetData().execute(new String[]{});
                 break;
 
 
