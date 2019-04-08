@@ -67,6 +67,8 @@ public class NewContractList extends Activity implements View.OnClickListener , 
         setContentView(R.layout.activity_contracts);
         controller = (AppController) getApplicationContext();
         webServiceAcess = new WebServiceAcess();
+        owner=getIntent().getStringExtra("owner");
+        project=getIntent().getStringExtra("project");
         ButterKnife.bind(this);
         search.setVisibility(View.GONE);
         search.setOnClickListener(this);
