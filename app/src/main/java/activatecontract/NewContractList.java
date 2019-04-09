@@ -97,7 +97,7 @@ public class NewContractList extends Activity implements View.OnClickListener , 
 
 
                 Intent in = new Intent(NewContractList.this, Search.class);
-                in.putExtra("requestedScreen", 5);
+                in.putExtra("requestedScreen", 6);
                 startActivity(new Intent(in));
                 break;
 
@@ -123,8 +123,11 @@ public class NewContractList extends Activity implements View.OnClickListener , 
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == 2) && (resultCode == RESULT_OK)) {
 
-            removeContract(NewContract.model.getContract_Meternumber());
-            adapter.notifyDataSetChanged();
+            if (Utils.isNetworkAvailable(NewContractList.this)) {
+                progressBar.setVisibility(View.VISIBLE);
+                contentView.setVisibility(View.GONE);
+                new GetData().execute();
+            }
 
 
         }
@@ -160,6 +163,7 @@ public class NewContractList extends Activity implements View.OnClickListener , 
 
         @Override
         protected void onPostExecute(String s) {
+            blockedlist.clear();
             Log.e("value", "onPostExecute: ", null);
             if (s.length() > 0) {
                 try {

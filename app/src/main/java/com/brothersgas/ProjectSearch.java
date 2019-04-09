@@ -196,7 +196,8 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = webServiceAcess.runRequest(Common.runAction, Common.BlockList,new String[]{strings[0],model.getOwnerCode(),model.getProjectCode()});
+
+            String result = webServiceAcess.runRequest(Common.runAction, strings[1],new String[]{strings[0],model.getOwnerCode(),model.getProjectCode()});
             return result;
         }
 
@@ -269,11 +270,11 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
                 navigatetoClass();
                 break;
             case 2:
-                new GetData().execute(new String[]{"2"});
+                new GetData().execute(new String[]{"2",Common.BlockList});
                 break;
             case 3:
 
-                new GetData().execute(new String[]{"3"});
+                new GetData().execute(new String[]{"3",Common.BlockList});
                 break;
             case 4:
                 progressBar.setVisibility(View.GONE);
@@ -281,7 +282,7 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
 
                 break;
             case 5:
-                new GetData().execute(new String[]{"1"});
+                new GetData().execute(new String[]{"1", Common.PaymentList});
                 break;
 
 

@@ -444,7 +444,7 @@ TextView heading;
             if (backImagePath.length() > 0) {
                 backImageValue = Utils.getBase64(backImagePath);
             }
-            String result = webServiceAcess.runRequest(Common.runAction, Common.NewContract, new String[]{model.getContract_Meternumber(), current_reading.getText().toString(), getEmId(), Utils.getFormatted(expiry_date.getText().toString()), address.getText().toString(), contact_number.getText().toString(), emailId.getText().toString(), frontImageValue, backImageValue});
+            String result = webServiceAcess.runRequest(Common.runAction, Common.NewContract, new String[]{model.getContract_Meternumber(), current_reading.getText().toString().trim(), getEmId(), Utils.getFormatted(expiry_date.getText().toString()), address.getText().toString(), contact_number.getText().toString(), emailId.getText().toString(), frontImageValue, backImageValue});
             return result;
         }
 
