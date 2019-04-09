@@ -107,7 +107,6 @@ public static String getBase64(String path)
                         dialog.cancel();
                         Intent data = new Intent();
                         act.setResult(RESULT_OK,data);
-
                         act.finish();
                     }
                 });

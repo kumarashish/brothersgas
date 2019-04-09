@@ -19,7 +19,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 
+import activatecontract.NewContractList;
 import utils.Configuration;
+import utils.Utils;
 
 public class WebServiceAcess {
 
@@ -326,9 +328,11 @@ public class WebServiceAcess {
             }
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
+            Common.message="Server Not working..";
             return "";
         } catch (Exception e) {
             e.printStackTrace();
+
             return "";
         }
 
@@ -379,6 +383,7 @@ public class WebServiceAcess {
                 return "Failed to update";
             }
         } catch (SocketTimeoutException e) {
+            Common.message="Server Not working..";
             e.printStackTrace();
             return "";
         } catch (Exception e) {

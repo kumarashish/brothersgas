@@ -101,7 +101,7 @@ public class ContractListForActivation extends Activity implements View.OnClickL
             case R.id.search:
                 Search.contractList = blockedlist;
                 Intent in=new Intent(ContractListForActivation.this,Search.class);
-                in.putExtra("requestedScreen",5);
+                in.putExtra("requestedScreen",6);
                 startActivity(new Intent(in));
                 break;
 

@@ -99,8 +99,6 @@ public class Search extends Activity implements View.OnClickListener , ListItemC
                             in=new Intent(Search.this,NewContract.class);
                             break;
                     }
-
-
                     in.putExtra("Data",model.getContract_Meternumber());
                     startActivity(in);
                     finish();

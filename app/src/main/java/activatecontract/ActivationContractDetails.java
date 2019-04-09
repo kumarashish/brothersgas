@@ -305,9 +305,7 @@ public class ActivationContractDetails  extends Activity implements View.OnClick
                         }
                         contractModel.setBlock_unblockflag(1);
                     } else {
-
                         Toast.makeText(ActivationContractDetails.this, modell.getMessage(), Toast.LENGTH_SHORT).show();
-
                     }
                     progressBar2.setVisibility(View.GONE);
                     footer.setVisibility(View.VISIBLE);

@@ -462,13 +462,15 @@ TextView heading;
                     JSONObject messageObject = Fld.getJSONObject(1);
                     String contractNumber = contractDetails.isNull("content") ? "Message not available" : contractDetails.getString("content");
                     String message = messageObject.isNull("content") ? "Message not available" : messageObject.getString("content");
-                    if (message.contains("New")) {
+                    if((message.contains("New"))) {
                         contract_number.setText(contractNumber);
                         Connection_Disconnection_Invoice_details.isCalledFromTenanatChange = true;
                         Utils.showAlertNavigateToInvoices(NewContract.this, message, Connection_Disconnection_Invoice_details.class, contractNumber);
-
                         submit.setVisibility(View.GONE);
 
+                    }else if((message.contains("updated"))||(message.contains("Updated"))) {
+                        Utils.showAlertForReturnIntent(NewContract.this, message);
+                        submit.setVisibility(View.VISIBLE);
                     } else {
                         Utils.showAlertNormal(NewContract.this, message);
                         submit.setVisibility(View.VISIBLE);
