@@ -62,9 +62,10 @@
         <TextView
             android:layout_weight="1.1"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+
             android:textColor="@color/black"
             android:gravity="left"
+
             android:id="@+id/unit_price"
             android:fontFamily="@font/fontnew"
             android:text=""
@@ -72,7 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <View
-android:layout_marginLeft="-30dp"
+android:layout_marginLeft="-20dp"
             android:background="@color/black"
             android:layout_width="1dp"
             android:layout_height="match_parent"/>
@@ -154,7 +155,7 @@ android:layout_marginLeft="-30dp"
 
             android:fontFamily="@font/fontnew"
             android:text=""
-
+            android:paddingLeft="-5dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <View

@@ -88,7 +88,7 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     Button back_button;
     AppController controller;
     WebServiceAcess webServiceAcess;
-  //public static String invoice="RMRC-U1L1900113";
+  //public static String invoice="RMRC-U1L1900191";
  public static String invoice="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
@@ -243,7 +243,7 @@ ProgressDialog dialog;
         userId.setText(model.getUseridValue());
         username.setText(model.getUSERNameValue());
         amount.setText("AED "+model.getAmountValue());
-        amount_in_words.setText("AED " + getNumberToWords(model.getAmountValue()) + " Only /-");
+        amount_in_words.setText( getNumberToWords(model.getAmountValue()) );
         payment_method.setText("By " + model.getPaymentTypeValue());
         if (model.getPaymentTypeValue().equalsIgnoreCase("cheque")) {
             chequeView.setVisibility(View.VISIBLE);
@@ -380,10 +380,7 @@ ProgressDialog dialog;
 
     }
 
-    public void showAlert()
-    {
 
-    }
 
     /**
      * This method is used to create a new alert dialog to sign and print and implements best practices to check the status of the printer.

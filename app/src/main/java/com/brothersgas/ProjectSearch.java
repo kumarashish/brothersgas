@@ -241,6 +241,7 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
             }else{
                 Utils.showAlertNormal(ProjectSearch.this,Common.message);
             }
+            submit.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
         }
     }
@@ -252,6 +253,8 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
             if ((requestedScreen != 1) || (requestedScreen != 4)) {
                 contractListView.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
+                contractList.setText("");
+                submit.setVisibility(View.GONE);
                 handleRequest();
             }
 

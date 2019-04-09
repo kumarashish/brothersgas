@@ -278,15 +278,15 @@ android:id="@+id/receiptno"
         </LinearLayout>
         <LinearLayout
             android:layout_marginRight="5dp"
-            android:weightSum="2"
+            android:weightSum="2.2"
             android:layout_marginLeft="5dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="60dp">
 
             <LinearLayout
-                android:weightSum="2.1"
-                android:layout_weight="1"
+                android:weightSum="2.3"
+                android:layout_weight="1.2"
                 android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
@@ -297,7 +297,7 @@ android:id="@+id/receiptno"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:fontFamily="@font/aller_rg"
-                    android:layout_weight="0.98"
+                    android:layout_weight="1.2"
                     android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>
@@ -309,7 +309,7 @@ android:id="@+id/receiptno"
                     android:textColor="@color/black"
                     android:id="@+id/username"
                     android:fontFamily="@font/fontnew"
-                    android:layout_weight="1.02"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>
@@ -318,7 +318,7 @@ android:id="@+id/receiptno"
 
             </LinearLayout>
             <View
-                android:layout_weight="0.4"
+                android:layout_weight="0.3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"/>
             <LinearLayout
@@ -331,7 +331,7 @@ android:id="@+id/receiptno"
                 <TextView
                     android:text="User Id : "
                     android:gravity="center_vertical|left"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.8"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:fontFamily="@font/aller_rg"
@@ -345,7 +345,7 @@ android:id="@+id/receiptno"
                     android:gravity="left|center_vertical"
                     android:id="@+id/userId"
                     android:fontFamily="@font/fontnew"
-                    android:layout_weight="1.4"
+                    android:layout_weight="1.2"
                     android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>

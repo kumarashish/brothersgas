@@ -100,7 +100,7 @@ public class Connection_Disconnection_Invoice_details  extends Activity implemen
         if((contractId==null)||(contractId.length()==0)) {
             contractId = contractModel.getContract_Meternumber();
         }
-        heading.setText(contractModel.getContract_Meternumber() +"(Details)");
+        heading.setText(contractId +"(Details)");
         controller = (AppController) getApplicationContext();
         footer.setVisibility(View.VISIBLE);
         con_dconInvoice.setOnClickListener(this);

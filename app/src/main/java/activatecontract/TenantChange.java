@@ -115,7 +115,7 @@ String backImagePath="";
         expiry_date.setOnClickListener(this);
         contract_number.setText(model.getContract_Meternumber());
         customer_name.setText(model.getCustomername());
-        current_reading.setText(currentMeterReading );
+        current_reading.setText(currentMeterReading.trim() );
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         em_id_front.setOnClickListener(this);

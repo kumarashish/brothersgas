@@ -116,8 +116,8 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
     android.widget.TextView supplier_trn;
     @BindView(R.id.registered_supplier_address)
     android.widget.TextView registered_supplier_address;
-   public static String invoice="";
-    //public static String invoice="CNV-U109-19000485";
+     public static String invoice="";
+   //public static String invoice="CNV-U109-19000485";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
     ProgressBar progress;

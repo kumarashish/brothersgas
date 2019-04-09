@@ -123,7 +123,7 @@ TextView heading;
         expiry_date.setOnClickListener(this);
         contract_number.setText(model.getContract_Meternumber());
         customer_name.setText(model.getCustomername());
-        current_reading.setText(currentMeterReading );
+        current_reading.setText(currentMeterReading.trim() );
         current_reading.setEnabled(true);
         current_reading.setFocusable(true);
         heading.setText("New Contract");
@@ -303,31 +303,40 @@ TextView heading;
                 finish();
                 break;
             case R.id.emirates_id_front:
-                if (checkPermissionForCamera() == true) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkPermissionForCamera() == true) {
+                        requestedType = frontImage;
+                        Utils.selectImageDialog(NewContract.this, "EmirateId Front");
+                    } else {
+                        try {
+                            requestPermissionForCamera();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }else{
                     requestedType = frontImage;
                     Utils.selectImageDialog(NewContract.this, "EmirateId Front");
-                }else{
-                    try {
-                        requestPermissionForCamera();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
-
                 break;
             case R.id.emirates_id_back:
 
-
-                if (checkPermissionForCamera() == true) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if (checkPermissionForCamera() == true) {
+                        requestedType = backImage;
+                        Utils.selectImageDialog(NewContract.this, "EmirateId Back");
+                    }else{
+                        try {
+                            requestPermissionForCamera();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }else{
                     requestedType = backImage;
                     Utils.selectImageDialog(NewContract.this, "EmirateId Back");
-                }else{
-                    try {
-                        requestPermissionForCamera();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
+
                 break;
             case R.id.submit:
                 if (isFieldsValidated()) {
