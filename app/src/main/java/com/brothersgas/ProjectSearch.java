@@ -204,7 +204,7 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
         @Override
         protected void onPostExecute(String s) {
             contractModelArrayList.clear();
-            Log.e("value", "onPostExecute: ", null);
+            Log.e("value ", "onPostExecute: ", null);
             if (s.length() > 0) {
                     try {
                         JSONObject jsonObject = new JSONObject(s);
