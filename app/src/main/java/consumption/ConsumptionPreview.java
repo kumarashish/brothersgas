@@ -283,7 +283,7 @@ public class ConsumptionPreview extends Activity implements View.OnClickListener
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         signature.setImageBitmap(bitmap);
         if(imagePath.length()==0)
-        {
+        {   payment.setVisibility(View.INVISIBLE);
             showSignatureAlert();
         }
 
@@ -649,7 +649,7 @@ xposition=0;
                 "^FO230,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPresentMeterreadingValue()+"^FS" + "\r\n" +
                 "^FO410,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getUnitsConsumed()+"^FS" + "\r\n" +
                 "^FO590,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getPressureFactorValue()+"^FS" + "\r\n" +
-                "^FO770,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getActualUnitConsumedValue()+"^FS" + "\r\n" +
+                "^FO750,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+con_dconnModel.getActualUnitConsumedValue()+"^FS" + "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
                 "^FO20,"+getXposition()+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDItem Name ^FS" + "\r\n" +
                 "^FO320,"+xposition+"" + "\r\n" + "^A0,N,28,28" + "\r\n" + "^FDAmount ^FS" + "\r\n" ;

@@ -287,14 +287,11 @@ public class PayAll  extends Activity implements View.OnClickListener {
             case R.id.submit:
                 if (paymentMode.getCheckedRadioButtonId() == cheque.getId()) {
                     if ((cheaqueNumber.getText().length() > 0) && (chequeDate.getText().length() > 0) && (amountValue.getText().length() > 0)) {
-                        if(Double.parseDouble(amountValue.getText().toString())<=Double.parseDouble(amount)) {
 
                             progressBar.setVisibility(View.VISIBLE);
                             submit.setVisibility(View.GONE);
                             new CreatePayment().execute();
-                        }else{
-                            showAlert("Amount should be less or equal to maximum outstanding amount");
-                        }
+
 
                     } else {
                         if (cheaqueNumber.getText().length() == 0) {

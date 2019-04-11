@@ -200,6 +200,17 @@ public class Common {
     public static final int SELECT_FILE = 2;
     public static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 3;
 
+    public static String tableName="Configuration";
+    public static String appId="0A9B9E5C-BB1E-DE16-FF17-DA9DE9E8F500";
+    public static String key="93B32AD5-CACC-7712-FF55-547599041300";
+
+//
+//
+//
+//
+//
+
+
 
 
 }

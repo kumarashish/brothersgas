@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -243,7 +244,7 @@ public class Connection_Disconnection_Preview extends Activity implements View.O
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         signature.setImageBitmap(bitmap);
         if(imagePath.length()==0)
-        {
+        {   payment.setVisibility(View.INVISIBLE);
             showSignatureAlert();
         }
     }
@@ -703,8 +704,8 @@ xposition=0;
         return wholeZplLabel;
     }
 
-    private Map<String, String> createListOfItems() {
-        Map<String, String> retVal = new HashMap<String, String>();
+    private LinkedHashMap<String, String> createListOfItems() {
+        LinkedHashMap<String, String> retVal = new LinkedHashMap<String, String>();
         int j=1;
         for (int i = 0; i <con_dcon_model.getDetails_list().size();i++) {
             Connection_Disconnection_Invoice_Preview_Model.BillDetails model=con_dcon_model.getDetails_list().get(i);

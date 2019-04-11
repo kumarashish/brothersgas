@@ -45,6 +45,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import activatecontract.*;
@@ -256,7 +257,7 @@ public class Consumption_DeliveryNote_Preview extends Activity implements View.O
         @Override
         protected String doInBackground(String... strings) {
 
-            String result = webServiceAcess.runRequest(Common.runAction,Common.Connection_DisconnectionInvoiceDetails, new String[]{invoice});
+            String result = webServiceAcess.runRequest(Common.runAction,Common.ConsumptionPreview, new String[]{invoice});
             return result;
         }
 
@@ -329,7 +330,7 @@ public void setCreditNoteValues(CreditNoteModel model)
     progress.setVisibility(View.GONE);
     contentView.setVisibility(View.VISIBLE);
     if(imagePath.length()==0)
-    {
+    {   payment.setVisibility(View.INVISIBLE);
         showSignatureAlert();
     }
 }
@@ -1007,8 +1008,8 @@ public void setCreditNoteValues(CreditNoteModel model)
         }
 
     }
-    private Map<String, String> createListOfItems() {
-        Map<String, String> retVal = new HashMap<String, String>();
+    private LinkedHashMap<String, String> createListOfItems() {
+        LinkedHashMap<String, String> retVal = new LinkedHashMap<String, String>();
         int j=1;
 
         for (int i = 0; i <model .getDetails_list().size();i++) {

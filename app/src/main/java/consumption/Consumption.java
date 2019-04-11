@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -69,7 +70,6 @@ public class Consumption  extends Activity implements View.OnClickListener {
     ProgressBar progressBar;
     @BindView(R.id.back_button)
     Button back;
-
     @BindView(R.id.contractNumber)
     EditText contractNumber;
     @BindView(R.id.date)
@@ -159,6 +159,17 @@ public class Consumption  extends Activity implements View.OnClickListener {
             contentView.setVisibility(View.GONE);
             new GetData().execute();
         }
+
+
+        consumer.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if(list.size()>0) {
+                    consumer.showDropDown();
+                }
+                return false;
+            }
+        });
         consumer.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -485,9 +496,11 @@ public class Consumption  extends Activity implements View.OnClickListener {
 
 
                         if (model.getUnitsValue().trim().equalsIgnoreCase("C3"))
-                        {
+                        {   meterProblem.setVisibility(View.GONE);
                             currentReading.setEnabled(false);
                             retype_currentReading.setEnabled(false);
+                        }else{
+                            meterProblem.setVisibility(View.VISIBLE);
                         }
                     }
                 }catch (Exception ex)

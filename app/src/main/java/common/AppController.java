@@ -4,6 +4,8 @@ import android.app.Application;
 import android.os.Environment;
 import android.os.StrictMode;
 
+import com.backendless.Backendless;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -25,6 +27,7 @@ public class AppController extends Application {
         super.onCreate();
         controller=this;
         manager= new PrefManager(getApplicationContext());
+        Backendless.initApp(this, Common.appId, Common.key);
         Configuration.setConfiguration(manager.getIp(),manager.getPort(),manager.getAlias(),manager.getUserName(),manager.getPassword());
         String role=manager.getUserRole();
         if(role.length()>0) {

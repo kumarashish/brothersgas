@@ -67,8 +67,6 @@ public class ProjectSearch  extends Activity implements View.OnClickListener{
 
 ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
     int requestedScreen=0;
-    String ownerName="";
-    String projectName="";
     @BindView(R.id.back_button)
     Button back;
     OwnerModel model=null;
@@ -130,7 +128,7 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
 
 
                     model=  (OwnerModel)adapterView.getItemAtPosition(i);
-                    projectList.setText(model.getProjectName());
+                    projectList.setText(model.getProjectName()+" - "+model.getProjectCode());
                     if(Utils.isNetworkAvailable(ProjectSearch.this))
                     {   progressBar.setVisibility(View.VISIBLE);
                         handleRequest();
@@ -231,6 +229,11 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
                             contractList.setThreshold(0);
                             contractListView.setVisibility(View.VISIBLE);
                             contractList.setOnItemClickListener( onContractClickListner);
+                            if((contractmodel!=null)&&(isSelectedModelPresent()==true))
+                            {
+                                contractmodel=getUpdatedContractModel ();
+                                contractList.setText(contractmodel.getCustomername());
+                            }
                         }else{
                             progressBar.setVisibility(View.GONE);
                             Utils.showAlert(ProjectSearch.this,"No record available");
@@ -245,6 +248,25 @@ ArrayList< ContractModel>contractModelArrayList=new ArrayList<>();
             submit.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    public ContractModel getUpdatedContractModel() {
+        for (int i = 0; i < contractModelArrayList.size(); i++) {
+            if (contractModelArrayList.get(i).getContract_Meternumber().equalsIgnoreCase(contractmodel.getContract_Meternumber())) {
+                return contractModelArrayList.get(i);
+            }
+        }
+        return contractmodel;
+    }
+
+    public boolean isSelectedModelPresent()
+    {
+        for (int i = 0; i < contractModelArrayList.size(); i++) {
+            if (contractModelArrayList.get(i).getContract_Meternumber().equalsIgnoreCase(contractmodel.getContract_Meternumber())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

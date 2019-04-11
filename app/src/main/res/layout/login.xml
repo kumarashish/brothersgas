@@ -30,6 +30,7 @@
 
 
                 <ImageView
+                    android:visibility="gone"
                     android:tint="@color/colorPrimary"
                     android:layout_width="50.0dip"
                     android:layout_height="30.0dip"

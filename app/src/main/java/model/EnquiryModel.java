@@ -39,7 +39,7 @@ public class EnquiryModel {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 if (jsonObject.getString("NAME").equalsIgnoreCase(Common.Number_of_invoices)) {
                     Number_of_invoices = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
-                }else if (jsonObject.getString("NAME").equalsIgnoreCase(Common.UserName)) {
+                }else if (jsonObject.getString("NAME").equalsIgnoreCase("O_YUSRNAM")) {
                     Username = jsonObject.isNull("content") ? "" : jsonObject.getString("content");
                 }
                 else if (jsonObject.getString("NAME").equalsIgnoreCase(Common.Number_of_Cash_Payments)) {

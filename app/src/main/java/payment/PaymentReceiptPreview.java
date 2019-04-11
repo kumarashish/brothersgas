@@ -88,7 +88,7 @@ public class PaymentReceiptPreview extends Activity implements View.OnClickListe
     Button back_button;
     AppController controller;
     WebServiceAcess webServiceAcess;
-  //public static String invoice="RMRC-U1L1900191";
+//public static String invoice="RMRC-U1L1900068";
  public static String invoice="";
     NumberToWords numToWords;
     @BindView(R.id.progressBar)
@@ -528,14 +528,21 @@ ProgressDialog dialog;
                     "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
                     "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
                     "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceived From:^FS" + "\r\n" +
+                    "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerNameValue()+"^FS" + "\r\n" +
                     "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
                     "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
-                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress:^FS" + "\r\n" +
                     getFormattedText(model.getCustomerAddressValue())+ "\r\n" +
-                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode:^FS" + "\r\n" +
                     "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
-                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
+                    "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number: ^FS" + "\r\n" +
                     "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
+                    "^FO10," + getXposition() +"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name: ^FS" + "\r\n" +
+                    "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUSERNameValue()+"^FS" + "\r\n" +
+                    "^FO10," + getXposition() +"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id: ^FS" + "\r\n" +
+                    "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUseridValue()+"^FS" + "\r\n" +
+
                     "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS";
              headerHeight =getXposition();
         }else{
@@ -569,21 +576,29 @@ ProgressDialog dialog;
                  "^FO10,"+getXposition()+"" + "\r\n" + "^GB900,5,5,B,0^FS"+ "\r\n" +
                  "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceipt No:^FS" + "\r\n" +
                  "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentNumberValue()+"^FS" + "\r\n" +
+                 "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDReceived From:^FS" + "\r\n" +
+                 "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getCustomerNameValue()+"^FS" + "\r\n" +
+
                  "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDDate:^FS" + "\r\n" +
                  "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD%s^FS" + "\r\n" +
-                 "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress^FS" + "\r\n" +
+                 "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDAddress:^FS" + "\r\n" +
                   getFormattedText(model.getCustomerAddressValue())+ "\r\n" +
-                 "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode^FS" + "\r\n" +
+                 "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDMode:^FS" + "\r\n" +
                  "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getPaymentTypeValue()+"^FS" + "\r\n" +
 
-                            "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Number^FS" + "\r\n" +
+                            "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDCheque Number:^FS" + "\r\n" +
 
                             "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getChequeNumberValue()+"^FS" + "\r\n" +
-                            "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDBank^FS" + "\r\n" +
+                            "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDBank:^FS" + "\r\n" +
                              "^FO260," + xposition + "" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD" + model.getBankValue() + "^FS" + "\r\n" +
-                            "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number ^FS" + "\r\n" +
+                            "^FO10,"+getXposition()+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDInvoice Number: ^FS" + "\r\n" +
 
                             "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getInvoiceNumbrsValue()+"^FS" + "\r\n" +
+
+                 "^FO10," + getXposition() +"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Name: ^FS" + "\r\n" +
+                 "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUSERNameValue()+"^FS" + "\r\n" +
+                 "^FO10," + getXposition() +"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FDUser Id: ^FS" + "\r\n" +
+                 "^FO260,"+xposition+"" + "\r\n" + "^A0,N,25,25" + "\r\n" + "^FD"+model.getUseridValue()+"^FS" + "\r\n" +
 
                             "^FO10,"+getXposition()+"" + "\r\n" + "^GB500,5,5,B,0^FS";
 
